@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "env": "^0.0.2",
     "express": "^4.21.0",
     "mongoose": "^8.7.0",
     "pug": "^3.0.3"
