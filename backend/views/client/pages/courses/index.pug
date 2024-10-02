@@ -1,3 +1,23 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
 block main
-  h1 Trang danh sach khoa hoc 
+  .container.my-3
+    +box-head("Danh sách sản phẩm")
+
+    .row
+      each item in courses
+        .col-6.mb-3
+          .product-item
+            .inner-image
+              //- img(src=item.thumbnail, alt=item.title)
+            .inner-content
+              h3.inner-title
+                #{item.CourseName}
+              h6.inner-title 
+                #{item.CourseInstructor}
+              p. 
+                #{item.CourseDescription}
+              .inner-price-new #{item.CoursePrice}$
+              .inner-price-old #{item.CourseDuration}
+              .inner-discount #{item.CourseBought}

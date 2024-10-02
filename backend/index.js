@@ -1,16 +1,13 @@
 const express = require('express');
+
 require('dotenv').config();
 
-const route = require('./routes/client/index.route')
+//const routeAdmin = require("./routes/admin/index.route");
+const routeClient = require("./routes/client/index.route");
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/Course');
+const database = require("./config/database");
+database.connect();
 
-const Course = mongoose.model('course', {
-  title: String,
-  price: Number,
-  thumbnail: String,
-})
 
 const app = express()
 const port = process.env.PORT;
@@ -20,7 +17,8 @@ app.set('view engine', 'pug');
 
 app.use('/static', express.static('public'))
 
-route(app);
+// routeAdmin(app);
+routeClient(app);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
