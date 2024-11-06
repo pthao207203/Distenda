@@ -42,3 +42,8 @@ module.exports.index = async (req, res) => {
     pagination: objectPagination
   });
 }
+
+// [GET] /admin/courses/change-status/:status/:CourseID
+module.exports.changeStatus = (req, res) => {
+  res.send("OK");
+}
