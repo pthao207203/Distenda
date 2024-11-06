@@ -11,7 +11,8 @@ const courseSchema = new mongoose.Schema({
   CoursePicture: String,
   CourseBought: Number,
   CourseStatus: Number,
-});
+  CourseDeleted: Number,
+}, {timestamps: true});
 
 const Course = mongoose.model('Course', courseSchema, "Course");
 
