@@ -43,7 +43,15 @@ module.exports.index = async (req, res) => {
   });
 }
 
-// [GET] /admin/courses/change-status/:status/:CourseID
-module.exports.changeStatus = (req, res) => {
-  res.send("OK");
+// [PATCH] /admin/courses/change-status/:status/:CourseID
+module.exports.changeStatus = async (req, res) => {
+  // console.log(req.params);
+  const status = req.params.status;
+  const courseID = req.params.CourseID;
+
+  console.log(courseID);
+
+  await Course.updateOne({ _id: courseID}, {CourseStatus: status == "active"?1:0})
+
+  res.redirect('back')
 }
