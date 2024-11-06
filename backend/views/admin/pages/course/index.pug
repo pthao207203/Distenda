@@ -89,11 +89,19 @@ block main
                 //-     span #{item.position}
                 td
                   if(item.CourseStatus == 1)
-                    button(
+                    a( 
+                      href="javascript:;"
+                      data-status="active"
+                      data-id=item.id
+                      button-change-status
                       class="badge badge-success"
                     ) Hoạt động
                   else if (item.CourseStatus == 0)
-                    button(
+                    a(
+                      href="javascript:;"
+                      data-status="inactive"
+                      data-id=item.id
+                      button-change-status
                       class="badge badge-danger"
                     ) Dừng hoạt động
                 td
@@ -102,3 +110,12 @@ block main
                     href=`/${prefixAdmin}/products/detail/${item.id}`
                   ) Chi tiết
   +pagination(pagination)
+
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/courses/change-status`
+    ) 
+
+  script(src="/admin/js/course.js") 
