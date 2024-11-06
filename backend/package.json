@@ -10,8 +10,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
     "env": "^0.0.2",
     "express": "^4.21.0",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.18.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",

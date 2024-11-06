@@ -1,8 +1,11 @@
 extend ../../layouts/default.pug
 include ../../mixins/box-filter.pug
 include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
 
 block main
+  +alert-success(2000)
+
   h1 Khoá học
 
   .card.mb-3
@@ -28,35 +31,23 @@ block main
             include ../../partials/form-search.pug
 
   .card
-      .card-header Danh sách
+      .card-header 
+        .row 
+          .col-8 Danh sách
+          .col-4
+            a(
+              href=`${prefixAdmin}/courses/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
       .card-body
-        .row.mb-3
-          .col-6
-            //- if(role.permissions.includes("products_edit"))
-            //-   form(
-            //-     form-change-multi
-            //-     data-path=`/${prefixAdmin}/products/change-multi`
-            //-   )
-            //-     .input-group
-            //-       select(name="status" class="form-control")
-            //-         option(value="active") Hoạt động
-            //-         option(value="inactive") Dừng hoạt động
-            //-         option(value="delete") Xóa
-            //-       .input-group-append
-            //-         button(
-            //-           class="btn btn-success"
-            //-           type="submit"
-            //-         ) Áp dụng
-          .col-6.text-right
-            //- if(role.permissions.includes("products_create"))
-            //-   a(
-            //-     href=`/${prefixAdmin}/products/create`
-            //-     class="btn btn-outline-success"
-            //-   ) + Thêm mới
         table.table.table-hover.table-sm
           thead
             tr
               th
+                input(
+                  type="checkbox"
+                  input-change="checkall"
+                )
               th STT
               th Tiêu đề
               th Giá
