@@ -1,3 +1,4 @@
+const PATH_ADMIN = "/admin"
 module.exports = {
-  prefixAdmin: "admin"
+  prefixAdmin: PATH_ADMIN
 };

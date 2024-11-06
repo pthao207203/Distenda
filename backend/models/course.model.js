@@ -7,7 +7,10 @@ const courseSchema = new mongoose.Schema({
   CourseDescription: String,
   CourseDuration: Number,
   CoursePrice: Number,
+  CourseDiscount: Number,
+  CoursePicture: String,
   CourseBought: Number,
+  CourseStatus: Number,
 });
 
 const Course = mongoose.model('Course', courseSchema, "Course");

@@ -1,18 +1,4 @@
-doctype html
-html
-  head
-    title #{pageTitle}
-    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/css/style.css")
+extends ../../layouts/default.pug
 
-  body
-    
-    include ../partials/header.pug
-
-    block main
-
-    include ../partials/footer.pug
-
-    script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js") 
-    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js")
-    script(src="/js/script.js")
+block main
+  h1 Trang chủ
