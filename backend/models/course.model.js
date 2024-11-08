@@ -1,8 +1,14 @@
 const mongoose = require("mongoose");
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
 
 const courseSchema = new mongoose.Schema({
-  CourseInstructor: String,
+  CourseIntructor: String,
   CourseName: String,
+  CourseSlug: {
+    type: String,
+    slug: "CourseName",
+  },
   CourseDescription: String,
   CourseDuration: {
     type: Number,
@@ -20,6 +26,7 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  deletedAt: Date,
 }, {timestamps: true});
 
 const Course = mongoose.model('Course', courseSchema, "Course");

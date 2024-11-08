@@ -19,3 +19,25 @@ if (buttonChangeStatus.length > 0) {
     })
   });
 }
+// END Change status
+
+// Xóa bản ghi
+const listButtonDelete = document.querySelectorAll("[button-delete]");
+if(listButtonDelete.length > 0) {
+  const formDeleteItem = document.querySelector("#form-delete-item");
+  listButtonDelete.forEach(button => {
+    button.addEventListener("click", () => {
+      const isConfirm = confirm("Bạn có chắc muốn xóa bản ghi này?");
+
+      if(isConfirm) {
+        const id = button.getAttribute("item-id");
+        const path = button.getAttribute("data-path");
+  
+        const action = `${path}/${id}?_method=DELETE`
+        formDeleteItem.action = action;
+        formDeleteItem.submit();
+      }
+    })
+  })
+}
+// END Xóa bản ghi

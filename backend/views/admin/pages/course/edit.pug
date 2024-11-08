@@ -4,13 +4,12 @@ include ../../mixins/alert.pug
 
 block main
   +alert-error(3000)
-
+  +alert-success(3000)
   h1 #{pageTitle}
 
   form(
-    action=`${prefixAdmin}/courses/create`
+    action=`${prefixAdmin}/courses/edit/${course.id}?_method=PATCH`
     method="POST"
-    id="form-create-course"
     enctype="multipart/form-data"
   )
     div(class="form-group")
@@ -21,6 +20,7 @@ block main
         id="CourseName"
         name="CourseName"
         required
+        value=course.CourseName
       )
 
     div(class="form-group")
@@ -31,6 +31,7 @@ block main
         id="CourseIntructor"
         name="CourseIntructor"
         required
+        value=course.CourseIntructor
       )
 
     div(class="form-group")
@@ -40,7 +41,7 @@ block main
         class="form-control"
         id="CoursePrice"
         name="CoursePrice"
-        value="0"
+        value=course.CoursePrice
         min="0"
       )
     div(class="form-group")
@@ -50,7 +51,7 @@ block main
         class="form-control"
         id="CourseDiscount"
         name="CourseDiscount"
-        value="0"
+        value=course.CourseDiscount
         min="0"
       )
 
@@ -62,7 +63,7 @@ block main
         name="CourseDescription"
         rows="5"
         textarea-mce
-      )
+      ) #{course.CourseDescription}
     div(class="form-group" upload-image)
       label(for="CoursePicture") Ảnh
       input(
@@ -74,7 +75,7 @@ block main
         upload-image-input
       )
       img(
-        src=""
+        src=course.CoursePicture
         class="image-preview"
         upload-image-preview
       )
@@ -85,7 +86,7 @@ block main
         id="statusActive"
         name="CourseStatus"
         value="active"
-        checked
+        checked=course.CourseStatus
       )
       label(for="statusActive" class="form-check-label") Hoạt động
     div(class="form-group form-check form-check-inline")
@@ -95,10 +96,11 @@ block main
         id="statusInActive"
         name="CourseStatus"
         value="inactive"
+        checked=!course.CourseStatus
       )
       label(for="statusInActive" class="form-check-label") Dừng hoạt động
     div(class="form-group")
       button(
         type="submit"
         class="btn btn-primary"
-      ) Tạo mới
+      ) Cập nhật
