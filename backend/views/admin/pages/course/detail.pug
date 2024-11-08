@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-success(3000)
+  if (course.CourseName)
+    h1(class="mb-4") #{course.CourseName}
+
+  if (course.CoursePrice)
+    div(class="mb-4") Giá: <b>#{course.CoursePrice}VND</b>
+
+  if (course.CourseDiscount)
+    div(class="mb-4") Giảm giá: <b>#{course.CourseDiscount}%</b>
+
+  if (course.CoursePicture)
+    div(class="mb-4")
+      img(
+        src=course.CoursePicture
+        style="width: 100px"
+      )
+
+  if (course.CourseStatus)
+    div(class="mb-4")
+      span Trạng thái: 
+      if (course.CourseStatus === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+
+  if (course.CourseDescription)
+    div(class="mb-4") !{course.CourseDescription}
+
+  a(
+    class="btn btn-info btn-sm"
+    href=`${prefixAdmin}/courses/edit/${course._id}`
+  ) Chỉnh sửa
+
+  button(
+    class="btn btn-danger btn-sm ml-1"
+    item-id=course._id
+    button-delete
+    data-path=`${prefixAdmin}/courses/delete`
+  ) Xoá
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-item"
+    data-path=`${prefixAdmin}/courses/delete`
+    ) 
+
+  script(src="/admin/js/course.js") 
