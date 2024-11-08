@@ -8,64 +8,65 @@ block main
     action=`${prefixAdmin}/courses/create`
     method="POST"
     id="form-create-course"
+    enctype="multipart/form-data"
   )
     div(class="form-group")
-      label(for="name") Tên khoá học
+      label(for="CourseName") Tên khoá học
       input(
         type="text"
         class="form-control"
-        id="name"
-        name="name"
+        id="CourseName"
+        name="CourseName"
         required
       )
 
     div(class="form-group")
-      label(for="intructor") Mã giảng viên
+      label(for="CourseInstructor") Mã giảng viên
       input(
         type="text"
         class="form-control"
-        id="intructor"
-        name="intructor"
+        id="CourseInstructor"
+        name="CourseInstructor"
         required
       )
 
     div(class="form-group")
-      label(for="price") Giá khoá học
+      label(for="CoursePrice") Giá khoá học
       input(
         type="number"
         class="form-control"
-        id="price"
-        name="price"
+        id="CoursePrice"
+        name="CoursePrice"
         value="0"
         min="0"
       )
     div(class="form-group")
-      label(for="discount") % Giảm giá
+      label(for="CourseDiscount") % Giảm giá
       input(
         type="number"
         class="form-control"
-        id="discount"
-        name="discountPercentage"
+        id="CourseDiscount"
+        name="CourseDiscount"
         value="0"
         min="0"
       )
 
     div(class="form-group")
-      label(for="desc") Mô tả
+      label(for="CourseDescription") Mô tả
       textarea(
         class="form-control"
-        id="desc"
-        name="description"
+        id="CourseDescription"
+        name="CourseDescription"
         rows="5"
         textarea-mce
       )
     div(class="form-group" upload-image)
-      label(for="thumbnail") Ảnh
+      label(for="CoursePicture") Ảnh
       input(
         type="file"
         class="form-control-file"
-        id="thumbnail"
-        name="thumbnail"
+        id="CoursePicture"
+        name="CoursePicture"
         accept="image/*"
         upload-image-input
       )
@@ -79,7 +80,7 @@ block main
         type="radio"
         class="form-check-input"
         id="statusActive"
-        name="status"
+        name="CourseStatus"
         value="active"
         checked
       )
@@ -89,7 +90,7 @@ block main
         type="radio"
         class="form-check-input"
         id="statusInActive"
-        name="status"
+        name="CourseStatus"
         value="inactive"
       )
       label(for="statusInActive" class="form-check-label") Dừng hoạt động

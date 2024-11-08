@@ -1,17 +1,25 @@
 const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
-  CourseId: String,
   CourseInstructor: String,
   CourseName: String,
   CourseDescription: String,
-  CourseDuration: Number,
+  CourseDuration: {
+    type: Number,
+    default: 0,
+  },
   CoursePrice: Number,
   CourseDiscount: Number,
   CoursePicture: String,
-  CourseBought: Number,
+  CourseBought: {
+    type: Number,
+    default: 0,
+  },
   CourseStatus: Number,
-  CourseDeleted: Number,
+  CourseDeleted: {
+    type: Number,
+    default: 1,
+  },
 }, {timestamps: true});
 
 const Course = mongoose.model('Course', courseSchema, "Course");

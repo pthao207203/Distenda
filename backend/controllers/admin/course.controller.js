@@ -80,26 +80,16 @@ module.exports.createItem = async (req, res) => {
 
 // [POST] /admin/courses/create
 module.exports.createPost = async (req, res) => {
-  req.body.price = parseInt(req.body.price);
-  req.body.discountPercentage = parseInt(req.body.discountPercentage);
-  req.body.status = req.body.status == "active"?1:0;
+  req.body.CoursePrice = parseInt(req.body.CoursePrice);
+  req.body.CourseDiscount = parseInt(req.body.CourseDiscount);
+  req.body.CourseStatus = req.body.CourseStatus == "active"?1:0;
+  req.body.CoursePicture = `/uploads/${req.file.filename}`;
+  console.log(req.body);
 
 
-
-  const course = new Course({
-    CourseInstructor: req.body.intructor,
-    CourseName: req.body.name,
-    CourseDescription: req.body.description,
-    CourseDuration: 0,
-    CoursePrice: req.body.price,
-    CourseDiscount: req.body.discountPercentage,
-    CoursePicture: req.body.thumbnail,
-    CourseBought: 0,
-    CourseStatus: req.body.status,
-    CourseDeleted: 1
-  });
+  const course = new Course(req.body);
   console.log(course);
-  await course.save();
+  // await course.save();
 
   res.redirect(`${systemConfig.prefixAdmin}/courses`)
 }
