@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
 
 block main
+  +alert-error(3000)
+
   h1 #{pageTitle}
 
   form(
@@ -31,7 +34,7 @@ block main
       )
 
     div(class="form-group")
-      label(for="CoursePrice") Giá khoá học
+      label(for="CoursePrice") Học phí
       input(
         type="number"
         class="form-control"

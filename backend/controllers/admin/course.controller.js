@@ -81,7 +81,7 @@ module.exports.createItem = async (req, res) => {
 // [POST] /admin/courses/create
 module.exports.createPost = async (req, res) => {
   req.body.CoursePrice = parseInt(req.body.CoursePrice);
-  req.body.CourseDiscount = parseInt(req.body.CourseDiscount);
+  req.body.CourseDiscount = (req.body.CourseDiscount)? parseInt(req.body.CourseDiscount): 0;
   req.body.CourseStatus = req.body.CourseStatus == "active"?1:0;
   req.body.CoursePicture = `/uploads/${req.file.filename}`;
   console.log(req.body);
