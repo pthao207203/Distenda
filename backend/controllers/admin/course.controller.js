@@ -4,7 +4,6 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/courses
 module.exports.index = async (req, res) => {
-  console.log(req.query.status);
   let find = {
     CourseDeleted: 1
   }
@@ -46,11 +45,8 @@ module.exports.index = async (req, res) => {
 
 // [PATCH] /admin/courses/change-status/:status/:CourseID
 module.exports.changeStatus = async (req, res) => {
-  // console.log(req.params);
   const status = req.params.status;
   const courseID = req.params.CourseID;
-
-  console.log(courseID);
 
   await Course.updateOne({ _id: courseID}, {CourseStatus: status == "active"?1:0})
 
@@ -84,9 +80,6 @@ module.exports.createPost = async (req, res) => {
   req.body.CoursePrice = parseInt(req.body.CoursePrice);
   req.body.CourseDiscount = (req.body.CourseDiscount)? parseInt(req.body.CourseDiscount): 0;
   req.body.CourseStatus = req.body.CourseStatus == "active"?1:0;
-  if (req.file) {
-    req.body.CoursePicture = `/uploads/${req.file.filename}`;
-  }
 
   const course = new Course(req.body);
   await course.save();
