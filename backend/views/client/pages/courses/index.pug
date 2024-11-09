@@ -10,10 +10,12 @@ block main
         .col-6.mb-3
           .product-item
             .inner-image
-              //- img(src=item.thumbnail, alt=item.title)
+              img(src=item.CoursePicture, alt=item.CourseName)
             .inner-content
               h3.inner-title
-                #{item.CourseName}
+                a(
+                  href=`/courses/${item.CourseSlug}`
+                  ) #{item.CourseName}
               h6.inner-title 
                 #{item.CourseInstructor}
               p. 
