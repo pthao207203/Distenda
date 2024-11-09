@@ -8,6 +8,7 @@ const courseSchema = new mongoose.Schema({
   CourseSlug: {
     type: String,
     slug: "CourseName",
+    unique: true
   },
   CourseDescription: String,
   CourseDuration: {

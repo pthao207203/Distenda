@@ -1,0 +1,48 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error(3000)
+  .product-detail
+    .container.my-5
+      .row
+        .col-6
+          .inner-image
+            img(src=course.CoursePicture, alt=course.CourseName)
+        .col-6
+          h1(class="inner-title") #{course.CourseName}
+
+          if (course.priceNew)
+            div(class="inner-price-new") #{course.priceNew}$
+
+          if (course.CoursePrice)
+            div(class="inner-price-old") #{course.CoursePrice}$
+
+          if (course.CourseDiscount)
+            div(class="inner-percent") Giảm tới <span>#{course.CourseDiscount}%</span>
+
+          form(
+            action=`/cart/add/${course.id}`
+            method="POST"
+          )
+            input(
+              class="form-control mb-2"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max=course.stock
+            )
+            button(
+              type="submit"
+              class="btn btn-success btn-block"
+            ) Thêm vào giỏ hàng
+
+    hr
+
+    .container.my-5
+      .row
+        .col-12
+          +box-head("Mô tả sản phẩm")
+          .inner-desc !{course.CourseDescription}
