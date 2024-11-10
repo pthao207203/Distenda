@@ -4,14 +4,14 @@ include ../../mixins/alert.pug
 
 block main
   +alert-success(3000)
-  if (course.CourseName)
-    h1(class="mb-4") #{course.CourseName}
+  h1(class="mb-4") #{course.CourseName}
 
-  if (course.CoursePrice)
-    div(class="mb-4") Giá: <b>#{course.CoursePrice}VND</b>
+  if (category.CategoryName)
+    div(class="mb-4") Danh mục: #{category.CategoryName}
 
-  if (course.CourseDiscount)
-    div(class="mb-4") Giảm giá: <b>#{course.CourseDiscount}%</b>
+  div(class="mb-4") Giá: <b>#{course.CoursePrice}VND</b>
+
+  div(class="mb-4") Giảm giá: <b>#{course.CourseDiscount}%</b>
 
   if (course.CoursePicture)
     div(class="mb-4")
@@ -20,13 +20,12 @@ block main
         style="width: 100px"
       )
 
-  if (course.CourseStatus)
-    div(class="mb-4")
-      span Trạng thái: 
-      if (course.CourseStatus === "active")
-        span(class="badge badge-success") Hoạt động
-      else
-        span(class="badge badge-danger") Dừng hoạt động
+  div(class="mb-4")
+    span Trạng thái: 
+    if (course.CourseStatus === "active")
+      span(class="badge badge-success") Hoạt động
+    else
+      span(class="badge badge-danger") Dừng hoạt động
 
   if (course.CourseDescription)
     div(class="mb-4") !{course.CourseDescription}

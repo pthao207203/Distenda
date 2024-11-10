@@ -63,7 +63,7 @@ block main
                     type="checkbox"
                     input-change=item.id
                   )
-                td #{ index + 1}
+                td #{pagination.limitItems*(pagination.currentPage - 1) + index + 1}
                 td #{item.CourseName}
                 td #{item.CoursePrice}$
                 td

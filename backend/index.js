@@ -1,5 +1,6 @@
 const flash = require('express-flash')
 const express = require('express');
+const path = require('path');
 const methodOverride = require('method-override')
 
 const bodyParser = require('body-parser');
@@ -19,6 +20,9 @@ database.connect();
 
 const app = express()
 const port = process.env.PORT;
+
+// TiniMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 app.use(methodOverride('_method'))
 

@@ -10,6 +10,10 @@ const courseSchema = new mongoose.Schema({
     slug: "CourseName",
     unique: true
   },
+  CourseCatogory: {
+    type: String,
+    default: "",
+  },
   CourseDescription: String,
   CourseDuration: {
     type: Number,
