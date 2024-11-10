@@ -28,6 +28,11 @@ router.get('/detail/:CourseID', controller.detailItem)
 
 router.get('/edit/:CourseID', controller.editItem)
 
-router.patch('/edit/:CourseID', upload.single('CoursePicture'), validate.createPost, controller.editPatch)
+router.patch(
+  '/edit/:CourseID', 
+  upload.single('CoursePicture'), 
+  uploadCloud.upload, 
+  validate.createPost, 
+  controller.editPatch)
 
 module.exports = router;

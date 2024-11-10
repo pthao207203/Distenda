@@ -1,85 +1,53 @@
 extends ../../layouts/default.pug
-include ../../mixins/box-filter.pug
-include ../../mixins/alert.pug
 include ../../mixins/select-tree.pug
 
 block main
-  +alert-error(3000)
-
   h1 #{pageTitle}
 
   form(
-    action=`${prefixAdmin}/courses/create`
+    action=`${prefixAdmin}/category/create`
     method="POST"
-    id="form-create-course"
     enctype="multipart/form-data"
   )
     div(class="form-group")
-      label(for="CourseName") Tên khoá học
+      label(for="CategoryName") Tên danh mục
       input(
         type="text"
         class="form-control"
-        id="CourseName"
-        name="CourseName"
-        required
-      )
-
-    div(class="form-group")
-      label(for="CourseIntructor") Mã giảng viên
-      input(
-        type="text"
-        class="form-control"
-        id="CourseIntructor"
-        name="CourseIntructor"
+        id="CategoryName"
+        name="CategoryName"
         required
       )
     div(class="form-group")
-      label(for="CourseCatogory") Danh mục 
+      label(for="CategoryParent_id") Danh mục cha
       select(
         class="form-control"
-        id="CourseCatogory"
-        name="CourseCatogory"
+        id="CategoryParent_id"
+        name="CategoryParent_id"
       )
         option(value="") -- Chọn danh mục --
         if(listCategory)
           +select-tree(listCategory)
     div(class="form-group")
-      label(for="CoursePrice") Học phí
-      input(
-        type="number"
-        class="form-control"
-        id="CoursePrice"
-        name="CoursePrice"
-        value="0"
-        min="0"
-      )
-    div(class="form-group")
-      label(for="CourseDiscount") % Giảm giá
-      input(
-        type="number"
-        class="form-control"
-        id="CourseDiscount"
-        name="CourseDiscount"
-        value="0"
-        min="0"
-      )
-
-    div(class="form-group")
-      label(for="CourseDescription") Mô tả
+      label(for="CategoryDescription") Mô tả
       textarea(
-        class="form-control tiny-mce"
-        id="CourseDescription"
-        name="CourseDescription"
+        type="text"
+        class="form-control"
+        id="CategoryDescription"
+        name="CategoryDescription"
         rows="5"
         textarea-mce
       )
-    div(class="form-group" upload-image)
-      label(for="CoursePicture") Ảnh
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="CategoryPicture") Ảnh
       input(
         type="file"
         class="form-control-file"
-        id="CoursePicture"
-        name="CoursePicture"
+        id="CategoryPicture"
+        name="CategoryPicture"
         accept="image/*"
         upload-image-input
       )
@@ -88,12 +56,22 @@ block main
         class="image-preview"
         upload-image-preview
       )
+    div(class="form-group")
+      label(for="CategoryPosition") Vị trí
+      input(
+        type="number"
+        class="form-control"
+        id="CategoryPosition"
+        name="CategoryPosition"
+        placeholder="Tự động tăng"
+        min="1"
+      )
     div(class="form-group form-check form-check-inline")
       input(
         type="radio"
         class="form-check-input"
         id="statusActive"
-        name="CourseStatus"
+        name="CategoryStatus"
         value="active"
         checked
       )
@@ -103,7 +81,7 @@ block main
         type="radio"
         class="form-check-input"
         id="statusInActive"
-        name="CourseStatus"
+        name="CategoryStatus"
         value="inactive"
       )
       label(for="statusInActive" class="form-check-label") Dừng hoạt động

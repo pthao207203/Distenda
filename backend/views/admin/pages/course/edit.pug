@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-filter.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block main
   +alert-error(3000)
@@ -22,7 +23,6 @@ block main
         required
         value=course.CourseName
       )
-
     div(class="form-group")
       label(for="CourseIntructor") Mã giảng viên
       input(
@@ -33,7 +33,16 @@ block main
         required
         value=course.CourseIntructor
       )
-
+    div(class="form-group")
+      label(for="CourseCatogory") Danh mục 
+      select(
+        class="form-control"
+        id="CourseCatogory"
+        name="CourseCatogory"
+      )
+        option(value="") -- Chọn danh mục --
+        if(listCategory)
+          +select-tree(listCategory, 1, course.CourseCatogory)
     div(class="form-group")
       label(for="CoursePrice") Học phí
       input(
@@ -58,7 +67,7 @@ block main
     div(class="form-group")
       label(for="CourseDescription") Mô tả
       textarea(
-        class="form-control"
+        class="form-control tiny-mce"
         id="CourseDescription"
         name="CourseDescription"
         rows="5"

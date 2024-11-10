@@ -1,6 +1,8 @@
 const Course = require("../../models/course.model")
+const Category = require("../../models/category.model")
 const paginationHelper = require("../../helpers/pagination")
 const systemConfig = require("../../config/system");
+const createTreeHelper = require("../../helpers/createTree")
 
 // [GET] /admin/courses
 module.exports.index = async (req, res) => {
@@ -70,8 +72,14 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/courses/create
 module.exports.createItem = async (req, res) => {
+  const listCategory = await Category.find({
+    CategoryDeleted: 1
+  });
+  const newList = createTreeHelper.tree(listCategory);
+
   res.render('admin/pages/course/create', {
-    pageTitle: "Thêm khoá học"
+    pageTitle: "Thêm khoá học",
+    listCategory: newList,
   });
 }
 
@@ -97,9 +105,16 @@ module.exports.detailItem = async (req, res) => {
 
     const course = await Course.findOne(find);
 
+    const category = await Category.findOne({
+      CategoryDeleted: 1,
+      _id: course.CourseCatogory,
+    });
+    console.log(category)
+
     res.render('admin/pages/course/detail', {
       pageTitle: course.CourseName,
       course: course,
+      category: category,
     });
   } catch (error){
     res.redirect(`${systemConfig.prefixAdmin}/courses`)
@@ -113,12 +128,17 @@ module.exports.editItem = async (req, res) => {
       CourseDeleted: 1,
       _id: req.params.CourseID
     }
-
     const course = await Course.findOne(find);
+
+    const listCategory = await Category.find({
+      CategoryDeleted: 1
+    });
+    const newList = createTreeHelper.tree(listCategory);
 
     res.render('admin/pages/course/edit', {
       pageTitle: "Chỉnh sửa khoá học",
       course: course,
+      listCategory: newList,
     });
   } catch (error){
     req.flash("error", "Không tìm thấy khoá học!");
