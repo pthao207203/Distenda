@@ -1,15 +1,21 @@
 .sider 
   .inner-menu 
     ul 
-      li 
-        a(href=`${prefixAdmin}/dashboard`) Trang tổng quan
-      li 
-        a(href=`${prefixAdmin}/category`) Danh mục khoá học
-      li 
-        a(href=`${prefixAdmin}/courses`) Danh sách khoá học
-      li 
-        a(href=`${prefixAdmin}/role`) Nhóm quyền
-      li 
-        a(href=`${prefixAdmin}/role/permission`) Phân quyền
-      li 
-        a(href=`${prefixAdmin}/admin`) Tài khoản Admin
+      if (role.RolePermissions.includes("dashboard_view"))
+        li 
+          a(href=`${prefixAdmin}/dashboard`) Trang tổng quan
+      if (role.RolePermissions.includes("category_view"))
+        li 
+          a(href=`${prefixAdmin}/category`) Danh mục khoá học
+      if (role.RolePermissions.includes("course_view"))
+        li 
+          a(href=`${prefixAdmin}/courses`) Danh sách khoá học
+      if (role.RolePermissions.includes("role_view"))
+        li 
+          a(href=`${prefixAdmin}/role`) Nhóm quyền
+      if (role.RolePermissions.includes("role_permissions"))
+        li 
+          a(href=`${prefixAdmin}/role/permission`) Phân quyền
+      if (role.RolePermissions.includes("admin_view"))
+        li 
+          a(href=`${prefixAdmin}/admin`) Tài khoản Admin
