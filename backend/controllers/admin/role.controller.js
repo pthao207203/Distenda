@@ -28,7 +28,6 @@ module.exports.createItem = async (req, res) => {
     role: role,
   });
 }
-
 // [POST] /admin/role/create
 module.exports.createPost = async (req, res) => {
   console.log(req.body)
@@ -80,7 +79,6 @@ module.exports.editItem = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/role`);
   }
 }
-
 // [PATCH] /admin/role/edit/:RoleID
 module.exports.editPatch = async (req, res) => {
 
@@ -95,4 +93,30 @@ module.exports.editPatch = async (req, res) => {
   }
 
   res.redirect(`${systemConfig.prefixAdmin}/role`)
+}
+
+// [GET] /admin/role/permission
+module.exports.permission = async (req, res) => {
+  let find = {
+    RoleDeleted: 1
+  }
+  const role = await Role.find(find)
+  res.render('admin/pages/role/permission', {
+    pageTitle: "Phân quyền",
+    roles: role,
+  });
+}
+// [PATCH] /admin/role/permission
+module.exports.permissionPatch = async (req, res) => {
+  const permission = JSON.parse(req.body.permission)
+
+  for (const item of permission){
+    await Role.updateOne({
+      _id: item.id
+    }, {
+      RolePermissions: item.permissions
+    })
+  }
+  req.flash("success", "Cập nhật thành công!")
+  res.redirect("back")
 }

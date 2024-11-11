@@ -23,4 +23,7 @@ router.patch(
   controller.editPatch
 )
 
+router.get('/permission', controller.permission)
+router.patch('/permission', controller.permissionPatch)
+
 module.exports = router;
