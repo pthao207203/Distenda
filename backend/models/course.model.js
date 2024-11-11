@@ -8,7 +8,7 @@ const courseSchema = new mongoose.Schema({
   CourseSlug: {
     type: String,
     slug: "CourseName",
-    unique: true
+    unique: true,
   },
   CourseCatogory: {
     type: String,
@@ -31,9 +31,25 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
-  deletedAt: Date,
-}, {timestamps: true});
+  createdBy: {
+    UserId: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  editedBy: [
+    {
+      UserId: String,
+      editedAt: Date,
+    },
+  ],
+  deletedBy: {
+    UserId: String,
+    deletedAt: Date,
+  },
+});
 
-const Course = mongoose.model('Course', courseSchema, "Course");
+const Course = mongoose.model("Course", courseSchema, "Course");
 
 module.exports = Course;
