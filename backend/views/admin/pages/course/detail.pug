@@ -33,7 +33,6 @@ block main
 
     if (course.CourseDescription)
       div(class="mb-4") !{course.CourseDescription}
-
     if (role.RolePermissions.includes("course_edit"))
       a(
         class="btn btn-info btn-sm"
@@ -46,6 +45,46 @@ block main
         button-delete
         data-path=`${prefixAdmin}/courses/delete`
       ) Xoá
+    <hr/>
+
+    .card
+        .card-header 
+          .row 
+            .col-8 
+              h4 Danh sách chương
+            .col-4
+              if (role.RolePermissions.includes("course_create"))
+                a(
+                  class="btn btn-outline-success"
+                  href=`${prefixAdmin}/lesson/create/${course._id}`
+                ) + Thêm chương 
+        .card-body
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th STT
+                th Tên chương
+                th Mô tả
+                th 
+
+            tbody
+              if(course.lesson)
+                each item, index in course.lesson
+                  tr 
+                    td #{index + 1}
+                    td #{item.LessonName}
+                    td #{item.LessonDescription}
+                    td
+                      a(
+                        class="btn btn-info btn-sm"
+                        href=`${prefixAdmin}/lesson/edit/${item._id}`
+                      ) Sửa
+                      button(
+                        class="btn btn-danger btn-sm ml-1"
+                        item-id=item._id
+                        button-delete
+                        data-path=`${prefixAdmin}/lesson/delete`
+                      ) Xoá
 
     form(
       action=""
