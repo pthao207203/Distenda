@@ -5,25 +5,24 @@ const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
 
-// // [DELETE] /admin/lesson/delete/:CourseID
-// module.exports.deleteItem = async (req, res) => {
-//   const courseID = req.params.CourseID;
-//   console.log(res.locals.user.id);
+// [DELETE] /admin/lesson/delete/:LessonID
+module.exports.deleteItem = async (req, res) => {
+  const lessonID = req.params.LessonID;
 
-//   await Course.updateOne(
-//     { _id: courseID },
-//     {
-//       CourseDeleted: 0,
-//       deletedBy: {
-//         UserId: res.locals.user.id,
-//         deletedAt: new Date(),
-//       },
-//     }
-//   );
+  await Lesson.updateOne(
+    { _id: lessonID },
+    {
+      LessonDeleted: 0,
+      deletedBy: {
+        UserId: res.locals.user.id,
+        deletedAt: new Date(),
+      },
+    }
+  );
 
-//   req.flash("success", "Xóa thành công!");
-//   res.redirect(`${systemConfig.prefixAdmin}/courses`);
-// };
+  req.flash("success", "Xóa thành công!");
+  res.redirect("back");
+};
 
 // [GET] /admin/lesson/create/:CourseID
 module.exports.createItem = async (req, res) => {

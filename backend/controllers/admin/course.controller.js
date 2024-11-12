@@ -168,6 +168,7 @@ module.exports.detailItem = async (req, res) => {
     if (count > 0) {
       const lesson = await Lesson.find({
         CourseId: req.params.CourseID,
+        LessonDeleted: 1,
       });
       course.lesson = lesson;
     }
