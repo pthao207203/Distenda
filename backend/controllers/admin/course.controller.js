@@ -1,6 +1,7 @@
 const Course = require("../../models/course.model");
 const Category = require("../../models/category.model");
 const Admin = require("../../models/admin.model");
+const Lesson = require("../../models/lesson.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
@@ -159,6 +160,16 @@ module.exports.detailItem = async (req, res) => {
         _id: course.CourseIntructor,
       });
       course.intructor = intructor;
+    }
+
+    const count = await Lesson.countDocuments({
+      CourseId: req.params.CourseID,
+    });
+    if (count > 0) {
+      const lesson = await Lesson.find({
+        CourseId: req.params.CourseID,
+      });
+      course.lesson = lesson;
     }
 
     res.render("admin/pages/course/detail", {

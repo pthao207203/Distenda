@@ -7,7 +7,6 @@ module.exports.requireAuth = async (req, res, next) => {
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
     return;
   }
-  console.log(req.cookies.token);
   const user = await Admin.findOne({
     AdminToken: req.cookies.token,
     AdminDeleted: 1,

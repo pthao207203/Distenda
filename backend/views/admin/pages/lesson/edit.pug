@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  //- if (role.RolePermissions.includes("course_create"))
+  +alert-error(3000)
+
+  h1 #{pageTitle}
+
+  form(
+    action=`${prefixAdmin}/lesson/edit/${lesson.id}?_method=PATCH`
+    method="POST"
+    id="form-create-course"
+  )
+    div(class="form-group")
+      label(for="CourseName") Tên khoá học
+      input(
+        type="text"
+        class="form-control"
+        id="CourseName"
+        name="CourseName"
+        disabled
+        value=lesson.course.CourseName
+      )
+    div(class="form-group")
+        label(for="LessonPosition") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="LessonPosition"
+          name="LessonPosition"
+          placeholder="Tự động tăng"
+          disabled
+          value=lesson.LessonPosition
+        )
+    div(class="form-group")
+      label(for="LessonName") Tên chương học
+      input(
+        type="text"
+        class="form-control"
+        id="LessonName"
+        name="LessonName"
+        required
+        value=lesson.LessonName
+      )
+    div(class="form-group")
+      label(for="LessonDescription") Mô tả
+      textarea(
+        class="form-control tiny-mce"
+        id="LessonDescription"
+        name="LessonDescription"
+        rows="5"
+        textarea-mce
+      ) !{lesson.LessonDescription}
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Tạo mới

@@ -8,6 +8,7 @@ const categoryRoute = require("./category.route");
 const roleRoute = require("./role.route");
 const adminRoute = require("./admin.route");
 const authRoute = require("./auth.route");
+const lessonRoute = require("./lesson.route");
 
 module.exports = (app) => {
   app.use(
@@ -34,6 +35,11 @@ module.exports = (app) => {
     systemConfig.prefixAdmin + `/admin`,
     authMiddleware.requireAuth,
     adminRoute
+  );
+  app.use(
+    systemConfig.prefixAdmin + `/lesson`,
+    authMiddleware.requireAuth,
+    lessonRoute
   );
   app.use(systemConfig.prefixAdmin + `/auth`, authRoute);
 };
