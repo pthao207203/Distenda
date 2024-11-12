@@ -8,9 +8,7 @@ const controller = require("../../controllers/admin/lesson.controller");
 const validate = require("../../validates/admin/course.validate");
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
-// router.patch('/change-status/:status/:CourseID', controller.changeStatus)
-
-// router.delete('/delete/:CourseID', controller.deleteItem)
+router.delete("/delete/:LessonID", controller.deleteItem);
 
 router.get("/create/:CourseID", controller.createItem);
 
