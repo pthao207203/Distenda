@@ -16,15 +16,8 @@ router.get("/create/:CourseID", controller.createItem);
 
 router.post("/create/:CourseID", controller.createPost);
 
-// router.get('/detail/:CourseID', controller.detailItem)
+router.get("/edit/:LessonID", controller.editItem);
 
-// router.get('/edit/:CourseID', controller.editItem)
-
-// router.patch(
-//   '/edit/:CourseID',
-//   upload.single('CoursePicture'),
-//   uploadCloud.upload,
-//   validate.createPost,
-//   controller.editPatch)
+router.patch("/edit/:LessonID", controller.editPatch);
 
 module.exports = router;

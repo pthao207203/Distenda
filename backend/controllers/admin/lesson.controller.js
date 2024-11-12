@@ -59,100 +59,54 @@ module.exports.createPost = async (req, res) => {
   );
 };
 
-// // [GET] /admin/lesson/detail/:CourseID
-// module.exports.detailItem = async (req, res) => {
-//   try {
-//     const find = {
-//       CourseDeleted: 1,
-//       _id: req.params.CourseID,
-//     };
+// [GET] /admin/lesson/edit/:LessonID
+module.exports.editItem = async (req, res) => {
+  try {
+    const find = {
+      LessonDeleted: 1,
+      _id: req.params.LessonID,
+    };
+    const lesson = await Lesson.findOne(find);
 
-//     const course = await Course.findOne(find);
+    const course = await Course.findOne({
+      _id: lesson.CourseId,
+    });
+    lesson.course = course;
 
-//     if (course.CourseCatogory && course.CourseCatogory != "") {
-//       const category = await Category.findOne({
-//         CategoryDeleted: 1,
-//         _id: course.CourseCatogory,
-//       });
-//       course.category = category;
-//     }
+    res.render("admin/pages/lesson/edit", {
+      pageTitle: "Chỉnh sửa chương học",
+      lesson: lesson,
+    });
+  } catch (error) {
+    req.flash("error", "Không tìm thấy chương học!");
+    res.redirect("back");
+  }
+};
 
-//     if (course.CourseIntructor && course.CourseIntructor != "") {
-//       const intructor = await Admin.findOne({
-//         AdminDeleted: 1,
-//         _id: course.CourseIntructor,
-//       });
-//       course.intructor = intructor;
-//     }
+// [PATCH] /admin/lesson/edit/:LessonID
+module.exports.editPatch = async (req, res) => {
+  try {
+    const editedBy = {
+      UserId: res.locals.user.id,
+      editedAt: new Date(),
+    };
+    // console.log(req.body);
+    await Lesson.updateOne(
+      { _id: req.params.LessonID },
+      {
+        ...req.body,
+        $push: { editedBy: editedBy },
+      }
+    );
 
-//     res.render("admin/pages/course/detail", {
-//       pageTitle: course.CourseName,
-//       course: course,
-//     });
-//   } catch (error) {
-//     req.flash("error", "Không tìm thấy sản phẩm!");
-//     res.redirect(`${systemConfig.prefixAdmin}/courses`);
-//   }
-// };
-
-// // [GET] /admin/lesson/edit/:CourseID
-// module.exports.editItem = async (req, res) => {
-//   try {
-//     const find = {
-//       CourseDeleted: 1,
-//       _id: req.params.CourseID,
-//     };
-//     const course = await Course.findOne(find);
-
-//     const listCategory = await Category.find({
-//       CategoryDeleted: 1,
-//     });
-//     const newList = createTreeHelper.tree(listCategory);
-
-//     const intructor = await Admin.find({
-//       AdminDeleted: 1,
-//     });
-
-//     res.render("admin/pages/course/edit", {
-//       pageTitle: "Chỉnh sửa khoá học",
-//       course: course,
-//       listCategory: newList,
-//     });
-//   } catch (error) {
-//     req.flash("error", "Không tìm thấy khoá học!");
-//     res.redirect(`${systemConfig.prefixAdmin}/courses`);
-//   }
-// };
-
-// // [PATCH] /admin/lesson/edit/:CourseID
-// module.exports.editPatch = async (req, res) => {
-//   req.body.CoursePrice = parseInt(req.body.CoursePrice);
-//   req.body.CourseDiscount = req.body.CourseDiscount
-//     ? parseInt(req.body.CourseDiscount)
-//     : 0;
-//   req.body.CourseStatus = req.body.CourseStatus == "active" ? 1 : 0;
-
-//   if (req.file) {
-//     req.body.CoursePicture = `/uploads/${req.file.filename}`;
-//   }
-
-//   try {
-//     const editedBy = {
-//       UserId: res.locals.user.id,
-//       editedAt: new Date(),
-//     };
-//     await Course.updateOne(
-//       { _id: req.params.CourseID },
-//       {
-//         ...req.body,
-//         $push: { editedBy: editedBy },
-//       }
-//     );
-
-//     req.flash("success", "Cập nhật thành công!");
-//   } catch (error) {
-//     req.flash("error", "Cập nhật thất bại!");
-//   }
-
-//   res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${req.params.id}`);
-// };
+    req.flash("success", "Cập nhật thành công!");
+  } catch (error) {
+    req.flash("error", "Cập nhật thất bại!");
+  }
+  const find = {
+    LessonDeleted: 1,
+    _id: req.params.LessonID,
+  };
+  const lesson = await Lesson.findOne(find);
+  res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${lesson.CourseId}`);
+};
