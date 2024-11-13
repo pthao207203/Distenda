@@ -1,0 +1,92 @@
+extends ../../layouts/default.pug
+
+block main
+  if (role.RolePermissions.includes("admin_edit"))
+    h1(class="mb-4") #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/admin/edit/${admin.id}?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="AdminFullName") Họ tên *
+        input(
+          type="text"
+          class="form-control"
+          id="AdminFullName"
+          name="AdminFullName"
+          value=admin.AdminFullName
+          required
+        )
+      div(class="form-group")
+        label(for="AdminEmail") Email *
+        input(
+          type="email"
+          class="form-control"
+          id="AdminEmail"
+          name="AdminEmail"
+          value=admin.AdminEmail
+          required
+        )
+      div(class="form-group")
+        label(for="AdminPhone") Số điện thoại
+        input(
+          type="text"
+          class="form-control"
+          id="AdminPhone"
+          name="AdminPhone"
+          value=admin.AdminPhone
+        )
+      div(
+        class="form-group"
+        upload-image
+      )
+        label(for="AdminAvatar") Avatar
+        input(
+          type="file"
+          class="form-control-file"
+          id="AdminAvatar"
+          name="AdminAvatar"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=`${admin.AdminAvatar}`
+          class="image-preview"
+          upload-image-preview
+        )
+      div(class="form-group")
+        label(for="AdminRole_id") Nhóm quyền
+        select(name="AdminRole_id" id="AdminRole_id" class="form-control")
+          option(disabled) -- Chọn --
+          each role in listRole
+            option(
+              value=role.id
+              selected=(role.id === AdminRole_id? true : false)
+            ) #{role.RoleName}
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="AdminStatus"
+          value="active"
+          checked=admin.AdminStatus
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="AdminStatus"
+          value="inactive"
+          checked=!admin.AdminStatus
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Tạo mới

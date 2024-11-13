@@ -1,0 +1,69 @@
+extend ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/table-tree.pug
+
+block main
+  if (role.RolePermissions.includes("category_view"))
+    h1 Danh mục khoá học
+    .card.mb-3
+        .card-header Bộ lọc và Tìm kiếm
+        .card-body
+          .row
+            .col-4
+              +box-filter([
+                {
+                  label: "Tất cả",
+                  value: ""
+                },
+                {
+                  label: "Hoạt động",
+                  value: "active"
+                },
+                {
+                  label: "Dừng hoạt động",
+                  value: "inactive"
+                }
+              ])
+            .col-8
+              include ../../partials/form-search.pug
+    .card
+        .card-header 
+          .row 
+            .col-8 Danh sách
+            .col-4
+              if (role.RolePermissions.includes("category_create"))
+                a(
+                  href=`${prefixAdmin}/category/create`
+                  class="btn btn-outline-success"
+                ) + Thêm mới
+        .card-body
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th
+                  input(
+                    type="checkbox"
+                    input-change="checkall"
+                  )
+                th STT
+                th Tiêu đề
+                th Vị trí
+                th Trạng thái
+                th 
+
+            tbody
+              +table-tree(categories)
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/category/change-status`
+      ) 
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      ) 
+    script(src="/admin/js/course.js") 
+
+

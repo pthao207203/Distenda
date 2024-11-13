@@ -1,0 +1,120 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+  if (role.RolePermissions.includes("course_edit"))
+    +alert-error(3000)
+    +alert-success(3000)
+    h1 #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/courses/edit/${course.id}?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="CourseName") Tên khoá học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseName"
+          name="CourseName"
+          required
+          value=course.CourseName
+        )
+      div(class="form-group")
+        label(for="CourseIntructor") Giảng viên
+        select(
+          class="form-control"
+          id="CourseIntructor"
+          name="CourseIntructor"
+        )
+          option(value="" disable) -- Chọn danh mục --
+          if(intructor)
+            each item in intructor
+              option(
+                value=item.id
+                selected=(item.id === course.CourseIntructor? true : false)
+                ) #{item.AdminFullName}
+      div(class="form-group")
+        label(for="CourseCatogory") Danh mục 
+        select(
+          class="form-control"
+          id="CourseCatogory"
+          name="CourseCatogory"
+        )
+          option(value="") -- Chọn danh mục --
+          if(listCategory)
+            +select-tree(listCategory, 1, course.CourseCatogory)
+      div(class="form-group")
+        label(for="CoursePrice") Học phí
+        input(
+          type="number"
+          class="form-control"
+          id="CoursePrice"
+          name="CoursePrice"
+          value=course.CoursePrice
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseDiscount") % Giảm giá
+        input(
+          type="number"
+          class="form-control"
+          id="CourseDiscount"
+          name="CourseDiscount"
+          value=course.CourseDiscount
+          min="0"
+        )
+
+      div(class="form-group")
+        label(for="CourseDescription") Mô tả
+        textarea(
+          class="form-control tiny-mce"
+          id="CourseDescription"
+          name="CourseDescription"
+          rows="5"
+          textarea-mce
+        ) #{course.CourseDescription}
+      div(class="form-group" upload-image)
+        label(for="CoursePicture") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="CoursePicture"
+          name="CoursePicture"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=course.CoursePicture
+          class="image-preview"
+          upload-image-preview
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="CourseStatus"
+          value="active"
+          checked=course.CourseStatus
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="CourseStatus"
+          value="inactive"
+          checked=!course.CourseStatus
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

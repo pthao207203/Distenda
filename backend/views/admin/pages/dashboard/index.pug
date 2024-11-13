@@ -1,4 +1,7 @@
 extend ../../layouts/default.pug
 
 block main
-  h1 Dashboard
+  if (role.RolePermissions.includes("dashboard_view"))
+    h1 Dashboard
+
+  div #{role.RolePermissions.includes("role_view")}

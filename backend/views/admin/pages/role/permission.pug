@@ -1,0 +1,164 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error(3000)
+  +alert-success(3000)
+  h1 #{pageTitle}
+
+  div(class="text-right")
+    button(
+      type="submit"
+      class="btn btn-primary mb-3"
+      button-submit
+      data-path=`${prefixAdmin}/role/permission`
+    ) Cập nhật
+  div(data-role=roles)
+  table(
+    class="table table-hover table-sm"
+    table-permissions
+  )
+    thead
+      tr
+        th Tính năng
+        each item in roles
+          th(class="text-center" role-id=item.id) #{item.RoleName}
+    tbody
+      tr(data-name="id" class="d-none")
+        td 
+        each item in roles
+          td(class="text-center")
+            input(type="text" value=item.id)
+      //- Tổng quan
+      tr
+        td(colspan="4")
+          b Tổng quan
+      tr(data-name="dashboard_view")
+        td Xem
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      //- Hết Tổng quan
+
+      //- Danh mục khoá học
+      tr
+        td(colspan="4")
+          b Danh mục khoá học
+      tr(data-name="category_view")
+        td Xem
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="category_create")
+        td Thêm mới
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="category_edit")
+        td Chỉnh sửa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="category_delete")
+        td Xóa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      //- Hết Danh mục khoá học
+
+      //- Khoá học
+      tr
+        td(colspan="4")
+          b Khoá học
+      tr(data-name="course_view")
+        td Xem
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="course_create")
+        td Thêm mới
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="course_edit")
+        td Chỉnh sửa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="course_delete")
+        td Xóa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      //- Hết khoá học
+
+      //- Nhóm quyền
+      tr
+        td(colspan="4")
+          b Nhóm quyền
+      tr(data-name="role_view")
+        td Xem
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="role_create")
+        td Thêm mới
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="role_edit")
+        td Chỉnh sửa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="role_delete")
+        td Xóa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="role_permissions")
+        td Phân quyền
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      //- Hết Nhóm quyền
+
+      //- Tài khoản
+      tr
+        td(colspan="4")
+          b Tài khoản
+      tr(data-name="admin_view")
+        td Xem
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="admin_create")
+        td Thêm mới
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="admin_edit")
+        td Chỉnh sửa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      tr(data-name="admin_delete")
+        td Xóa
+        each item in roles
+          td(class="text-center")
+            input(type="checkbox" data-id=item.id)
+      //- Hết Tài khoản
+  form(
+    id="form-change-permission"
+    method="POST"
+    action=`${prefixAdmin}/role/permission?_method=PATCH`
+    class="d-none"
+  )
+    div(class="form-group")
+      input(
+        type="text"
+        class="form-control"
+        name="permission"
+      )
+
+  script(src="/admin/js/role.js") 
