@@ -15,3 +15,8 @@ code {
 div h1 {
   font-family: 'Squada One', Verdana, Geneva, Tahoma, sans-serif;
 }
+
+Navbar a:active, a:hover {
+  color: 'text-black';
+  background-color: #CFF500;
+}
