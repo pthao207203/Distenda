@@ -11,7 +11,7 @@ const categorySchema = new mongoose.Schema({
   CategorySlug: {
     type: String,
     slug: "CategoryName",
-    unique: true
+    unique: true,
   },
   CategoryDescription: String,
   CategoryPicture: String,
@@ -21,9 +21,25 @@ const categorySchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
-  deletedAt: Date,
-}, {timestamps: true});
+  createdBy: {
+    UserId: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  editedBy: [
+    {
+      UserId: String,
+      editedAt: Date,
+    },
+  ],
+  deletedBy: {
+    UserId: String,
+    deletedAt: Date,
+  },
+});
 
-const Category = mongoose.model('Category', categorySchema, "Category");
+const Category = mongoose.model("Category", categorySchema, "Category");
 
 module.exports = Category;

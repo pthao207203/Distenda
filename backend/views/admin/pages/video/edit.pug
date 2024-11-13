@@ -1,0 +1,70 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  //- if (role.RolePermissions.includes("course_create"))
+  +alert-error(3000)
+
+  h1 #{pageTitle}
+
+  form(
+    action=`${prefixAdmin}/video/edit/${video.id}?_method=PATCH`
+    method="POST"
+    id="form-create-course"
+  )
+    div(class="form-group")
+      label(for="LessonName") Tên chương học
+      input(
+        type="text"
+        class="form-control"
+        id="LessonName"
+        name="LessonName"
+        disabled
+        value=video.lesson.LessonName
+      )
+    div(class="form-group")
+        label(for="VideoPosition") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="VideoPosition"
+          name="VideoPosition"
+          placeholder="Tự động tăng"
+          disabled
+          value=video.VideoPosition
+        )
+    div(class="form-group")
+      label(for="VideoName") Tên bài học
+      input(
+        type="text"
+        class="form-control"
+        id="VideoName"
+        name="VideoName"
+        required
+        value=video.VideoName
+      )
+    div(class="form-group")
+      label(for="VideoUrl") Embed video bài học
+      input(
+        type="text"
+        class="form-control"
+        id="VideoUrl"
+        name="VideoUrl"
+        required
+        value=video.VideoUrl
+      )
+    div(class="form-group")
+      label(for="VideoDescription") Mô tả
+      textarea(
+        class="form-control tiny-mce"
+        id="VideoDescription"
+        name="VideoDescription"
+        rows="5"
+        textarea-mce
+      ) !{video.VideoDescription}
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật

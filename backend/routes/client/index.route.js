@@ -6,5 +6,4 @@ module.exports = (app) => {
   app.use('/', homeRoutes);
   
   app.use('/courses', courseRoutes);
-  
 }
