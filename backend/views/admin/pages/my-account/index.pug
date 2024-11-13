@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") #{pageTitle}
+
+  if (user.AdminAvatar)
+    img(src=user.AdminAvatar width="150px" class="mb-3")
+
+  if (user.AdminFullName)
+    p Họ tên: <b>#{user.AdminFullName}</b>
+
+  if (user.AdminEmail)
+    p Email: <b>#{user.AdminEmail}</b>
+
+  if (user.AdminPhone)
+    p Số điện thoại: <b>#{user.AdminPhone}</b>
+
+  p 
+    span Trạng thái: 
+    span
+      <b>#{user.AdminStatus === 1 ? "Hoạt động": "Dừng hoạt động"}</b>
+
+  if (role.RoleName)
+    p Phân quyền: <b>#{role.RoleName}</b>
+
+  a(
+    href=`${prefixAdmin}/my-account/edit`
+    class="btn btn-primary"
+  ) Chỉnh sửa thông tin

@@ -1,0 +1,63 @@
+extends ../../layouts/default.pug
+
+block main
+  if (role.RolePermissions.includes("admin_edit"))
+    h1(class="mb-4") #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/my-accont/edit?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="AdminFullName") Họ tên *
+        input(
+          type="text"
+          class="form-control"
+          id="AdminFullName"
+          name="AdminFullName"
+          value=user.AdminFullName
+          required
+        )
+      div(class="form-group")
+        label(for="AdminEmail") Email *
+        input(
+          type="email"
+          class="form-control"
+          id="AdminEmail"
+          name="AdminEmail"
+          value=user.AdminEmail
+          required
+        )
+      div(class="form-group")
+        label(for="AdminPhone") Số điện thoại
+        input(
+          type="text"
+          class="form-control"
+          id="AdminPhone"
+          name="AdminPhone"
+          value=user.AdminPhone
+        )
+      div(
+        class="form-group"
+        upload-image
+      )
+        label(for="AdminAvatar") Avatar
+        input(
+          type="file"
+          class="form-control-file"
+          id="AdminAvatar"
+          name="AdminAvatar"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=`${user.AdminAvatar}`
+          class="image-preview"
+          upload-image-preview
+        )
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

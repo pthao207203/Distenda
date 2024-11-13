@@ -1,6 +1,6 @@
 const Course = require("../../models/course.model");
 const Lesson = require("../../models/lesson.model");
-const Admin = require("../../models/admin.model");
+const Video = require("../../models/video.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
@@ -108,4 +108,41 @@ module.exports.editPatch = async (req, res) => {
   };
   const lesson = await Lesson.findOne(find);
   res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${lesson.CourseId}`);
+};
+
+// [GET] /admin/lesson/detail/:LessonID
+module.exports.detailItem = async (req, res) => {
+  try {
+    const find = {
+      LessonDeleted: 1,
+      _id: req.params.LessonID,
+    };
+
+    const lesson = await Lesson.findOne(find);
+
+    const course = await Course.findOne({
+      _id: lesson.CourseId,
+      CourseDeleted: 1,
+    });
+    lesson.course = course;
+
+    const count = await Video.countDocuments({
+      LessonId: req.params.LessonID,
+    });
+    if (count > 0) {
+      const video = await Video.find({
+        LessonId: req.params.LessonID,
+        VideoDeleted: 1,
+      });
+      lesson.video = video;
+    }
+
+    res.render("admin/pages/lesson/detail", {
+      pageTitle: lesson.LessonName,
+      lesson: lesson,
+    });
+  } catch (error) {
+    req.flash("error", "Không tìm thấy sản phẩm!");
+    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+  }
 };

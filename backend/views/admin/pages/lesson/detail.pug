@@ -1,0 +1,74 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  //- if (role.RolePermissions.includes("course_view"))
+  +alert-success(3000)
+  h1(class="mb-4") #{lesson.LessonName}
+
+  div(class="mb-4") Khoá học: #{lesson.course.CourseName}
+  if (lesson.LessonDescription)
+    div(class="mb-4") !{lesson.LessonDescription}
+  if (role.RolePermissions.includes("course_edit"))
+    a(
+      class="btn btn-info btn-sm"
+      href=`${prefixAdmin}/lesson/edit/${lesson._id}`
+    ) Chỉnh sửa
+  if (role.RolePermissions.includes("course_delete"))
+    button(
+      class="btn btn-danger btn-sm ml-1"
+      item-id=lesson._id
+      button-delete
+      data-path=`${prefixAdmin}/lesson/delete`
+    ) Xoá
+  <hr/>
+
+  .card
+      .card-header 
+        .row 
+          .col-8 
+            h4 Danh sách bài học
+          .col-4
+            if (role.RolePermissions.includes("course_create"))
+              a(
+                class="btn btn-outline-success"
+                href=`${prefixAdmin}/video/create/${lesson._id}`
+              ) + Thêm bài 
+      .card-body
+        table.table.table-hover.table-sm
+          thead
+            tr
+              th STT
+              th Tên bài
+              th 
+
+          tbody
+            if(lesson.video)
+              each item, index in lesson.video
+                tr 
+                  td #{index + 1}
+                  td #{item.VideoName}
+                  td
+                    a(
+                      class="btn btn-warning btn-sm"
+                      href=`${prefixAdmin}/video/detail/${item._id}`
+                    ) Xem
+                    a(
+                      class="btn btn-info btn-sm ml-1"
+                      href=`${prefixAdmin}/video/edit/${item._id}`
+                    ) Sửa
+                    button(
+                      class="btn btn-danger btn-sm ml-1"
+                      item-id=item._id
+                      button-delete
+                      data-path=`${prefixAdmin}/video/delete`
+                    ) Xoá
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-item"
+    ) 
+
+  script(src="/admin/js/course.js") 
