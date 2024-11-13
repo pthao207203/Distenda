@@ -5,24 +5,24 @@ const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
 
-// // [DELETE] /admin/video/delete/:LessonID
-// module.exports.deleteItem = async (req, res) => {
-//   const lessonID = req.params.LessonID;
+// [DELETE] /admin/video/delete/:VideoID
+module.exports.deleteItem = async (req, res) => {
+  const videoID = req.params.VideoID;
 
-//   await Lesson.updateOne(
-//     { _id: lessonID },
-//     {
-//       LessonDeleted: 0,
-//       deletedBy: {
-//         UserId: res.locals.user.id,
-//         deletedAt: new Date(),
-//       },
-//     }
-//   );
+  await Lesson.updateOne(
+    { _id: videoID },
+    {
+      VideoDeleted: 0,
+      deletedBy: {
+        UserId: res.locals.user.id,
+        deletedAt: new Date(),
+      },
+    }
+  );
 
-//   req.flash("success", "Xóa thành công!");
-//   res.redirect("back");
-// };
+  req.flash("success", "Xóa thành công!");
+  res.redirect("back");
+};
 
 // [GET] /admin/video/create/:LessonID
 module.exports.createItem = async (req, res) => {
@@ -110,39 +110,39 @@ module.exports.editPatch = async (req, res) => {
   res.redirect(`${systemConfig.prefixAdmin}/lesson/detail/${video.LessonId}`);
 };
 
-// // [GET] /admin/video/detail/:VideoID
-// module.exports.detailItem = async (req, res) => {
-//   try {
-//     const find = {
-//       LessonDeleted: 1,
-//       _id: req.params.LessonID,
-//     };
+// [GET] /admin/video/detail/:VideoID
+module.exports.detailItem = async (req, res) => {
+  try {
+    const find = {
+      VideoDeleted: 1,
+      _id: req.params.VideoID,
+    };
 
-//     const lesson = await Lesson.findOne(find);
+    const video = await Video.findOne(find);
 
-//     const course = await Course.findOne({
-//       _id: lesson.CourseId,
-//       CourseDeleted: 1,
-//     });
-//     lesson.course = course;
+    const lesson = await Lesson.findOne({
+      _id: video.LessonId,
+      LessonDeleted: 1,
+    });
+    video.lesson = lesson;
 
-//     // const count = await Lesson.countDocuments({
-//     //   CourseId: req.params.CourseID,
-//     // });
-//     // if (count > 0) {
-//     //   const lesson = await Lesson.find({
-//     //     CourseId: req.params.CourseID,
-//     //     LessonDeleted: 1,
-//     //   });
-//     //   course.lesson = lesson;
-//     // }
+    // const count = await Lesson.countDocuments({
+    //   CourseId: req.params.CourseID,
+    // });
+    // if (count > 0) {
+    //   const lesson = await Lesson.find({
+    //     CourseId: req.params.CourseID,
+    //     LessonDeleted: 1,
+    //   });
+    //   course.lesson = lesson;
+    // }
 
-//     res.render("admin/pages/lesson/detail", {
-//       pageTitle: lesson.LessonName,
-//       lesson: lesson,
-//     });
-//   } catch (error) {
-//     req.flash("error", "Không tìm thấy sản phẩm!");
-//     res.redirect(`${systemConfig.prefixAdmin}/courses`);
-//   }
-// };
+    res.render("admin/pages/video/detail", {
+      pageTitle: video.VideoName,
+      video: video,
+    });
+  } catch (error) {
+    req.flash("error", "Không tìm thấy sản phẩm!");
+    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+  }
+};
