@@ -18,4 +18,6 @@ router.get("/edit/:LessonID", controller.editItem);
 
 router.patch("/edit/:LessonID", controller.editPatch);
 
+router.get("/detail/:LessonID", controller.detailItem);
+
 module.exports = router;
