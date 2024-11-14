@@ -4,7 +4,7 @@
   padding: 10px 0;
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background: #b2b2b2;
 }
 
 .header .inner-logo img {
@@ -30,8 +30,8 @@
 /* Body */
 .body .sider {
   width: 150px;
-  background: #323232;
-  color: #fff;
+  background: #b2b2b2;
+  color: #323232;
   height: calc(100vh - 56px);
   position: fixed;
   top: 46px;
@@ -54,7 +54,7 @@
 }
 
 .sider .inner-menu ul li a {
-  color: #fff;
+  color: #323232;
   display: block;
   padding: 6px 10px;
   border-bottom: 1px solid #515151;
