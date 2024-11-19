@@ -1,0 +1,43 @@
+extends ../../layouts/auth.pug
+
+block main
+  .container.my-5
+    .row.justify-content-center
+      .col-8
+        h1(class="text-center") Đăng ký tài khoản
+        form(
+          action="/auth/register"
+          method="POST"
+        )
+          div(class="form-group")
+            label(for="UserFullName") Họ và tên
+            input(
+              type="text"
+              class="form-control"
+              id="UserFullName"
+              name="UserFullName"
+              required
+            )
+          div(class="form-group")
+            label(for="UserEmail") Email
+            input(
+              type="email"
+              class="form-control"
+              id="UserEmail"
+              name="UserEmail"
+              required
+            )
+          div(class="form-group")
+            label(for="UserPassword") Mật khẩu
+            input(
+              type="password"
+              class="form-control"
+              id="UserPassword"
+              name="UserPassword"
+              required
+            )
+          div(class="form-group")
+            button(
+              type="submit"
+              class="btn btn-primary btn-block"
+            ) Đăng ký

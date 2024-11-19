@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   background: #b2b2b2;
+  z-index: 999;
 }
 
 .header .inner-logo img {

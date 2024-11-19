@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") #{pageTitle}
+
+  if (user.UserAvatar)
+    img(src=user.UserAvatar width="150px" class="mb-3")
+
+  if (user.UserFullName)
+    p Họ tên: <b>#{user.UserFullName}</b>
+
+  if (user.UserEmail)
+    p Email: <b>#{user.UserEmail}</b>
+
+  if (user.UserPhone)
+    p Số điện thoại: <b>#{user.UserPhone}</b>
+
+  a(
+    href=`/user/profile/edit`
+    class="btn btn-primary"
+  ) Chỉnh sửa thông tin

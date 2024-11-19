@@ -3,6 +3,7 @@ const Category = require("../../models/category.model")
 const Admin = require("../../models/admin.model")
 const Lesson = require("../../models/lesson.model")
 const Video = require("../../models/video.model")
+const User = require("../../models/user.model")
 const createTreeHelper = require("../../helpers/createTree");
 
 
@@ -18,8 +19,6 @@ module.exports.index = async (req, res) => {
   })
   const newCategory = createTreeHelper.tree(category);
 
-  //console.log(courses);
-
   res.render('client/pages/courses/index', {
     pageTitle: "Danh sách khoá học",
     courses: courses,
@@ -34,7 +33,7 @@ module.exports.detail = async (req, res) => {
       CategoryDeleted: 1,
     })
     const allCategory = createTreeHelper.tree(category);
-    
+
     const find = {
       CourseDeleted: 1,
       CourseSlug: req.params.CourseSlug,
@@ -49,7 +48,7 @@ module.exports.detail = async (req, res) => {
       });
       course.intructor = intructor;
     }
-    console.log(course.id)
+
     const count = await Lesson.countDocuments({
       CourseId: course.id,
       LessonDeleted: 1,
@@ -59,26 +58,33 @@ module.exports.detail = async (req, res) => {
         CourseId: course.id,
         LessonDeleted: 1,
       });
-      for(const item of lesson){
+      for (const item of lesson) {
         const video = await Video.find({
           LessonId: item.id,
           VideoDeleted: 1
         })
-        if(video.length != 0) {
+        if (video.length != 0) {
           item.video = video
-          console.log(item.video)
-          console.log("OK")
         }
-        
+
       }
       course.lesson = lesson;
+    }
+    if (res.locals.user) {
+      const test = await User.findOne({
+        _id: res.locals.user.id,
+        "UserCourse.CourseId": course.id
+      })
+      if (test) {
+        course.has = 1;
+      }
     }
     res.render('client/pages/courses/detail', {
       pageTitle: course.CourseName,
       course: course,
       allCategory: allCategory,
     });
-  } catch (error){
+  } catch (error) {
     req.flash("error", "Không tìm thấy sản phẩm!")
     res.redirect(`/courses`)
   }
