@@ -1,11 +1,27 @@
 extends ../../layouts/default.pug
-include ../../mixins/box-head.pug
 
 block main
-  .container.my-3
-    +box-head("Danh sách sản phẩm")
+  .row.align-items-center
+    .col-12
+      form(
+        action="/search"
+        method="GET"
+      ) 
+        div(class="form-group d-flex mb-2")
+          input(
+            type="text"
+            placeholder="Nhập từ khóa..."
+            class="form-control"
+            name="keyword"
+            value=keyword
+          )
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Tìm
 
-    .row
+  h2 #{pageTitle}
+  .row
       each item in courses
         .col-6.mb-3
           .product-item

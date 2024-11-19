@@ -205,6 +205,7 @@ module.exports.editItem = async (req, res) => {
       pageTitle: "Chỉnh sửa khoá học",
       course: course,
       listCategory: newList,
+      intructor: intructor,
     });
   } catch (error) {
     req.flash("error", "Không tìm thấy khoá học!");
