@@ -110,7 +110,7 @@ module.exports.profile = async (req, res) => {
 };
 
 // // [GET] /user/profile/edit
-module.exports.profileEdit = async (req, res) => {
+module.exports.profile = async (req, res) => {
   res.render("client/pages/user/edit", {
     pageTitle: "Trang cá nhân",
     user: res.locals.user
