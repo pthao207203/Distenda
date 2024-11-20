@@ -21,23 +21,36 @@ block main
 
           if (course.CourseDiscount)
             div(class="inner-percent") Giảm tới <span>#{course.CourseDiscount}%</span>
-
-          form(
-            action=`/cart/add/${course.id}`
-            method="POST"
-          )
-            input(
-              class="form-control mb-2"
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              max=course.stock
+          div(class="inner-percent") Chương: #{course.lesson? course.lesson.length:0}
+          div(class="inner-percent") Bài giảng: 
+          
+          if (user && user.UserLikes.includes(course.id)) 
+            form(
+              action=`/user/like/cancel/${course.id}`
+              method="GET"
             )
-            button(
-              type="submit"
-              class="btn btn-success btn-block"
-            ) Thêm vào giỏ hàng
+              button(
+                type="submit"
+                class="btn btn-danger btn-block mb-2"
+              ) Bỏ yêu thích
+          else 
+            form(
+              action=`/user/like/add/${course.id}`
+              method="GET"
+            )
+              button(
+                type="submit"
+                class="btn btn-danger btn-block mb-2"
+              ) Yêu thích
+          if (!course.has)
+            form(
+              action=`/user/pay/${course.id}`
+              method="GET"
+            )
+              button(
+                type="submit"
+                class="btn btn-success btn-block"
+              ) Đăng ký ngay
 
     hr
 
@@ -46,3 +59,38 @@ block main
         .col-12
           +box-head("Mô tả sản phẩm")
           .inner-desc !{course.CourseDescription}
+    
+    hr
+    .container.my-5
+      .row
+        .col-12
+          h2 Danh sách chương
+    .card
+        .card-body
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th Tên chương
+                th Mô tả
+
+            tbody
+              if(course.lesson)
+                each item in course.lesson
+                  tr 
+                    td #{item.LessonName}
+                    td #{item.LessonDescription}
+                  
+                  if(item.video)
+                    each video in item.video
+                      tr
+                        td -- #{video.VideoName}
+                        td
+    hr
+    .container.my-5
+      .row
+        .col-12
+          h2 Giảng viên
+          .inner-desc #{course.intructor.AdminFullName}
+          .inner-desc  Số điện thoại: #{course.intructor.AdminPhone}
+          .inner-desc  Email: #{course.intructor.AdminEmail}
+    

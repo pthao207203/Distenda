@@ -7,7 +7,7 @@ const videoSchema = new mongoose.Schema({
   VideoName: String,
   VideoSlug: {
     type: String,
-    slug: "VideoSlug",
+    slug: "VideoName",
     unique: true,
   },
   VideoDescription: String,

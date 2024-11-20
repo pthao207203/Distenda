@@ -1,4 +1,56 @@
 extends ../../layouts/default.pug
 
 block main
+  .row.align-items-center
+    .col-12
+      form(
+        action="/search"
+        method="GET"
+      ) 
+        div(class="form-group d-flex mb-0")
+          input(
+            type="text"
+            placeholder="Nhập từ khóa..."
+            class="form-control"
+            name="keyword"
+            value=keyword
+          )
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Tìm
   h1 Trang chủ
+  .row
+    each item in courses
+      .col-6.mb-3
+        .product-item
+          .inner-image
+            img(src=item.CoursePicture, alt=item.CourseName)
+          .inner-content
+            h3.inner-title
+              a(
+                href=`/courses/${item.CourseSlug}`
+                ) #{item.CourseName}
+            h6.inner-title 
+              #{item.CourseInstructor}
+            p. 
+              #{item.CourseDescription}
+            .inner-price-new #{item.CoursePrice}$
+            .inner-price-old #{item.CourseDuration}
+            .inner-discount #{item.CourseBought}
+    div(class="pl-3")
+      a(
+        href=`/courses`
+        class="btn btn-primary mb-3"
+      ) Xem tất cả
+  .row 
+    each item in intructor 
+      .col-3.mb-3 
+        a(
+          href=`/intructor/${item.id}`
+        )
+          .product-item
+            .inner-image
+              img(src=item.AdminAvatar, alt=item.AdminFullName)
+            .inner-content
+              h3.inner-title #{item.AdminFullName}

@@ -1,0 +1,62 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") #{pageTitle}
+
+  form(
+    action=`/user/profile/edit?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  )
+    div(class="form-group")
+      label(for="AdminFullName") Họ tên *
+      input(
+        type="text"
+        class="form-control"
+        id="UserFullName"
+        name="UserFullName"
+        value=user.UserFullName
+        required
+      )
+    div(class="form-group")
+      label(for="UserEmail") Email *
+      input(
+        type="email"
+        class="form-control"
+        id="UserEmail"
+        name="UserEmail"
+        value=user.UserEmail
+        required
+      )
+    div(class="form-group")
+      label(for="UserPhone") Số điện thoại
+      input(
+        type="text"
+        class="form-control"
+        id="UserPhone"
+        name="UserPhone"
+        value=user.UserPhone
+      )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="UserAvatar") Avatar
+      input(
+        type="file"
+        class="form-control-file"
+        id="UserAvatar"
+        name="UserAvatar"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=`${user.UserAvatar}`
+        class="image-preview"
+        upload-image-preview
+      )
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật
