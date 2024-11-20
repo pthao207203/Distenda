@@ -4,7 +4,7 @@ import RegisterForm from './RegisterForm';
 
 function Register() {
   return (
-    <Container fluid className="flex justify-center align-middle mt-5">
+    <Container fluid className="flex justify-center align-middle my-5">
       <Row className="justify-center w-100">
         <Col md={12} lg={6} className="relative flex self-center px-20 py-10 mt-10 max-w-full bg-white/10 backdrop-blur-[10px] w-[688px] max-md:px-5 max-md:mt-10">
           <RegisterForm />
