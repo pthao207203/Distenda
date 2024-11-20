@@ -13,7 +13,7 @@ function SignUpForm() {
             <p className="flex gap-3 items-center font-normal self-stretch py-1  my-auto">
               Bạn đã có tài khoản?&nbsp;
             </p>
-            <a href="#signup" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
+            <a href="#login" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
               Đăng nhập ngay
             </a>
           </div>
