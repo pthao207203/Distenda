@@ -9,7 +9,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function LandingPage() {
   return (
-    <div className="bg-[url('Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
+    <>
       {/* Hero Section */}
       <section className="py-5 w-full text-white px-1 ">
         <div className="relative z-index-1">
@@ -52,7 +52,7 @@ function LandingPage() {
 
       {/* Footer */}
       {/*<Footer />*/}
-    </div>
+    </>
   );
 }
 
