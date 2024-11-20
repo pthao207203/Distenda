@@ -25,7 +25,7 @@ function App() {
         </Route>
 
         {/* <Route element={<PublicRoutes />}> */}
-        <Route element={<MainUser />}>
+        <Route element={<Main />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/' element={<Intro />} />
