@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 
 function Login() {
   return (
-    <Container fluid className="d-flex justify-content-center w-full align-items-center mt-5">
+    <Container fluid className="d-flex justify-content-center w-full align-items-center my-5">
       <Row className="justify-content-center w-100">
         <Col md={12} lg={6} className="position-relative flex self-center px-20 py-10 mt-36 max-w-full bg-white/10 backdrop-blur-[10px] w-[688px] max-md:px-5 max-md:mt-10">
           <LoginForm />
