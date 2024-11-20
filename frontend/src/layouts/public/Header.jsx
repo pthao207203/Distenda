@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Navigation() {
+export default function Header() {
   return (
     <header className="flex relative flex-wrap gap-2.5 items-center px-[60px] w-full leading-none text-white bg-white/10 max-sm:px-5 max-md:max-w-full">
 
@@ -25,5 +25,3 @@ function Navigation() {
     </header>
   );
 }
-
-export default Navigation;
