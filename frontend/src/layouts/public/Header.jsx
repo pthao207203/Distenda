@@ -9,18 +9,18 @@ export default function Header() {
       </div>
 
       <nav className="flex flex-wrap flex-1 shrink gap-[30px] justify-end self-stretch items-center my-auto text-xl max-md:text-lg font-semibold text-center max-md:max-w-full ">
-        <a href="#about" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
+        <Link to='/' className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
           Về chúng tôi
-        </a>
-        <a href="#login" className="flex gap-3 justify-center items-center self-stretch px-3 py-3.5 my-auto text-black bg-[#CFF500]">
+        </Link>
+        <Link to="/login" className="flex gap-3 justify-center items-center self-stretch px-3 py-3.5 my-auto text-black bg-[#CFF500]">
           Đăng nhập
-        </a>
-        <a href="#signup" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
+        </Link>
+        <Link to="/register" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
           Đăng ký
-        </a>
-        <a href="#help" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
+        </Link>
+        <Link href="/help" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
           Trợ giúp
-        </a>
+        </Link>
       </nav>
     </header>
   );
