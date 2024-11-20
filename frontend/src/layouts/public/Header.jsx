@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+
+
 
 export default function Header() {
+  const [activeLink, setActiveLink] = useState('');
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
   return (
     <header className="flex relative flex-wrap gap-2.5 items-center px-[60px] w-full leading-none text-white bg-white/10 max-sm:px-5 max-md:max-w-full">
 

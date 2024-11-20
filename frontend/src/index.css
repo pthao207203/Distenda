@@ -12,6 +12,22 @@ code {
     monospace;
 }
 
-div h1 {
-  font-family: 'Squada One', Verdana, Geneva, Tahoma, sans-serif;
+/* Trang đăng nhập, đăng ký */
+h1 {
+  font-family: 'Squada One';
 }
+Nav.Link {
+  color:white !important;
+}
+Nav.Link :active{
+  background-color: #CFF500;
+  color: black;
+}
+
+/* Footer */
+footer h2 {
+  font-family: 'Squada One';
+}
+
+
+

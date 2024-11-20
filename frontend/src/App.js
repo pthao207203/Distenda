@@ -8,6 +8,7 @@ import Main from './layouts/public/Main';
 
 import Login from './screens/PublishUser/Login/Login';
 import Register from './screens/PublishUser/Register/Register';
+import Intro from './screens/PublishUser/Intro/LandingPage';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           {/* </Route> */}
         </Route>
 
-        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/' element={<Intro />} />
         {/* <Route path='/courses/:CourseSlug' element={<CourseDetail />} /> */}
 
         <Route element={<PublicRoutes />}>
