@@ -15,7 +15,7 @@ function App() {
 
         <Route element={<AdminRoutes />}>
           <Route element={<MainAdmin />}>
-            {/* <Route path='/' element={<Intro />} /> */}
+            {/* <Route path='/' element={<Dashboard />} /> */}
             {/* <Route path='/courses' element={<Courses/>}/> */}
           </Route>
         </Route>
@@ -23,7 +23,6 @@ function App() {
         <Route element={PublicRoutes}>
           <Route element={<Main />}>
             {/* <Route path='/login' element={<Login />} /> */}
-
           </Route>
         </Route>
       </Route>

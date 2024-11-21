@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
 const moment = require("moment");
+const cors = require("cors")
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -27,6 +28,8 @@ app.use(
   express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 
+app.use(cors())
+
 app.use(methodOverride("_method"));
 
 app.set("views", "./views");
@@ -50,6 +53,11 @@ app.use(express.static("public"));
 
 routeAdmin(app);
 routeClient(app);
+app.get("*", (req, res) => {
+  res.render("client/pages/error/404", {
+    pageTitle: "404 not found",
+  })
+})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

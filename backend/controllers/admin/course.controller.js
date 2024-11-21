@@ -32,7 +32,7 @@ module.exports.index = async (req, res) => {
   let objectPagination = paginationHelper(
     {
       currentPage: 1,
-      limitItems: 5,
+      limitItems: 10,
     },
     req.query,
     countCourses
@@ -52,6 +52,7 @@ module.exports.index = async (req, res) => {
     }
   }
 
+  // res.json(courses)
   res.render("admin/pages/course/index", {
     pageTitle: "Trang khoá học",
     courses: courses,
@@ -69,18 +70,28 @@ module.exports.changeStatus = async (req, res) => {
     UserId: res.locals.user.id,
     editedAt: new Date(),
   };
+  try {
+    await Course.updateOne(
+      { _id: courseID },
+      {
+        CourseStatus: status == "active" ? 1 : 0,
+        $push: { editedBy: editedBy },
+      }
+    );
+    res.json({
+      code: 200,
+      message: "Cập nhật trạng thái thành công",
+    })
+  } catch {
+    res.json({
+      code: 400,
+      message: "Cập nhật trạng thái không thành công",
+    })
+  }
 
-  await Course.updateOne(
-    { _id: courseID },
-    {
-      CourseStatus: status == "active" ? 1 : 0,
-      $push: { editedBy: editedBy },
-    }
-  );
+  // req.flash("success", "Cập nhật trạng thái thành công");
 
-  req.flash("success", "Cập nhật trạng thái thành công");
-
-  res.redirect("back");
+  // res.redirect("back");
 };
 
 // [DELETE] /admin/courses/delete/:CourseID
