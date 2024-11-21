@@ -1,0 +1,1 @@
+export { MaterialSymbolsLightSearch } from "./MaterialSymbolsLightSearch";
