@@ -5,6 +5,6 @@ const controller = require("../../controllers/client/course.controller")
 
 router.get('/', controller.index)
 
-router.get('/:CourseSlug', controller.detail)
+router.get('/detail/:CourseSlug', controller.detail)
 
 module.exports = router;

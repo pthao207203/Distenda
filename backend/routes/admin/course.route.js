@@ -1,5 +1,5 @@
 const express = require("express")
-const multer  = require('multer')
+const multer = require('multer')
 const router = express.Router()
 
 const upload = multer()
@@ -18,10 +18,10 @@ router.delete('/delete/:CourseID', controller.deleteItem)
 router.get('/create', controller.createItem)
 
 router.post(
-  '/create', 
-  upload.single('CoursePicture'), 
-  uploadCloud.upload, 
-  validate.createPost, 
+  '/create',
+  upload.single('CoursePicture'),
+  uploadCloud.upload,
+  validate.createPost,
   controller.createPost)
 
 router.get('/detail/:CourseID', controller.detailItem)
@@ -29,10 +29,10 @@ router.get('/detail/:CourseID', controller.detailItem)
 router.get('/edit/:CourseID', controller.editItem)
 
 router.patch(
-  '/edit/:CourseID', 
-  upload.single('CoursePicture'), 
-  uploadCloud.upload, 
-  validate.createPost, 
+  '/edit/:CourseID',
+  upload.single('CoursePicture'),
+  uploadCloud.upload,
+  validate.createPost,
   controller.editPatch)
 
 module.exports = router;

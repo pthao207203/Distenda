@@ -1,0 +1,123 @@
+extends ../../layouts/default.pug
+
+block main
+  h1 Cài đặt chung
+
+  form(
+    action=`${prefixAdmin}/setting/general?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  )
+    div(class="form-group")
+      label(for="WebsiteName") Tên website
+      input(
+        type="text"
+        class="form-control"
+        id="WebsiteName"
+        name="WebsiteName"
+        value=setting.WebsiteName
+      )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="WebsiteLogoAdmin") Logo Admin
+      input(
+        type="file"
+        class="form-control-file"
+        id="WebsiteLogoAdmin"
+        name="WebsiteLogoAdmin"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=setting.WebsiteLogoAdmin
+        class="image-preview"
+        upload-image-preview
+      )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="WebsiteLogoUser") Logo User
+      input(
+        type="file"
+        class="form-control-file"
+        id="WebsiteLogoUser"
+        name="WebsiteLogoUser"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=setting.WebsiteLogoUser
+        class="image-preview"
+        upload-image-preview
+      )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="WebsiteIcon") Icon
+      input(
+        type="file"
+        class="form-control-file"
+        id="WebsiteIcon"
+        name="WebsiteIcon"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=setting.WebsiteIcon
+        class="image-preview"
+        upload-image-preview
+      )
+    div(class="form-group")
+      label(for="WebsitePhone") Số điện thoại
+      input(
+        type="text"
+        class="form-control"
+        id="WebsitePhone"
+        name="WebsitePhone"
+        value=setting.WebsitePhone
+      )
+    div(class="form-group")
+      label(for="WebsiteEmail") Email
+      input(
+        type="email"
+        class="form-control"
+        id="WebsiteEmail"
+        name="WebsiteEmail"
+        value=setting.WebsiteEmail
+      )
+    div(class="form-group")
+      label(for="WebsiteFacebook") Facebook
+      input(
+        type="text"
+        class="form-control"
+        id="WebsiteFacebook"
+        name="WebsiteFacebook"
+        value=setting.WebsiteFacebook
+      )
+    div(class="form-group")
+      label(for="WebsiteTiktok") Tiktok
+      input(
+        type="text"
+        class="form-control"
+        id="WebsiteTiktok"
+        name="WebsiteTiktok"
+        value=setting.WebsiteTiktok
+      )
+    div(class="form-group")
+      label(for="WebsiteCopyright") Copyright
+      input(
+        type="text"
+        class="form-control"
+        id="WebsiteCopyright"
+        name="WebsiteCopyright"
+        value=setting.WebsiteCopyright
+      )
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật

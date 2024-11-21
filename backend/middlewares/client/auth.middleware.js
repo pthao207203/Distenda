@@ -23,7 +23,7 @@ module.exports.requireAuth = async (req, res, next) => {
   next();
 };
 
-module.exports.Auth = async (req, res, next) => {
+module.exports.auth = async (req, res, next) => {
   const user = await User.findOne({
     UserToken: req.cookies.user_token,
     UserDeleted: 1,
