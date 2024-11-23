@@ -32,7 +32,7 @@ app.use(cors())
 
 app.use(methodOverride("_method"));
 
-app.set("views", "./views");
+app.set("views", path.join(__dirname, 'views'));
 app.set("view engine", "pug");
 
 // parse application/x-www-form-urlencoded
