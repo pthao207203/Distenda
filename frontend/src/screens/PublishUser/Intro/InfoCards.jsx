@@ -60,7 +60,7 @@ function InfoCards() {
           {infoCardsData.map((card, index) => (
             <div
               key={index}
-              className="flex-1 min-w-[300px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
+              className="flex-1 min-w-[320px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
             >
               <InfoCard {...card} />
             </div>

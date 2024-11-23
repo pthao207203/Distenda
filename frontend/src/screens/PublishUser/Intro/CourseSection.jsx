@@ -39,22 +39,22 @@ const courseData = [
   }
 ];
 
-function CourseCard({ image, title, duration, price }) {
+function CourseCard(course) {
   return (
-    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] w-full-[633px] max-md:max-w-full ">
-      <img loading="lazy" src={image} alt={title} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
+    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] min-w-[347px] max-md:max-w-full backdrop-blur-[10px]">
+      <img loading="lazy" src={course.CoursePicture} alt={course.CourseName} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
       <div className="flex flex-col flex-1 shrink self-stretch my-auto basis-0  min-w-[240px] w-[348px] h-full-[183px]">
         <h3 className="flex items-start w-full text-[28px] font-semibold leading-7 text-white min-h-[100px]">
           <div className="line-clamp-2">
-            {title}
+            {course.CourseName}
           </div>
         </h3>
         <div className="flex flex-col items-start w-full font-medium leading-none">
           <p className="flex mb-[12px] items-center max-w-full text-[20px] font-medium text-white w-[351px] ">
-            Thời gian: {duration}
+            Thời gian: {course.CourseDuration} tiếng
           </p>
-          <p className="flex items-center max-w-full h-5 text-[32px] text-yellow-400 whitespace-nowrap w-[351px]">
-            {price}
+          <p className="flex items-center max-w-full h-5 text-[32px] text-[#CFF500] whitespace-nowrap w-[351px]">
+            {course.CoursePrice === 0 ? "Miễn phí" : course.CoursePrice.toLocaleString('vi-VN')}
           </p>
         </div>
       </div>
@@ -63,25 +63,35 @@ function CourseCard({ image, title, duration, price }) {
 }
 
 
-function CourseSection() {
-  return ( 
-<section className="relative flex overflow-hidden justify-self-center flex-col  bg-none max-md:max-w-full">
+function CourseSection({ courseData }) {
+  // Kiểm tra dữ liệu trước khi hiển thị
+  const courses = courseData ? Object.values(courseData) : []; // Lấy danh sách các khóa học (mảng)
+  console.log(courses[0])
 
-  <div className="items-center text-left text-white text-[20px] font-medium py-[20px] px-[12px] mb-[8px]">
-    Đề xuất
-  </div>
-  <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px] backdrop-blur-[10px]">
-    {courseData.map((course, index) => (
-      <CourseCard key={index} {...course} />
-    ))}
-  </div>
-  <button
-    className="flex justify-center items-center self-center w-[331px] h-[60px] px-[20px] py-[20px] mb-[16px] text-[20px] font-semibold leading-none text-black bg-[#CFF500]">
-    Xem tất cả
-  </button>
-</section>
+  return (
+    <section className="relative flex overflow-hidden justify-self-center flex-col bg-none max-md:max-w-full">
+      <div className="items-center text-left text-white text-[20px] font-medium py-[20px] px-[12px] mb-[8px]">
+        Đề xuất
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px]">
+        {courses.length > 0 ? (
+          courses.map((course, index) => (
+            <CourseCard key={index} {...course} />
+          ))
+        ) : (
+          <div>Không có khóa học nào để hiển thị.</div>
+        )}
+      </div>
+
+      <button
+        className="flex justify-center items-center self-center w-[331px] h-[60px] px-[20px] py-[20px] mb-[16px] text-[20px] font-semibold leading-none text-black bg-[#CFF500]">
+        Xem tất cả
+      </button>
+    </section>
   );
 }
+
 
 
 export default CourseSection;
