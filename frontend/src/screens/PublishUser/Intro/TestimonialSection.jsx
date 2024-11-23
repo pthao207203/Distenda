@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 const testimonialData = [
   {
@@ -9,30 +9,45 @@ const testimonialData = [
   },
   {
     avatar: "https://cdn.builder.io/api/v1/image/assets/TEMP/9a9cb1fde836e101b0adff8ddd17331a895a0430fb8f4bf1741db25dc7d605b4?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    name: "Học tập tuyệt vời",
+    name: "Chuyên nghiệp",
     content: "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance."
   },
   {
     avatar: "https://cdn.builder.io/api/v1/image/assets/TEMP/9a9cb1fde836e101b0adff8ddd17331a895a0430fb8f4bf1741db25dc7d605b4?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    name: "Giáo viên nhiệt tình",
+    name: "Chuyên nghiệp",
     content: "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance."
   }
 ];
 
 function TestimonialCard({ avatar, name, content }) {
   return (
-    <div className="card h-500 shadow-sm bg-white bg-opacity-10">
-      <div className="card-body">
-        <div className="d-flex align-items-center mb-3">
+    <div className="card bg-white bg-opacity-10 justify-items-start w-auto max-w-[347px] mx-auto flex-shrink-0 backdrop-blur-[10px]">
+      <div className="card-body px-[20px] py-[20px]">
+        <div className="d-flex align-items-center mb-[8px]">
           <img
             src={avatar}
             alt={name}
-            className="rounded-circle me-3"
+            className="rounded-circle me-[32px]"
             style={{ width: '50px', height: '50px' }}
           />
-          <h5 className="mb-0 text-white">{name}</h5>
+          <h5 className="mb-0 text-[20px] font-semibold text-white">{name}</h5>
         </div>
-        <p className="card-text text-white">{content}</p>
+        <p
+          style={{
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 5,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            margin: 0,
+            padding: 0,
+            marginTop: '20px',
+            marginBottom: '20px',
+          }}
+          className="card-text text-white font-regular text-[20px]"
+        >
+          {content}
+        </p>
       </div>
     </div>
   );
@@ -40,17 +55,18 @@ function TestimonialCard({ avatar, name, content }) {
 
 function TestimonialSection() {
   return (
-    <section className="bg-none text-left">
+    <section className="bg-none text-left flex-col w-screen  max-md:max-w-full  ">
       <Container>
-      <div className="text-center mb-5">
-        <h2 className="flex gap-3 items-center px-3 py-5 text-xl font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
-          Nhận xét của học viên</h2>
-          </div>
-        <Row className="g-4 mb-5">
+        <div className="text-left mb-5">
+          <h2 className="flex items-left px-[12px] py-[20px] mb-[16px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+            Nhận xét của học viên
+          </h2>
+        </div>
+        <Row className="flex flex-wrap justify-center gap-[96px]">
           {testimonialData.map((testimonial, index) => (
-            <Col key={index} lg={4} md={6} sm={12}>
+            <div key={index} className="w-auto flex-shrink-0">
               <TestimonialCard {...testimonial} />
-            </Col>
+            </div>
           ))}
         </Row>
       </Container>
@@ -58,4 +74,4 @@ function TestimonialSection() {
   );
 }
 
-export default TestimonialSection;
+export default TestimonialSection; 

@@ -11,17 +11,21 @@ function LandingPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-5 w-full text-white px-1 ">
-        <div className="relative z-index-1">
+      <section className="py-5 w-full text-white px-1">
+    <Container>
+      <Row className="relative flex overflow-hidden justify-self-center flex-col w-screen bg-none max-md:max-w-full py-0">
+        <Col lg={20} md={12} className="relative z-index-1">
           <HeroSection />
-        </div>
-      </section>
+        </Col>
+      </Row> {/* Đóng thẻ Row ở đây */}
+    </Container>
+  </section>
 
       {/* Course Section */}
-      <section className="relative flex overflow-hidden justify-self-center flex-col w-screen bg-white bg-opacity-10 max-md:max-w-full py-0">
+      <section className="justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container>
           <Row className="g-4">
-            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center w-screen">
+            <Col lg={20} md={12} className="d-flex justify-content-center align-items-center w-screen">
               <CourseSection />
             </Col>
           </Row>
@@ -40,7 +44,7 @@ function LandingPage() {
       </section>
 
       {/* Teacher Section */}
-      <section className="relative flex overflow-hidden justify-self-center flex-col w-screen bg-white bg-opacity-10 max-md:max-w-full py-0">
+      <section className="backdrop-blur-[10px]relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container>
           <Row className="g-4">
             <Col lg={12} md={12} className="d-flex justify-content-centealign-items-center">

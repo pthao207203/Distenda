@@ -16,7 +16,7 @@ const infoCardsData = [
     title: "Chuyên nghiệp",
     content: truncateText(
       "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance.",
-      40 // Giới hạn 40 từ
+      20 // Giới hạn 40 từ
     ),
   },
   {
@@ -24,7 +24,7 @@ const infoCardsData = [
     title: "Uy tín",
     content: truncateText(
       "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance.",
-      40
+      20
     ),
   },
   {
@@ -32,7 +32,7 @@ const infoCardsData = [
     title: "Sáng tạo",
     content: truncateText(
       "Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance.",
-      40
+      20
     ),
   },
 ];
@@ -40,11 +40,11 @@ const infoCardsData = [
 // Component hiển thị từng thẻ thông tin
 function InfoCard({ icon, title, content }) {
   return (
-    <div className="card shadow-sm border-0 mb-4 bg-white bg-opacity-10">
-      <div className="card-body d-flex flex-column">
-        <img src={icon} alt={title} className="mb-3" style={{ width: "50px", height: "50px" }} />
-        <h5 className="card-title fw-bold text-white">{title}</h5>
-        <p className="card-text text-white">{content}</p>
+    <div className="card border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
+      <div className="card-body mx-[20px] my-[20px] ">
+        <img src={icon} alt={title} className="mb-[32px]" style={{ width: "30px", height: "30px" }} />
+        <h5 className="card-title fw-bold text-white text-[32px] ">{title}</h5>
+        <p className="text-white text-[20px] my-[20px] ">{content}</p>
       </div>
     </div>
   );
@@ -53,11 +53,15 @@ function InfoCard({ icon, title, content }) {
 // Component InfoCards chính
 function InfoCards() {
   return (
-    <div className="container mt-5 mx-0">
-      <div className="relative flex overflow-hidden justify-self-start flex-col w-screen max-md:max-w-full py-0">
-      <div className="row py-0 my-auto ">
+    <div className="mt-[80px] flex flex-wrap text-white">
+      {/* Container không có khoảng cách bên trái */}
+      <div className="relative flex flex-wrap rounded-lg w-full mx-0">
+        <div className="flex flex-wrap gap-5 w-full">
           {infoCardsData.map((card, index) => (
-            <div key={index} className="col-lg-3 col-md-6 col-sm-12">
+            <div
+              key={index}
+              className="flex-1 min-w-[300px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
+            >
               <InfoCard {...card} />
             </div>
           ))}
@@ -66,4 +70,6 @@ function InfoCards() {
     </div>
   );
 }
+
+
 export default InfoCards;

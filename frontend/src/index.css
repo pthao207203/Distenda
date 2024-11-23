@@ -1,33 +1,49 @@
 body {
   margin: 0;
-  font-family: 'Montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family:
+    "Montserrat",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 /* Trang đăng nhập, đăng ký */
 h1 {
-  font-family: 'Squada One';
+  font-family: "Squada One";
 }
 Nav.Link {
-  color:white !important;
+  color: white !important;
 }
-Nav.Link :active{
-  background-color: #CFF500;
+Nav.Link :active {
+  background-color: #cff500;
   color: black;
 }
 
 /* Footer */
 footer h2 {
-  font-family: 'Squada One';
+  font-family: "Squada One";
 }
 
-
-
+.parent-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.section-container {
+  width: 100%;
+  overflow-x: hidden;
+}

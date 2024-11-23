@@ -24,6 +24,9 @@ function App() {
           {/* </Route> */}
         </Route>
 
+        <Route path='/' element={<Intro />} />
+        {/* <Route path='/courses/:CourseSlug' element={<CourseDetail />} /> */}
+
         {/* <Route element={<PublicRoutes />}> */}
         <Route element={<Main />}>
           <Route path='/login' element={<Login />} />
