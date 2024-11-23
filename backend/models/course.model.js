@@ -31,6 +31,11 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  CourseReview: {
+    UserId: String,
+    Rate: Number,
+    Comment: String,
+  },
   createdBy: {
     UserId: String,
     createdAt: {
