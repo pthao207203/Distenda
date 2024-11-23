@@ -1,107 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);  // Mặc định Sidebar đóng trên màn hình nhỏ
-  const [isFullScreen, setIsFullScreen] = useState(false);  // Kiểm tra nếu là màn hình full-width
-
+export default function SideBar() {
   const menuItems = [
-    "Khóa học của tôi",
-    "Đang học",
-    "Đã hoàn thành",
-    "Thi thử",
-    "Bài tập"
+    { link: "/", icon: "./icons/home.svg", label: "Trang chủ", isActive: false },
+    { link: "/category", icon: "./icons/category.svg", label: "Phân loại", isActive: false },
+    { link: "/courses", icon: "./icons/document.svg", label: "Khóa học", isActive: false },
+    { link: "/user", icon: "./icons/2user.svg", label: "Người dùng", isActive: false },
+    { link: "/", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
+    { link: "/", icon: "./icons/setting.svg", label: "Quản lý", isActive: false },
+    { link: "/", icon: "./icons/notification.svg", label: "Thông báo", isActive: false },
+    { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web", isActive: false },
   ];
 
-  // Kiểm tra kích thước màn hình và xác định nếu màn hình là full-width
-  useEffect(() => {
-    const handleResize = () => {
-      setIsFullScreen(window.innerWidth >= 2220);  // Kiểm tra nếu màn hình rộng hơn 1024px
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();  // Kiểm tra khi component mount
-
-    return () => window.removeEventListener('resize', handleResize); // Cleanup listener
-  }, []);
-
   return (
-    <div>
-      {/* Nút mở hoặc đóng Sidebar chỉ hiển thị khi màn hình nhỏ */}
-      {!isFullScreen && (
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="fixed top-5 left-5 z-50 px-4 py-2 text-white bg-blue-500 rounded-md"
-        >
-          {isOpen ? "Đóng Sidebar" : "Mở Sidebar"}
-        </button>
-      )}
+    <div
+      className="d-flex flex-column vh-100 bg-white"
+      style={{ width: "350px", minWidth: "350px", maxWidth: "450px" }}
+    >
+      {/* Profile Section */}
+      <div className="d-flex align-items-center gap-4 px-5 py-5 border-bottom">
+        <img loading="lazy" src="./profile.svg" alt="Profile"
+          className="rounded-circle object-fit-cover" style={{ width: "80px", height: "80px" }}
+        />
+        <div>
+          <h4 className="mb-1 fw-bold" style={{ fontSize: "24px", color: "black" }}>Ngọc Khanh</h4> 
+          <span style={{ fontSize: "18px", color: "black" }}>Manager</span> 
+        </div>
+      </div>
 
-      {/* Sidebar */}
-      {(isOpen || isFullScreen) && (
-        <aside
-          className="fixed top-0 left-0 h-screen flex flex-col pt-5 leading-none text-white bg-black w-full max-w-md overflow-y-auto z-40"
-        >
-          <div
-            data-layername="ngườiDung"
-            className="flex gap-2 justify-center items-center px-4 w-full"
-          >
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
-              alt="User profile"
-              className="object-contain shrink-0 self-stretch my-auto w-16 rounded-full aspect-[1.03]"
-            />
-            <div
-              data-layername="ttNgườiDung"
-              className="flex flex-col flex-1 shrink self-stretch my-auto basis-0"
-            >
-              <div
-                data-layername="button"
-                className="flex gap-3 items-end px-3 w-full text-3xl font-semibold"
-              >
-                <div
-                  data-layername="button"
-                  className="flex-1 shrink gap-2 self-stretch w-full"
-                >
-                  Cá biết bay
-                </div>
-              </div>
-              <div
-                data-layername="button"
-                className="flex gap-3 items-end px-3 mt-2 w-full text-lg font-medium" // Giảm "mt-4" thành "mt-2"
-              >
-                <div
-                  data-layername="button"
-                  className="flex-1 shrink gap-2 self-stretch w-full"
-                >
-                  Thành viên mới
-                </div>
-              </div>
+      {/* Menu Items */}
+      <div className="flex-grow-1 overflow-auto">
+        {menuItems.map((item, index) => (
+          <Link to={item.link} key={index} className="text-decoration-none">
+            <div className={`d-flex align-items-center gap-4 px-5 py-4 ${
+                item.isActive ? "bg-light fw-bold" : ""
+              }`}
+              style={{ fontSize: "20px", color: "black" }} >
+              <img loading="lazy" src={item.icon} alt=""
+                className="object-contain" style={{ width: "36px", height: "36px" }} />
+              <span>{item.label}</span>
             </div>
-          </div>
-          <nav
-            data-layername="khoaHọc"
-            className="flex flex-col mt-7 w-full text-3xl font-light"
-          >
-            {menuItems.map((item, index) => (
-              <div
-                key={index}
-                data-layername="button"
-                className="flex gap-3 items-center px-6 py-6 w-full min-h-[77px] max-md:px-5"
-              >
-                <div
-                  data-layername="button"
-                  className="flex-1 shrink gap-2.5 self-stretch my-auto w-full min-w-[240px]"
-                >
-                  {item}
-                </div>
-              </div>
-            ))}
-          </nav>
-        </aside>
-      )}
+          </Link>
+        ))}
+      </div>
     </div>
   );
-};
-
-export default SideBar;
+}
