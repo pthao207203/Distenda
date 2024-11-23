@@ -65,6 +65,45 @@ block main
                       data-path=`${prefixAdmin}/video/delete`
                     ) Xoá
 
+  .card
+      .card-header 
+        .row 
+          .col-8 
+            h4 Danh sách bài tập
+          .col-4
+            if (role.RolePermissions.includes("course_create"))
+              a(
+                class="btn btn-outline-success"
+                href=`${prefixAdmin}/exercise/create/${lesson._id}`
+              ) + Thêm bài 
+      .card-body
+        table.table.table-hover.table-sm
+          thead
+            tr
+              th STT
+              th Tên bài
+              th 
+
+          tbody
+            if(lesson.exer)
+                tr 
+                  td #{lesson.exer.ExerciseName}
+                  td
+                    a(
+                      class="btn btn-warning btn-sm"
+                      href=`${prefixAdmin}/exercise/detail/${lesson.exer._id}`
+                    ) Xem
+                    a(
+                      class="btn btn-info btn-sm ml-1"
+                      href=`${prefixAdmin}/exercise/edit/${lesson.exer._id}`
+                    ) Sửa
+                    button(
+                      class="btn btn-danger btn-sm ml-1"
+                      item-id=lesson.exer._id
+                      button-delete
+                      data-path=`${prefixAdmin}/exercise/delete`
+                    ) Xoá
+
   form(
     action=""
     method="POST"
