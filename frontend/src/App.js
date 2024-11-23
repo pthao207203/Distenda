@@ -10,7 +10,7 @@ import MainUser from './layouts/private/MainUser';
 import Login from './screens/PublishUser/Login/Login';
 import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
-import Home from './screens/PublishUser/Register/Register';
+import Course from './screens/PublishUser/Course/CoursePage';
 
 function App() {
   return (
@@ -29,6 +29,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/' element={<Intro />} />
+          <Route path='/courses' element={<Course />} />
         </Route>
         {/* </Route> */}
 
