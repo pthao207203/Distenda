@@ -75,15 +75,24 @@ module.exports.detail = async (req, res) => {
       })
       if (test) {
         course.has = 1;
+        const test1 = await User.findOne({
+          _id: res.locals.user.id,
+          "UserCourse.CourseId": course.id,
+          "UserCourse.CourseReview": 1,
+        })
+        if (test1) {
+          course.review = 1;
+        }
       }
     }
-    res.json(course)
-    // res.render('client/pages/courses/detail', {
-    //   pageTitle: course.CourseName,
-    //   course: course,
-    // });
+    // res.json(course)
+    res.render('client/pages/courses/detail', {
+      pageTitle: course.CourseName,
+      course: course,
+    });
   } catch (error) {
     req.flash("error", "Không tìm thấy sản phẩm!")
     res.redirect(`/courses`)
   }
 }
+

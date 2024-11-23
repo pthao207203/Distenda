@@ -85,6 +85,37 @@ block main
                       tr
                         td -- #{video.VideoName}
                         td
+    if (course.review==0)
+      form(
+        action=`/user/comment/add/${course.id}`
+        method="POST"
+        id="form-create-course"
+      )
+        div(class="form-group")
+          label(for="Rate") Số sao
+          input(
+            type="text"
+            class="form-control"
+            id="Rate"
+            name="Rate"
+            required
+          )
+        div(class="form-group")
+          label(for="Comment") Đánh giá
+          textarea(
+            class="form-control"
+            id="Comment"
+            name="Comment"
+            rows="5"
+            textarea-mce
+          )
+        div(class="form-group")
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Đánh giá
+
+
     hr
     .container.my-5
       .row

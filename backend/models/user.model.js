@@ -28,8 +28,8 @@ const userSchema = new mongoose.Schema({
       _id: false,
       CourseId: String,
       CourseReview: {
-        Rate: Number,
-        Comment: String,
+        type: Number,
+        default: 0,
       },
       CourseCerficate: String,
       CourseStatus: {
