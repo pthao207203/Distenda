@@ -22,7 +22,7 @@ function LandingPage() {
   </section>
 
       {/* Course Section */}
-      <section className="justify-self-center flex-col w-screen bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
+      <section className="justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container>
           <Row className="g-4">
             <Col lg={20} md={12} className="d-flex justify-content-center align-items-center w-screen">
@@ -44,7 +44,7 @@ function LandingPage() {
       </section>
 
       {/* Teacher Section */}
-      <section className="backdrop-blur-[10px]relative flex overflow-hidden justify-self-center flex-col w-screen bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
+      <section className="backdrop-blur-[10px]relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container>
           <Row className="g-4">
             <Col lg={12} md={12} className="d-flex justify-content-centealign-items-center">
