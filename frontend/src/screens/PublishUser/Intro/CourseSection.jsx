@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const courseData = [
   {
@@ -41,10 +42,10 @@ const courseData = [
 
 function CourseCard({ image, title, duration, price }) {
   return (
-    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] w-full-[633px] max-md:max-w-full ">
+    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 backdrop-blur-[10px] h-full-[203px] min-w-[347px] max-md:max-w-full ">
       <img loading="lazy" src={image} alt={title} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
       <div className="flex flex-col flex-1 shrink self-stretch my-auto basis-0  min-w-[240px] w-[348px] h-full-[183px]">
-        <h3 className="flex items-start w-full text-[28px] font-semibold leading-7 text-white min-h-[100px]">
+        <h3 className="flex items-start text-[28px] font-semibold leading-7 text-white h-[100px]">
           <div className="line-clamp-2">
             {title}
           </div>
@@ -53,7 +54,7 @@ function CourseCard({ image, title, duration, price }) {
           <p className="flex mb-[12px] items-center max-w-full text-[20px] font-medium text-white w-[351px] ">
             Thời gian: {duration}
           </p>
-          <p className="flex items-center max-w-full h-5 text-[32px] text-yellow-400 whitespace-nowrap w-[351px]">
+          <p className="flex items-center max-w-full h-5 text-[32px] text-[#CFF500]  whitespace-nowrap w-[351px]">
             {price}
           </p>
         </div>
@@ -70,15 +71,15 @@ function CourseSection() {
   <div className="items-center text-left text-white text-[20px] font-medium py-[20px] px-[12px] mb-[8px]">
     Đề xuất
   </div>
-  <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px] backdrop-blur-[10px]">
+  <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px] ">
     {courseData.map((course, index) => (
       <CourseCard key={index} {...course} />
     ))}
   </div>
-  <button
+  <Link to='/courses'
     className="flex justify-center items-center self-center w-[331px] h-[60px] px-[20px] py-[20px] mb-[16px] text-[20px] font-semibold leading-none text-black bg-[#CFF500]">
     Xem tất cả
-  </button>
+  </Link>
 </section>
   );
 }

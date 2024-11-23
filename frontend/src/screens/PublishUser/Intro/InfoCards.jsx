@@ -40,7 +40,7 @@ const infoCardsData = [
 // Component hiển thị từng thẻ thông tin
 function InfoCard({ icon, title, content }) {
   return (
-    <div className="card border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
+    <div className="card border-0 bg-white bg-opacity-10 ">
       <div className="card-body mx-[20px] my-[20px] ">
         <img src={icon} alt={title} className="mb-[32px]" style={{ width: "30px", height: "30px" }} />
         <h5 className="card-title fw-bold text-white text-[32px] ">{title}</h5>
@@ -53,14 +53,14 @@ function InfoCard({ icon, title, content }) {
 // Component InfoCards chính
 function InfoCards() {
   return (
-    <div className="mt-[80px] flex flex-wrap text-white">
+    <div className="mt-[80px] flex flex-wrap text-white ">
       {/* Container không có khoảng cách bên trái */}
       <div className="relative flex flex-wrap rounded-lg w-full mx-0">
         <div className="flex flex-wrap gap-5 w-full">
           {infoCardsData.map((card, index) => (
             <div
               key={index}
-              className="flex-1 min-w-[300px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
+              className="flex-1 min-w-[320px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
             >
               <InfoCard {...card} />
             </div>
