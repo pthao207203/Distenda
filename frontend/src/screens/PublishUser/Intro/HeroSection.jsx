@@ -10,20 +10,21 @@ function HeroSection() {
         marginBottom: '0',
       }}
     >
-      <div className="flex flex-col w-full max-w-lg lg:ml-[20%] max-md:ml-[5px]">
-        <h2 className="flex gap-3 justify-left px-3 items-left max-w-full text-6xl font-medium leading-[90px] w-[589px] max-md:text-4xl max-md:leading-[67px]">
-          CHỌN IT, CHỌN ĐỂ DẪN ĐẦU
+      <div className="flex flex-col w-full-[680px] max-w-lg lg:ml-[100px] max-md:ml-[5px] max-md:container">
+        <h2 className="flex justify-left items-left max-w-full text-[60px] font-medium leading-[90px] w-[589px] max-md:text-4xl max-md:leading-[67px] ">
+        CHỌN IT, CHỌN ĐỂ DẪN ĐẦU
         </h2>
-        <p className="flex gap-3 items-end px-3 py-5 w-full text-3xl font-semibold leading-8 max-md:max-w-full max-md:text-xl">
+        <p className="flex py-[20px] items-end w-full text-[32px] font-semibold leading-100 max-md:max-w-full max-md:text-xl">
           Với khóa học chuyên sâu, lộ trình rõ ràng và giảng viên tận tâm, chúng tôi đồng hành cùng bạn trên hành trình trở thành chuyên gia IT!
         </p>
       </div>
-      <button className="flex gap-3 justify-right items-center px-5 py-4 mt-2 text-xl border-0 font-semibold leading-none text-black bg-yellow-400 min-h-[50px] lg:ml-[21%] max-md:ml-[20px]">
+      <button className="flex gap-10 justify-center items-center px-10 py-3 mt-2 text-xl border-0 font-semibold  text-black bg-[#CFF500] lg:ml-[100px] max-md:ml-[5px]">
         Bắt đầu
       </button>
-      <div className="lg:ml-[20%] max-md:ml-[5px] max-md:container ">
+      <div className="lg:ml-[100px] max-md:ml-[5px] max-md:container">
         <InfoCards />
       </div>
+
     </section>
   );
 }
