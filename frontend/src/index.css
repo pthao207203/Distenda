@@ -20,3 +20,14 @@ Navbar a:active, a:hover {
   color: 'text-black';
   background-color: #CFF500;
 }
+
+.parent-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.section-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+

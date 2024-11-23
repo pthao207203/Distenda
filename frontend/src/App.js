@@ -22,13 +22,13 @@ function App() {
           {/* </Route> */}
         </Route>
 
-        <Route path='/' element={<Intro />} />
         {/* <Route path='/courses/:CourseSlug' element={<CourseDetail />} /> */}
 
         {/* <Route element={<PublicRoutes />}> */}
         <Route element={<Main />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/' element={<Intro />} />
         </Route>
         {/* </Route> */}
 
