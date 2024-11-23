@@ -10,7 +10,7 @@ export default function Header() {
     setActiveLink(link);
   };
   return (
-    <header className="fix flex relative flex-wrap gap-2.5 items-center px-[60px] w-full leading-none text-white bg-white/10 max-sm:px-5 max-md:max-w-full">
+    <header className="flex relative flex-wrap gap-2.5 items-center px-[60px] w-full leading-none text-white bg-white/10 max-sm:px-5 max-md:max-w-full">
 
       <div className="flex gap-3 items-center self-stretch p-3 my-auto text-6xl uppercase font-['Squada One'] whitespace-nowrap">
         <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl" >Distenda</h1>
