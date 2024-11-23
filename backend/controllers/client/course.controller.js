@@ -30,17 +30,14 @@ module.exports.index = async (req, res) => {
 // [GET] /courses/detail/:CourseSlug
 module.exports.detail = async (req, res) => {
   try {
-    const category = await Category.find({
-      CategoryDeleted: 1,
-    })
-    const allCategory = createTreeHelper.tree(category);
-
     const find = {
       CourseDeleted: 1,
       CourseSlug: req.params.CourseSlug,
       CourseStatus: 1
     }
-    const course = await Course.findOne(find);
+    let course = {}
+    course = await Course.findOne(find);
+    console.log(course)
 
     if (course.CourseIntructor && course.CourseIntructor != "") {
       const intructor = await Admin.findOne({
@@ -84,7 +81,6 @@ module.exports.detail = async (req, res) => {
     // res.render('client/pages/courses/detail', {
     //   pageTitle: course.CourseName,
     //   course: course,
-    //   allCategory: allCategory,
     // });
   } catch (error) {
     req.flash("error", "Không tìm thấy sản phẩm!")
