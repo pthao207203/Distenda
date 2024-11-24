@@ -1,6 +1,5 @@
 const Video = require("../../models/video.model");
 const Lesson = require("../../models/lesson.model");
-const Admin = require("../../models/admin.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");

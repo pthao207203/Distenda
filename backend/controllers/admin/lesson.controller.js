@@ -1,6 +1,7 @@
 const Course = require("../../models/course.model");
 const Lesson = require("../../models/lesson.model");
 const Video = require("../../models/video.model");
+const Exercise = require("../../models/exercise.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
@@ -126,15 +127,26 @@ module.exports.detailItem = async (req, res) => {
     });
     lesson.course = course;
 
-    const count = await Video.countDocuments({
+    const countVideo = await Video.countDocuments({
       LessonId: req.params.LessonID,
     });
-    if (count > 0) {
+    if (countVideo > 0) {
       const video = await Video.find({
         LessonId: req.params.LessonID,
         VideoDeleted: 1,
       });
       lesson.video = video;
+    }
+
+    const countExer = await Exercise.countDocuments({
+      LessonId: req.params.LessonID,
+    });
+    if (countExer > 0) {
+      const exer = await Exercise.findOne({
+        LessonId: req.params.LessonID,
+        ExerciseDeleted: 1,
+      });
+      lesson.exer = exer;
     }
 
     res.render("admin/pages/lesson/detail", {

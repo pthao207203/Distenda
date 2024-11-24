@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  //- if (role.RolePermissions.includes("course_view"))
+  +alert-success(3000)
+  
+  h1(class="mb-4") #{exer.ExerciseName}
+  div(class="mb-4") <b>Khoá học:</b> #{exer.lesson.LessonName}
+  <hr/>
+
+  h3 Đề bài
+  div(class="mb-4") !{exer.ExerciseQuestion}
+  if (exer.ExerciseSample)
+    div(class="form-group")
+      h3 Code mẫu
+      textarea(
+        class="form-control"
+        id="ExerciseAnswer"
+        name="ExerciseAnswer"
+        rows="20"
+        textarea-mce
+      ) !{exer.ExerciseSample}
+  div(class="form-group")
+      h3 Đáp án
+      textarea(
+        class="form-control"
+        id="ExerciseAnswer"
+        name="ExerciseAnswer"
+        rows="20"
+        textarea-mce
+      ) !{exer.ExerciseAnswer}
+  if (role.RolePermissions.includes("course_edit"))
+    a(
+      class="btn btn-info btn-sm"
+      href=`${prefixAdmin}/exercise/edit/${exer._id}`
+    ) Chỉnh sửa
+  if (role.RolePermissions.includes("course_delete"))
+    button(
+      class="btn btn-danger btn-sm ml-1"
+      item-id=exer._id
+      button-delete
+      data-path=`${prefixAdmin}/exercise/delete`
+    ) Xoá
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-item"
+    ) 
+
+  script(src="/admin/js/course.js") 
