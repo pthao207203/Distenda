@@ -15,7 +15,7 @@ export default function Header() {
           <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl">Distenda</h1>
         </div>
 
-        <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg">
+        <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
           <Link
             to="/"
             className={`px-3 py-3 ${activeLink === 'home' ? 'bg-[#CFF500]' : ''}`}
