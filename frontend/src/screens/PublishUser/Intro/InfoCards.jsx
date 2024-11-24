@@ -40,7 +40,7 @@ const infoCardsData = [
 // Component hiển thị từng thẻ thông tin
 function InfoCard({ icon, title, content }) {
   return (
-    <div className="card border-0 bg-white bg-opacity-10 ">
+    <div className="card border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
       <div className="card-body mx-[20px] my-[20px] ">
         <img src={icon} alt={title} className="mb-[32px]" style={{ width: "30px", height: "30px" }} />
         <h5 className="card-title fw-bold text-white text-[32px] ">{title}</h5>

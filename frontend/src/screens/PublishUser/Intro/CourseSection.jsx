@@ -64,7 +64,8 @@ function CourseCard(course) {
 }
 
 
-function CourseSection() {
+function CourseSection(courseData) {
+  const courses = courseData ? Object.values(courseData.courseData) : []
   return (
     <section className="relative flex overflow-hidden justify-self-center flex-col  bg-none max-md:max-w-full">
 

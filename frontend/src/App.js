@@ -6,12 +6,12 @@ import UserRoutes from './layouts/UserRoutes';
 // import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainUser from './layouts/private/MainUser';
-import Courses from './layouts/public/Courses';
 
 import Login from './screens/PublishUser/Login/Login';
 import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
 import Course from './screens/User/CourseDetail/CourseDetailPage';
+import Courses from './screens/PublishUser/Course/CoursePage';
 
 function App() {
   return (
@@ -30,10 +30,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/' element={<Intro />} />
-        </Route>
-        <Route element={<Courses />}>
-        <Route path='/' element={<Intro />} />
           <Route path='/courses/Data-Analytics-Certificate' element={<Course />} />
+          <Route path='/courses' element={<Courses />} />
         </Route>
         {/* </Route> */}
 
