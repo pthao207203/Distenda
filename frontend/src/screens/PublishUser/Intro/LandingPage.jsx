@@ -15,7 +15,7 @@ function LandingPage() {
       intructor: [],
     }
   );
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,8 +37,8 @@ function LandingPage() {
       </div>
     )
   }
-  console.log("intructor ", data.intructor)
-  console.log("courses ", data.courses)
+  // console.log("intructor ", data.intructor)
+  // console.log("courses ", data.courses)
   return (
     <>
       {/* Hero Section */}
@@ -57,7 +57,7 @@ function LandingPage() {
         <Container>
           <Row className="g-4">
             <Col lg={20} md={12} className="d-flex justify-content-center align-items-center w-screen">
-              <CourseSection courseData={data.courses} />
+              {data.courses.length > 0 && <CourseSection courseData={data.courses} />}
             </Col>
           </Row>
         </Container>
