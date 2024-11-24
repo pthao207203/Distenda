@@ -43,20 +43,20 @@ function LandingPage() {
     <>
       {/* Hero Section */}
       <section className="py-5 w-full text-white px-1">
-        <Container>
-          <Row className="relative flex overflow-hidden justify-self-center flex-col w-screen bg-none max-md:max-w-full py-0">
-            <Col lg={20} md={12} className="relative z-index-1">
+        <Container fluid className="px-0">
+          <Row className="relative flex overflow-hidden justify-self-center flex-col max-w-full py-0">
+            <Col lg={12} md={12} className="relative z-index-1">
               <HeroSection />
             </Col>
-          </Row> {/* Đóng thẻ Row ở đây */}
+          </Row>
         </Container>
       </section>
 
       {/* Course Section */}
       <section className="justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
-        <Container>
+        <Container fluid className="px-0">
           <Row className="g-4">
-            <Col lg={20} md={12} className="d-flex justify-content-center align-items-center w-screen">
+            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center w-full">
               {data.courses.length > 0 && <CourseSection courseData={data.courses} />}
             </Col>
           </Row>
@@ -75,16 +75,15 @@ function LandingPage() {
       </section>
 
       {/* Teacher Section */}
-      <section className="backdrop-blur-[10px]relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
-        <Container>
+      <section className="backdrop-blur-[10px] relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
+        <Container fluid className="px-0">
           <Row className="g-4">
-            <Col lg={12} md={12} className="d-flex justify-content-centealign-items-center">
+            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center">
               <TeacherSection teacherData={data.intructor} />
             </Col>
           </Row>
         </Container>
       </section>
-
     </>
   );
 }
