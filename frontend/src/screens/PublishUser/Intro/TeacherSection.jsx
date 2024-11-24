@@ -23,8 +23,9 @@ function TeacherCard(teacher) {
 }
 
 function TeacherSection(teacherData) {
+  // const teachers = teacherData
   const teachers = teacherData ? teacherData.teacherData : []; // Lấy danh sách các khóa học (mảng)
-  console.log("Object.values(teacherData):", teachers);
+  // console.log("Object.values(teacherData):", teachers);
   return (
     <section className="flex-col w-screen bg-none max-md:max-w-full  ">
       <Container>

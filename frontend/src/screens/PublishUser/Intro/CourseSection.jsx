@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // const courseData = [
 //   {
@@ -41,8 +42,8 @@ import React from 'react';
 
 function CourseCard(course) {
   return (
-    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] w-full-[633px] max-md:max-w-full ">
-      <img loading="lazy" src={image} alt={title} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
+    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] w-full-[633px] max-md:max-w-full  backdrop-blur-[10px]">
+      <img loading="lazy" src={course.CoursePicture} alt={course.CourseName} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
       <div className="flex flex-col flex-1 shrink self-stretch my-auto basis-0  min-w-[240px] w-[348px] h-full-[183px]">
         <h3 className="flex items-start text-[28px] font-semibold leading-7 text-white h-[100px]">
           <div className="line-clamp-2">
@@ -63,18 +64,15 @@ function CourseCard(course) {
 }
 
 
-function CourseSection({ courseData }) {
-  // Kiểm tra dữ liệu trước khi hiển thị
-  const courses = courseData ? Object.values(courseData) : []; // Lấy danh sách các khóa học (mảng)
-
+function CourseSection() {
   return (
     <section className="relative flex overflow-hidden justify-self-center flex-col  bg-none max-md:max-w-full">
 
       <div className="items-center text-left text-white text-[20px] font-medium py-[20px] px-[12px] mb-[8px]">
         Đề xuất
       </div>
-      <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px] backdrop-blur-[10px]">
-        {courseData.map((course, index) => (
+      <div className="flex flex-wrap justify-center gap-[50px] mb-[55px] mx-[50px]">
+        {courses.map((course, index) => (
           <CourseCard key={index} {...course} />
         ))}
       </div>
