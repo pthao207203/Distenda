@@ -26,7 +26,7 @@ const Courses = () => {
     <div className="bg-[url('Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
       {token ? <HeaderPrivate /> : <HeaderPublic />}
       {token && <SideBar />}
-      <div className={`pt-[104px] transition-all duration-300 ${isDesktop ? "ml-[280px]" : "ml-0"}`}>
+      <div className={`pt-[104px] transition-all duration-300 ${isDesktop && token ? "ml-[280px]" : "ml-0"}`}>
         <Outlet />
         <Footer />
       </div>
