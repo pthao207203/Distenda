@@ -76,10 +76,10 @@ function CourseSection() {
           <CourseCard key={index} {...course} />
         ))}
       </div>
-      <button
+      <Link to="/courses"
         className="flex justify-center items-center self-center w-[331px] h-[60px] px-[20px] py-[20px] mb-[16px] text-[20px] font-semibold leading-none text-black bg-[#CFF500]">
         Xem tất cả
-      </button>
+      </Link>
     </section>
   );
 }
