@@ -37,8 +37,8 @@ function LandingPage() {
       </div>
     )
   }
-  // console.log("intructor ", data.intructor)
-  // console.log("courses ", data.courses)
+  console.log("intructor ", data.intructor)
+  console.log("courses ", data.courses)
   return (
     <>
       {/* Hero Section */}
