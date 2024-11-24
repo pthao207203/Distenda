@@ -11,7 +11,7 @@ import Courses from './layouts/public/Courses';
 import Login from './screens/PublishUser/Login/Login';
 import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
-import Course from './screens/User/CourseDetail/CourseDetailPage';
+import CourseDetail from './screens/User/CourseDetail/CourseDetailPage';
 
 function App() {
   return (
@@ -29,11 +29,10 @@ function App() {
         <Route element={<Main />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/' element={<Intro />} />
         </Route>
         <Route element={<Courses />}>
         <Route path='/' element={<Intro />} />
-          <Route path='/courses/Data-Analytics-Certificate' element={<Course />} />
+          <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
         </Route>
         {/* </Route> */}
 
