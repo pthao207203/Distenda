@@ -68,6 +68,7 @@ module.exports.pay = async (req, res) => {
 module.exports.payPost = async (req, res) => {
   if (req.cookies.user_token) {
     const test = await User.findOne({
+      _id: res.locals.user.id,
       "UserCourse.CourseId": req.params.CourseID
     })
     if (test) {
@@ -93,7 +94,7 @@ module.exports.payPost = async (req, res) => {
 
     const course = await Course.findOne({ _id: req.params.CourseID })
     req.flash("success", "Thanh toán thành công")
-    res.redirect(`/courses/${course.CourseSlug}`);
+    res.redirect(`/courses/detail/${course.CourseSlug}`);
   } else {
     res.render("client/pages/auth/login", {
       pageTitle: "Đăng nhập",
@@ -115,4 +116,47 @@ module.exports.profileEdit = async (req, res) => {
     pageTitle: "Trang cá nhân",
     user: res.locals.user
   });
+};
+
+// [POST] /courses/comment/add/:CourseID
+module.exports.addComment = async (req, res) => {
+  if (req.cookies.user_token) {
+    console.log(req.body)
+    req.body.Rate = parseInt(req.body.Rate);
+    const test = await User.findOne({
+      "UserCourse.CourseId": req.params.CourseID,
+      _id: res.locals.user.id,
+    })
+    if (!test) {
+      return;
+    }
+
+    await User.updateOne({
+      "UserCourse.CourseId": req.params.CourseID,
+      _id: res.locals.user.id,
+    }, {
+      'UserCourse.$.CourseReview': 1
+    }
+    );
+    console.log(res.locals.user)
+
+    await Course.updateOne({ _id: req.params.CourseID }, {
+      $push: {
+        CourseReview: {
+          UserId: res.locals.user.id,
+          Rate: req.body.Rate,
+          Comment: req.body.Comment,
+        }
+
+      },
+    })
+
+    const course = await Course.findOne({ _id: req.params.CourseID })
+    req.flash("success", "Thanh toán thành công")
+    res.redirect(`/courses/detail/${course.CourseSlug}`);
+  } else {
+    res.render("client/pages/auth/login", {
+      pageTitle: "Đăng nhập",
+    });
+  }
 };

@@ -30,7 +30,7 @@ function LandingPage() {
     fetchData();
   }, []);
 
-  if (!loading) {
+  if (loading) {
     return (
       <div>
         Đang tải...
