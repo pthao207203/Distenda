@@ -8,6 +8,7 @@ const categoryRoutes = require("./category.route");
 const searchRoutes = require("./search.route");
 const authRoutes = require("./auth.route");
 const userRoutes = require("./user.route");
+const payRoutes = require("./pay.route");
 
 module.exports = (app) => {
   app.use(categoryHeader.CateHeader);
@@ -20,4 +21,5 @@ module.exports = (app) => {
   app.use('/search', searchRoutes);
   app.use('/auth', authRoutes);
   app.use('/user', authMiddleware.requireAuth, userRoutes)
+  app.use('/pay', authMiddleware.requireAuth, payRoutes)
 }
