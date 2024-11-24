@@ -2,6 +2,7 @@ const Category = require("../../models/category.model")
 const Course = require("../../models/course.model")
 const Admin = require("../../models/admin.model")
 const Role = require("../../models/role.model")
+const Setting = require("../../models/setting.model")
 const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] /
@@ -32,3 +33,23 @@ module.exports.index = async (req, res) => {
   //   intructor: intructor
   // });
 }
+
+// [GET] /header
+module.exports.header = async (req, res) => {
+  if (req.cookies.user_token) {
+    // console.log("cookies", req.cookies.user_token)
+    const category = await Category.find({
+      CategoryDeleted: 1,
+    })
+    const setting = await Setting.findOne({})
+    res.json({
+      category: category,
+      setting: setting,
+    })
+  } else {
+    res.json({
+      code: 400,
+      message: "Chưa đăng nhập"
+    })
+  }
+};
