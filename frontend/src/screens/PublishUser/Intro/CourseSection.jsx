@@ -1,43 +1,43 @@
 import React from 'react';
 
-const courseData = [
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/461185e564abbcabe8a565059033a7552c836cf7cb34770a13288b29d066bd97?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Chuyên viên thiết kế đồ họa & web",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/c651f8125d452ea0ce349f8384ba92e10e9e5bef8132e1ed0c250cedc6db7aad?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Data Analytics Certificate",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/67414f9ed8f8cc3493bc4c1224dcb669d2f25a151de0cbc054bcac953e0fc938?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Ứng dụng CNTT cơ bản",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/4a2201ab1d3aaacd3deca64ad983d89b0e4fdf05fd7343080effcb0fcae1cdbb?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Kỹ thuật viên Thiết kế Hệ thống nhận dạng thương hiệu",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/aaa36daa023884cf26fc4cea6c317cf3450d2e378b07667aa8deb23f7a382bf8?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Thiết kế Giao diện Website toàn phần (Layout UX/UI với Figma + HTML, CSS, JQuery)",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  },
-  {
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/80a292b824d8123307dceca7e5c4b6fce18ef4410b70cf756b94dd1afec8a209?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
-    title: "Trực quan hóa dữ liệu - Data Visualization",
-    duration: "120 tiếng",
-    price: "10.000.000"
-  }
-];
+// const courseData = [
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/461185e564abbcabe8a565059033a7552c836cf7cb34770a13288b29d066bd97?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Chuyên viên thiết kế đồ họa & web",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   },
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/c651f8125d452ea0ce349f8384ba92e10e9e5bef8132e1ed0c250cedc6db7aad?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Data Analytics Certificate",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   },
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/67414f9ed8f8cc3493bc4c1224dcb669d2f25a151de0cbc054bcac953e0fc938?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Ứng dụng CNTT cơ bản",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   },
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/4a2201ab1d3aaacd3deca64ad983d89b0e4fdf05fd7343080effcb0fcae1cdbb?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Kỹ thuật viên Thiết kế Hệ thống nhận dạng thương hiệu",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   },
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/aaa36daa023884cf26fc4cea6c317cf3450d2e378b07667aa8deb23f7a382bf8?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Thiết kế Giao diện Website toàn phần (Layout UX/UI với Figma + HTML, CSS, JQuery)",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   },
+//   {
+//     image: "https://cdn.builder.io/api/v1/image/assets/TEMP/80a292b824d8123307dceca7e5c4b6fce18ef4410b70cf756b94dd1afec8a209?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e",
+//     title: "Trực quan hóa dữ liệu - Data Visualization",
+//     duration: "120 tiếng",
+//     price: "10.000.000"
+//   }
+// ];
 
 function CourseCard(course) {
   return (
@@ -66,7 +66,6 @@ function CourseCard(course) {
 function CourseSection({ courseData }) {
   // Kiểm tra dữ liệu trước khi hiển thị
   const courses = courseData ? Object.values(courseData) : []; // Lấy danh sách các khóa học (mảng)
-  console.log(courses[0])
 
   return (
     <section className="relative flex overflow-hidden justify-self-center flex-col bg-none max-md:max-w-full">
