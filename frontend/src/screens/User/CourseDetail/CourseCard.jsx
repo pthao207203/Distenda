@@ -17,14 +17,14 @@ export default function CourseCard() {
         alt="Course thumbnail"
         className="object-contain w-full aspect-[1.64]"
       />
-      <div className="inline-flex items-center justify-between px-[0.8rem] py-2.5 w-full font-medium leading-none ">
+      <div className="inline-flex flex-wrap items-center justify-between px-[0.8rem] py-2 w-full font-medium leading-none">
         {/* Giá hiện tại */}
-        <div className="flex gap-3 items-center text-3xl text-[#df322b] max-md:text-2xl">
+        <div className="flex gap-3 items-center text-3xl  text-[#df322b]">
           <span>3.000.000</span>
         </div>
 
         {/* Giá gạch bỏ */}
-        <div className="flex gap-3 items-center text-xl text-[#e24943] line-through max-md:text-[18px]">
+        <div className="flex gap-3 items-center text-xl text-[#e24943] line-through">
           <span>12.300.000</span>
         </div>
       </div>
