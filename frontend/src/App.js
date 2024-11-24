@@ -30,6 +30,7 @@ function App() {
           <Route path='/' element={<Intro />} />
           <Route path='/courses/Data-Analytics-Certificate' element={<Course />} />
           <Route path='/courses' element={<Courses />} />
+          {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
         </Route>
 
         {/* Những trang đã đăng nhập thì không được vào */}
