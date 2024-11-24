@@ -12,7 +12,7 @@ function TeacherCard(teacher) {
   return (
     <div className="text-center d-flex flex-column align-items-center">
       <img
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b3fb1c054f222cb0970549f10f33d5c1719ab242f2ce6a8570eaa86763aef40?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
+        src={teacher.AdminAvatar}
         alt={teacher.AdminFullName}
         className="rounded-circle"
         style={{ width: '104px', height: '104px' }}
