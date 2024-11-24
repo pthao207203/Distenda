@@ -2,7 +2,7 @@ import React from "react";
 import  ProductCard  from "./ProductCard";
 import  UserForm  from "./UserForm";
 
-export default function CheckoutPage ({onClose}) {
+export default function CheckoutPage ({onClose, handleOpenBank}) {
   const productDetails = {
     title: "Data Analytics Certificate",
     duration: "120 tiếng",
@@ -23,7 +23,7 @@ export default function CheckoutPage ({onClose}) {
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/18ce7f5d3a0e8a95408a91d7f810fd4a3daa1c23a4824327ff1f5f9f74b720b0?apiKey=1914b3001bed44e2a53adf842ab19f47&"
         alt="Close"
-        className="object-contain self-end aspect-[0.94] w-[34px] max-md:mr-2.5"
+        className="object-contain self-end aspect-[0.94] hover:brightness-110 hover:scale-105 transition duration-200"
       />
       </button>
       <div className="flex flex-col px-10 mt-2 w-full max-md:px-5 max-md:max-w-full">
@@ -48,7 +48,7 @@ export default function CheckoutPage ({onClose}) {
             Hình thức thanh toán: Chuyển khoản ngân hàng
           </p>
         </div>
-        <button className="flex gap-3 justify-center items-center self-center px-3 py-4 mt-9 max-w-full text-xl font-medium leading-none text-white bg-neutral-900 w-[272px]">
+        <button onClick={handleOpenBank} className="flex gap-3 justify-center items-center self-center px-3 py-4 mt-9 max-w-full text-xl font-medium leading-none text-white bg-neutral-900 w-[272px]">
           <span className="gap-2.5 self-stretch my-auto">Đăng ký</span>
         </button>
       </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef} from "react";
 import CourseSection from "./CourseSection";
 import CourseNavigation from "./CourseNavigation";
 import InstructorProfile from "./InstructorProfile";
