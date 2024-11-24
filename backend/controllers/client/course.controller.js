@@ -78,10 +78,10 @@ module.exports.detail = async (req, res) => {
         const test1 = await User.findOne({
           _id: res.locals.user.id,
           "UserCourse.CourseId": course.id,
-          "UserCourse.CourseReview": 1,
+          "UserCourse.CourseReview": 0,
         })
         if (test1) {
-          course.review = 1;
+          course.review = 0;
         }
       }
     }
