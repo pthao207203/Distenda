@@ -25,13 +25,6 @@ code {
 h1 {
   font-family: "Squada One";
 }
-Nav.Link {
-  color: white !important;
-}
-Nav.Link :active {
-  background-color: #cff500;
-  color: black;
-}
 
 /* Footer */
 footer h2 {

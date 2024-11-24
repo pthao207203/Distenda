@@ -5,7 +5,7 @@ export async function homeController(setLoading) {
   try {
     setLoading(true); // Đang tải
     const result = await homeService(); // Gọi API
-    console.log("result", result);
+    // console.log("result", result);
     setLoading(false); // Tải xong
     return result;
   } catch (err) {
