@@ -36,7 +36,7 @@ function BankDetail() {
   return (
     <section className="flex flex-col p-3 mt-2 gap-4 w-full border border-solid border-slate-300 max-md:max-w-full">
       {transferData.map((item, index) => (
-        <div key={index} className="flex flex-col w-full gap-4 max-md:max-w-full">
+        <div key={index} className="flex flex-col w-full gap-3 max-md:max-w-full">
           {index === 0 ? (
             <div className="flex flex-wrap gap-4 items-center w-full text-xl font-medium leading-none text-black max-md:max-w-full">
               <img

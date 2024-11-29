@@ -18,7 +18,7 @@ function Bank({onClose, handleConfirm}) {
             <h2 className="flex flex-1 shrink gap-3 items-center self-stretch my-auto font-medium basis-5 min-w-[240px] text-neutral-900 max-md:max-w-full">
               Vui lòng chuyển khoản đến
             </h2>
-            <time className="gap-2.5 self-stretch px-2.5 py-4 my-auto font-semibold text-white bg-neutral-900 ">
+            <time className="gap-2.5 self-stretch px-3 py-3 my-auto font-semibold text-white bg-neutral-900 ">
               24 : 59 : 50
             </time>
           </header>
@@ -31,8 +31,7 @@ function Bank({onClose, handleConfirm}) {
         <div className="mt-2 leading-6 max-md:max-w-full">
             <ol className="list-decimal pl-5 space-y-2">
             <li>
-                Vui lòng chuyển đúng số tiền (bao gồm 3 chữ số cuối cùng của mã
-                duy nhất).
+                Vui lòng chuyển đúng số tiền (bao gồm 3 chữ số cuối cùng của mã duy nhất).
             </li>
             <li>
                 Chọn{" "}

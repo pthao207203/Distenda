@@ -37,7 +37,7 @@ export default function CheckoutPage ({onClose, handleOpenBank}) {
             <input
               type="text"
               id="discountCode"
-              className="flex gap-2.5 py-2 mt-2 max-w-full bg-[#EBF1F9] min-h-[38px] w-[338px]"
+              className="flex gap-2.5 px-2 py-2 mt-2 max-w-full bg-[#EBF1F9] min-h-[38px] w-2/3"
             />
           </div>
           <p className="mt-4 text-xl font-medium leading-none text-black max-md:max-w-full">

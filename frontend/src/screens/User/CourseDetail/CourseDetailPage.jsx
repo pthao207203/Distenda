@@ -46,7 +46,7 @@ export default function CourseDetailPage() {
   };
   
   return (
-    <div className="relative w-full h-full overflow-y-auto">
+    <div className="flex flex-col relative w-full h-full overflow-y-auto">
       <PageNav />
       {/* CourseContent nhận hàm handleOpenPayment */}
       <CourseContent onRegister={handleOpenPayment} />
