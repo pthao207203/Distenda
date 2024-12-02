@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import CourseSection from "./CourseSection";
 import CourseNavigation from "./CourseNavigation";
 import InstructorProfile from "./InstructorProfile";
@@ -9,7 +9,7 @@ import CourseReviews from "../CourseDetail/CourseReviews";
 import CourseCard from "./CourseCard";
 import CourseOverview from "./CourseOverview";
 
-export default function CourseContent() {
+export default function CourseContent({onRegister}) {
   const refs = {
     overview: useRef(null),
     content: useRef(null),
@@ -26,11 +26,10 @@ export default function CourseContent() {
 
   return (
     <main className="flex flex-col shrink relative box-border text-white items-start w-full bg-white/15 max-md:px-4 max-md:max-w-full overflow-x-hidden">
-
       <CourseOverview />
 
       <aside className="absolute flex flex-col z-10 ml-5 justify-end w-1/4 max-md:w-full max-md:relative max-md:ml-0 md:right-0 max-md:mb-10">
-        <CourseCard />
+        <CourseCard onRegister={onRegister} /> {/* Truyền hàm mở Payment */}
       </aside>
 
       {/* Main Content Section */}
