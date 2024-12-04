@@ -38,7 +38,7 @@ function LoginForm() {
             <p className="flex gap-3 items-center font-normal self-stretch py-1  my-auto">
               Bạn chưa có tài khoản?&nbsp;
             </p>
-            <a href="#signup" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
+            <a href="/register" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
               Đăng ký ngay
             </a>
           </div>

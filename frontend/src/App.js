@@ -11,11 +11,14 @@ import MainUser from './layouts/private/MainUser';
 import Login from './screens/PublishUser/Login/Login';
 import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
-import CourseDetail from './screens/User/CourseDetail/CourseDetailPage';
+import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       <Route element={<Layout />}>
 
@@ -43,6 +46,7 @@ function App() {
 
       </Route>
     </Routes>
+    </>
   );
 }
 
