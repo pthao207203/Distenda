@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SideBar = () => {
+const SideBar = ({ headerHeight }) => {
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng của Sidebar
   const [isDesktop, setIsDesktop] = useState(false); // Xác định xem có phải màn hình lớn hay không
 
@@ -43,12 +43,8 @@ const SideBar = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-[104px] left-0 h-full z-40 text-white transition-all duration-300 ${isDesktop || isOpen ? "w-[292px]" : "w-0"
-          } overflow-hidden`}
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.3)", // Nền trắng mờ
-          backdropFilter: "blur(30px)", // Làm mờ nền
-        }}
+        className={`fixed left-0 h-full z-40 text-white bg-white/5 backdrop-blur-[60px] transition-all duration-300 overflow-hidden`}
+        style={{ top: `${headerHeight}px` }} // Thay thế giá trị top bằng chiều cao header
       >
         {/* Thông tin người dùng */}
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">

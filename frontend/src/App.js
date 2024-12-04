@@ -5,6 +5,7 @@ import Layout from './layouts/Layout';
 import UserRoutes from './layouts/UserRoutes';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
+import MainPublic from './layouts/public/MainPublic';
 import AuthMain from './layouts/public/AuthMain';
 import MainUser from './layouts/private/MainUser';
 
@@ -30,9 +31,13 @@ function App() {
 
         {/* Dù có đăng nhập hay không vẫn vào được */}
         <Route element={<Main />} >
+          <Route path='/courses' element={<Courses />} />
+          {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
+        </Route>
+        
+        <Route element={<MainPublic />} >
           <Route path='/' element={<Intro />} />
           <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
-          <Route path='/courses' element={<Courses />} />
           {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
         </Route>
 
