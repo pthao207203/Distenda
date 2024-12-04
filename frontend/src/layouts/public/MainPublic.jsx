@@ -16,6 +16,7 @@ const Courses = () => {
       <div  
         style={{
             paddingTop: token ? `${headerHeight}px` : `${headerHeightPublic}px`,
+
         }}
       >
         <Outlet />

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef} from 'react';
-import { Link , useLocation} from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
 
 export default function Header({ setHeaderHeight }) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Theo dõi URL hiện tại
-  
+
   const handleLinkClick = (link) => {
     setActiveLink(link);
   };
@@ -33,7 +33,7 @@ export default function Header({ setHeaderHeight }) {
       setHeaderHeight(headerRef.current.offsetHeight); // Truyền chiều cao của header qua props
     }
   }, [headerRef, setHeaderHeight]);
-  
+
   // Cập nhật activeLink khi URL thay đổi
   useEffect(() => {
     const currentPath = location.pathname;

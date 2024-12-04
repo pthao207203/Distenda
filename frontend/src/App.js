@@ -14,20 +14,21 @@ import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
 import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
+import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
-    <ScrollToTop />
-    <Routes>
-      <Route element={<Layout />}>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
 
-        {/* Những trang bắt buộc phải đăng nhập thì mới được vào */}
-        <Route element={<UserRoutes />}>
-          {/* <Route element={<MainUser />}> */}
-          {/* </Route> */}
-        </Route>
+          {/* Những trang bắt buộc phải đăng nhập thì mới được vào */}
+          <Route element={<UserRoutes />}>
+            {/* <Route element={<MainUser />}> */}
+            {/* </Route> */}
+          </Route>
 
         {/* Dù có đăng nhập hay không vẫn vào được */}
         <Route element={<Main />} >
@@ -38,19 +39,19 @@ function App() {
         <Route element={<MainPublic />} >
           <Route path='/' element={<Intro />} />
           <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
-          {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
+          <Route path='/category/:CategorySlug' element={<Category />} />
         </Route>
 
-        {/* Những trang đã đăng nhập thì không được vào */}
-        <Route element={<PublicRoutes />}>
-          <Route element={<AuthMain />}>
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+          {/* Những trang đã đăng nhập thì không được vào */}
+          <Route element={<PublicRoutes />}>
+            <Route element={<AuthMain />}>
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+            </Route>
           </Route>
-        </Route>
 
-      </Route>
-    </Routes>
+        </Route>
+      </Routes>
     </>
   );
 }
