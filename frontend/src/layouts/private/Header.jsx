@@ -40,11 +40,17 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
     }
   }, [headerRef, setHeaderHeight]);
 
-  // Cập nhật activeLink khi URL thay đổi
   useEffect(() => {
     const currentPath = location.pathname;
-    setActiveLink(currentPath);
+  
+    // Cập nhật `activeLink` dựa trên URL
+    if (currentPath === "/courses" || currentPath.startsWith("/category/")) {
+      setActiveLink(currentPath);
+    } else {
+      setActiveLink("");
+    }
   }, [location.pathname]);
+  
 
   if (loading) {
     return (
@@ -69,21 +75,25 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
 
         <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
           <Link
-            to="/"
-            className={`px-3 py-3 ${activeLink === 'home' ? 'bg-[#CFF500] text-black' : ''}`}
-            onClick={() => handleLinkClick('home')}
+            to="/courses"
+            className={`px-3 py-3 ${activeLink === '/courses' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => handleLinkClick('/courses')}
           >
             Trang chủ
           </Link>
           {data.category.map((cate) => (
             <Link
+              key={cate.CategorySlug} // Thêm key để tránh lỗi trong React
               to={`/category/${cate.CategorySlug}`}
-              className={`px-3 py-3 ${activeLink === `/${cate.CategorySlug}` ? 'bg-[#CFF500] text-black' : ''}`}
-              onClick={() => handleLinkClick(`/${cate.CategorySlug}`)}
+              className={`px-3 py-3 ${
+                activeLink === `/category/${cate.CategorySlug}` ? 'bg-[#CFF500] text-black' : ''
+              }`}
+              onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
               {cate.CategoryName}
             </Link>
           ))}
+
         </nav>
         <button className="flex flex-row gap-1 justify-end" onClick={toggleTaskBar}>
         <img
