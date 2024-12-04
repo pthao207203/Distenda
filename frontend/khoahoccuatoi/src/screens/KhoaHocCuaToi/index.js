@@ -1,1 +1,0 @@
-export { KhoaHocCuaToi } from "./KhoaHocCuaToi";

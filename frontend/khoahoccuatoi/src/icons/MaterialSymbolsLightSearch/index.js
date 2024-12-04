@@ -1,1 +1,0 @@
-export { MaterialSymbolsLightSearch } from "./MaterialSymbolsLightSearch";
