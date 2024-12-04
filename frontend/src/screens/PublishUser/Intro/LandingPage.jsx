@@ -20,10 +20,8 @@ function LandingPage() {
   useEffect(() => {
     async function fetchData() {
       const result = await homeController(setLoading);
-      if (result && Array.isArray(result.courses)) {
+      if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
-      } else {
-        setData({ courses: [] }); // Mặc định là mảng rỗng nếu không hợp lệ
       }
     }
 

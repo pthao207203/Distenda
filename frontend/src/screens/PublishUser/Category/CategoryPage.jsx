@@ -1,45 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 //import SideBar from "./SideBar"; // Import Sidebar
-import SearchBar from "./SearchBar"; // Import SearchBar
-import CourseCard from "./CourseCard"; // Import CourseCard
-import { coursesController } from "../../../controllers/course.controller";
+import SearchBar from "../Course/SearchBar"; // Import SearchBar
+import CourseCard from "../Course/CourseCard"; // Import CourseCard
+import { categoryController } from "../../../controllers/category.controller";
 //import TestimonialSection from "./TestimonialSection"; // Import TestimonialSection
 //import TeacherSection from "./TeacherSection"; // Import TeacherSection
 
-const courseData = [
-  {
-    title: "Lập trình Back-end NodeJS",
-    duration: "60 tiếng",
-    lessons: "30",
-    instructor: "Xuyến Nguyễn",
-    imageUrl:
-      "https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/8f15a66050d966f182827e9f1113ae4fc18e3b782cbd544fe23bda7adbcc99ce?apiKey=1914b3001bed44e2a53adf842ab19f47&",
-  },
-  {
-    title: "Chuyên viên thiết kế đồ họa & web",
-    duration: "60 tiếng",
-    lessons: "30",
-    instructor: "Xuyến Nguyễn",
-    imageUrl:
-      "https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/8f15a66050d966f182827e9f1113ae4fc18e3b782cbd544fe23bda7adbcc99ce?apiKey=1914b3001bed44e2a53adf842ab19f47&",
-  },
-];
-
-function CoursePage() {
+function CategoryPage() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
+  const { CategorySlug } = useParams();
+
   useEffect(() => {
-    async function fetchData() {
-      const result = await coursesController(setLoading);
-      console.log(result)
+    async function fetchData(categorySlug) {
+      const result = await categoryController(setLoading, categorySlug);
+      console.log(result);
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
     }
 
-    fetchData();
-  }, []);
+    if (CategorySlug) {
+      fetchData(CategorySlug); // Gọi fetchData với CategorySlug
+    }
+  }, [CategorySlug]);
+
 
   if (loading) {
     return (
@@ -48,7 +35,7 @@ function CoursePage() {
       </div>
     )
   }
-  // console.log("courses => ", data)
+  console.log("courses => ", data)
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -82,4 +69,4 @@ function CoursePage() {
   );
 }
 
-export default CoursePage;
+export default CategoryPage;
