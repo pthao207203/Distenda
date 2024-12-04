@@ -46,7 +46,7 @@ const SideBar = ({ headerHeight }) => {
         className={`fixed top-0 left-0 h-full z-40 text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[292px] mt-[${headerHeight}px]` : "w-0 "
           } overflow-hidden`}
         style={{
-          backgroundColor: "rgba(255, 255, 255, 0.3)", // Nền trắng mờ
+          backgroundColor: "rgba(255, 255, 255, 0.03)", // Nền trắng mờ
           backdropFilter: "blur(30px)", // Làm mờ nền
           top: `${headerHeight}px`
         }} // Thay thế giá trị top bằng chiều cao header
