@@ -55,10 +55,10 @@ function TestimonialCard({ avatar, name, content }) {
 
 function TestimonialSection() {
   return (
-    <section className="bg-none text-left flex-col w-screen  max-md:max-w-full  ">
+    <section className=" text-left flex-col w-screen  max-md:max-w-full  ">
       <Container>
-        <div className="text-left mb-5">
-          <h2 className="flex items-left px-[12px] py-[20px] mb-[16px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+        <div className="text-left mb-[16px]">
+          <h2 className="flex items-left py-[20px] text-[20px] font-medium leading-none text-white max-md:max-w-full">
             Nhận xét của học viên
           </h2>
         </div>
