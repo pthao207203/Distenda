@@ -24,8 +24,8 @@ const Courses = () => {
 
   return (
     <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
-      {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight}/> : <HeaderPublic setHeaderHeight={setHeaderHeight}/>}
-      {token && <SideBar headerHeight={headerHeight}/>}
+      {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight} /> : <HeaderPublic setHeaderHeight={setHeaderHeight} />}
+      {token && <SideBar headerHeight={headerHeight} />}
       <div className={`transition-all duration-300 ${isDesktop && token ? "ml-[292px]" : "ml-0"}`}
         style={{
           paddingTop: `${headerHeight}px`,
