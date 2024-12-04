@@ -5,6 +5,12 @@ import { headerController } from "../../controllers/home.controller"
 export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Theo dõi URL hiện tại
+  const [openDetails, setOpenDetails] = useState(false);
+
+  const toggleTaskBar = () => {
+    setOpenDetails(!openDetails); // Đảo trạng thái openDetails
+    handleTaskBarToggle();
+  };
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -79,7 +85,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
             </Link>
           ))}
         </nav>
-        <button className="flex flex-row gap-1 justify-end" onClick={handleTaskBarToggle}>
+        <button className="flex flex-row gap-1 justify-end" onClick={toggleTaskBar}>
         <img
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
@@ -88,7 +94,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
         />
         <img
         loading="lazy"
-        src="../Icon/tam_giac.svg"
+        src={`../Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
         alt=""
         className="object-center shrink-0 self-stretch my-auto aspect-[2.14] w-[15px]"
         />
