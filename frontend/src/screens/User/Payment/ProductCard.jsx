@@ -10,18 +10,18 @@ export default function ProductCard({ title, duration, price, imageUrl }) {
         className="object-contain shrink-0 self-stretch my-auto aspect-[1.14] w-[195px]"
       />
       <div className="flex flex-col flex-1 shrink self-stretch items-center my-auto basis-0 max-md:max-w-full">
-        <div className="flex flex-wrap gap-3 px-3 pt-4 pb-10 w-full text-3xl font-semibold text-neutral-900 max-md:max-w-full">
+        <div className="flex flex-wrap gap-3 px-3 pt-4 pb-10 w-full text-3xl font-semibold text-[#131313] max-md:max-w-full">
           <h2 className="flex-1 shrink gap-2.5 self-center w-full ">
             {title}
           </h2>
         </div>
         <div className="flex flex-col items-start py-3 gap-4 w-full font-medium max-md:max-w-full">
-          <div className="flex gap-3 items-center px-3 max-w-full text-xl  text-neutral-900">
+          <div className="flex gap-3 items-center px-3 max-w-full text-xl  text-[#131313]">
             <p >
               Thời gian: {duration}
             </p>
           </div>
-          <div className="flex gap-3 items-center px-3 max-w-full h-5 font-medium text-3xl text-[#DF322B] whitespace-nowrap">
+          <div className="flex gap-3 items-center px-3 max-w-full h-5 font-[600] text-3xl text-[#DF322B] whitespace-nowrap">
             <p >
               {price.toLocaleString()}
             </p>

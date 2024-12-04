@@ -55,8 +55,8 @@ function LandingPage() {
       {/* Course Section */}
       <section className="justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container fluid className="px-0">
-          <Row className="g-4">
-            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center w-full">
+          <Row className="gap-4">
+            <Col lg={12} md={12} className="flex justify-center items-center w-full">
               {data.courses.length > 0 && <CourseSection courseData={data.courses} />}
             </Col>
           </Row>
@@ -66,8 +66,8 @@ function LandingPage() {
       {/* Testimonial Section */}
       <section className="py-5">
         <Container>
-          <Row className="g-4">
-            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center">
+          <Row className="gap-4">
+            <Col lg={12} md={12} className="flex justify-center items-center">
               <TestimonialSection />
             </Col>
           </Row>
@@ -77,8 +77,8 @@ function LandingPage() {
       {/* Teacher Section */}
       <section className="relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container fluid className="px-0">
-          <Row className="g-4">
-            <Col lg={12} md={12} className="d-flex justify-content-center align-items-center">
+          <Row className="gap-4">
+            <Col lg={12} md={12} className="flex justify-center items-center">
               <TeacherSection teacherData={data.intructor} />
             </Col>
           </Row>
