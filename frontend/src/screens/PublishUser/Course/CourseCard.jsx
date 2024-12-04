@@ -34,10 +34,14 @@ function CourseCard(course) {
         </div>
 
       </div>
-
-      <button className="flex justify-center items-center w-full px-[12px] py-[20px] text-xl font-medium leading-none  bg-[#CFF500] min-h-[60px] text-neutral-900">
-        <Link to={`/courses/${course.CourseSlug}`} className="self-stretch my-auto">Xem chi tiết</Link>
-      </button>
+    {/* Nút Xem chi tiết */}
+      <div className="mt-auto">
+        <button className="flex justify-center items-center w-full px-[12px] py-[20px] text-xl font-medium leading-none bg-[#CFF500] min-h-[60px] text-neutral-900">
+          <Link to={`/courses/${course.CourseSlug}`} className="self-stretch my-auto">
+            Xem chi tiết
+          </Link>
+        </button>
+      </div>
     </article>
   );
 }
