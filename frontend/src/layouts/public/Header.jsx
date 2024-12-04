@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
-export default function Header({setHeaderHeight}) {
+export default function Header({setHeight}) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Lấy URL hiện tại
 
@@ -17,16 +17,16 @@ export default function Header({setHeaderHeight}) {
     setActiveLink(pathToLink[currentPath] || '');
   }, [location]); // Gọi lại mỗi khi URL thay đổi
 
-  const headerRef = useRef(null);
+  const headerRefPublic = useRef(null);
   useEffect(() => {
-    if (headerRef.current) {
-      setHeaderHeight(headerRef.current.offsetHeight); // Truyền chiều cao của header qua props
+    if (headerRefPublic.current) {
+      setHeight(headerRefPublic.current.offsetHeight); // Truyền chiều cao của header qua props
     }
-  }, [headerRef, setHeaderHeight]);
+  }, [headerRefPublic, setHeight]);
 
   return (
     <header 
-      ref={headerRef}
+      ref={headerRefPublic}
       className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
     >
       <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
