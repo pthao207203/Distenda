@@ -29,8 +29,8 @@ function TeacherSection(teacherData) {
   return (
     <section className="flex-col w-screen bg-none max-md:max-w-full  ">
       <Container>
-        <div className="text-center mb-5">
-          <h2 className="flex items-left px-[12px] py-[20px] mb-[24px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+        <div className="text-center mb-[16px]">
+          <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
             Đội ngũ giáo viên</h2>
         </div>
         <Row className="g-[40px] mt-[20px] mb-[50px]">
