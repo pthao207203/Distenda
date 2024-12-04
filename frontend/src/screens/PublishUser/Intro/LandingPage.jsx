@@ -75,7 +75,7 @@ function LandingPage() {
       </section>
 
       {/* Teacher Section */}
-      <section className="backdrop-blur-[10px] relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0">
+      <section className="relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container fluid className="px-0">
           <Row className="gap-4">
             <Col lg={12} md={12} className="flex justify-center items-center">
