@@ -74,7 +74,7 @@ const SideBar = ({ headerHeight }) => {
           {menuItems.map((item, index) => (
             <div
               key={index}
-              className="flex gap-3 items-center py-[20px] px-[24px] w-full transition"
+              className="flex gap-3 items-center py-[20px] pl-[24px] w-[95%] transition"
               style={{
                 background: "rgba(0, 0, 0, 0)", // Mặc định trong suốt
               }}
