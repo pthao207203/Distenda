@@ -5,7 +5,7 @@ import InstructorProfile from "./InstructorProfile";
 import CourseStats from "./CourseStats";
 import LearningOutcomes from "./LearningOutcomes";
 import CourseLessons from "./CourseLessons";
-import CourseReviews from "../CourseDetail/CourseReviews";
+import CourseReviews from "./CourseReviews";
 import CourseCard from "./CourseCard";
 import CourseOverview from "./CourseOverview";
 
