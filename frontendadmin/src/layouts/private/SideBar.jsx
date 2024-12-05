@@ -6,7 +6,7 @@ export default function SideBar() {
     { link: "/", icon: "./icons/home.svg", label: "Trang chủ", isActive: false },
     { link: "/courses", icon: "./icons/document.svg", label: "Khóa học", isActive: false },
     { link: "/user", icon: "./icons/2user.svg", label: "Người dùng", isActive: false },
-    { link: "/lecturer", icon: "./icons/work.svg", label: "Giảng viên", isActive: false },
+    { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên", isActive: false },
     { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
     { link: "/", icon: "./icons/setting.svg", label: "Phân quyền", isActive: false },
     { link: "/", icon: "./icons/notification.svg", label: "Thông báo", isActive: false },
