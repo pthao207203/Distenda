@@ -32,9 +32,17 @@ block main
       .col-12
         .card.p-4.my-4
           form(
-            action=`/user/pay/${course.id}`
+            action=`/pay/${course.id}`
             method="POST"
           )
+            div(class="form-group")
+              label(for="PayVoucher") Mã giảm giá
+              input(
+                type="text"
+                class="form-control"
+                id="PayVoucher"
+                name="PayVoucher"
+              )
             div(class="form-group")
               label(for="UserFullName") Họ tên
               input(
@@ -44,6 +52,16 @@ block main
                 name="UserFullName"
                 required
                 value=user.UserFullName
+              )
+            div(class="form-group")
+              label(for="UserEmail") Email
+              input(
+                type="text"
+                class="form-control"
+                id="UserEmail"
+                name="UserEmail"
+                required
+                value=user.UserEmail
               )
             div(class="form-group")
               label(for="UserPhone") Số điện thoại

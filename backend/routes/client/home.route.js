@@ -5,4 +5,6 @@ const controller = require("../../controllers/client/home.controller")
 
 router.get('/', controller.index)
 
+router.get('/header', controller.header);
+
 module.exports = router;

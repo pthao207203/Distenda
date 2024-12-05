@@ -7,6 +7,7 @@ const courseRoute = require("./course.route");
 const categoryRoute = require("./category.route");
 const roleRoute = require("./role.route");
 const adminRoute = require("./admin.route");
+const userRoute = require("./user.route");
 const authRoute = require("./auth.route");
 const lessonRoute = require("./lesson.route");
 const videoRoute = require("./video.route");
@@ -39,6 +40,11 @@ module.exports = (app) => {
     systemConfig.prefixAdmin + `/admin`,
     authMiddleware.requireAuth,
     adminRoute
+  );
+  app.use(
+    systemConfig.prefixAdmin + `/user`,
+    authMiddleware.requireAuth,
+    userRoute
   );
   app.use(
     systemConfig.prefixAdmin + `/lesson`,

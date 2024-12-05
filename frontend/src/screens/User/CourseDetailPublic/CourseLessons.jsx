@@ -30,7 +30,7 @@ export default function CourseLessons() {
   };
 
   return (
-    <section className="flex flex-wrap flex-col p-2.5 w-full rounded-3xl">
+    <section className="flex flex-wrap flex-col w-full rounded-3xl">
       {lessons.map((lesson, index) => (
         <details
           key={index}

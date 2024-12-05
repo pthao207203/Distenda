@@ -37,9 +37,18 @@
   }
 }
 .course-section {
-  width: 100%;            /* Chiều rộng đầy đủ mặc định */
- /* max-width: 1333px;      /* Giới hạn chiều rộng tối đa */
-  margin: 0 auto;         /* Căn giữa section */
-  padding: 0 16px;        /* Thêm khoảng cách bên trong để tránh sát mép */
+  width: 100%; /* Chiều rộng đầy đủ mặc định */
+  /* max-width: 1333px;      /* Giới hạn chiều rộng tối đa */
+  margin: 0 auto; /* Căn giữa section */
+  padding: 0 16px; /* Thêm khoảng cách bên trong để tránh sát mép */
   box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+}
+
+/* File globals.css hoặc styles.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
