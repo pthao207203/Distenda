@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
+
 export default function Header({setHeight}) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Lấy URL hiện tại
