@@ -12,6 +12,7 @@ import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import PaymentTablePage from './screens/Payment/PaymentTablePage';
+import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
 
 function App() {
   return (
@@ -19,14 +20,15 @@ function App() {
       <Route element={<Layout />}>
 
         {/* <Route element={<AdminRoutes />}> */}
-        <Route element={<MainAdmin />}>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/courses' element={<Courses />} />
-          <Route path="/long-term-course" element={<LongTermCoursePage />} />
-          <Route path='/user' element={<UserTable />} />
-          <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
-          <Route path="/payment" element={<PaymentTablePage />} />
-        </Route>
+          <Route element={<MainAdmin />}>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/courses' element={<Courses/>}/>
+                <Route path="/long-term-course" element={<LongTermCoursePage />} />
+            <Route path='/user' element={<UserTable/>} />
+            <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
+            <Route path="/payment" element={<PaymentTablePage />} />
+            <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+          </Route>
         {/* </Route> */}
 
         {/* <Route element={PublicRoutes}> */}

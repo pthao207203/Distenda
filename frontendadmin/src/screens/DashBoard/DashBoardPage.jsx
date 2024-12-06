@@ -1,6 +1,7 @@
 import * as React from "react";
 import StatCard from "./components/StatCard";
 import CourseTableRow from "./components/CourseTableRow";
+import TableHeader from "./components/TableHeader";
 import SideBar from "../../layouts/private/SideBar";
 
 const stats = [
@@ -22,6 +23,12 @@ const stats = [
     percentage: "Tăng 60%",
     iconSrc: "./icons/bag.svg",
   },
+  {
+    title: "Đánh giá",
+    value: "3.9",
+    percentage: "Tăng 20%",
+    iconSrc: "./icons/star.svg"
+  }
 ];
 
 const menuItems = [
@@ -44,11 +51,13 @@ function DashboardPage() {
   return (
         <div className="flex flex-col flex-1 bg-indigo-50 overflow-auto">
           {/* Stats Section */}
-          <section className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {stats.map((stat, index) => (
-              <StatCard key={index} {...stat} />
-            ))}
-          </section>
+          <div className="flex flex-col flex-1 shrink p-16 font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+          <div className="flex flex-col self-center min-w-full w-[1100px]">
+            <div className="flex flex-wrap gap-4 items-center text-white max-md:max-w-full">
+              {stats.map((stat, index) => (
+                <StatCard key={index} {...stat} />
+              ))}
+            </div>
 
             {/* Chart Section */}
             <section className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -101,27 +110,7 @@ function DashboardPage() {
               </div>
             </section>
             <section className="flex flex-col mt-7 w-full text-xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-neutral-900 max-md:max-w-full">
-              <header className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Mã khóa học</div>
-                </div>
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Tên khóa</div>
-                </div>
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Đã bán</div>
-                </div>
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white whitespace-nowrap basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Giá</div>
-                </div>
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Lợi nhuận</div>
-                </div>
-                <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-amber-300 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                  <div className="gap-2.5 self-stretch my-auto">Trạng thái</div>
-                </div>
-              </header>
-
+                <TableHeader />
               {courses.map((course, index) => (
                 <CourseTableRow key={index} {...course} />
               ))}
@@ -131,7 +120,9 @@ function DashboardPage() {
               </button>
             </section>
           </div>
-        );
+                </div>
+              </div>
+            );
       }
 
 export default DashboardPage;

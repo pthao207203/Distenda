@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 function TableRow(user) {
   const getStatusStyles = (status) => {
@@ -31,7 +32,7 @@ function TableRow(user) {
 
       {/* Tên người dùng */}
       <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <span>{user.createdAt}</span>
+        <span>{moment(user.createdAt).format("DD/MM/YYYY hh:mm:ss")}</span>
       </div>
 
       {/* Thời gian tham gia */}
@@ -41,12 +42,18 @@ function TableRow(user) {
 
       {/* Doanh thu */}
       <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <span>{user.createdAt}</span>
+        <span>{moment(user.createdAt).format("DD/MM/YYYY hh:mm:ss")}</span>
       </div>
 
       {/* Lần cuối cập nhật */}
-      <div className={`flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px] h-[60px] rounded-[99px] ${getStatusStyles(user.UserStatus)}`}>
-        <span>{getStatusText(user.UserStatus)}</span>
+      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
+        <div
+          className={`flex gap-3 justify-center items-center min-w-[240px] py-2.5 w-280 ${getStatusStyles(
+            user.UserStatus
+          )} min-h-[40px] rounded-[99px]`}
+        >
+          <span>{getStatusText(user.UserStatus)}</span>
+        </div>
       </div>
     </Link>
   );
