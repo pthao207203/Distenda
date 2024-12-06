@@ -13,34 +13,34 @@ function CourseTableHeader() {
   };
 
   return (
-    <header className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-slate-500 h-[70px] max-md:max-w-full">
+    <header className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
       {/* Mã khóa học */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
         <span className="text-center">Mã khóa học</span>
       </div>
 
       {/* Tên khóa */}
-      <div className="flex flex-1 justify-center items-center text-white min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 justify-center items-center text-white min-w-[240px]">
         <span className="text-center">Tên khóa</span>
       </div>
 
       {/* Đã bán */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
         <span className="text-center">Đã bán</span>
       </div>
 
       {/* Giá */}
-      <div className="flex flex-1 justify-center items-center text-white min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 justify-center items-center text-white min-w-[240px]">
         <span className="text-center">Giá</span>
       </div>
 
       {/* Lợi nhuận */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
         <span className="text-center">Lợi nhuận</span>
       </div>
 
       {/* Dropdown Trạng thái */}
-      <div className="relative flex flex-1 justify-center items-center bg-amber-300 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="relative flex flex-1 justify-center items-center text-white min-w-[240px]">
         {/* Nút dropdown */}
         <button
           className="flex items-center gap-2 text-center"

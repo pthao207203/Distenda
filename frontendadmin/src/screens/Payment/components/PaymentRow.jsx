@@ -6,7 +6,7 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       case "pending":
         return "bg-amber-300";
       case "paid":
-        return "bg-yellow-400";
+        return "bg-[#D1F669]";
       case "cancelled":
         return "bg-red-600 text-white";
       default:
@@ -33,36 +33,36 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       onClick={() => onRowClick && onRowClick(id)}
     >
       {/* Mã thanh toán */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
         <span>{id}</span>
       </div>
 
       {/* Tên người dùng */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
         <span>{userName}</span>
       </div>
 
       {/* Mã khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
         <span>{courseCode}</span>
       </div>
 
       {/* Giá */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
         <span>{price}</span>
       </div>
 
       {/* Thời gian */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
         <span>{time}</span>
       </div>
 
       {/* Trạng thái */}
       <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
         <div
-          className={`flex gap-3 justify-center items-center px-3 py-2.5 w-280 ${getStatusStyles(
+          className={`flex gap-3 justify-center items-center min-w-[240px] py-2.5 w-280 ${getStatusStyles(
             status
-          )} min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]`}
+          )} min-h-[40px] rounded-[99px]`}
         >
           <span>{getStatusText(status)}</span>
         </div>
