@@ -31,7 +31,7 @@ const courseData = [
 
 function CourseTable() {
   return (
-    <section className="flex flex-col py-16 w-full text-xl text-neutral-900 max-md:max-w-full">
+    <section className="flex flex-col mt-10 w-full text-xl text-neutral-900 max-md:max-w-full">
       <TableHeader />
       {courseData.map((course, index) => (
         <CourseTableRow key={index} {...course} />

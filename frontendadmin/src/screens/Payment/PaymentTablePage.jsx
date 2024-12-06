@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import PaymentRow from "./components/PaymentRow";
 import TableHeader from "./components/TableHeader";
 import SearchBar from "../../layouts/private/SearchBar";
@@ -79,13 +80,19 @@ const paymentData = [
 ];
 
 function PaymentTable() {
+  const navigate = useNavigate(); // Sử dụng hook điều hướng
+
+  const handleRowClick = (id) => {
+    navigate(`/invoicedetails/${id}`); // Điều hướng tới trang chi tiết với `id`
+  };
+
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
       <div className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
         <TableHeader />
         {paymentData.map((payment, index) => (
-          <PaymentRow key={index} {...payment} />
+          <PaymentRow key={index} {...payment} onRowClick={handleRowClick} />
         ))}
       </div>
     </div>

@@ -28,7 +28,7 @@ function CourseList() {
   return (
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
-      <section className="flex flex-wrap gap-10 items-start self-end mt-3 text-3xl text-white max-md:max-w-full">
+      <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-3xl text-white max-md:max-w-full">
         <ActionButton text="Thêm phân loại" />
         <ActionButton text="Thêm khóa học" />
       </section>

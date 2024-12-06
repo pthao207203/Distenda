@@ -7,6 +7,8 @@ export const usersService = async () => {
     });
     console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/user`)
 
+    // console.log("response => ", response.text());
+
     if (!response.ok) {
       throw new Error('Lỗi!!!');
     }
