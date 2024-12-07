@@ -3,8 +3,8 @@ const router = express.Router();
 
 const controller = require("../../controllers/client/pay.controller");
 
-router.get("/:CourseID", controller.pay);
+router.get("/:CourseSlug", controller.pay);
 
-router.post("/:CourseID", controller.payPost);
+router.post("/:CourseSlug", controller.payPost);
 
 module.exports = router;

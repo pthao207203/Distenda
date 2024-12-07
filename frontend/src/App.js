@@ -30,16 +30,17 @@ function App() {
             {/* </Route> */}
           </Route>
 
-        {/* Dù có đăng nhập hay không vẫn vào được */}
-        <Route element={<Main />} >
-          <Route path='/courses' element={<Courses />} />
-          <Route path='/category/:CategorySlug' element={<Category />} />
-        </Route>
-        
-        <Route element={<MainPublic />} >
-          <Route path='/' element={<Intro />} />
-          <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
-        </Route>
+          {/* Dù có đăng nhập hay không vẫn vào được */}
+          <Route element={<Main />} >
+            <Route path='/courses' element={<Courses />} />
+            <Route path='/category/:CategorySlug' element={<Category />} />
+          </Route>
+
+          <Route element={<MainPublic />} >
+            <Route path='/' element={<Intro />} />
+            {/* <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} /> */}
+            <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
+          </Route>
 
           {/* Những trang đã đăng nhập thì không được vào */}
           <Route element={<PublicRoutes />}>

@@ -35,7 +35,7 @@ block main
               ) Bỏ yêu thích
           else 
             form(
-              action=`/user/like/add/${course.id}`
+              action=`/user/like/add/${course._id}`
               method="GET"
             )
               button(
@@ -44,7 +44,7 @@ block main
               ) Yêu thích
           if (!course.has)
             form(
-              action=`/pay/${course.id}`
+              action=`/pay/${course._id}`
               method="GET"
             )
               button(
@@ -87,7 +87,7 @@ block main
                         td
     if (course.review==0)
       form(
-        action=`/user/comment/add/${course.id}`
+        action=`/user/comment/add/${course._id}`
         method="POST"
         id="form-create-course"
       )
