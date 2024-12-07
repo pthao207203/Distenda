@@ -16,6 +16,7 @@ import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
 import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
+import UserProfile from './screens/User/ProfileUser/ProfilePage';
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
 
           {/* Những trang bắt buộc phải đăng nhập thì mới được vào */}
           <Route element={<UserRoutes />}>
-            {/* <Route element={<MainUser />}> */}
-            {/* </Route> */}
+            <Route element={<MainUser />}>
+              <Route path='/user/profile' element={<UserProfile />} />
+            </Route>
           </Route>
 
         {/* Dù có đăng nhập hay không vẫn vào được */}

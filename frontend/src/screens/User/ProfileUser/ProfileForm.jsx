@@ -11,7 +11,7 @@ const ProfileForm = () => (
         <input
           id="fullName"
           type="text"
-          className="flex-1 shrink gap-2.5 self-stretch text-black px-[8px] py-[8px] mt-2 w-full text-lg border border-gray-300 border-solid min-h-[60px] max-md:max-w-full"
+          className="flex-1 shrink gap-2.5 self-stretch text-white bg-transparent px-[8px] py-[8px] mt-2 w-full text-lg border border-[#D0D7DF] border-solid min-h-[60px] max-md:max-w-full"
           defaultValue="Pham Hải Yến"
         />
       </div>
@@ -23,7 +23,7 @@ const ProfileForm = () => (
         <input
           id="email"
           type="email"
-          className="flex-1 shrink gap-2.5 self-stretch px-[8px] py-[8px] mt-2 w-full text-lg bg-indigo-50 min-h-[60px] text-neutral-900 text-opacity-60 max-md:max-w-full"
+          className="flex-1 shrink gap-2.5 self-stretch px-[8px] py-[8px] mt-2 w-full text-lg bg-[#EBF1F9] min-h-[60px] text-neutral-900 text-opacity-60 max-md:max-w-full"
           defaultValue="Hyen@gmail.com"
           readOnly
         />
@@ -36,7 +36,7 @@ const ProfileForm = () => (
         <input
           id="phone"
           type="tel"
-          className="flex-1 shrink gap-2.5 self-stretch px-[8px] py-[8px] mt-2 w-full text-lg whitespace-nowrap bg-indigo-50 min-h-[60px] text-neutral-900 text-opacity-60 max-md:max-w-full"
+          className="flex-1 shrink gap-2.5 self-stretch px-[8px] py-[8px] mt-2 w-full text-lg whitespace-nowrap bg-[#EBF1F9] min-h-[60px] text-neutral-900 text-opacity-60 max-md:max-w-full"
           defaultValue="09834743959"
           readOnly
         />
@@ -50,8 +50,9 @@ const ProfileForm = () => (
           <input
             id="currentPassword"
             type="password"
+            disabled
             className="flex-1 shrink self-stretch my-auto basis-0 max-md:max-w-full bg-transparent border-none"
-            defaultValue="password123"
+            defaultValue="password123" //Mật khẩu hiện tại
           />
           <img
             loading="lazy"
@@ -66,11 +67,11 @@ const ProfileForm = () => (
         <label htmlFor="newPassword" className="text-xl font-medium text-white max-md:max-w-full">
           Mật khẩu mới
         </label>
-        <div className="flex gap-2.5 justify-center items-center px-[8px] py-[8px] mt-2 w-full border border-gray-300 border-solid min-h-[60px] max-md:max-w-full">
+        <div className="flex gap-2.5 justify-center items-center px-[8px] py-[8px] mt-2 w-full border border-[#D0D7DF] border-solid min-h-[60px] max-md:max-w-full">
           <input
             id="newPassword"
             type="password"
-            className="flex-1 bg-transparent border-none"
+            className="flex-1 bg-transparent border-none outline-none text-white"
           />
           <img
             loading="lazy"
@@ -85,11 +86,11 @@ const ProfileForm = () => (
         <label htmlFor="confirmPassword" className="text-xl font-medium text-white max-md:max-w-full">
           Xác nhận mật khẩu
         </label>
-        <div className="flex gap-2.5 justify-center items-center px-[8px] py-[8px] mt-2 w-full border border-gray-300 border-solid min-h-[60px] max-md:max-w-full">
+        <div className="flex gap-2.5 justify-center items-center px-[8px] py-[8px] mt-2 w-full border border-[#D0D7DF] border-solid min-h-[60px] max-md:max-w-full">
           <input
             id="confirmPassword"
             type="password"
-            className="flex-1 bg-transparent border-none"
+            className="flex-1 bg-transparent border-none outline-none text-white"
           />
           <img
             loading="lazy"

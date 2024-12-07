@@ -96,7 +96,7 @@ function LoginForm({ onForgotPassword }) {
           </div>
         </div>
         <div className="flex mt-2 items-center justify-end text-right w-full text-lg max-md:text-[16px]">
-            <button onClick={onForgotPassword} className="flex text-right text-white text-base font-normal hover:font-medium hover:underline self-end my-auto ">
+            <button type="button" onClick={onForgotPassword} className="flex text-right text-white text-base font-normal hover:font-medium hover:underline self-end my-auto ">
               Quên mật khẩu
             </button>
         </div>

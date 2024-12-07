@@ -9,7 +9,7 @@ export const loginController = async (data, setSuccess, setError, navigate) => {
     } else {
       setSuccess(result.message || 'Đăng nhập thành công!');
       setTimeout(() => {
-        navigate('/'); // Điều hướng tới trang chủ
+        navigate('/courses'); // Điều hướng tới trang chủ (trang khóa học)
       }, 3000);
     }
   } catch (err) {
@@ -26,7 +26,7 @@ export const registerController = async (data, setSuccess, setError, navigate) =
     } else {
       setSuccess(result.message || 'Đăng ký thành công!');
       setTimeout(() => {
-        navigate('/'); // Điều hướng tới trang chủ
+        navigate('/courses'); // Điều hướng tới trang chủ (trang khóa học)
       }, 3000);
     }
   } catch (err) {
