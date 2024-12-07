@@ -1,4 +1,4 @@
-import { loginService, registerService } from '../services/auth.service';
+import { loginService, registerService, logoutService } from '../services/auth.service';
 
 // [POST] /auth/login
 export const loginController = async (data, setSuccess, setError, navigate) => {
@@ -9,7 +9,7 @@ export const loginController = async (data, setSuccess, setError, navigate) => {
     } else {
       setSuccess(result.message || 'Đăng nhập thành công!');
       setTimeout(() => {
-        navigate('/'); // Điều hướng tới trang chủ
+        navigate('/courses'); // Điều hướng tới trang chủ (trang khóa học)
       }, 3000);
     }
   } catch (err) {
@@ -26,7 +26,7 @@ export const registerController = async (data, setSuccess, setError, navigate) =
     } else {
       setSuccess(result.message || 'Đăng ký thành công!');
       setTimeout(() => {
-        navigate('/'); // Điều hướng tới trang chủ
+        navigate('/courses'); // Điều hướng tới trang chủ (trang khóa học)
       }, 3000);
     }
   } catch (err) {
@@ -34,3 +34,16 @@ export const registerController = async (data, setSuccess, setError, navigate) =
   }
 };
 
+// [GET] /auth/logout
+export const logoutController = async ( navigate) => {
+  try {
+    
+    console.log("jsgu")
+    const result = await logoutService(); // Gọi service để xử lý API
+
+    console.log("jsg")
+        navigate('/login'); // Điều hướng tới trang đăng nhập
+  } catch (err) {
+    // setError(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
