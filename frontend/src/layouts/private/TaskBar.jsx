@@ -1,6 +1,6 @@
 import * as React from "react";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom"; 
+import { logoutController } from "../../controllers/auth.controller";
 
 function TaskBarItem({ text, onClick }) {
     return (
@@ -15,17 +15,11 @@ function TaskBarItem({ text, onClick }) {
 }
 
 function TaskBar() {
-  // Hàm xử lý đăng xuất
-  const handleLogout = () => {
-  // Xóa token trong cookies
-  Cookies.remove("user_token");
-
-  // Có thể thêm logic để điều hướng người dùng hoặc thông báo đăng xuất thành công
-  alert("Đã đăng xuất thành công!");
-
-  // Nếu cần điều hướng người dùng về trang khác sau khi đăng xuất, có thể sử dụng `useNavigate` từ react-router-dom
-  // ví dụ: navigate('/login');
-  };
+    // Hàm xử lý đăng xuất
+    const handleLogout = () => {
+      logoutController(navigate);
+      alert("Đã đăng xuất thành công!");
+    };
   const navigate = useNavigate(); // Khởi tạo useNavigate
   const handleProfileNavigation = () => {
     navigate("/user/profile"); // Điều hướng đến trang profile

@@ -1,4 +1,4 @@
-import { loginService, registerService } from '../services/auth.service';
+import { loginService, registerService, logoutService } from '../services/auth.service';
 
 // [POST] /auth/login
 export const loginController = async (data, setSuccess, setError, navigate) => {
@@ -34,3 +34,16 @@ export const registerController = async (data, setSuccess, setError, navigate) =
   }
 };
 
+// [GET] /auth/logout
+export const logoutController = async ( navigate) => {
+  try {
+    
+    console.log("jsgu")
+    const result = await logoutService(); // Gọi service để xử lý API
+
+    console.log("jsg")
+        navigate('/login'); // Điều hướng tới trang đăng nhập
+  } catch (err) {
+    // setError(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
