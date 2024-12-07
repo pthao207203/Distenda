@@ -13,6 +13,11 @@ import Register from './screens/PublishUser/Register/Register';
 import Intro from './screens/PublishUser/Intro/LandingPage';
 import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
+import CoursePurchased from './screens/PublishUser/CoursePurchased/CourseDetailPage';
+import CourseCompleted from './screens/PublishUser/CourseCompleted/CoursesDetailPage';
+import CoursePractice from './screens/PublishUser/CoursePractice/CourseLayout';
+import CourseCode from './screens/PublishUser/CourseCode/CourseLayout';
+import CoursesCode from './screens/PublishUser/CoursesCode/Layout';
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -32,8 +37,12 @@ function App() {
         <Route element={<Main />} >
           <Route path='/' element={<Intro />} />
           <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
-          <Route path='/courses' element={<Courses />} />
           {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
+          <Route path='/courses/CoursePurchased' element={<CoursePurchased />} />
+          <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
+          <Route path='/courses/CoursePractice' element={<CoursePractice />} />
+          <Route path='/courses/CourseCode' element={<CourseCode />} />          
+          <Route path='/courses/CoursesCode' element={<CoursesCode />} />
         </Route>
 
         {/* Những trang đã đăng nhập thì không được vào */}
