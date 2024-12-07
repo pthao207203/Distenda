@@ -13,6 +13,7 @@ import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import PaymentTablePage from './screens/Payment/PaymentTablePage';
 import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
+import Permission from './screens/Permission/PermissionPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+            <Route path="/permission" element={<Permission />} />
           </Route>
         {/* </Route> */}
 
