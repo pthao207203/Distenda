@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
 
-export default function Header() {
+export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
   const [activeLink, setActiveLink] = useState('');
+  const location = useLocation(); // Theo dõi URL hiện tại
+  const [openDetails, setOpenDetails] = useState(false);
+
+  const toggleTaskBar = () => {
+    setOpenDetails(!openDetails); // Đảo trạng thái openDetails
+    handleTaskBarToggle();
+  };
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -26,6 +33,25 @@ export default function Header() {
     fetchData();
   }, []);
 
+  const headerRef = useRef(null);
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight); // Truyền chiều cao của header qua props
+    }
+  }, [headerRef, setHeaderHeight]);
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+  
+    // Cập nhật `activeLink` dựa trên URL
+    if (currentPath === "/courses" || currentPath.startsWith("/category/")) {
+      setActiveLink(currentPath);
+    } else {
+      setActiveLink("");
+    }
+  }, [location.pathname]);
+  
+
   if (loading) {
     return (
       <div>
@@ -37,7 +63,10 @@ export default function Header() {
   console.log("setting ", data.setting)
 
   return (
-    <header className="bg-[url('Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10">
+    <header
+      ref={headerRef}
+      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] "
+    >
       <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
         <div className="text-6xl uppercase font-['Squada One']">
           <img src={data.setting.WebsiteLogoUser} alt={data.setting.WebsiteName} />
@@ -46,28 +75,40 @@ export default function Header() {
 
         <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
           <Link
-            to="/"
-            className={`px-3 py-3 ${activeLink === 'home' ? 'bg-[#CFF500]' : ''}`}
-            onClick={() => handleLinkClick('home')}
+            to="/courses"
+            className={`px-3 py-3 ${activeLink === '/courses' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => handleLinkClick('/courses')}
           >
             Trang chủ
           </Link>
           {data.category.map((cate) => (
             <Link
+              key={cate.CategorySlug} // Thêm key để tránh lỗi trong React
               to={`/category/${cate.CategorySlug}`}
-              className={`px-3 py-3 ${activeLink === `/${cate.CategorySlug}` ? 'bg-[#CFF500]' : ''}`}
-              onClick={() => handleLinkClick(`/${cate.CategorySlug}`)}
+              className={`px-3 py-3 ${
+                activeLink === `/category/${cate.CategorySlug}` ? 'bg-[#CFF500] text-black' : ''
+              }`}
+              onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
               {cate.CategoryName}
             </Link>
           ))}
+
         </nav>
+        <button className="flex flex-row gap-1 justify-end" onClick={toggleTaskBar}>
         <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/da8c56b0ed0ce20e86a4d83e849aa87e45d5e1b3c3272d9e0917e05086937c46?placeholderIfAbsent=true&apiKey=1c8ec17ce6334045a3dd3a0f791508d6"
-          alt="Logo"
-          className="object-contain shrink-0 self-stretch my-auto aspect-[1.34] w-[75px]"
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
+        alt=""
+        className="object-contain shrink-0 self-stretch my-auto w-14 rounded-full aspect-square"
         />
+        <img
+        loading="lazy"
+        src={`../Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
+        alt=""
+        className="object-center shrink-0 self-stretch my-auto aspect-[2.14] w-[15px]"
+        />
+        </button>
       </div>
     </header>
   );

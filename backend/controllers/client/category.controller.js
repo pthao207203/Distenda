@@ -30,11 +30,6 @@ const createTreeHelper = require("../../helpers/createTree");
 // [GET] /category/:CategorySlug
 module.exports.detail = async (req, res) => {
   try {
-    const categoryH = await Category.find({
-      CategoryDeleted: 1,
-    })
-    const allCategory = createTreeHelper.tree(categoryH);
-    
     const find = {
       CategoryDeleted: 1,
       CategorySlug: req.params.CategorySlug,
@@ -59,15 +54,21 @@ module.exports.detail = async (req, res) => {
     const listSubId = listSub.map(item => item.id)
 
     const courses = await Course.find({
-      CourseCatogory: { $in: [category.id, ...listSubId]},
+      CourseCatogory: { $in: [category.id, ...listSubId] },
       CourseDeleted: 1
-    })
-    
-    res.render('client/pages/courses/index', {
-      courses: courses,
-      allCategory: allCategory,
-    });
-  } catch (error){
+    }).lean();
+
+    for (const course of courses) {
+      const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+      course.intructor = intructor.AdminFullName
+    }
+
+    res.json(courses)
+    // res.render('client/pages/courses/index', {
+    //   courses: courses,
+    //   allCategory: allCategory,
+    // });
+  } catch (error) {
     req.flash("error", "Không tìm thấy danh mục!")
     res.redirect(`/courses`)
   }

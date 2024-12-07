@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
-export default function Header() {
+
+export default function Header({setHeight}) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Lấy URL hiện tại
 
@@ -17,8 +18,18 @@ export default function Header() {
     setActiveLink(pathToLink[currentPath] || '');
   }, [location]); // Gọi lại mỗi khi URL thay đổi
 
+  const headerRefPublic = useRef(null);
+  useEffect(() => {
+    if (headerRefPublic.current) {
+      setHeight(headerRefPublic.current.offsetHeight); // Truyền chiều cao của header qua props
+    }
+  }, [headerRefPublic, setHeight]);
+
   return (
-    <header className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 ">
+    <header 
+      ref={headerRefPublic}
+      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
+    >
       <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
         <div className="text-6xl uppercase font-['Squada One']">
           <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl">Distenda</h1>

@@ -20,10 +20,8 @@ function LandingPage() {
   useEffect(() => {
     async function fetchData() {
       const result = await homeController(setLoading);
-      if (result && Array.isArray(result.courses)) {
+      if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
-      } else {
-        setData({ courses: [] }); // Mặc định là mảng rỗng nếu không hợp lệ
       }
     }
 
@@ -44,7 +42,7 @@ function LandingPage() {
       {/* Hero Section */}
       <section className="py-5 w-full text-white px-1">
         <Container fluid className="px-0">
-          <Row className="relative flex overflow-hidden justify-self-center flex-col max-w-full py-0">
+          <Row className="relative flex overflow-hidden justify-self-left flex-col max-w-full py-0">
             <Col lg={12} md={12} className="relative z-index-1">
               <HeroSection />
             </Col>
@@ -53,10 +51,10 @@ function LandingPage() {
       </section>
 
       {/* Course Section */}
-      <section className="justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
+      <section className="backdrop-blur-[10px] relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0">
         <Container fluid className="px-0">
           <Row className="gap-4">
-            <Col lg={12} md={12} className="flex justify-center items-center w-full">
+            <Col lg={12} md={12} className="flex justify-center items-center">
               {data.courses.length > 0 && <CourseSection courseData={data.courses} />}
             </Col>
           </Row>
@@ -75,7 +73,7 @@ function LandingPage() {
       </section>
 
       {/* Teacher Section */}
-      <section className="backdrop-blur-[10px] relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0">
+      <section className="relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
         <Container fluid className="px-0">
           <Row className="gap-4">
             <Col lg={12} md={12} className="flex justify-center items-center">

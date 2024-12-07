@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 //import SideBar from "./SideBar"; // Import Sidebar
 import SearchBar from "./SearchBar"; // Import SearchBar
 import CourseCard from "./CourseCard"; // Import CourseCard
+import { coursesController } from "../../../controllers/course.controller";
 //import TestimonialSection from "./TestimonialSection"; // Import TestimonialSection
 //import TeacherSection from "./TeacherSection"; // Import TeacherSection
 
@@ -25,18 +26,29 @@ const courseData = [
 ];
 
 function CoursePage() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024); // Kiểm tra nếu là màn hình lớn
-    };
+    async function fetchData() {
+      const result = await coursesController(setLoading);
+      console.log(result)
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
 
-    handleResize(); // Gọi ngay khi component mount
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize); // Cleanubgp
+    fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+  // console.log("courses => ", data)
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -44,26 +56,22 @@ function CoursePage() {
       {/*<SideBar />*/}
 
       {/* Nội dung chính */}
-      <main
-        className={`transition-all duration-300 ${
-          isDesktop ? "ml-0" : "ml-0" // ml-[280px] sau khi đăng nhập có SideBar
-        } `}
-      >
+      <main>
         <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
-        {/* Thanh tìm kiếm */}
-        <SearchBar />
-        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mt-5 bg-white min-h-[265px]">
-          <div className="col-span-full w-full h-full" />
-        </div>
+          {/* Thanh tìm kiếm */}
+          <SearchBar />
+          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mt-5 bg-white min-h-[265px]">
+            <div className="col-span-full w-full h-full" />
+          </div>
 
-        {/* Khu vực chứa các thẻ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-[24px] mt-10 w-full">
-          {Array(10).fill(courseData[0]).map((course, index) => (
-            <CourseCard key={index} {...course} className="" />
-          ))}
-        </div>
+          {/* Khu vực chứa các thẻ */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-[24px] mt-10 w-full">
+            {data && data.length > 0 && data.map((course) => (
+              <CourseCard {...course} className="" />
+            ))}
+          </div>
 
-    
+
 
           {/* Thêm TestimonialSection và TeacherSection 
           <TestimonialSection />

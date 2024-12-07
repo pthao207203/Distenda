@@ -61,7 +61,10 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  res.cookie("user_token", user.UserToken);
+  res.cookie("user_token", user.UserToken, {
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+  });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
   res.json({
@@ -120,7 +123,10 @@ module.exports.registerPost = async (req, res) => {
   const user = new User(req.body)
   await user.save();
 
-  res.cookie("user_token", user.UserToken);
+  res.cookie("user_token", user.UserToken, {
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+  });
   // req.flash("success", "Đăng ký thành công!");
   // res.redirect(`/`);
   res.json({

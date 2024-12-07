@@ -1,47 +1,52 @@
 import React, { useState } from "react";
 
 function CourseTableHeader() {
-  // Sử dụng useState để quản lý trạng thái mở/đóng của dropdown
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Hàm xử lý khi click vào Trạng thái
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  // Hàm xử lý khi chọn từng mục trong dropdown
   const handleOptionClick = (option) => {
     alert(`Bạn đã chọn: ${option}`);
     setIsDropdownOpen(false); // Đóng dropdown sau khi chọn
   };
 
   return (
-    <header className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
-      {/* Các cột khác */}
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <span className="gap-2.5 self-stretch my-auto">Mã khóa học</span>
+    <header className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
+      {/* Mã khóa học */}
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+        <span className="text-center">Mã khóa học</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <span className="gap-2.5 self-stretch my-auto">Tên khóa</span>
+
+      {/* Tên khóa */}
+      <div className="flex flex-1 justify-center items-center text-white min-w-[240px]">
+        <span className="text-center">Tên khóa</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <span className="gap-2.5 self-stretch my-auto">Đã bán</span>
+
+      {/* Đã bán */}
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+        <span className="text-center">Đã bán</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white whitespace-nowrap basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <span className="gap-2.5 self-stretch my-auto">Giá</span>
+
+      {/* Giá */}
+      <div className="flex flex-1 justify-center items-center text-white min-w-[240px]">
+        <span className="text-center">Giá</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <span className="gap-2.5 self-stretch my-auto">Lợi nhuận</span>
+
+      {/* Lợi nhuận */}
+      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+        <span className="text-center">Lợi nhuận</span>
       </div>
 
       {/* Dropdown Trạng thái */}
-      <div className="relative flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-amber-300 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        {/* Button mở dropdown */}
+      <div className="relative flex flex-1 justify-center items-center text-white min-w-[240px]">
+        {/* Nút dropdown */}
         <button
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 text-center"
           onClick={toggleDropdown}
         >
-          <span className="gap-2.5 self-stretch my-auto">Trạng thái</span>
+          <span className="text-center">Trạng thái</span>
           <span className="transform transition-transform">
             {isDropdownOpen ? "▲" : "▼"}
           </span>

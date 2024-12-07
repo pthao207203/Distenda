@@ -6,8 +6,8 @@ export default function SideBar() {
     { link: "/", icon: "./icons/home.svg", label: "Trang chủ", isActive: false },
     { link: "/courses", icon: "./icons/document.svg", label: "Khóa học", isActive: false },
     { link: "/user", icon: "./icons/2user.svg", label: "Người dùng", isActive: false },
-    { link: "/user", icon: "./icons/work.svg", label: "Giảng viên", isActive: false },
-    { link: "/", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
+    { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên", isActive: false },
+    { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
     { link: "/", icon: "./icons/setting.svg", label: "Phân quyền", isActive: false },
     { link: "/", icon: "./icons/notification.svg", label: "Thông báo", isActive: false },
     { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web", isActive: false },
@@ -29,7 +29,7 @@ export default function SideBar() {
         </div>
       </div>
 
-      {/* Menu Items */}
+     {/* Menu Items */}
       <div className="flex-grow-1 overflow-auto">
         {menuItems.map((item, index) => (
           <Link to={item.link} key={index} className="text-decoration-none">

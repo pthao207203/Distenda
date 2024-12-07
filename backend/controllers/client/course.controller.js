@@ -12,12 +12,12 @@ module.exports.index = async (req, res) => {
   const courses = await Course.find({
     CourseDeleted: 1,
     CourseStatus: 1
-  });
+  }).lean();
 
-  const category = await Category.find({
-    CategoryDeleted: 1,
-  })
-  const newCategory = createTreeHelper.tree(category);
+  for (const course of courses) {
+    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+    course.intructor = intructor.AdminFullName
+  }
 
   res.json(courses)
   // res.render('client/pages/courses/index', {

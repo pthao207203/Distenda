@@ -12,7 +12,7 @@ function ActionButton({ text }) {
     <div>
       {/* Nút Action */}
       <button
-        className="flex gap-3 justify-center items-center px-3 py-5 rounded-lg bg-slate-500 min-w-[240px]"
+        className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-w-[240px]"
         onClick={togglePopup}
       >
         <img
