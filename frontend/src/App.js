@@ -34,24 +34,23 @@ function App() {
           <Route element={<UserRoutes />}>
             <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
+              <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
+              <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
+              <Route path='/courses/CoursePractice' element={<CoursePractice />} />
+              <Route path='/courses/CourseCode' element={<CourseCode />} />
+              <Route path='/courses/CoursesCode' element={<CoursesCode />} />
             </Route>
           </Route>
-        {/* Dù có đăng nhập hay không vẫn vào được */}
-        <Route element={<Main />} >
-          <Route path='/courses' element={<Courses />} />
-          <Route path='/category/:CategorySlug' element={<Category />} />
-        </Route>
-        
-        <Route element={<MainPublic />} >
-          <Route path='/' element={<Intro />} />
-          <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
-          <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
-          <Route path='/courses/CoursePurchased' element={<CoursePurchased />} />
-          <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
-          <Route path='/courses/CoursePractice' element={<CoursePractice />} />
-          <Route path='/courses/CourseCode' element={<CourseCode />} />          
-          <Route path='/courses/CoursesCode' element={<CoursesCode />} />
-        </Route>
+          {/* Dù có đăng nhập hay không vẫn vào được */}
+          <Route element={<Main />} >
+            <Route path='/courses' element={<Courses />} />
+            <Route path='/category/:CategorySlug' element={<Category />} />
+          </Route>
+
+          <Route element={<MainPublic />} >
+            <Route path='/' element={<Intro />} />
+            <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
+          </Route>
 
           {/* Những trang đã đăng nhập thì không được vào */}
           <Route element={<PublicRoutes />}>
