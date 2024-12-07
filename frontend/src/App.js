@@ -36,7 +36,6 @@ function App() {
               <Route path='/user/profile' element={<UserProfile />} />
             </Route>
           </Route>
-
         {/* Dù có đăng nhập hay không vẫn vào được */}
         <Route element={<Main />} >
           <Route path='/courses' element={<Courses />} />
@@ -45,8 +44,8 @@ function App() {
         
         <Route element={<MainPublic />} >
           <Route path='/' element={<Intro />} />
-          <Route path='/courses/Data-Analytics-Certificate' element={<CourseDetail />} />
-          {/* <Route path='/category/:CategorySlug' element={<Category />} /> */}
+          <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
+          <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
           <Route path='/courses/CoursePurchased' element={<CoursePurchased />} />
           <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
           <Route path='/courses/CoursePractice' element={<CoursePractice />} />

@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 
-export default function CourseLessons(lessonsData) {
-  const lessons = Object.values(lessonsData);
-  // const lessons = [
-  //   {
-  //     title: "Bài 01: Giới thiệu khóa học, Học HTML cơ bản",
-  //     content: `- Giới thiệu khóa học và lộ trình học 
-  //      - Hướng dẫn cài đặt các phần mềm cần thiết 
-  //      - Học HTML - Bài tập luyện tập`,
-  //   },
-  //   {
-  //     title: "Bài 02: HTML Nâng cao",
-  //     content: "- Chèn Video - Chèn Audio (Âm thanh) - Table (Bảng) - Thẻ ul, ol, li (Hiển thị danh sách) - Phân biệt: block và inline - Form (Biểu mẫu) - Bài tập luyện tập",
-  //   },
-  //   {
-  //     title: "Bài 03: CSS Cơ bản",
-  //     content: "- Khái niệm, cú pháp, selectors - Simple selectors (Bộ chọn đơn giản) - Ba kiểu chèn CSS - Colors, Backgrounds - Box Model, Borders, Padding, Margins - Text, Fonts, Icons - Display (Hiển thị) - Combinator selectors (Bộ chọn tổ hợp) - Position (Vị trí) - z-index - Bài tập luyện tập",
-  //   },
-  // ];
+export default function CourseLessons() {
+  const lessons = [
+    {
+      title: "Bài 01: Giới thiệu khóa học, Học HTML cơ bản",
+      content: `- Giới thiệu khóa học và lộ trình học 
+       - Hướng dẫn cài đặt các phần mềm cần thiết 
+       - Học HTML - Bài tập luyện tập`,
+    },
+    {
+      title: "Bài 02: HTML Nâng cao",
+      content: "- Chèn Video - Chèn Audio (Âm thanh) - Table (Bảng) - Thẻ ul, ol, li (Hiển thị danh sách) - Phân biệt: block và inline - Form (Biểu mẫu) - Bài tập luyện tập",
+    },
+    {
+      title: "Bài 03: CSS Cơ bản",
+      content: "- Khái niệm, cú pháp, selectors - Simple selectors (Bộ chọn đơn giản) - Ba kiểu chèn CSS - Colors, Backgrounds - Box Model, Borders, Padding, Margins - Text, Fonts, Icons - Display (Hiển thị) - Combinator selectors (Bộ chọn tổ hợp) - Position (Vị trí) - z-index - Bài tập luyện tập",
+    },
+  ];
 
   // Theo dõi trạng thái mở/đóng của từng `details`
   const [openDetails, setOpenDetails] = useState(Array(lessons.length).fill(false));
@@ -31,8 +30,8 @@ export default function CourseLessons(lessonsData) {
   };
 
   return (
-    <section className="flex flex-wrap flex-col w-full rounded-3xl">
-      {lessons && lessons.length > 0 && lessons.map((lesson, index) => (
+    <section className="flex flex-wrap flex-col p-2.5 w-full rounded-3xl">
+      {lessons.map((lesson, index) => (
         <details
           key={index}
           open={openDetails[index]}
@@ -47,7 +46,7 @@ export default function CourseLessons(lessonsData) {
               className="object-center shrink-0 self-center my-auto w-6 aspect-square"
             />
             <span className="flex-1 shrink gap-1.5 self-center pl-2.5 h-full rounded-md min-w-[240px]">
-              {lesson.LessonName}
+              {lesson.title}
             </span>
             <img
               loading="lazy"
@@ -57,11 +56,14 @@ export default function CourseLessons(lessonsData) {
             />
           </summary>
           <div className="gap-2.5 p-2.5 w-full text-xl font-medium border-2 border-dashed border-white border-opacity-60">
-            {lesson.video && lesson.video.length > 0 && lesson.video.map((video, index) => (
-              <p key={index} className="mb-2">
-                - {video.VideoName}
-              </p>
-            ))}
+            {lesson.content
+              .split("- ") // Tách nội dung theo dấu "- "
+              .filter((line) => line.trim()) // Loại bỏ các dòng rỗng
+              .map((line, i) => (
+                <p key={i} className="mb-2">
+                  - {line.trim()}
+                </p>
+              ))}
           </div>
         </details>
       ))}

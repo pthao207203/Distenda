@@ -1,12 +1,40 @@
 import React from "react";
 
-export default function CourseCard({ onRegister }) {
+export default function CourseCard({ onRegister, ...course }) {
+  console.log("course", course)
+  // console.log("intructor", course.intructor.AdminFullName)
+  let lessons = [];
+
+  // Kiểm tra xem course.lesson có tồn tại và là một đối tượng hay mảng
+  if (Array.isArray(course.lesson)) {
+    // Nếu là mảng, gán trực tiếp cho lessons
+    lessons = course.lesson;
+  } else if (course.lesson && typeof course.lesson === 'object') {
+    // Nếu là đối tượng, chuyển nó thành mảng các giá trị
+    lessons = Object.values(course.lesson);
+  }
+  const countVideo = lessons.reduce((total, lesson) => {
+    // Kiểm tra xem lesson có thuộc tính videos và videos là mảng không
+    if (lesson.video && Array.isArray(lesson.video)) {
+      return total + lesson.video.length;  // Cộng số lượng video của bài học
+    }
+    return total;  // Nếu không có videos, không thay đổi total
+  }, 0);
+
+  const countExer = lessons.reduce((total, lesson) => {
+    // Kiểm tra xem lesson có thuộc tính videos và videos là mảng không
+    if (lesson.exercise && Array.isArray(lesson.exercise)) {
+      return total + lesson.exercise.length;  // Cộng số lượng exercise của bài học
+    }
+    return total;  // Nếu không có videos, không thay đổi total
+  }, 0);
+
   const courseDetails = [
-    { label: "Chương", value: "10" },
-    { label: "Bài giảng", value: "100" },
-    { label: "Thời lượng", value: "300 phút" },
-    { label: "Tài liệu", value: "5" },
-    { label: "Giảng viên", value: "Xuyến Nguyễn" },
+    { label: "Chương", value: `${course.lesson ? lessons.length : "0"} chương` },
+    { label: "Bài giảng", value: `${countVideo} bài` },
+    { label: "Bài tập", value: `${countExer} bài` },
+    { label: "Thời gian học", value: `${course.CourseDuration} tháng` },
+    { label: "Giảng viên", value: `${course.intructor ? course.intructor.AdminFullName : "Không có"}` },
   ];
 
   return (
@@ -20,12 +48,16 @@ export default function CourseCard({ onRegister }) {
       <div className="inline-flex flex-wrap items-center justify-between px-[0.8rem] py-2 w-full font-medium leading-none">
         {/* Giá hiện tại */}
         <div className="flex gap-3 items-center text-3xl text-[#df322b]">
-          <span>3.000.000</span>
+          <span>{course.CoursePrice === 0 ? "Miễn phí" : (course.CoursePrice * (100 - course.CourseDiscount) / 100).toLocaleString('vi-VN')}</span>
         </div>
 
         {/* Giá gạch bỏ */}
         <div className="flex gap-3 items-center text-xl text-[#e24943] line-through">
-          <span>12.300.000</span>
+          <span>
+            {course.CoursePrice && !isNaN(course.CoursePrice) && course.CoursePrice !== 0 &&
+              (course.CoursePrice).toLocaleString('vi-VN')
+            }
+          </span>
         </div>
       </div>
       <button

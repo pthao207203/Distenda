@@ -69,6 +69,24 @@ block main
         )
 
       div(class="form-group")
+        label(for="CourseRequire") Yêu cầu đầu vào
+        input(
+          type="text"
+          class="form-control"
+          id="CourseRequire"
+          name="CourseRequire"
+          required
+        )
+      div(class="form-group")
+        label(for="CourseDuration") Thời gian học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseDuration"
+          name="CourseDuration"
+          required
+        )
+      div(class="form-group")
         label(for="CourseDescription") Mô tả
         textarea(
           class="form-control tiny-mce"

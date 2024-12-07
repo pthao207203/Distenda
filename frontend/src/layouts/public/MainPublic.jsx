@@ -1,4 +1,4 @@
-import React, {useState }  from 'react'
+import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import HeaderPublic from '../public/Header'
 import HeaderPrivate from '../private/Header'
@@ -19,10 +19,10 @@ const Courses = () => {
   };
   return (
     <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
-      {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle}/> : <HeaderPublic setHeight={setHeight}/>}
-      <div  
+      {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} /> : <HeaderPublic setHeight={setHeight} />}
+      <div
         style={{
-            paddingTop: token ? `${headerHeight}px` : `${headerHeightPublic}px`,
+          paddingTop: token ? `${headerHeight}px` : `${headerHeightPublic}px`,
 
         }}
       >
@@ -31,14 +31,14 @@ const Courses = () => {
         <Footer />
         {/* Hiển thị TaskBar dưới dạng overlay nếu trạng thái isTaskBarVisible là true */}
         {isTaskBarVisible && (
-        <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px]"
-        style={{
-            marginTop: `${headerHeight}px`,
+          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px]"
+            style={{
+              marginTop: `${headerHeight}px`,
 
-        }}
-        >
-        <TaskBar/>
-        </div>
+            }}
+          >
+            <TaskBar />
+          </div>
         )}
       </div>
     </div>
