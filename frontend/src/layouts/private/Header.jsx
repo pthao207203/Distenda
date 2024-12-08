@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
 
-export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
+export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Theo dõi URL hiện tại
   const [openDetails, setOpenDetails] = useState(false);
@@ -42,7 +42,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
 
   useEffect(() => {
     const currentPath = location.pathname;
-  
+
     // Cập nhật `activeLink` dựa trên URL
     if (currentPath === "/courses" || currentPath.startsWith("/category/")) {
       setActiveLink(currentPath);
@@ -50,7 +50,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
       setActiveLink("");
     }
   }, [location.pathname]);
-  
+
 
   if (loading) {
     return (
@@ -73,7 +73,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
           {/* <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl">Distenda</h1> */}
         </div>
 
-        <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
+        <nav className="flex gap-[30px] ml-auto items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
           <Link
             to="/courses"
             className={`px-3 py-3 ${activeLink === '/courses' ? 'bg-[#CFF500] text-black' : ''}`}
@@ -85,9 +85,8 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
             <Link
               key={cate.CategorySlug} // Thêm key để tránh lỗi trong React
               to={`/category/${cate.CategorySlug}`}
-              className={`px-3 py-3 ${
-                activeLink === `/category/${cate.CategorySlug}` ? 'bg-[#CFF500] text-black' : ''
-              }`}
+              className={`px-3 py-3 ${activeLink === `/category/${cate.CategorySlug}` ? 'bg-[#CFF500] text-black' : ''
+                }`}
               onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
               {cate.CategoryName}
@@ -96,18 +95,18 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
 
         </nav>
         <button className="flex flex-row gap-1 justify-end" onClick={toggleTaskBar}>
-        <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
-        alt=""
-        className="object-contain shrink-0 self-stretch my-auto w-14 rounded-full aspect-square"
-        />
-        <img
-        loading="lazy"
-        src={`../Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
-        alt=""
-        className="object-center shrink-0 self-stretch my-auto aspect-[2.14] w-[15px]"
-        />
+          <img
+            loading="lazy"
+            src={data.setting.user?.UserPicture ? data.setting.user.UserPicture : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"}
+            alt=""
+            className="object-contain shrink-0 self-stretch my-auto w-14 rounded-full aspect-square"
+          />
+          <img
+            loading="lazy"
+            src={`../Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
+            alt=""
+            className="object-center shrink-0 self-stretch my-auto aspect-[2.14] w-[15px]"
+          />
         </button>
       </div>
     </header>
