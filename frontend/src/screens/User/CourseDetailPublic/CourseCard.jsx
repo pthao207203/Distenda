@@ -38,10 +38,10 @@ export default function CourseCard({ onRegister, ...course }) {
   ];
 
   return (
-    <article className="inline-flex relative flex-col self-end px-[1.3rem] pt-5 justify-start items-start gap-6 pb-10 mt-24 md:mr-16 max-w-full bg-white md:w-full max-md:pb-5 max-md:mt-10 max-md:mr-0">
+    <article className="inline-flex relative flex-col self-end px-[1.3rem] pt-2.5 justify-start items-start gap-6 pb-20 mt-24 md:mr-16 max-w-full bg-white md:w-full max-md:pb-5 max-md:mt-10 max-md:mr-0">
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/be7c8e619eccf8a1a535f808b15d45e6bb88885f3fdd0671b22a52393c88b4fd?apiKey=1914b3001bed44e2a53adf842ab19f47&"
+        src={course.CoursePicture}
         alt="Course thumbnail"
         className="object-contain w-full aspect-[1.64]"
       />
@@ -67,7 +67,7 @@ export default function CourseCard({ onRegister, ...course }) {
       >
         Đăng ký ngay
       </button>
-      <section className="flex flex-col px-[0.8rem] w-full text-lg justify-start gap-5 items-start">
+      <section className="flex flex-col px-[0.8rem] w-full text-lg justify-start gap-4 items-start">
         {courseDetails.map((detail, index) => (
           <div key={index} className="inline-flex justify-between items-start gap-5 first:mt-0 w-full">
             <div className="text-neutral-900 font-medium">{detail.label}</div>
