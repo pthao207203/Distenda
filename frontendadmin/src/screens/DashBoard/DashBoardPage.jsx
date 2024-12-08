@@ -49,11 +49,11 @@ const courses = [
 
 function DashboardPage() {
   return (
-        <div className="flex flex-col flex-1 bg-indigo-50 overflow-auto">
+        <div className="flex flex-col w-full min-h-screen overflow-auto">
           {/* Stats Section */}
-          <div className="flex flex-col flex-1 shrink p-16 font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-          <div className="flex flex-col self-center min-w-full w-[1100px]">
-            <div className="flex flex-wrap gap-4 items-center text-white max-md:max-w-full">
+          <main>
+          <div className="max-w-full flex flex-col items-center w-full p-16 font-medium bg-white basis-0 max-md:px-5 max-md:max-w-full">
+            <div className="flex flex-1 max-md:flex-wrap flex-grow shrink gap-4 w-full justify-evenly items-center text-white max-md:max-w-full">
               {stats.map((stat, index) => (
                 <StatCard key={index} {...stat} />
               ))}
@@ -120,9 +120,10 @@ function DashboardPage() {
               </button>
             </section>
           </div>
-                </div>
-              </div>
-            );
-      }
+
+          </main>
+        </div>
+      );
+}
 
 export default DashboardPage;
