@@ -13,12 +13,20 @@ import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import PaymentTablePage from './screens/Payment/PaymentTablePage';
 import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
+import CourseAdmin from './screens/CourseAdmin/CourseContent';
+import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
+import CourseCreation from './screens/CourseCreation/CourseCreation';
 import Permission from './screens/Permission/PermissionPage';
+
 
 function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
+      
+      <Route path="/courseadmin" element={<CourseAdmin />} />
+      <Route path="/coursebuilder" element={<CourseBuilder />} />
+      <Route path="/coursecreation" element={<CourseCreation />} />
 
         {/* <Route element={<AdminRoutes />}> */}
           <Route element={<MainAdmin />}>

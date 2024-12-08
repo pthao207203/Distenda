@@ -26,7 +26,7 @@ function BreadcrumbNav(course) {
     }
   ];
   return (
-    <nav className="flex relative flex-wrap items-center px-5 mt-1 w-full text-lg font-semibold leading-none text-white bg-white bg-opacity-10 max-md:max-w-full" role="navigation" aria-label="Breadcrumb">
+    <nav className="flex relative flex-wrap items-center px-5 mt-4 w-full text-lg font-semibold leading-none text-white bg-white bg-opacity-10 max-md:max-w-full" role="navigation" aria-label="Breadcrumb">
       {breadcrumbItems.map((item, index) => (
         <Link to={item.link} key={index} className="flex gap-3 items-center self-stretch px-3 py-1.5 my-auto">
           <div className="gap-2.5 self-stretch my-auto">{item.text}</div>
