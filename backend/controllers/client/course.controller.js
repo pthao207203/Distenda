@@ -17,7 +17,8 @@ module.exports.index = async (req, res) => {
 
   for (const course of courses) {
     const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    course.intructor = intructor.AdminFullName
+    console.log(intructor)
+    course.intructor = intructor
   }
 
   res.json(courses)
@@ -99,6 +100,7 @@ module.exports.detail = async (req, res) => {
         "UserCourse.CourseId": course._id
       })
       if (test) {
+        console.log(test)
         course.has = 1;
         const test1 = await User.findOne({
           _id: res.locals.user._id,
@@ -110,8 +112,8 @@ module.exports.detail = async (req, res) => {
         }
       }
     }
-    course.user = res.locals.user
-    res.json(course)
+    course.user =
+      res.json(course)
     // res.render('client/pages/courses/detail', {
     //   pageTitle: course.CourseName,
     //   course: course,

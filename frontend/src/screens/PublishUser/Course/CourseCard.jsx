@@ -30,11 +30,11 @@ function CourseCard(course) {
 
         <div className="flex gap-5 items-start mt-[16px] w-full">
           <div className="flex-1 shrink-0 ">Giảng viên</div>
-          <div className="flex-1 shrink-0 text-right ">{course.intructor}</div>
+          <div className="flex-1 shrink-0 text-right ">{course.intructor ? course.intructor.AdminFullName : "Không có"}</div>
         </div>
 
       </div>
-    {/* Nút Xem chi tiết */}
+      {/* Nút Xem chi tiết */}
       <div className="mt-auto">
         <button className="flex justify-center items-center w-full px-[12px] py-[20px] text-xl font-medium leading-none bg-[#CFF500] min-h-[60px] text-neutral-900">
           <Link to={`/courses/${course.CourseSlug}`} className="self-stretch my-auto">

@@ -10,15 +10,15 @@ export default function InstructorProfile(intructor) {
           loading="lazy"
           src={`${intructor.AdminAvatar ? intructor.AdminAvatar : "../Icon/image.svg"}`}
           alt="Instructor profile"
-          className="object-cover z-0 w-30 h-30 rounded-3xl"
+          className="object-cover z-0 w-[230px] h-[240px] rounded-3xl"
         />
-        <div className="z-0 mt-2.5 text-center">GIẢNG VIÊN DISCENDA</div>
+        <div className="z-0 mt-2.5 text-center justify-end w-full">GIẢNG VIÊN DISCENDA</div>
       </div>
 
       {/* Phần text */}
       <article className="flex flex-col flex-1 w-full max-md:max-w-full">
         <h3 className="text-3xl font-bold max-md:max-w-full">{intructor.AdminFullName}</h3>
-        <div className="flex flex-col  mt-1 text-lg w-full max-md:max-w-full">
+        <div className="flex flex-col mt-1 leading-[20px] text-lg w-full max-md:max-w-full">
           {[
             { label: "Ngày sinh:", value: "01/09/1998" },
             { label: "SĐT:", value: `${intructor.AdminPhone}` },

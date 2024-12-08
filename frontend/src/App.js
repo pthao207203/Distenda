@@ -34,6 +34,8 @@ function App() {
           <Route element={<UserRoutes />}>
             <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
+            </Route>
+            <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
               <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
               <Route path='/courses/CoursePractice' element={<CoursePractice />} />
@@ -42,11 +44,12 @@ function App() {
             </Route>
           </Route>
           {/* Dù có đăng nhập hay không vẫn vào được */}
+          {/* Tuỳ vào đăng nhập mà có hiện hay không */}
           <Route element={<Main />} >
             <Route path='/courses' element={<Courses />} />
             <Route path='/category/:CategorySlug' element={<Category />} />
           </Route>
-
+          {/* Những trang không hiện sidebar */}
           <Route element={<MainPublic />} >
             <Route path='/' element={<Intro />} />
             <Route path='/courses/:CourseSlug' element={<CourseDetail />} />
