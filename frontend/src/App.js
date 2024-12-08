@@ -38,9 +38,9 @@ function App() {
             <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
               <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
-              <Route path='/courses/CoursePractice' element={<CoursePractice />} />
+              <Route path='/courses/CoursePurchased/:CourseSlug/:VideoSlug' element={<CoursePractice />} />
               <Route path='/courses/CourseCode' element={<CourseCode />} />
-              <Route path='/courses/CoursesCode' element={<CoursesCode />} />
+              <Route path='/courses/CoursePurchased/:CourseSlug/CourseCode/:ExerciseSlug' element={<CoursesCode />} />
             </Route>
           </Route>
           {/* Dù có đăng nhập hay không vẫn vào được */}

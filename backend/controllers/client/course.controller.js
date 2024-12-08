@@ -17,7 +17,7 @@ module.exports.index = async (req, res) => {
 
   for (const course of courses) {
     const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    console.log(intructor)
+    // console.log(intructor)
     course.intructor = intructor
   }
 
@@ -70,14 +70,13 @@ module.exports.detail = async (req, res) => {
 
       }
       for (const item of lesson) {
-        const exer = await Exercise.find({
+        const exer = await Exercise.findOne({
           LessonId: item._id,
           ExerciseDeleted: 1
         })
-        if (exer.length != 0) {
+        if (exer) {
           item.exercise = exer
         }
-
       }
       course.lesson = lesson;
       // console.log(lesson)
