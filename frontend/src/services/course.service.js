@@ -3,6 +3,7 @@ export const coursesService = async () => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/courses`, {
       method: 'GET',
+      credentials: "include",
     });
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
 
@@ -49,6 +50,72 @@ export const coursePayService = async (courseSlug) => {
       credentials: "include",
     });
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/courses/detail/${courseSlug}`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    // console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+// [GET] /courses/completed
+export const coursesCompletedService = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/courses/completed`, {
+      method: 'GET',
+      credentials: "include",
+    });
+    // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    // console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+// [GET] /courses/purchased
+export const coursesPurchasedService = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/courses/purchased`, {
+      method: 'GET',
+      credentials: "include",
+    });
+    // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    // console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+// [GET] /courses/studying
+export const coursesStudyingService = async () => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/courses/studying`, {
+      method: 'GET',
+      credentials: "include",
+    });
+    // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
 
     if (!response.ok) {
       throw new Error('Lỗi!!!');

@@ -110,9 +110,9 @@ module.exports.detail = async (req, res) => {
           course.review = 0;
         }
       }
+      course.user = res.locals.user
     }
-    course.user =
-      res.json(course)
+    res.json(course)
     // res.render('client/pages/courses/detail', {
     //   pageTitle: course.CourseName,
     //   course: course,
@@ -123,3 +123,85 @@ module.exports.detail = async (req, res) => {
   }
 }
 
+// [GET] /courses/completed
+module.exports.indexCompleted = async (req, res) => {
+  console.log(res.locals.user.UserCourse)
+  const listSubId = res.locals.user.UserCourse
+    .filter(item => item.CourseStatus == 1)
+    .map(item => item.CourseId);
+  // console.log(listSubId)
+  const courses = await Course.find({
+    _id: { $in: [...listSubId] },
+    CourseStatus: 1,
+    CourseDeleted: 1
+  }).lean();
+  // console.log(courses)
+
+  for (const course of courses) {
+    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+    // console.log(intructor)
+    course.intructor = intructor
+  }
+
+  res.json(courses)
+  // res.render('client/pages/courses/index', {
+  //   pageTitle: "Danh sách khoá học",
+  //   courses: courses,
+  //   allCategory: newCategory,
+  // })
+}
+
+// [GET] /courses/purchased
+module.exports.indexPurchased = async (req, res) => {
+  console.log(res.locals.user.UserCourse)
+  const listSubId = res.locals.user.UserCourse
+    .map(item => item.CourseId);
+  // console.log(listSubId)
+  const courses = await Course.find({
+    _id: { $in: [...listSubId] },
+    CourseStatus: 1,
+    CourseDeleted: 1
+  }).lean();
+  // console.log(courses)
+
+  for (const course of courses) {
+    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+    // console.log(intructor)
+    course.intructor = intructor
+  }
+
+  res.json(courses)
+  // res.render('client/pages/courses/index', {
+  //   pageTitle: "Danh sách khoá học",
+  //   courses: courses,
+  //   allCategory: newCategory,
+  // })
+}
+
+// [GET] /courses/studying
+module.exports.indexStudying = async (req, res) => {
+  console.log(res.locals.user.UserCourse)
+  const listSubId = res.locals.user.UserCourse
+    .filter(item => item.CourseStatus == 0)
+    .map(item => item.CourseId);
+  // console.log(listSubId)
+  const courses = await Course.find({
+    _id: { $in: [...listSubId] },
+    CourseStatus: 1,
+    CourseDeleted: 1
+  }).lean();
+  // console.log(courses)
+
+  for (const course of courses) {
+    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+    // console.log(intructor)
+    course.intructor = intructor
+  }
+
+  res.json(courses)
+  // res.render('client/pages/courses/index', {
+  //   pageTitle: "Danh sách khoá học",
+  //   courses: courses,
+  //   allCategory: newCategory,
+  // })
+}

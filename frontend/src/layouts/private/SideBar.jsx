@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { headerController } from "../../controllers/home.controller"
 
 const SideBar = ({ headerHeight }) => {
+  let [data, setData] = useState(
+    {
+      category: [],
+      setting: [],
+    }
+  );
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      console.log("result", result)
+      setData(result);
+    }
+
+    fetchData();
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng của Sidebar
   const [isDesktop, setIsDesktop] = useState(false); // Xác định xem có phải màn hình lớn hay không
+  const location = useLocation(); // Lấy thông tin URL hiện tại
 
   const menuItems = [
-    "Khóa học của tôi",
-    "Đang học",
-    "Đã hoàn thành",
-    "Thi thử",
-    "Bài tập",
+    { name: "Khóa học của tôi", link: "/courses/CoursePurchased" },
+    { name: "Đang học", link: "/courses/CourseStudying" },
+    { name: "Đã hoàn thành", link: "/courses/CourseCompleted" },
   ];
 
   // Kiểm tra kích thước màn hình
@@ -31,6 +50,33 @@ const SideBar = ({ headerHeight }) => {
     }
   }, [isDesktop]);
 
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+  console.log("category ", data.category)
+  console.log("setting ", data.setting)
+
+
+  let member;
+
+  switch (true) {
+    case (data?.setting?.user?.UserMoney > 10000000):
+      member = "Thành viên Vip";
+      break;
+    case (data?.setting?.user?.UserMoney >= 1000000 && data?.setting?.user?.UserMoney < 5000000):
+      member = "Thành viên bạc";
+      break;
+    case (data?.setting?.user?.UserMoney >= 5000000 && data?.setting?.user?.UserMoney < 10000000):
+      member = "Thành viên vàng";
+      break;
+    default:
+      member = "Thành viên đồng";
+  }
+
   return (
     <>
       {/* Lớp phủ toàn màn hình khi Sidebar mở */}
@@ -48,25 +94,37 @@ const SideBar = ({ headerHeight }) => {
         style={{
           backgroundColor: "rgba(255, 255, 255, 0.03)", // Nền trắng mờ
           backdropFilter: "blur(30px)", // Làm mờ nền
-          top: `${headerHeight}px`
+          top: `${headerHeight}px`,
         }} // Thay thế giá trị top bằng chiều cao header
       >
         {/* Thông tin người dùng */}
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
+            src={data?.setting?.user?.UserPicture ? data.setting.user.UserPicture : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"}
             alt="User profile"
             className="object-contain shrink-0 self-stretch my-auto w-[64px] h-[62px] rounded-full aspect-[1.03] mr-[8px]"
           />
           <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
             <div className="flex items-center text-[28px] font-semibold ">
-            <div className="flex-1" style={{maxWidth: '200px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>
-            Cá biết bay
+              <div
+                className="flex-1"
+                style={{
+                  maxWidth: "200px",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {data?.setting?.user?.UserFullName
+                  ? data.setting.user.UserFullName.split(" ").slice(-1)[0]
+                  : ""}
+
               </div>
             </div>
             <div className="flex items-center text-[18px] font-medium">
-              <div className="flex-1">Thành viên mới</div>
+              <div className="flex-1">{member}</div>
+              {/* <div className="flex-1">{data.setting.user.createdAt}</div> */}
             </div>
           </div>
         </div>
@@ -74,21 +132,14 @@ const SideBar = ({ headerHeight }) => {
         {/* Menu */}
         <nav className="flex flex-col w-full text-[28px] font-light mx-[8px]">
           {menuItems.map((item, index) => (
-            <div
+            <Link
+              to={item.link}
               key={index}
-              className="flex gap-3 items-center py-[20px] pl-[24px] w-[95%] transition"
-              style={{
-                background: "rgba(0, 0, 0, 0)", // Mặc định trong suốt
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "rgba(0, 0, 0, 0.6)") // Hiệu ứng hover
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "rgba(0, 0, 0, 0)") // Reset khi rời chuột
-              }
+              className={`flex gap-3 items-center py-[20px] pl-[24px] w-[95%] transition ${location.pathname === item.link ? "bg-black" : "bg-transparent"
+                }`}
             >
-              <div className="flex-1">{item}</div>
-            </div>
+              <div className="flex-1">{item.name}</div>
+            </Link>
           ))}
         </nav>
       </aside>
