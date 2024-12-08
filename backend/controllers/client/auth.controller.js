@@ -5,22 +5,22 @@ const systemConfig = require("../../config/system");
 
 // // [GET] /auth/login
 module.exports.login = (req, res) => {
-  if (req.cookies.user_token) {
-    // console.log(req.cookies.user_token);
-    // res.redirect(`/`);
-    res.json({
-      code: 406,
-      message: "Người dùng đã đăng nhập"
-    })
-  } else {
-    // res.render("client/pages/auth/login", {
-    //   pageTitle: "Đăng nhập",
-    // });
-    res.json({
-      code: 200,
-      message: "Kết nối máy chủ thành công"
-    })
-  }
+  // if (req.cookies.user_token) {
+  //   // console.log(req.cookies.user_token);
+  //   // res.redirect(`/`);
+  //   res.json({
+  //     code: 406,
+  //     message: "Người dùng đã đăng nhập"
+  //   })
+  // } else {
+  //   // res.render("client/pages/auth/login", {
+  //   //   pageTitle: "Đăng nhập",
+  //   // });
+  //   res.json({
+  //     code: 200,
+  //     message: "Kết nối máy chủ thành công"
+  //   })
+  // }
 };
 
 // // [POST] /auth/login
