@@ -12,9 +12,9 @@ function TeacherCard(teacher) {
   return (
     <div className="text-center d-flex flex-column align-items-center">
       <img
-        src={teacher.AdminAvatar}
+        src={teacher.AdminAvatar ? teacher.AdminAvatar : "../Icon/image.svg"}
         alt={teacher.AdminFullName}
-        className="rounded-circle"
+        className="rounded-circle object-cover"
         style={{ width: '104px', height: '104px' }}
       />
       <h3 className="text-white px-[20px] py-[20px] font-medium text-[20px]">{teacher.AdminFullName}</h3>
@@ -31,12 +31,12 @@ function TeacherSection(teacherData) {
       <Container>
         <div className="text-center mb-[16px]">
           <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
-            Đội ngũ giáo viên</h2>
+            Nhà sáng lập</h2>
         </div>
         <Row className="g-[40px] mt-[20px] mb-[50px]">
           {teachers.length > 0 ? (
             teachers.map((teacher, index) => (
-              <Col key={index} lg={3} md={4} sm={6} xs={12}>
+              <Col key={index} lg={2} md={3} sm={4} xs={6}>
                 <TeacherCard {...teacher} />
               </Col>
             ))) : (

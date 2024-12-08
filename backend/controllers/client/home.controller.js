@@ -16,12 +16,12 @@ module.exports.index = async (req, res) => {
     CourseDeleted: 1
   }).sort({ _id: -1 }).limit(6);
   const role = await Role.findOne({
-    RoleName: "Giảng viên"
+    RoleName: "Quản trị viên"
   })
   const intructor = await Admin.find({
     AdminDeleted: 1,
     AdminRole_id: role.id
-  }).sort({ _id: -1 }).limit(4);
+  }).sort({ _id: -1 }).limit(6);
   res.json({
     courses: courses,
     intructor: intructor,
