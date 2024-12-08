@@ -49,7 +49,7 @@ function App() {
           <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
           <Route path='/courses/CoursePractice' element={<CoursePractice />} />
           <Route path='/courses/CourseCode' element={<CourseCode />} />          
-          <Route path='/courses/CoursesCode' element={<CoursesCode />} />
+          <Route path='/courses/CoursesCode' element={<CoursesCode />} />   
         </Route>
 
           {/* Những trang đã đăng nhập thì không được vào */}
