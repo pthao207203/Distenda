@@ -60,10 +60,12 @@ const SideBar = ({ headerHeight }) => {
             className="object-contain shrink-0 self-stretch my-auto w-[64px] h-[62px] rounded-full aspect-[1.03] mr-[8px]"
           />
           <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
-            <div className="flex items-center px-[12px] text-[28px] w-auto font-semibold ">
-              <div className="flex-1">Cá biết bay</div>
+            <div className="flex items-center text-[28px] font-semibold ">
+            <div className="flex-1" style={{maxWidth: '200px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>
+            Cá biết bay
+              </div>
             </div>
-            <div className="flex items-center px-[12px] text-[18px] font-medium">
+            <div className="flex items-center text-[18px] font-medium">
               <div className="flex-1">Thành viên mới</div>
             </div>
           </div>
