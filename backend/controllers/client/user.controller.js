@@ -125,7 +125,7 @@ module.exports.addComment = async (req, res) => {
     req.body.Rate = parseInt(req.body.Rate);
     const test = await User.findOne({
       "UserCourse.CourseId": req.params.CourseID,
-      _id: res.locals.user.id,
+      _id: res.locals.user._id,
     })
     if (!test) {
       return;
@@ -133,7 +133,7 @@ module.exports.addComment = async (req, res) => {
 
     await User.updateOne({
       "UserCourse.CourseId": req.params.CourseID,
-      _id: res.locals.user.id,
+      _id: res.locals.user._id,
     }, {
       'UserCourse.$.CourseReview': 1
     }
@@ -143,7 +143,7 @@ module.exports.addComment = async (req, res) => {
     await Course.updateOne({ _id: req.params.CourseID }, {
       $push: {
         CourseReview: {
-          UserId: res.locals.user.id,
+          UserId: res.locals.user._id,
           Rate: req.body.Rate,
           Comment: req.body.Comment,
         }

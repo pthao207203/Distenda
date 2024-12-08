@@ -1,30 +1,31 @@
 import React from "react";
-import  ProductCard  from "./ProductCard";
-import  UserForm  from "./UserForm";
+import ProductCard from "./ProductCard";
+import UserForm from "./UserForm";
 
-export default function CheckoutPage ({onClose, handleOpenBank}) {
+export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
+  console.log("checkout", course)
   const productDetails = {
-    title: "Data Analytics Certificate",
-    duration: "120 tiếng",
-    price: 3000000,
-    imageUrl: "https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/e24cb2e3463f62950a3e76eb41fdf391624a1536dd4703f985b41bc1205df12f?apiKey=1914b3001bed44e2a53adf842ab19f47&"
+    title: `${course.CourseName}`,
+    duration: `${course.CourseDuration} tháng`,
+    price: `${course.CoursePrice === 0 ? "Miễn phí" : (course.CoursePrice * (100 - course.CourseDiscount) / 100).toLocaleString('vi-VN')}`,
+    imageUrl: `${course.CoursePicture}`
   };
 
   const userDetails = {
-    fullName: "Pham Hải Yến",
-    email: "Hyen@gmail.com",
-    phone: "09834743959"
+    fullName: `${course.user.UserFullName}`,
+    email: `${course.user.UserEmail}`,
+    phone: `${course.user.UserPhone}`
   };
 
   return (
     <main className="flex overflow-hidden flex-col pt-4 pb-10 bg-white max-w-[803px] p-6 shadow-lg w-full max-h-[90vh] overflow-y-auto">
       <button className="justify-end self-end " onClick={onClose}>
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/18ce7f5d3a0e8a95408a91d7f810fd4a3daa1c23a4824327ff1f5f9f74b720b0?apiKey=1914b3001bed44e2a53adf842ab19f47&"
-        alt="Close"
-        className="object-contain self-end aspect-[0.94] hover:brightness-110 hover:scale-105 transition duration-200"
-      />
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/18ce7f5d3a0e8a95408a91d7f810fd4a3daa1c23a4824327ff1f5f9f74b720b0?apiKey=1914b3001bed44e2a53adf842ab19f47&"
+          alt="Close"
+          className="object-contain self-end aspect-[0.94] hover:brightness-110 hover:scale-105 transition duration-200"
+        />
       </button>
       <div className="flex flex-col px-10 mt-2 w-full max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col w-full max-md:max-w-full">

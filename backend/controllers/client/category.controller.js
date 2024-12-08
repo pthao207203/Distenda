@@ -55,6 +55,7 @@ module.exports.detail = async (req, res) => {
 
     const courses = await Course.find({
       CourseCatogory: { $in: [category.id, ...listSubId] },
+      CourseStatus: 1,
       CourseDeleted: 1
     }).lean();
 

@@ -1,31 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ProfileForm from "./ProfileForm";
-import SideBar from "./SideBar"; // Import Sidebar
-
 function ProfilePage() {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024); // Kiểm tra nếu là màn hình lớn
-    };
-
-    handleResize(); // Gọi ngay khi component mount
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize); // Cleanup
-  }, []);
-
   return (
-    <div className="flex flex-col w-full min-h-screen bg-black">
-      {/* Sidebar */}
-      <SideBar />
-      <main
-        className={`transition-all duration-300 ${
-          isDesktop ? "ml-[280px]" : "ml-0"
-        } bg-[url('Image/BG.png')] bg-cover bg-right bg-fixed pb-0`}
-      >
-        <div className="flex relative flex-col max-w-screen max-md:max-w-full">
+    <div className="flex flex-col w-full min-h-screen"         
+      style={{
+        backgroundColor: "rgba(255, 255, 255, 0.03)", // Nền trắng mờ
+    }} >
+        <div className="flex relative flex-col max-w-screen max-md:max-w-full" >
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/a96208249e99f892690a38403ef65715e8397ce2ec94f44b8034c91c728a4a58?apiKey=1914b3001bed44e2a53adf842ab19f47&"
@@ -33,9 +14,9 @@ function ProfilePage() {
             className="object-cover absolute inset-0 size-full"
           />
 
-          <section className="relative z-10 mt-1.5 mb-0 w-full max-md:max-w-full">
+          <section className="relative z-10 mb-0 w-full max-md:max-w-full">
             <div className="flex gap-5 max-md:flex-col">
-              <div className="flex flex-col ml-5 w-full max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
                 <div className="overflow-hidden relative grow px-0 py-20 w-full bg-white  bg-opacity-10 backdrop-blur-[10px] max-md:px-5max-md:w-full  min-h-screen">
                   <div className="flex gap-5 max-md:flex-col">
                     {/* Left Section */} 
@@ -47,7 +28,7 @@ function ProfilePage() {
                           alt="Profile avatar"
                           className="object-contain w-full rounded-full aspect-[1.03]"
                         />
-                        <button className="flex gap-2 items-center self-center w-[175px] px-[12px] mt-[33px] bg-white bg-opacity-10 min-h-[43px]">
+                        <button className="flex gap-2 items-center self-center w-[175px] px-[12px] mt-[33px] bg-white text-white bg-opacity-10 min-h-[43px]">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/5110a31b2b6d9408a73c85866d98ee04c0a795e8d44a9e67ee0b4359388dbaea?apiKey=1914b3001bed44e2a53adf842ab19f47&"
@@ -68,7 +49,6 @@ function ProfilePage() {
             </div>
           </section>
         </div>
-      </main>
     </div>
   );
 }

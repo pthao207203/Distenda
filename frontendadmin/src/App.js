@@ -16,6 +16,7 @@ import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
 import CourseAdmin from './screens/CourseAdmin/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
+import Permission from './screens/Permission/PermissionPage';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+            <Route path="/permission" element={<Permission />} />
           </Route>
         {/* </Route> */}
 

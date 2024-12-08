@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BlockUserModal from './BlockUserModal';
 
 function UserHeader() {
+  // State để kiểm soát hiển thị popup và trạng thái chặn người dùng
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false); // Trạng thái chặn người dùng
+
+  // Hàm mở popup
+  const showPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  // Hàm đóng popup
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+  // Hàm xử lý khi xác nhận chặn người dùng
+  const handleBlockUser = () => {
+    setIsBlocked(true); // Chuyển trạng thái thành "đã chặn"
+    setIsPopupVisible(false); // Đóng popup
+  };
+
+  // Hàm xử lý khi xác nhận bỏ chặn người dùng
+  const handleUnblockUser = () => {
+    setIsBlocked(false); // Chuyển trạng thái thành "không bị chặn"
+    setIsPopupVisible(false); // Đóng popup
+  };
+
   return (
     <div className="flex flex-wrap gap-3 items-center w-full font-medium max-md:max-w-full">
       <img
@@ -27,18 +54,44 @@ function UserHeader() {
           </div>
         </div>
       </div>
-      <button 
-        className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto text-xl leading-none text-white whitespace-nowrap bg-red-600 rounded-lg min-h-[46px]"
-        aria-label="Block user"
-      >
+
+      {/* Nút chặn hoặc bỏ chặn */}
+      {isBlocked ? (
+        <button
+          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto text-xl leading-none text-white whitespace-nowrap bg-slate-500 rounded-lg min-h-[46px] hover:bg-slate-00"
+          aria-label="Block user"
+          onClick={showPopup} // Mở popup để xác nhận bỏ chặn
+        >
         <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/e3f6e349bcf83444b5fd0dde247adf5fdab8e0f04e5c90575ec6088c214d0256?apiKey=7a79403a23cb489f853e4845c47ede19&"
-          className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
-          alt=""
+          src={`${process.env.PUBLIC_URL}/icons/unlock.svg`}
+          className="object-contain shrink-0 my-auto w-6 aspect-square"
+          alt="Unlock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
         />
-        <span className="gap-2.5 self-stretch my-auto">Chặn</span>
-      </button>
+          <span className="gap-2.5 self-stretch my-auto">Bỏ chặn</span>
+        </button>
+      ) : (
+        <button
+          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto text-xl leading-none text-white whitespace-nowrap bg-red-600 rounded-lg min-h-[46px] hover:bg-red-700"
+          aria-label="Block user"
+          onClick={showPopup} // Mở popup để xác nhận chặn
+        >
+        <img
+          src={`${process.env.PUBLIC_URL}/icons/lock.svg`}
+          className="object-contain shrink-0 my-auto w-6 aspect-square"
+          alt="Lock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
+        />
+          <span className="gap-2.5 self-stretch my-auto">Chặn</span>
+        </button>
+      )}
+
+      {/* Sử dụng BlockUserModal */}
+      {isPopupVisible && (
+        <BlockUserModal
+          isBlocked={isBlocked}         // Truyền trạng thái isBlocked để biết modal dùng cho chặn hay bỏ chặn
+          onConfirm={isBlocked ? handleUnblockUser : handleBlockUser} // Xác nhận chặn hoặc bỏ chặn
+          onCancel={closePopup}         // Đóng popup khi hủy
+        />
+      )}
     </div>
   );
 }

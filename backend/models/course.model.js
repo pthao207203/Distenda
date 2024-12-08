@@ -15,6 +15,7 @@ const courseSchema = new mongoose.Schema({
     default: "",
   },
   CourseDescription: String,
+  CourseRequire: String,
   CourseDuration: {
     type: Number,
     default: 0,

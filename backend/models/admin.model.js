@@ -7,6 +7,8 @@ const adminSchema = new mongoose.Schema({
   AdminToken: String,
   AdminPhone: String,
   AdminAvatar: String,
+  AdminLevel: String,
+  AdminExp: String,
   AdminRole_id: String,
   AdminStatus: Number,
   AdminDeleted: {

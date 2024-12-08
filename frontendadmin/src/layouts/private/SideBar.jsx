@@ -8,7 +8,7 @@ export default function SideBar() {
     { link: "/user", icon: "./icons/2user.svg", label: "Người dùng", isActive: false },
     { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên", isActive: false },
     { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
-    { link: "/", icon: "./icons/setting.svg", label: "Phân quyền", isActive: false },
+    { link: "/permission", icon: "./icons/setting.svg", label: "Phân quyền", isActive: false },
     { link: "/", icon: "./icons/notification.svg", label: "Thông báo", isActive: false },
     { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web", isActive: false },
   ];

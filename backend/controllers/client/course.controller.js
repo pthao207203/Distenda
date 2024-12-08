@@ -3,6 +3,7 @@ const Category = require("../../models/category.model")
 const Admin = require("../../models/admin.model")
 const Lesson = require("../../models/lesson.model")
 const Video = require("../../models/video.model")
+const Exercise = require("../../models/exercise.model")
 const User = require("../../models/user.model")
 const createTreeHelper = require("../../helpers/createTree");
 
@@ -16,7 +17,8 @@ module.exports.index = async (req, res) => {
 
   for (const course of courses) {
     const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    course.intructor = intructor.AdminFullName
+    // console.log(intructor)
+    course.intructor = intructor
   }
 
   res.json(courses)
@@ -36,8 +38,8 @@ module.exports.detail = async (req, res) => {
       CourseStatus: 1
     }
     let course = {}
-    course = await Course.findOne(find);
-    console.log(course)
+    course = await Course.findOne(find).lean();
+    // console.log(course)
 
     if (course.CourseIntructor && course.CourseIntructor != "") {
       const intructor = await Admin.findOne({
@@ -48,17 +50,18 @@ module.exports.detail = async (req, res) => {
     }
 
     const count = await Lesson.countDocuments({
-      CourseId: course.id,
+      CourseId: course._id,
       LessonDeleted: 1,
     });
+    // console.log("count", count)
     if (count > 0) {
       const lesson = await Lesson.find({
-        CourseId: course.id,
+        CourseId: course._id,
         LessonDeleted: 1,
-      });
+      }).lean();
       for (const item of lesson) {
         const video = await Video.find({
-          LessonId: item.id,
+          LessonId: item._id,
           VideoDeleted: 1
         })
         if (video.length != 0) {
@@ -66,18 +69,41 @@ module.exports.detail = async (req, res) => {
         }
 
       }
+      for (const item of lesson) {
+        const exer = await Exercise.findOne({
+          LessonId: item._id,
+          ExerciseDeleted: 1
+        })
+        if (exer) {
+          item.exercise = exer
+        }
+      }
       course.lesson = lesson;
+      // console.log(lesson)
     }
+    if (course.CourseReview) {
+      for (const item of course.CourseReview) {
+        const user = await User.findOne({
+          _id: item.UserId,
+        })
+        if (user) {
+          item.user = user
+        }
+      }
+      // console.log(lesson)
+    }
+
     if (res.locals.user) {
       const test = await User.findOne({
-        _id: res.locals.user.id,
-        "UserCourse.CourseId": course.id
+        _id: res.locals.user._id,
+        "UserCourse.CourseId": course._id
       })
       if (test) {
+        console.log(test)
         course.has = 1;
         const test1 = await User.findOne({
-          _id: res.locals.user.id,
-          "UserCourse.CourseId": course.id,
+          _id: res.locals.user._id,
+          "UserCourse.CourseId": course._id,
           "UserCourse.CourseReview": 0,
         })
         if (test1) {
@@ -85,11 +111,12 @@ module.exports.detail = async (req, res) => {
         }
       }
     }
-    // res.json(course)
-    res.render('client/pages/courses/detail', {
-      pageTitle: course.CourseName,
-      course: course,
-    });
+    course.user =
+      res.json(course)
+    // res.render('client/pages/courses/detail', {
+    //   pageTitle: course.CourseName,
+    //   course: course,
+    // });
   } catch (error) {
     req.flash("error", "Không tìm thấy sản phẩm!")
     res.redirect(`/courses`)
