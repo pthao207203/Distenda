@@ -12,9 +12,9 @@ export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
   };
 
   const userDetails = {
-    fullName: `${course.user.UserFullName}`,
-    email: `${course.user.UserEmail}`,
-    phone: `${course.user.UserPhone}`
+    fullName: `${course?.user?.UserFullName ? course.user.UserFullName : "Không có"}`,
+    email: `${course?.user?.UserEmail ? course.user.UserEmail : ""}`,
+    phone: `${course?.user?.UserPhone ? course.user.UserPhone : ""}`
   };
 
   return (

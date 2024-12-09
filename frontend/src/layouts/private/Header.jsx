@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
 
-export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
+export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [activeLink, setActiveLink] = useState('');
   const location = useLocation(); // Theo dõi URL hiện tại
   const [openDetails, setOpenDetails] = useState(false);
@@ -42,7 +42,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
 
   useEffect(() => {
     const currentPath = location.pathname;
-  
+
     // Cập nhật `activeLink` dựa trên URL
     if (currentPath === "/courses" || currentPath.startsWith("/category/")) {
       setActiveLink(currentPath);
@@ -50,7 +50,7 @@ export default function Header({ setHeaderHeight,handleTaskBarToggle}) {
       setActiveLink("");
     }
   }, [location.pathname]);
-  
+
 
   if (loading) {
     return (

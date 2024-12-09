@@ -16,7 +16,7 @@ export default function CourseLesson({ courseSlug, ...lesson }) {
   console.log("lesson", lesson)
   const videos = lesson.video
   return (
-    <div className="flex flex-col overflow-hidden grow shrink self-start my-auto w-full max-w-[1600px]  bg-neutral-900 text-white rounded-lg">
+    <div className="flex flex-col overflow-hidden grow shrink self-start my-auto w-full max-w-[1600px]  bg-neutral-900 text-white">
       <div className="flex gap-3 items-center px-5 py-8 w-full text-xl font-medium leading-5 text-white bg-neutral-900 min-h-[100px] max-md:max-w-full">
         <div className="flex-1 shrink gap-2.5 self-stretch my-auto w-full min-w-[240px]">
           {lesson.LessonName}
@@ -32,16 +32,19 @@ export default function CourseLesson({ courseSlug, ...lesson }) {
             </Link>
           ))}
         </div>
-        <div className="flex items-start py-2.5 w-full text-lg font-semibold bg-slate-300 text-neutral-900 max-md:max-w-full">
-          <div className="flex flex-1 shrink gap-3 items-center p-3 basis-0 min-w-[240px]">
-            <div className="gap-2.5 self-stretch my-auto">Bài tập</div>
-          </div>
-          <div className="flex gap-3 items-center p-3">
-            <div className="gap-2.5 self-stretch my-auto">
-              Điểm: 0.0
+        {lesson.exercise && (
+          <Link to={`/courses/CoursePurchased/${courseSlug}/CourseCode/${lesson.exercise.ExerciseSlug}`} className="flex items-start py-2.5 w-full text-lg font-semibold bg-slate-300 text-neutral-900 max-md:max-w-full">
+            <div className="flex flex-1 shrink gap-3 items-center p-3 basis-0 min-w-[240px]">
+              <div className="gap-2.5 self-stretch my-auto">Bài tập</div>
             </div>
-          </div>
-        </div>
+            <div className="flex gap-3 items-center p-3">
+              <div className="gap-2.5 self-stretch my-auto">
+                Điểm: 0.0
+              </div>
+            </div>
+          </Link>
+        )}
+
       </div>
     </div>
   );
