@@ -15,11 +15,11 @@ function TaskBarItem({ text, onClick }) {
 }
 
 function TaskBar() {
-    // Hàm xử lý đăng xuất
-    const handleLogout = () => {
-      logoutController(navigate);
-      alert("Đã đăng xuất thành công!");
-    };
+  // Hàm xử lý đăng xuất
+  const handleLogout = () => {
+    logoutController(navigate);
+    alert("Đã đăng xuất thành công!");
+  };
   const navigate = useNavigate(); // Khởi tạo useNavigate
   const handleProfileNavigation = () => {
     navigate("/user/profile"); // Điều hướng đến trang profile

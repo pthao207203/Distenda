@@ -43,7 +43,7 @@ export default function SideBar({headerHeight}) {
         ></div>
       )}
       <aside
-        className={`fixed top-0 left-0 mb-5 z-40 bg-white text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
+        className={`fixed top-0 left-0 z-40 bg-white text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
         // Thay thế giá trị top bằng chiều cao header
       >
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">

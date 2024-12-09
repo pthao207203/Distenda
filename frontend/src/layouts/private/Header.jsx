@@ -78,7 +78,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     <div className="flex flex-1 items-center justify-between gap-6">
       {/* Navigation */}
       <nav
-        className="flex flex-1 items-center text-xl font-semibold text-center overflow-x-auto scrollbar-hide justify-between"
+        className="flex flex-1 items-center text-2xl font-semibold text-center overflow-x-auto scrollbar-hide justify-between"
         style={{ whiteSpace: "nowrap" }}
       >
         <Link
