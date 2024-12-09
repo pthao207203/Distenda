@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CourseCard from "../Course/CourseCard";
+import CourseCard from "../MyCoursePurchased/CourseCard";
 import SearchBar from "../Course/SearchBar"; // Import SearchBar
 import { coursesCompletedController } from "../../../controllers/course.controller";
 
