@@ -18,10 +18,10 @@ export const loginController = async (data, setSuccess, setError, navigate) => {
 };
 
 // [GET] /auth/logout
-export const logoutController = async ( navigate) => {
+export const logoutController = async (navigate) => {
   try {
     const result = await logoutService(); // Gọi service để xử lý API
-    navigate('/login'); // Điều hướng tới trang đăng nhập
+    navigate('/login');  // Điều hướng tới trang đăng nhập
   } catch (err) {
     // setError(err); // Cập nhật lỗi nếu xảy ra
   }
