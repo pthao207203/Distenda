@@ -13,4 +13,10 @@ router.get("/register", controller.register);
 
 router.post("/register", controller.registerPost);
 
+router.post("/password/forgot", controller.passwordForgot);
+
+router.post("/password/otp", controller.passwordOTP);
+
+router.post("/password/new", controller.passwordNew);
+
 module.exports = router;

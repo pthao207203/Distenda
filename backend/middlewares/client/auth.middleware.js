@@ -18,18 +18,16 @@ module.exports.requireAuth = async (req, res, next) => {
     return;
   }
 
-  res.locals.user = user;
-
   next();
 };
 
 module.exports.auth = async (req, res, next) => {
+
   const user = await User.findOne({
     UserToken: req.cookies.user_token,
     UserDeleted: 1,
     UserStatus: 1,
   }).select("-UserPassword");
-  console.log(user)
 
   if (user) {
     res.locals.user = user;

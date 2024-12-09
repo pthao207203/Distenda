@@ -10,7 +10,7 @@ function CoursePage() {
   useEffect(() => {
     async function fetchData() {
       const result = await coursesCompletedController(setLoading);
-      console.log(result)
+      // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
@@ -26,7 +26,7 @@ function CoursePage() {
       </div>
     )
   }
-  console.log("courses => ", data)
+  // console.log("courses => ", data)
 
   return (
     <div className="flex flex-col w-full min-h-[800px]">

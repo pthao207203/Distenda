@@ -13,7 +13,7 @@ function Footer() {
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
-      console.log("result", result)
+      // console.log("result", result)
       setData(result);
     }
 
@@ -27,8 +27,8 @@ function Footer() {
       </div>
     )
   }
-  console.log("category ", data.category)
-  console.log("setting ", data.setting)
+  // console.log("category ", data.category)
+  // console.log("setting ", data.setting)
   return (
     <footer className="flex flex-col  px-40 py-10 w-full bg-[#131313] max-md:px-5 max-md:pt-5 max-md:max-w-full">
       <div className="self-center justify-between w-full max-md:max-w-full">

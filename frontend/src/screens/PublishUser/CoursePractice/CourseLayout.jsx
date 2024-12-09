@@ -10,7 +10,7 @@ function CourseLayout() {
   const [loading, setLoading] = useState(false);
 
   const { VideoSlug } = useParams();
-  console.log(VideoSlug)
+  // console.log(VideoSlug)
 
   useEffect(() => {
     async function fetchData(videoSlug) {
@@ -34,11 +34,11 @@ function CourseLayout() {
       </div>
     )
   }
-  console.log("video => ", data)
+  // console.log("video => ", data)
 
   return (
     <div className="flex flex-col bg-neutral-900">
-      <NavigationBar courseSlug={data ? data.course.CourseSlug : ""} />
+      <NavigationBar {...data} />
       <div className="flex flex-col w-full max-md:max-w-full">
         <div className="flex overflow-hidden flex-wrap flex-1 gap-1.5 justify-center bg-white bg-opacity-10 size-full max-md:max-w-full">
           {data && data.course && (

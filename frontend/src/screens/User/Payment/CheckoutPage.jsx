@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import UserForm from "./UserForm";
 
 export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
-  console.log("checkout", course)
+  // console.log("checkout", course)
   const productDetails = {
     title: `${course.CourseName}`,
     duration: `${course.CourseDuration} tháng`,

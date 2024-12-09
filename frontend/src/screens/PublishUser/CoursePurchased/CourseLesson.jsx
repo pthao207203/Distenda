@@ -12,8 +12,8 @@ import { Link } from "react-router-dom";
 // };
 
 export default function CourseLesson({ courseSlug, ...lesson }) {
-  console.log("slug", courseSlug)
-  console.log("lesson", lesson)
+  // console.log("slug", courseSlug)
+  // console.log("lesson", lesson)
   const videos = lesson.video
   return (
     <div className="flex flex-col overflow-hidden grow shrink self-start my-auto w-full max-w-[1600px]  bg-neutral-900 text-white">

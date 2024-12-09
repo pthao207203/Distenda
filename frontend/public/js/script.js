@@ -26,7 +26,7 @@ if (boxFilter) {
 
 // Tìm kiếm
 const formSearch = document.querySelector("[form-search]");
-console.log(formSearch)
+// console.log(formSearch)
 if (formSearch) {
   let url = new URL(location.href); // Nhân bản url
   formSearch.addEventListener("submit", (event) => {

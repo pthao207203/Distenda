@@ -1,4 +1,4 @@
-import { loginService, registerService, logoutService } from '../services/auth.service';
+import { loginService, registerService, logoutService, loginResetService, loginOTPService, loginNewService } from '../services/auth.service';
 
 // [POST] /auth/login
 export const loginController = async (data, setSuccess, setError, navigate) => {
@@ -35,15 +35,56 @@ export const registerController = async (data, setSuccess, setError, navigate) =
 };
 
 // [GET] /auth/logout
-export const logoutController = async ( navigate) => {
+export const logoutController = async (navigate) => {
   try {
-    
-    console.log("jsgu")
     const result = await logoutService(); // Gọi service để xử lý API
-
-    console.log("jsg")
-        navigate('/login'); // Điều hướng tới trang đăng nhập
+    navigate('/login'); // Điều hướng tới trang đăng nhập
   } catch (err) {
     // setError(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
+
+// [POST] /user/password/forgot
+export const loginResetController = async (data, setSuccess, setError, navigate) => {
+  try {
+    const result = await loginResetService(data); // Gọi service để xử lý API
+    if (result.code === 400) {
+      setError(result.message);
+    } else {
+      setSuccess(result.message || 'Gửi mail thành công!');
+    }
+    return result;
+  } catch (err) {
+    setError(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
+
+// [POST] /user/password/forgot
+export const loginOTPController = async (data, setSuccess, setError, navigate) => {
+  try {
+    const result = await loginOTPService(data); // Gọi service để xử lý API
+    if (result.code === 400) {
+      setError(result.message);
+    } else {
+      setSuccess(result.message || 'Xác nhận thành công!');
+    }
+    return result;
+  } catch (err) {
+    setError(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
+
+// [POST] /user/password/forgot
+export const loginNewController = async (data, setSuccess, setError) => {
+  try {
+    const result = await loginNewService(data); // Gọi service để xử lý API
+    if (result.code === 400) {
+      setError(result.message);
+    } else {
+      setSuccess(result.message || 'Xác nhận thành công!');
+    }
+    return result;
+  } catch (err) {
+    setError(err); // Cập nhật lỗi nếu xảy ra
   }
 };

@@ -32,8 +32,8 @@ function LessonCard({ videoKey, courseSlug, ...lesson }) {
       </div>
       <div className="flex flex-col justify-center w-full text-black bg-white">
         <div className="flex flex-col  w-full">
-          {lesson && lesson.video && lesson.video.length > 0 && lesson.video.map((topic) => (
-            <Link to={`/courses/CoursePurchased/${courseSlug}/${topic.VideoSlug}`} className={`flex gap-3 items-center px-4 py-4 w-full ${topic._id === videoKey ? "bg-[#EBF1F9]" : "bg-white"
+          {lesson && lesson.video && lesson.video.length > 0 && lesson.video.map((topic, index) => (
+            <Link to={`/courses/CoursePurchased/${courseSlug}/${topic.VideoSlug}`} key={index} className={`flex gap-3 items-center px-4 py-4 w-full ${topic._id === videoKey ? "bg-[#EBF1F9]" : "bg-white"
               }`}>
               <div className='gap-2.5 self-stretch my-auto'>
                 {topic.VideoName}
@@ -62,10 +62,8 @@ function LessonList(video) {
   const lessons = Object.values(course.lesson)
   return (
     <div className="flex flex-col min-w-[240px] w-[410px]">
-      {lessons && lessons.length > 0 && lessons.map((lesson) => (
-        <>
-          <LessonCard videoKey={video._id} courseSlug={course.CourseSlug} {...lesson} />
-        </>
+      {lessons && lessons.length > 0 && lessons.map((lesson, index) => (
+        <LessonCard videoKey={video._id} courseSlug={course.CourseSlug} {...lesson} key={index} />
       ))}
     </div>
   );
