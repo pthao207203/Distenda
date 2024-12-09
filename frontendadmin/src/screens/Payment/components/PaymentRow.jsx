@@ -33,7 +33,7 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       onClick={() => onRowClick && onRowClick(id)}
     >
       {/* Mã thanh toán */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{id}</span>
       </div>
 
@@ -43,7 +43,7 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       </div>
 
       {/* Mã khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{courseCode}</span>
       </div>
 
@@ -53,7 +53,7 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       </div>
 
       {/* Thời gian */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{time}</span>
       </div>
 
