@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 const Courses = () => {
   let token = Cookies.get('user_token');
-  console.log("token ", token)
+  // console.log("token ", token)
   const [headerHeight, setHeaderHeight] = useState(0);
   const [headerHeightPublic, setHeight] = useState(0);
   // Trạng thái kiểm soát hiển thị TaskBar

@@ -14,9 +14,9 @@ const Main = () => {
     setIsTaskBarVisible((prev) => !prev); // Đảo trạng thái hiển thị TaskBar
   };
   return (
-    <div className="bg-[url('Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
+    <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
       <Header setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} />
-      <SideBar headerHeight={headerHeight}/>
+      <SideBar headerHeight={headerHeight} />
       <div
         className="transition-all duration-300 ml-[292px]"
         style={{

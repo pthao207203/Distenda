@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function CourseCard({ onRegister, ...course }) {
-  console.log("course", course)
+  // console.log("course", course)
   // console.log("intructor", course.intructor.AdminFullName)
   let lessons = [];
 

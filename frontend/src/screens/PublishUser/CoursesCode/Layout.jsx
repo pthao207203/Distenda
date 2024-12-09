@@ -34,7 +34,7 @@ function CourseLayout() {
       </div>
     )
   }
-  console.log("exer => ", data)
+  // console.log("exer => ", data)
 
   return (
     <div className="flex flex-col">

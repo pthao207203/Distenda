@@ -12,7 +12,7 @@ import CourseCard from "./CourseCard";
 import CourseOverview from "./CourseOverview";
 
 export default function CourseContent({ onRegister, ...course }) {
-  console.log("course ", course)
+  // console.log("course ", course)
   const refs = {
     overview: useRef(null),
     content: useRef(null),
