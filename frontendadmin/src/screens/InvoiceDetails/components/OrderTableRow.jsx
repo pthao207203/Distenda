@@ -8,7 +8,7 @@ function CourseTableRow({ item }) {
         <div className="gap-2.5 self-stretch my-auto">{item.courseId}</div>
       </div>
       {/* Tên khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px] text-neutral-900">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px] text-neutral-900">
         <div className="gap-2.5 self-stretch my-auto">{item.courseName}</div>
       </div>
       {/* Giá */}

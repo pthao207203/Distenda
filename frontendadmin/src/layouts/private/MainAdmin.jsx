@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import SideBar from './SideBar'
 import Header from '../private/Header'
 import Cookies from 'js-cookie';
-// import TaskBar from '../private/TaskBar'; 
+import TaskBar from '../private/TaskBar'; 
 
 const MainAdmin = () => {
   let token = Cookies.get('token');
@@ -26,22 +26,28 @@ const MainAdmin = () => {
   }, []);
 
   // Hàm xử lý toggle TaskBar
-  // const handleTaskBarToggle = () => {
-  //   setIsTaskBarVisible((prev) => !prev); // Đảo trạng thái hiển thị TaskBar
-  // };
+  const handleTaskBarToggle = () => {
+    setIsTaskBarVisible((prev) => !prev); // Đảo trạng thái hiển thị TaskBar
+  };
 
   return (
     <div className="flex flex-col justify-start bg-indigo-50 bg-center bg-fixed min-h-screen">
-      <Header setHeaderHeight={setHeaderHeight}  /> 
-      {/* Chỉ hiển thị Sidebar nếu đã đăng nhập */}
-
-    {/* Sidebar và nội dung */}
-    <div className="flex flex-1">
-      <SideBar />
-      <div className={`flex-grow ${isDesktop ? "ml-[320px]" : "ml-0"}`}>
+      <Header setHeaderHeight={setHeaderHeight}  handleTaskBarToggle={handleTaskBarToggle} /> 
+      <SideBar headerHeight={headerHeight}/>
+      <div
+        className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[320px]" }`}
+      >
+        {isTaskBarVisible && (
+          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px]"
+            style={{
+              marginTop: `${headerHeight}px`,
+            }}
+          >
+            <TaskBar />
+          </div>
+        )}
         <Outlet />
       </div>
-    </div>
     </div>
   );
 };

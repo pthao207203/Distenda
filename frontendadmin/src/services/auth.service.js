@@ -1,7 +1,8 @@
-// [POST] /auth/login
+// [POST] /admin/auth/login
 export const loginService = async (data) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, {
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/login`)
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,19 +24,17 @@ export const loginService = async (data) => {
   }
 };
 
-// [POST] /auth/register
-export const registerService = async (data) => {
+
+// [GET] /auth/logout
+export const logoutService = async () => {
   try {
-    const response = await fetch('http://localhost:3001/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/logout`, {
+      method: 'GET',
+      credentials: "include",
     });
 
     if (!response.ok) {
-      throw new Error('Đăng ký thất bại');
+      throw new Error('Đăng xuất thất bại');
     }
     console.log(response);
 
@@ -46,3 +45,4 @@ export const registerService = async (data) => {
     throw error.message; // Quăng lỗi để controller xử lý
   }
 };
+

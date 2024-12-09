@@ -49,7 +49,7 @@ export default function CourseTable() {
     </div>
 
     {/* Tên khóa */}
-    <div className="flex flex-1 shrink justify-center items-center px-3 py-0 h-[70px] bg-indigo-50 basis-0 min-w-[240px]">
+    <div className="flex flex-1 shrink justify-center items-center px-3 py-0 h-[70px] bg-[#EBF1F9] basis-0 min-w-[240px]">
       <span className="text-center">Tên khóa</span>
     </div>
 
@@ -59,7 +59,7 @@ export default function CourseTable() {
     </div>
 
     {/* Lần cuối cập nhật */}
-    <div className="flex flex-1 shrink justify-center items-center px-3 py-0 h-[70px] bg-indigo-50 basis-0 min-w-[240px]">
+    <div className="flex flex-1 shrink justify-center items-center px-3 py-0 h-[70px] bg-[#EBF1F9] basis-0 min-w-[240px]">
       <span className="text-center">Lần cuối cập nhật</span>
     </div>
 

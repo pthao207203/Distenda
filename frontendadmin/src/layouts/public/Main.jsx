@@ -1,9 +1,8 @@
-import React, { useEffect, useState }  from 'react'
+import React, {useState, useEffect} from 'react'
 import { Outlet } from 'react-router-dom'
-import SideBar from './SideBar'
-import Header from '../private/Header'
-import Cookies from 'js-cookie';
-// import TaskBar from '../private/TaskBar'; 
+import Header from './Header';
+import Cookies from "js-cookie"
+
 
 const Main = () => {
   let token = Cookies.get('token');
@@ -31,19 +30,14 @@ const Main = () => {
   // };
 
   return (
-    <div className="flex flex-col justify-start bg-indigo-50 bg-center bg-fixed min-h-screen">
-      <Header setHeaderHeight={setHeaderHeight}  /> 
-      {/* Chỉ hiển thị Sidebar nếu đã đăng nhập */}
-
-    {/* Sidebar và nội dung */}
-    <div className="flex flex-1">
-      <SideBar />
-      <div className={`flex-grow ${isDesktop ? "ml-[320px]" : "ml-0"}`}>
-        <Outlet />
+    <div className="flex overflow-hidden flex-col justify-start leading-none bg-white w-screen h-screen">
+      <Header />
+      <div className="flex flex-wrap grow justify-center items-center gap-1.5 ">
+      <Outlet />
       </div>
-    </div>
     </div>
   );
 };
+
 
 export default Main

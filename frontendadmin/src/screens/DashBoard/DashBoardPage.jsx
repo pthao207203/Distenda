@@ -42,17 +42,18 @@ const menuItems = [
 ];
 
 const courses = [
-  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000" },
-  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000" },
-  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000" }
+  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000", state: "Hoạt động" },
+  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000", state: "Hoạt động"  },
+  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000", state: "Hoạt động"  },
+  { courseId: "HTML2025", name: "HTML cơ bản", sold: "23", price: "1.000.000", profit: "23.000.000", state: "Hoạt động"  }
 ];
 
 function DashboardPage() {
   return (
-        <div className="flex flex-col w-full min-h-screen overflow-auto">
+        <div className="flex flex-col w-full min-h-screen">
           {/* Stats Section */}
           <main>
-          <div className="max-w-full flex flex-col items-center w-full p-16 font-medium bg-white basis-0 max-md:px-5 max-md:max-w-full">
+          <div className="max-w-full flex flex-col items-center w-full p-[60px] font-medium bg-white basis-0 max-md:p-5 max-md:max-w-full">
             <div className="flex flex-1 max-md:flex-wrap flex-grow shrink gap-4 w-full justify-evenly items-center text-white max-md:max-w-full">
               {stats.map((stat, index) => (
                 <StatCard key={index} {...stat} />
@@ -60,9 +61,9 @@ function DashboardPage() {
             </div>
 
             {/* Chart Section */}
-            <section className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Biểu đồ Lợi nhuận */}
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de]">
                 <h3 className="text-lg font-semibold mb-4">Lợi nhuận</h3>
                 <div className="relative flex flex-col items-start rounded-3xl overflow-hidden">
                   <img
@@ -79,7 +80,7 @@ function DashboardPage() {
               </div>
 
         {/* Biểu đồ Tỉ lệ chuyển đổi */}
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de] ">
                 <h3 className="text-lg font-semibold mb-4">Tỉ lệ chuyển đổi</h3>
                 <div className="relative">
                   <div className="flex flex-wrap gap-3.5 items-center text-sm">
@@ -109,14 +110,14 @@ function DashboardPage() {
                 </div>
               </div>
             </section>
-            <section className="flex flex-col mt-7 w-full text-xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] text-neutral-900 max-md:max-w-full">
+            <section className="flex flex-col mt-1 w-full text-xl text-neutral-900 max-md:max-w-full">
                 <TableHeader />
               {courses.map((course, index) => (
                 <CourseTableRow key={index} {...course} />
               ))}
 
-              <button className="flex gap-3 justify-center items-start self-center px-3 py-5 max-w-full bg-indigo-50 rounded-lg mt-[20px] shadow-[-6px_6px_0px_rgba(255,255,255,1)] w-[231px] max-md:mt-10">
-                <span className="gap-2.5 self-stretch">Xem tất cả</span>
+              <button className="flex flex-1 justify-center items-start self-center px-5 py-3 max-w-full bg-[#EBF1F9] rounded-lg mt-[20px] max-md:mt-10">
+                <span className="self-center">Xem tất cả</span>
               </button>
             </section>
           </div>

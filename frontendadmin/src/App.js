@@ -2,7 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
 import Layout from './layouts/Layout';
-import AdminRoutes from './layouts/AdminRoutes';
+//import AdminRoutes from './layouts/AdminRoutes';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
@@ -13,6 +13,7 @@ import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import PaymentTablePage from './screens/Payment/PaymentTablePage';
 import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
+import Login from './screens/Login/LoginAdmin'
 import Permission from './screens/Permission/PermissionPage';
 
 function App() {
@@ -33,11 +34,11 @@ function App() {
           </Route>
         {/* </Route> */}
 
-        <Route element={PublicRoutes}>
-          <Route element={<Main />}>
-          <Route path='/login' element={<Login />} />
-         </Route>
-        </Route> 
+          <Route element={<PublicRoutes />}>
+            <Route element={<Main />}>
+              <Route path='/login' element={<Login />} />
+            </Route>
+          </Route> 
       </Route>
     </Routes>
   );
