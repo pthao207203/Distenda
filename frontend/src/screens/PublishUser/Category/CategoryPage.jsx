@@ -16,7 +16,7 @@ function CategoryPage() {
   useEffect(() => {
     async function fetchData(categorySlug) {
       const result = await categoryController(setLoading, categorySlug);
-      console.log(result);
+      // console.log(result);
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
@@ -35,7 +35,7 @@ function CategoryPage() {
       </div>
     )
   }
-  console.log("courses => ", data)
+  // console.log("courses => ", data)
 
   return (
     <div className="flex flex-col w-full min-h-screen">

@@ -14,7 +14,7 @@ const SideBar = ({ headerHeight }) => {
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
-      console.log("result", result)
+      // console.log("result", result)
       setData(result);
     }
 
@@ -57,8 +57,8 @@ const SideBar = ({ headerHeight }) => {
       </div>
     )
   }
-  console.log("category ", data.category)
-  console.log("setting ", data.setting)
+  // console.log("category ", data.category)
+  // console.log("setting ", data.setting)
 
 
   let member;
@@ -101,9 +101,9 @@ const SideBar = ({ headerHeight }) => {
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src={data?.setting?.user?.UserPicture ? data.setting.user.UserPicture : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"}
+            src={data.setting.user?.UserAvatar ? data.setting.user.UserAvatar : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"}
             alt="User profile"
-            className="object-contain shrink-0 self-stretch my-auto w-[64px] h-[62px] rounded-full aspect-[1.03] mr-[8px]"
+            className="object-cover shrink-0 self-stretch my-auto w-[64px] h-[62px] rounded-full aspect-[1.03] mr-[8px]"
           />
           <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
             <div className="flex items-center text-[28px] font-semibold ">

@@ -16,7 +16,6 @@ import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
 import CoursePurchased from './screens/PublishUser/CoursePurchased/CourseDetailPage';
 import CoursePractice from './screens/PublishUser/CoursePractice/CourseLayout';
-import CourseCode from './screens/PublishUser/CourseCode/CourseLayout';
 import CoursesCode from './screens/PublishUser/CoursesCode/Layout';
 import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
@@ -40,9 +39,7 @@ function App() {
             </Route>
             <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
-              {/* <Route path='/courses/CourseStudying/:CourseSlug' element={<CourseStudying />} /> */}
               <Route path='/courses/CoursePurchased/:CourseSlug/:VideoSlug' element={<CoursePractice />} />
-              <Route path='/courses/CourseCode' element={<CourseCode />} />
               <Route path='/courses/CoursePurchased/:CourseSlug/CourseCode/:ExerciseSlug' element={<CoursesCode />} />
             </Route>
           </Route>

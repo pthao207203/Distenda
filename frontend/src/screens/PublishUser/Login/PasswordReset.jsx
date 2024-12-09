@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { loginController } from '../../../controllers/auth.controller.js';
+import { loginResetController } from '../../../controllers/auth.controller.js';
 
-function PasswordReset({onNext, onSetEmail}) {
+function PasswordReset({ onNext, onSetEmail }) {
   const [formData, setFormData] = useState({
     UserEmail: '',
   })
@@ -25,15 +25,19 @@ function PasswordReset({onNext, onSetEmail}) {
     setError(null);
     setSuccess(null);
     setIsLoading(true); // Bắt đầu trạng thái loading
-    
+
     // Gửi dữ liệu tới server
     try {
-      await loginController(formData, setSuccess, setError, navigate);
-      if (onNext) {
-        onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
+      console.log(formData)
+      const result = await loginResetController(formData, setSuccess, setError, navigate);
+      if (result.code === 200) {
+        if (onNext) {
+          onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
+        }
       }
+
     } catch (err) {
-      setError("Đã xảy ra lỗi. Vui lòng thử lại.");
+      setError(err);
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
     }
@@ -65,9 +69,8 @@ function PasswordReset({onNext, onSetEmail}) {
           </div>
         </div>
 
-        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${
-          isLoading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           {isLoading ? "Đang xử lý..." : "Nhận mã"}
         </button>

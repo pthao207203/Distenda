@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProfileForm = () => {
+const ProfileForm = ({ data, setData, onSubmit }) => {
   // Define state for password fields
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -21,35 +21,40 @@ const ProfileForm = () => {
       setShowConfirmPassword(!showConfirmPassword);
     }
   };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setData((prevData) => ({ ...prevData, [id]: value })); // Cập nhật giá trị trong form
+  };
 
   return (
-    <form className="flex flex-col px-[20px] pt-[20px] max-w-[930px] min-h-[874px] max-md:mt-10 max-md:max-w-full">
+    <div className="flex flex-col px-[20px] pt-[20px] max-w-[930px] min-h-[874px] max-md:mt-10 max-md:max-w-full">
       <div className="flex flex-col w-full max-md:max-w-full">
         <div className="flex flex-col w-full text-white max-md:max-w-full">
-          <label htmlFor="fullName" className="text-xl font-medium max-md:max-w-full">
+          <label htmlFor="UserFullName" className="text-xl font-medium max-md:max-w-full">
             Họ và tên
           </label>
           <input
-            id="fullName"
+            id="UserFullName"
             type="text"
             className="flex-1 shrink gap-2.5 self-stretch text-white bg-transparent px-[8px] py-[8px] mt-2 w-full text-lg border border-[#D0D7DF] border-solid min-h-[60px] max-md:max-w-full"
-            defaultValue="Pham Hải Yến"
+            value={data?.UserFullName || ""}
+            onChange={handleChange}
           />
         </div>
 
-        <div className="flex flex-col mt-8 w-full whitespace-nowrap max-md:max-w-full">
-          <label htmlFor="email" className="text-xl font-medium text-white max-md:max-w-full">
+        {/* Other fields */}
+        <div className="flex flex-col mt-8 w-full max-md:max-w-full">
+          <label htmlFor="UserEmail" className="text-xl font-medium text-white max-md:max-w-full">
             Email
           </label>
           <input
-            id="email"
+            id="UserEmail"
             type="email"
             className="flex-1 shrink gap-2.5 self-stretch px-[8px] py-[8px] mt-2 w-full text-lg bg-[#EBF1F9] min-h-[60px] text-neutral-900 text-opacity-60 max-md:max-w-full"
-            defaultValue="Hyen@gmail.com"
+            value={data?.UserEmail || ""}
             readOnly
           />
         </div>
-
         <div className="flex flex-col mt-8 w-full max-md:max-w-full">
           <label htmlFor="phone" className="text-xl font-medium text-white max-md:max-w-full">
             Số điện thoại
@@ -143,11 +148,14 @@ const ProfileForm = () => {
           </div>
         </div>
       </div>
-
-      <button type="submit" className="flex gap-3 justify-center items-center self-center px-[12px] py-[20px] mt-[40px] max-w-full text-xl font-semibold leading-none bg-[#CFF500] min-h-[71px] text-neutral-900 w-[380px]">
-        Cập nhật tài khoản
+      <button
+        type="button"
+        className="mt-8 px-[12px] py-[12px] bg-[#CFF500] text-black font-semibold"
+        onClick={() => onSubmit(data)}
+      >
+        Cập nhật
       </button>
-    </form>
+    </div>
   );
 };
 

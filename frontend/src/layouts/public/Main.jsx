@@ -9,7 +9,7 @@ import TaskBar from '../private/TaskBar';
 
 const Courses = () => {
   let token = Cookies.get('user_token');
-  console.log("token ", token)
+  // console.log("token ", token)
   const [isDesktop, setIsDesktop] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [headerHeightPublic, setHeight] = useState(0);

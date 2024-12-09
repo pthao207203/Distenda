@@ -72,7 +72,7 @@ export default function CourseDetailPage() {
       try {
         const result = await coursePayController(setLoading, CourseSlug);
         if (result === 400) {
-          console.log("Thành công");
+          // console.log("Thành công");
         }
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
@@ -109,7 +109,7 @@ export default function CourseDetailPage() {
       </div>
     )
   }
-  console.log("course => ", data)
+  // console.log("course => ", data)
 
   return (
     <div className="flex flex-col relative w-full h-full overflow-y-auto">

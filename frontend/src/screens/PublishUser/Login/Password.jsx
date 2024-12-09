@@ -1,37 +1,42 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { loginController } from '../../../controllers/auth.controller.js';
+import { loginNewController } from '../../../controllers/auth.controller.js';
 
 function Password() {
-    const [formData, setFormData] = useState({
-        UserPassword: '',
-        UserPasswordAgain: '',
-      })
-      const [error, setError] = useState(null);
-      const [success, setSuccess] = useState(null);
-      const navigate = useNavigate();
-    
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log('Form data:', formData);
-        setError(null);
-        setSuccess(null);
+  const [formData, setFormData] = useState({
+    UserPassword: '',
+    UserPasswordAgain: '',
+  })
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
-        // Kiểm tra mật khẩu có khớp không
-        if (formData.UserPassword !== formData.UserPasswordAgain) {
-            alert('Mật khẩu không khớp!');
-            return;
-        }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-        // Gửi dữ liệu tới server 
-        loginController(formData, setSuccess, setError, navigate);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Form data:', formData);
+    setError(null);
+    setSuccess(null);
+
+    // Kiểm tra mật khẩu có khớp không
+    if (formData.UserPassword !== formData.UserPasswordAgain) {
+      alert('Mật khẩu không khớp!');
+      return;
+    }
+
+    // Gửi dữ liệu tới server 
+    const result = await loginNewController(formData, setSuccess, setError);
+    console.log(result.code)
+    if (result.code === 200) {
+      alert('Đổi mật khẩu thành công!');
+      navigate("/courses")
+    }
+  };
   return (
     <div className="flex z-0 flex-col w-full max-md:max-w-full">
       <div className="flex flex-col w-full leading-none text-white max-md:max-w-full">

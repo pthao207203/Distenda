@@ -15,12 +15,12 @@ function BreadcrumbNav(course) {
       link: "/courses/CoursePurchased"
     },
     {
-      text: "Chuyên viên thiết kế đồ họa & web",
+      text: `${course.course?.CourseName ? course.course.CourseName : ""}`,
       icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/c5a0451c61c99e5ef2e55f94e3d954790d1c890fb52a51c02b43fe879c4db9a7?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e",
       link: `${course.course ? `/courses/CoursePurchased/${course.course.CourseSlug}` : ""}`
     },
     {
-      text: "Bài 1",
+      text: "Bài tập",
       icon: null,
       link: ""
     }
