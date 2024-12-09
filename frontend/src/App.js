@@ -15,7 +15,6 @@ import Intro from './screens/PublishUser/Intro/LandingPage';
 import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
 import CoursePurchased from './screens/PublishUser/CoursePurchased/CourseDetailPage';
-import CourseCompleted from './screens/PublishUser/CourseCompleted/CoursesDetailPage';
 import CoursePractice from './screens/PublishUser/CoursePractice/CourseLayout';
 import CourseCode from './screens/PublishUser/CourseCode/CourseLayout';
 import CoursesCode from './screens/PublishUser/CoursesCode/Layout';
@@ -41,7 +40,6 @@ function App() {
             </Route>
             <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
-              <Route path='/courses/CourseCompleted/:CourseSlug' element={<CourseCompleted />} />
               {/* <Route path='/courses/CourseStudying/:CourseSlug' element={<CourseStudying />} /> */}
               <Route path='/courses/CoursePurchased/:CourseSlug/:VideoSlug' element={<CoursePractice />} />
               <Route path='/courses/CourseCode' element={<CourseCode />} />
