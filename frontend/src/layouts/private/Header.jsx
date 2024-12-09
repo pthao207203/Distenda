@@ -15,6 +15,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const handleLinkClick = (link) => {
     setActiveLink(link);
   };
+
   let [data, setData] = useState(
     {
       category: [],
@@ -22,7 +23,6 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     }
   );
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
@@ -69,7 +69,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     >
       <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
         <div className="text-6xl uppercase font-['Squada One']">
-          <img src={data.setting.WebsiteLogoUser} alt={data.setting.WebsiteName} />
+          <img src={data?.setting?.WebsiteLogoUser} alt={data?.setting?.WebsiteName} />
           {/* <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl">Distenda</h1> */}
         </div>
 

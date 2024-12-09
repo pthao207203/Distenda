@@ -25,7 +25,6 @@ export const headerService = async () => {
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/header`)
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/header`, {
       method: 'GET',
-      credentials: "include"
     });
 
     if (!response.ok) {
