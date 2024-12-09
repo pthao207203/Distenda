@@ -32,6 +32,7 @@ export const logoutService = async () => {
       method: 'GET',
       credentials: "include",
     });
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/logout`)
 
     if (!response.ok) {
       throw new Error('Đăng xuất thất bại');
