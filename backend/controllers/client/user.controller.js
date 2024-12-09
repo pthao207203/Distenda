@@ -104,10 +104,11 @@ module.exports.payPost = async (req, res) => {
 
 // // [GET] /user/profile
 module.exports.profile = async (req, res) => {
-  res.render("client/pages/user/profile", {
-    pageTitle: "Trang cá nhân",
-    user: res.locals.user
-  });
+  // res.render("client/pages/user/profile", {
+  //   pageTitle: "Trang cá nhân",
+  //   user: res.locals.user
+  // });
+  res.json(res.locals.user)
 };
 
 // // [GET] /user/profile/edit

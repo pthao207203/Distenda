@@ -4,7 +4,7 @@ function TableHeader() {
   return (
     <div className="flex overflow-hidden w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
       {/* Mã hóa đơn */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span className="text-center">Mã hóa đơn</span>
       </div>
 
@@ -14,7 +14,7 @@ function TableHeader() {
       </div>
 
       {/* Mã khóa học */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span className="text-center">Mã khóa học</span>
       </div>
 
@@ -24,7 +24,7 @@ function TableHeader() {
       </div>
 
       {/* Thời gian */}
-      <div className="flex flex-1 justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span className="text-center">Thời gian</span>
       </div>
 
