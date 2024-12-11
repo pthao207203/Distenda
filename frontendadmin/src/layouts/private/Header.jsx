@@ -10,20 +10,20 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
   };
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("result", result)
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await headerController(setLoading);
+  //     console.log("result", result)
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const headerRef = useRef(null);
   useEffect(() => {
     async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("Controller result:", result);
+      // const result = await headerController(setLoading);
+      // console.log("Controller result:", result);
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
