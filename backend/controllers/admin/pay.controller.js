@@ -3,33 +3,26 @@ const Course = require("../../models/course.model");
 const Pay = require("../../models/pay.model");
 const Admin = require("../../models/admin.model");
 
-// // [GET] /pay/:CourseID
+// // [GET] /pay/
 module.exports.pay = async (req, res) => {
-  if (req.cookies.user_token) {
-    const test = await User.findOne({
-      _id: res.locals.user.id,
-      "UserCourse.CourseId": req.params.CourseID
-    })
-    console.log("test ", test)
-    if (test) {
-      const course = await Course.findOne({ _id: req.params.CourseID })
-      req.flash("error", "Bạn đã mua khoá học!")
-      res.redirect(`/courses/${course.CourseSlug}`)
-      return;
+  const pays = await Pay.find().lean()
+  for (const pay of pays) {
+    const user = await User.findOne({
+      _id: pay.UserId,
+    });
+    if (user) {
+      pay.user = user.UserFullName;
     }
+
     const course = await Course.findOne({
-      _id: req.params.CourseID
-    })
+      _id: pay.CourseId,
+    });
     console.log(course)
-    res.render("client/pages/courses/pay", {
-      pageTitle: "Thanh toán",
-      course: course
-    });
-  } else {
-    res.render("client/pages/auth/login", {
-      pageTitle: "Đăng nhập",
-    });
+    if (course) {
+      pay.course = course.CourseName;
+    }
   }
+  res.json(pays)
 };
 
 // // [POST] /pay/:CourseSlug
