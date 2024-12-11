@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 export function ProfileHeader({ name, email, avatarSrc, updateIconSrc, openPopup }) {
     return (
-      <div className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full">
-        <div className="flex flex-wrap flex-1 shrink gap-3 items-center basis-6 min-w-[240px] max-md:max-w-full">
-          <div className="flex flex-col">
+      <div className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full ">
+        <div className="flex flex-wrap flex-1 shrink gap-3 items-center basis-4 min-w-[240px] max-md:max-w-full">
+          <div className="flex flex-col ">
             <img
               loading="lazy"
               src={avatarSrc}
