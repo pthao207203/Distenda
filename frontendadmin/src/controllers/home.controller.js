@@ -1,10 +1,10 @@
-import { homeService, headerService } from '../services/home.service';
+import { dashboardService, headerService } from '../services/home.service';
 
 // [GET] /
-export async function homeController(setLoading) {
+export async function dashboardController(setLoading) {
   try {
     setLoading(true); // Đang tải
-    const result = await homeService(); // Gọi API
+    const result = await dashboardService(); // Gọi API
     // console.log("result", result);
     setLoading(false); // Tải xong
     return result;

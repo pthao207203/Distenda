@@ -4,12 +4,14 @@ const paySchema = new mongoose.Schema(
   {
     UserId: String,
     CourseId: String,
-    PayTotal: String,
+    PayTotal: Number,
     PayStatus: {
       type: Number,
       default: 0,
     },
     PayVoucher: String,
+    PayTeacher: Number,
+    PayProfit: Number,
     createdBy: {
       UserId: String,
       createdAt: {

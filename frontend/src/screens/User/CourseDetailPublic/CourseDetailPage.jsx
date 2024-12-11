@@ -114,7 +114,7 @@ export default function CourseDetailPage() {
       </div>
     )
   }
-  // console.log("course => ", data)
+  console.log("course => ", data)
 
   return (
     <div className="flex flex-col relative w-full h-full overflow-y-auto">
