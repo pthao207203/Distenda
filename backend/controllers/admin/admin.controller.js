@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
     AdminDeleted: 1,
   };
 
-  const admin = await Admin.find(find).select("-AdminPassword -AdminToken");
+  const admin = await Admin.find(find).select("-AdminPassword -AdminToken").lean();
 
   for (const item of admin) {
     const role = await Role.findOne({
@@ -19,11 +19,11 @@ module.exports.index = async (req, res) => {
     });
     item.role = role;
   }
-
-  res.render("admin/pages/admin/index", {
-    pageTitle: "Danh sách tài khoản",
-    admin: admin,
-  });
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: admin,
+  // });
 };
 
 // [GET] /admin/admin/create

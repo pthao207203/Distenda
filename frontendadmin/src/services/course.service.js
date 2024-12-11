@@ -1,10 +1,11 @@
 // [GET] /
 export const coursesService = async () => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/courses`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/courses`, {
       method: 'GET',
+      credentials: 'include',
     });
-    // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/courses`)
 
     if (!response.ok) {
       throw new Error('Lỗi!!!');

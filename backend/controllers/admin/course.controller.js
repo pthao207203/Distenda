@@ -40,11 +40,11 @@ module.exports.index = async (req, res) => {
 
   const courses = await Course.find(find)
     .limit(objectPagination.limitItems)
-    .skip(objectPagination.skip);
+    .skip(objectPagination.skip).lean();
 
   for (const course of courses) {
     const intructor = await Admin.findOne({
-      _id: course.createdBy.UserId,
+      _id: course.CourseIntructor,
     });
 
     if (intructor) {
@@ -52,13 +52,13 @@ module.exports.index = async (req, res) => {
     }
   }
 
-  // res.json(courses)
-  res.render("admin/pages/course/index", {
-    pageTitle: "Trang khoá học",
-    courses: courses,
-    keyword: keyword,
-    pagination: objectPagination,
-  });
+  res.json(courses)
+  // res.render("admin/pages/course/index", {
+  //   pageTitle: "Trang khoá học",
+  //   courses: courses,
+  //   keyword: keyword,
+  //   pagination: objectPagination,
+  // });
 };
 
 // [PATCH] /admin/courses/change-status/:status/:CourseID

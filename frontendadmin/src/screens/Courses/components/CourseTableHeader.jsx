@@ -16,12 +16,12 @@ function CourseTableHeader() {
     <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] h-[70px] max-md:max-w-full">
       {/* Mã khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-center">Mã khóa học</span>
+        <span className="text-center">Tên khóa học</span>
       </div>
 
       {/* Tên khóa */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center text-white">
-        <span className="text-center">Tên khóa</span>
+        <span className="text-center">Giảng viên</span>
       </div>
 
       {/* Đã bán */}

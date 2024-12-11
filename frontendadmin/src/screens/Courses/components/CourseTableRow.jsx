@@ -1,34 +1,34 @@
 import * as React from "react";
 
-function CourseTableRow({ id, name, sold, price, profit, status }) {
-  const statusClass = status === "active" ? "bg-[#D1F669]" : "bg-[#FFD75B]";
-  const statusText = status === "active" ? "Hoạt động" : "Tạm dừng";
+function CourseTableRow(course) {
+  const statusClass = course.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
+  const statusText = course.CourseStatus === 1 ? "Hoạt động" : "Tạm dừng";
 
   return (
     <article className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
-      {/* Mã khóa học*/}
+      {/* Tên khóa học*/}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{id}</span>
+        <span className="text-[#131313] text-center text-xl font-medium px-3 truncate">{course.CourseName}</span>
       </div>
 
       {/* Tên sản phẩm */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{name}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.intructorFullName}</span>
       </div>
 
       {/* Số lượng đã bán */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{sold}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CourseBought}</span>
       </div>
 
       {/* Giá */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{price}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CoursePrice}</span>
       </div>
 
       {/* Lợi nhuận */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{profit}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">0</span>
       </div>
 
       {/* Trạng thái */}
