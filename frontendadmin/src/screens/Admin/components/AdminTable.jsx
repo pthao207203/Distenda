@@ -33,17 +33,7 @@ const adminData = [
 
 function AdminTable() {
   return (
-    <div className="flex flex-col mt-2 w-full max-md:max-w-full">
-      {/* Header */}
-      {/* <div className="flex overflow-hidden w-full bg-indigo-50 h-[70px]">
-        <TableHeader text="Ảnh" />
-        <TableHeader text="Họ và tên" />
-        <TableHeader text="Chức vụ" />
-        <TableHeader text="Thời gian tham gia" />
-        <TableHeader text="Trạng thái" />
-      </div> */}
-
-      {/* Rows */}
+    <div className="flex flex-col mt-2 w-full max-md:max-w-full"> 
       {adminData.map((admin, index) => (
         <TableRow key={index} {...admin} />
       ))}
@@ -51,22 +41,15 @@ function AdminTable() {
   );
 }
 
-function TableHeader({ text }) {
-  return (
-    <div className="flex flex-1 justify-center items-center min-w-[240px] text-center px-3 py-2 bg-indigo-50">
-      <span>{text}</span>
-    </div>
-  );
-}
 
 function TableRow({ avatar, name, role, joinDate, status }) {
   const statusClass = status === "active" ? "bg-lime-300" : "bg-amber-300";
   const statusText = status === "active" ? "Đang hoạt động" : "Tạm dừng";
 
   return (
-    <article className="flex overflow-hidden flex-wrap mt-2 w-full bg-white h-[70px] cursor-pointer">
+    <article className="flex overflow-hidden flex-wrap mt-2 w-full bg-white text-[#131313]  min-h-[70px] cursor-pointer">
       {/* Avatar */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
+      <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <img
           src={avatar}
           alt="Admin Avatar"
@@ -75,26 +58,26 @@ function TableRow({ avatar, name, role, joinDate, status }) {
       </div>
 
       {/* Tên */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
-        <span className="text-center">{name}</span>
+      <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{name}</span>
       </div>
 
       {/* Chức vụ */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <span className="text-center">{role}</span>
+      <div className="flex basis-1/5 min-w-0 justify-center items-center">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{role}</span>
       </div>
 
       {/* Thời gian tham gia */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
-        <span className="text-center">{joinDate}</span>
+      <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{joinDate}</span>
       </div>
 
       {/* Trạng thái */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
+      <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <div
-          className={`flex justify-center items-center min-w-[240px] py-2 rounded-full ${statusClass} text-center`}
+          className={`self-center shrink w-[90%] max-w-full px-4 py-2 rounded-[99px] justify-center items-center inline-flex ${statusClass} text-center`}
         >
-          <span>{statusText}</span>
+          <span className="text-[#131313] text-center text-xl font-medium truncate">{statusText}</span>
         </div>
       </div>
     </article>
