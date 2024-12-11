@@ -12,9 +12,9 @@ export default function SideBar({headerHeight}) {
     { link: "/user", icon: "./icons/2user.svg", label: "Người dùng" },
     { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên" },
     { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn" },
-    { link: "/authorities", icon: "./icons/setting.svg", label: "Phân quyền" },
+    { link: "/permission", icon: "./icons/setting.svg", label: "Phân quyền" },
     { link: "/notification", icon: "./icons/notification.svg", label: "Thông báo" },
-    { link: "#", icon: "./icons/category.svg", label: "Thông tin web" },
+    { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web" },
   ];
 
   useEffect(() => {
