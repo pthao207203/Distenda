@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function CourseTableRow({ courseId, name, sold, price, profit, state }) {
   return (
-    <div className="flex shrink overflow-hidden my-3 bg-white h-[70px] w-full">
+    <div className="flex shrink overflow-hidden mt-3 bg-white h-[70px] w-full">
       {/* Mã khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{courseId}</span>
@@ -25,13 +25,13 @@ export default function CourseTableRow({ courseId, name, sold, price, profit, st
 
       {/* Lợi nhuận */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate w-[95%]">{profit}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{profit}</span>
       </div>
 
       {/* Trạng thái */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
         <div
-          className={`self-center shrink w-[90%] max-w-full px-4 py-2 rounded-[99px] border-2 justify-center items-center inline-flex ${
+          className={`self-center shrink w-[90%] max-w-full px-4 py-2 rounded-[99px] justify-center items-center inline-flex ${
             state === "Hoạt động" ? "bg-[#D1F669]" : "bg-[#FFD75B]"
           }`}
         >

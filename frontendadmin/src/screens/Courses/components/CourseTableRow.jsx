@@ -5,7 +5,7 @@ function CourseTableRow({ id, name, sold, price, profit, status }) {
   const statusText = status === "active" ? "Hoạt động" : "Tạm dừng";
 
   return (
-    <article className="flex overflow-hidden flex-wrap mt-6 w-full bg-white h-[70px] cursor-pointer">
+    <article className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
       {/* Mã khóa học*/}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{id}</span>
@@ -28,7 +28,7 @@ function CourseTableRow({ id, name, sold, price, profit, status }) {
 
       {/* Lợi nhuận */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate w-[95%]">{profit}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{profit}</span>
       </div>
 
       {/* Trạng thái */}
