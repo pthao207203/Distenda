@@ -11,6 +11,7 @@ const adminSchema = new mongoose.Schema({
   AdminExp: String,
   AdminRole_id: String,
   AdminStatus: Number,
+  AdminSalary: Number,
   AdminDeleted: {
     type: Number,
     default: 1,

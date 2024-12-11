@@ -4,7 +4,7 @@ export async function usersController(setLoading) {
   try {
     setLoading(true); // Đang tải
     const result = await usersService(); // Gọi API
-    console.log("result users ", result);
+    // console.log("result users ", result);
     setLoading(false); // Tải xong
     return result;
   } catch (err) {

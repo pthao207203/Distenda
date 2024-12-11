@@ -21,6 +21,8 @@ const courseSchema = new mongoose.Schema({
     default: 0,
   },
   CoursePrice: Number,
+  CourseSalary: Number,
+  CourseProfit: Number,
   CourseDiscount: Number,
   CoursePicture: String,
   CourseBought: {
