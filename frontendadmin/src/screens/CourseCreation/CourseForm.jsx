@@ -20,7 +20,7 @@ function CourseForm() {
         </div>
         <button
           type="submit"
-          className="flex gap-3 justify-center items-center px-3 py-3 text-white rounded-lg bg-slate-500 min-h-[50px]"
+          className="flex gap-3 justify-center items-center px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[50px]"
         >
           <img
             loading="lazy"

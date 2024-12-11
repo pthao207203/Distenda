@@ -20,7 +20,7 @@ const courseData = [
     sold: "23",
     price: "23.000.000", 
     profit: "1.000.000",
-    status: "active"
+    status: "inactive"
   }
 ];
 

@@ -31,7 +31,7 @@ const MainAdmin = () => {
   };
 
   return (
-    <div className="flex flex-col justify-start bg-indigo-50 bg-center bg-fixed min-h-screen">
+    <div className="flex flex-col justify-start bg-[#EBF1F9] bg-center bg-fixed min-h-screen">
       <Header setHeaderHeight={setHeaderHeight}  handleTaskBarToggle={handleTaskBarToggle} /> 
       <SideBar headerHeight={headerHeight}/>
       <div

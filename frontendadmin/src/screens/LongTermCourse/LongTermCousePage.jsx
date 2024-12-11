@@ -33,7 +33,7 @@ function CourseForm() {
             </div>
 
             <div className="flex flex-col w-5/12 max-md:w-full">
-              <button className="flex gap-3 justify-center items-center self-end px-3 py-5 text-3xl text-white rounded-lg bg-slate-500 max-md:mt-5">
+              <button className="flex gap-3 justify-center items-center self-end px-3 py-5 text-3xl text-white rounded-lg bg-[#6C8299] max-md:mt-5">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/9c09cb59c17f1b75dfebbaee00f317fc4e0ec3130264db3528635a1111ca2713?apiKey=7a79403a23cb489f853e4845c47ede19&"
