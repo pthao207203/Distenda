@@ -68,9 +68,9 @@ function DashboardPage() {
                 <div className="relative flex flex-col items-start rounded-3xl overflow-hidden">
                   <img
                     loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/3e0a62bc5856bf77552e4470477365b61a73866bbbed72188c51ba97d7bcacbc?apiKey=ce9d43b270ae41158192dec03af70a1a&"
+                    src="./ProfitChart.png"
                     alt="Profit chart"
-                    className="w-full h-[368px] object-cover"
+                    className="w-full h-[350px] object-fill"
                   />
                   {/* <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-80"></div>
                   <div className="relative z-10 flex gap-3 items-center px-4 py-2">

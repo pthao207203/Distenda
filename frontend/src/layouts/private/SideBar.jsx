@@ -148,7 +148,7 @@ const SideBar = ({ headerHeight }) => {
       {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-5 left-5 z-50 p-2 bg-black text-white rounded-md"
+          className="fixed top-7 left-2 z-50 p-2 bg-black text-white rounded-md max-md:top-5 max-md:left-5"
         >
           {/* Biểu tượng SVG */}
           <svg
@@ -157,6 +157,7 @@ const SideBar = ({ headerHeight }) => {
             height="20"
             viewBox="0 0 38 20"
             fill="none"
+            className="max-md:w-[20px] max-md:h-10"
           >
             <path
               d="M1 1H37"

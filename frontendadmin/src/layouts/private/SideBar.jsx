@@ -43,7 +43,7 @@ export default function SideBar({headerHeight}) {
         ></div>
       )}
       <aside
-        className={`fixed top-0 left-0 mb-5 z-40 bg-white text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
+        className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
         // Thay thế giá trị top bằng chiều cao header
       >
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
@@ -89,10 +89,10 @@ export default function SideBar({headerHeight}) {
       {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-5 left-5 z-50 p-2 text-white rounded-md"
+          className="fixed top-5 left-5 z-50 p-2 text-white rounded-md max-md:top-3 max-md:left-3"
         >
           {/* Biểu tượng SVG */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="20" viewBox="0 0 38 20" fill="none">
+          <svg id="mySvg" xmlns="http://www.w3.org/2000/svg" width="38" height="20" viewBox="0 0 38 20" fill="none">
             <path
               d="M1 1H37"
               stroke="#384D6C"

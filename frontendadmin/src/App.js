@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-
+import ScrollToTop from "./screens/ScrollToTop";
 import Layout from './layouts/Layout';
 //import AdminRoutes from './layouts/AdminRoutes';
 import PublicRoutes from './layouts/PublicRoutes';
@@ -22,33 +22,36 @@ import Permission from './screens/Permission/PermissionPage';
 
 function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-      
-      <Route path="/courseadmin" element={<CourseAdmin />} />
-      <Route path="/coursebuilder" element={<CourseBuilder />} />
-      <Route path="/coursecreation" element={<CourseCreation />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+        
+        <Route path="/courseadmin" element={<CourseAdmin />} />
+        <Route path="/coursebuilder" element={<CourseBuilder />} />
+        <Route path="/coursecreation" element={<CourseCreation />} />
 
-        {/* <Route element={<AdminRoutes />}> */}
-          <Route element={<MainAdmin />}>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/courses' element={<Courses/>}/>
-                <Route path="/long-term-course" element={<LongTermCoursePage />} />
-            <Route path='/user' element={<UserTable/>} />
-            <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
-            <Route path="/payment" element={<PaymentTablePage />} />
-            <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
-            <Route path="/permission" element={<Permission />} />
-          </Route>
-        {/* </Route> */}
-
-          <Route element={<PublicRoutes />}>
-            <Route element={<Main />}>
-              <Route path='/login' element={<Login />} />
+          {/* <Route element={<AdminRoutes />}> */}
+            <Route element={<MainAdmin />}>
+              <Route path='/' element={<Dashboard />} />
+              <Route path='/courses' element={<Courses/>}/>
+                  <Route path="/long-term-course" element={<LongTermCoursePage />} />
+              <Route path='/user' element={<UserTable/>} />
+              <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
+              <Route path="/payment" element={<PaymentTablePage />} />
+              <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+              <Route path="/permission" element={<Permission />} />
             </Route>
-          </Route> 
-      </Route>
-    </Routes>
+          {/* </Route> */}
+
+            <Route element={<PublicRoutes />}>
+              <Route element={<Main />}>
+                <Route path='/login' element={<Login />} />
+              </Route>
+            </Route> 
+        </Route>
+      </Routes>
+    </>
   );
 }
 

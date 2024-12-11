@@ -26,7 +26,7 @@ const Courses = () => {
 
         }}
       >
-        <Outlet />
+        <Outlet context={{ headerHeight: token ? headerHeight : headerHeightPublic }} />
 
         <Footer />
         {/* Hiển thị TaskBar dưới dạng overlay nếu trạng thái isTaskBarVisible là true */}

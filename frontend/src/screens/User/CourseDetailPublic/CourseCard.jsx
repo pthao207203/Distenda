@@ -38,7 +38,7 @@ export default function CourseCard({ onRegister, ...course }) {
   ];
 
   return (
-    <article className="inline-flex relative flex-col self-end px-[1.3rem] pt-2.5 justify-start items-start gap-6 pb-20 mt-24 md:mr-16 max-w-full bg-white md:w-full max-md:pb-5 max-md:mt-10 max-md:mr-0">
+    <article className="inline-flex relative flex-col self-end px-[1.3rem] pt-2.5 justify-start items-start gap-6 pb-20 mt-24 md:mr-16 max-w-full bg-white max-md:w-full max-md:pb-5 max-md:mt-10 max-md:mr-0">
       <img
         loading="lazy"
         src={course.CoursePicture}
