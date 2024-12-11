@@ -26,7 +26,7 @@ function TableRow(user) {
       className="flex overflow-hidden flex-wrap mt-6 w-full bg-white h-[70px] cursor-pointer"
     >
       {/* Mã người dùng */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{user.UserFullName}</span>
       </div>
 
@@ -36,7 +36,7 @@ function TableRow(user) {
       </div>
 
       {/* Thời gian tham gia */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>0</span>
       </div>
 

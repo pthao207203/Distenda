@@ -1,29 +1,21 @@
-import * as React from "react";
+import React, { useState } from 'react';
 
-function CodeEditor() {
+function CodeEditor(exercise) {
+  const [exerciseSample, setExerciseSample] = useState(exercise.ExerciseSample);
   return (
-    <section className="flex flex-col flex-1 shrink py-5 text-xl basis-[60px] bg-neutral-900 bg-opacity-30 min-h-[984px] min-w-[240px] max-md:max-w-full" role="complementary" aria-label="Code Editor">
+    <section className="flex flex-col flex-1 shrink py-5 text-xl basis-[60px] bg-neutral-900 bg-opacity-30 h-full min-w-[240px] max-md:max-w-full" role="complementary" aria-label="Code Editor">
       <h2 className="shrink gap-2.5 self-stretch px-4 w-full font-semibold text-white whitespace-nowrap max-md:max-w-full">
         Code
       </h2>
-      <div className="flex overflow-hidden flex-wrap flex-1 gap-5 items-start px-5 py-2.5 mt-4 text-lg bg-neutral-900 size-full max-md:max-w-full">
-        <div className="text-slate-300">
-          1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />
-          10<br />11<br />12<br />13
-        </div>
-        <div className="flex-1 shrink text-white basis-0 max-md:max-w-full">
-          <span className="text-yellow-400">#!/bin/python3</span>
-          <br /><br />
-          <span className="text-amber-300">import</span> math<br />
-          <span className="text-amber-300">import</span> os<br />
-          <span className="text-amber-300">import</span> random<br />
-          <span className="text-amber-300">import</span> re<br />
-          <span className="text-amber-300">import</span> sys<br />
-          <br /><br /><br />
-          <span className="text-amber-300">if __name__</span> == <span className="text-red-600">'__main__':</span><br />
-          n = <span className="text-amber-300">int</span>(<span className="text-amber-300">input</span>().strip())<br />
-        </div>
-      </div>
+
+      <textarea
+        value={exerciseSample} // Giá trị textarea là state
+        onChange={(e) => setExerciseSample(e.target.value)} // Cập nhật giá trị khi người dùng thay đổi
+        className="w-full p-2 bg-gray-800 text-white"
+        rows={20} // Số dòng hiển thị trong textarea
+        style={{ whiteSpace: 'pre-wrap' }} // Đảm bảo giữ các dấu ngắt dòng
+      >
+      </textarea>
       <div className="flex justify-end gap-x-4 items-center px-3 mt-4 w-full font-medium leading-none text-white max-md:max-w-full">
         <button className="flex items-center justify-start px-3 py-3 bg-black min-h-[60px] w-[160px]" aria-label="File code">
           <img
@@ -36,12 +28,12 @@ function CodeEditor() {
         </button>
         {/* Nút 'Check code' */}
         <button className="flex justify-center items-center px-3 py-3 bg-black min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            <div className="gap-2 self-stretch my-auto">Check code</div>
+          <div className="gap-2 self-stretch my-auto">Check code</div>
         </button>
-  
+
         {/* Nút 'Nộp bài' */}
         <button className="flex justify-center items-center px-3 py-3 bg-[#CFF500] text-neutral-900 min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            <div className="gap-2 self-stretch my-auto">Nộp bài</div>
+          <div className="gap-2 self-stretch my-auto">Nộp bài</div>
         </button>
       </div>
     </section>

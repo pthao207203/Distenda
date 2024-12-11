@@ -11,8 +11,8 @@ import CourseReviews from "./CourseReviews";
 import CourseCard from "./CourseCard";
 import CourseOverview from "./CourseOverview";
 
-export default function CourseContent({ onRegister, ...course }) {
-  console.log("course ", course)
+export default function CourseContent({ onRegister,headerHeight, ...course }) {
+  // console.log("course ", course)
   const refs = {
     overview: useRef(null),
     content: useRef(null),
@@ -23,7 +23,11 @@ export default function CourseContent({ onRegister, ...course }) {
   const scrollToSection = (section) => {
     const ref = refs[section];
     if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      const elementTop = ref.current.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementTop - headerHeight, // Use headerHeight prop directly
+        behavior: "smooth", // Smooth scrolling
+      });
     }
   };
 

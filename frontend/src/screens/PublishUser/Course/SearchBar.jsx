@@ -2,7 +2,7 @@ import * as React from "react";
 
 function SearchBar() {
   return (
-    <form className="flex flex-wrap gap-3 items-center p-3 w-full bg-white bg-opacity-10 mx-auto">
+    <form className="flex gap-3 items-center p-3 w-full bg-white bg-opacity-10 mx-auto">
       <img
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/f6c73171a63127d394febbcdfc2b1261f50f5f8704511a4191564fd6f1d68295?apiKey=1914b3001bed44e2a53adf842ab19f47&"

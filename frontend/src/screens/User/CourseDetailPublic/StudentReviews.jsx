@@ -20,7 +20,7 @@ const testimonialData = [
 ];
 
 function TestimonialCard(review) {
-  console.log(review)
+  // console.log(review)
   return (
     <div className="card h-500 shadow-sm bg-white bg-opacity-10">
       <div className="card-body">
@@ -40,9 +40,7 @@ function TestimonialCard(review) {
 }
 
 function TestimonialSection(reviewData) {
-  console.log("review", Array.isArray(reviewData))
   const review = Object.values(reviewData);
-  console.log("review", Array.isArray(review))
   return (
     <Container className=" bg-none text-left items-start justify-start ml-0">
       <div className="items-start mb-5">

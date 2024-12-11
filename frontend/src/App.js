@@ -15,13 +15,15 @@ import Intro from './screens/PublishUser/Intro/LandingPage';
 import CourseDetail from './screens/User/CourseDetailPublic/CourseDetailPage';
 import Courses from './screens/PublishUser/Course/CoursePage';
 import CoursePurchased from './screens/PublishUser/CoursePurchased/CourseDetailPage';
-import CourseCompleted from './screens/PublishUser/CourseCompleted/CoursesDetailPage';
 import CoursePractice from './screens/PublishUser/CoursePractice/CourseLayout';
-import CourseCode from './screens/PublishUser/CourseCode/CourseLayout';
 import CoursesCode from './screens/PublishUser/CoursesCode/Layout';
 import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
 import UserProfile from './screens/User/ProfileUser/ProfilePage';
+
+import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
+import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
+import MyCourseStudying from './screens/PublishUser/MyCourseStudying/CoursePage';
 
 function App() {
   return (
@@ -37,10 +39,8 @@ function App() {
             </Route>
             <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
-              <Route path='/courses/CourseCompleted' element={<CourseCompleted />} />
-              <Route path='/courses/CoursePractice' element={<CoursePractice />} />
-              <Route path='/courses/CourseCode' element={<CourseCode />} />
-              <Route path='/courses/CoursesCode' element={<CoursesCode />} />
+              <Route path='/courses/CoursePurchased/:CourseSlug/:VideoSlug' element={<CoursePractice />} />
+              <Route path='/courses/CoursePurchased/:CourseSlug/CourseCode/:ExerciseSlug' element={<CoursesCode />} />
             </Route>
           </Route>
           {/* Dù có đăng nhập hay không vẫn vào được */}
@@ -48,6 +48,9 @@ function App() {
           <Route element={<Main />} >
             <Route path='/courses' element={<Courses />} />
             <Route path='/category/:CategorySlug' element={<Category />} />
+            <Route path='/courses/CoursePurchased' element={<MyCoursePurchased />} />
+            <Route path='/courses/CourseCompleted' element={<MyCourseCompleted />} />
+            <Route path='/courses/CourseStudying' element={<MyCourseStudying />} />
           </Route>
           {/* Những trang không hiện sidebar */}
           <Route element={<MainPublic />} >

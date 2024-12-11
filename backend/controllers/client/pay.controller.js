@@ -70,10 +70,13 @@ module.exports.payPost = async (req, res) => {
           CourseProcess: [],
         };
 
+        const money = (res.locals.user.UserMoney ? res.locals.user.UserMoney : 0) + req.body.Total
+
         await User.updateOne({
           _id: UserID
         }, {
-          $push: { UserCourse: newCourse }
+          $push: { UserCourse: newCourse },
+          UserMoney: money
         }
         );
 

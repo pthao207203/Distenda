@@ -8,8 +8,13 @@ import Bank from "../Payment/Bank";
 import ThankYouPage from "../Payment/ThankYouPage";
 import Cookies from 'js-cookie';
 import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
+import { useOutletContext } from "react-router-dom";
 
 export default function CourseDetailPage() {
+  const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
+
+  // Dùng headerHeight trong việc bố trí giao diện hoặc logic
+  console.log("Header Height:", headerHeight);
   const [isLoginRequestVisible, setIsLoginRequestVisible] = useState(false);
 
   const handleOpenLoginRequest = () => {
@@ -72,7 +77,7 @@ export default function CourseDetailPage() {
       try {
         const result = await coursePayController(setLoading, CourseSlug);
         if (result === 400) {
-          console.log("Thành công");
+          // console.log("Thành công");
         }
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
@@ -109,13 +114,13 @@ export default function CourseDetailPage() {
       </div>
     )
   }
-  console.log("course => ", data)
+  // console.log("course => ", data)
 
   return (
     <div className="flex flex-col relative w-full h-full overflow-y-auto">
       <PageNav {...data} />
       {/* CourseContent nhận hàm handleOpenPayment */}
-      <CourseContent {...data} onRegister={isAuthenticated ? handleOpenPayment : handleOpenLoginRequest} />
+      <CourseContent {...data} headerHeight={headerHeight} onRegister={isAuthenticated ? handleOpenPayment : handleOpenLoginRequest} />
 
       {/* Nếu đã đăng nhập, hiển thị Payment overlay */}
       {isAuthenticated && isPaymentVisible && (

@@ -3,6 +3,7 @@ export const homeService = async () => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/`, {
       method: 'GET',
+      credentials: "include",
     });
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/`)
 
@@ -25,7 +26,7 @@ export const headerService = async () => {
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/header`)
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/header`, {
       method: 'GET',
-      credentials: "include"
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -33,9 +34,9 @@ export const headerService = async () => {
       throw new Error('Lỗi!!!');
     }
 
-    console.log("response", response);
+    // console.log("response", response);
     const responseData = await response.json();
-    console.log("response", responseData);
+    // console.log("response", responseData);
 
     return responseData; // Trả về dữ liệu
   } catch (error) {

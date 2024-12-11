@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 
 const Courses = () => {
   let token = Cookies.get('user_token');
-  console.log("token ", token)
+  // console.log("token ", token)
   const [headerHeight, setHeaderHeight] = useState(0);
   const [headerHeightPublic, setHeight] = useState(0);
   // Trạng thái kiểm soát hiển thị TaskBar
@@ -18,7 +18,7 @@ const Courses = () => {
     setIsTaskBarVisible((prev) => !prev); // Đảo trạng thái hiển thị TaskBar
   };
   return (
-    <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
+    <div className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
       {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} /> : <HeaderPublic setHeight={setHeight} />}
       <div
         style={{
@@ -26,7 +26,7 @@ const Courses = () => {
 
         }}
       >
-        <Outlet />
+        <Outlet context={{ headerHeight: token ? headerHeight : headerHeightPublic }} />
 
         <Footer />
         {/* Hiển thị TaskBar dưới dạng overlay nếu trạng thái isTaskBarVisible là true */}

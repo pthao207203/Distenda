@@ -14,7 +14,7 @@ export default function CourseTableRow({ courseId, courseName, joinDate, lastUpd
       </div>
 
       {/* Tên khóa */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{courseName}</span>
       </div>
 
@@ -24,7 +24,7 @@ export default function CourseTableRow({ courseId, courseName, joinDate, lastUpd
       </div>
 
       {/* Lần cuối cập nhật */}
-      <div className="flex flex-1 shrink justify-center items-center bg-indigo-50 min-w-[240px]">
+      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span>{lastUpdate}</span>
       </div>
 

@@ -48,7 +48,7 @@ export default function ActionButtons() {
   };
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start md:ml-[5px]">
       {/* Các nút hành động */}
       <div className="flex gap-2.5 items-start self-end text-xl font-semibold leading-none text-white max-md:max-w-full">
         <button
@@ -61,7 +61,7 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Xóa</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[85px]">Xóa</span>
         </button>
         <button
           className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-h-[46px]"
@@ -73,7 +73,7 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Thêm chức vụ</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[204px]">Thêm chức vụ</span>
         </button>
         <button
           className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-h-[46px]"
@@ -85,7 +85,7 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Cập nhật</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[96px]">Cập nhật</span>
         </button>
       </div>
 

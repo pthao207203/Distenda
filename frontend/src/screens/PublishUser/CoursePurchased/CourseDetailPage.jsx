@@ -33,7 +33,7 @@ export default function CourseDetailPage() {
       </div>
     )
   }
-  console.log("course => ", data)
+  // console.log("course => ", data)
 
   return (
     <div className="flex overflow-hidden flex-col">

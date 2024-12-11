@@ -39,18 +39,18 @@ const roles = [
 
 export default function PermissionTable() {
   return (
-    <div className="flex flex-col flex-1 shrink px-16 py-5 bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+    <div className="flex flex-col flex-1 px-16 py-5 bg-white basis-0 max-md:px-[5px]  w-full max-md:min-w-[600px]">
       <ActionButtons />
       
-      <div className="flex flex-col mt-6 w-full max-md:max-w-full">
+      <div className="mt-6">
         <PermissionHeader roles={roles} />
         
         {permissionGroups.map((group, index) => (
-          <div key={index} className="flex flex-col mt-4 w-full max-md:max-w-full">
-            <div className="text-xl font-semibold leading-none text-blue-950 max-md:max-w-full">
+          <div key={index} className="mt-4 justify-between w-full items-center ">
+            <div className="text-xl font-semibold leading-none text-blue-950">
               {group.title}
             </div>
-            <div className="flex flex-col justify-center mt-2 w-full max-md:max-w-full">
+            <div className="flex flex-col justify-center mt-2 w-full max-md:w-screen">
               {group.permissions.map((permission, pIndex) => (
                 <PermissionRow 
                   key={pIndex}

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export default function SideBar() {
+export default function SideBar({headerHeight}) {
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng sidebar
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024); // Kiểm tra xem có phải desktop hay không
   const location = useLocation(); // Lấy đường dẫn hiện tại
-
-  const headerHeight = 50; // Ví dụ về chiều cao header, bạn có thể thay đổi giá trị này theo thực tế
 
   const menuItems = [
     { link: "/", icon: "./icons/home.svg", label: "Trang chủ" },
@@ -14,7 +12,7 @@ export default function SideBar() {
     { link: "/user", icon: "./icons/2user.svg", label: "Người dùng" },
     { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên" },
     { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn" },
-    { link: "/permission", icon: "./icons/setting.svg", label: "Phân quyền" },
+    { link: "/authorities", icon: "./icons/setting.svg", label: "Phân quyền" },
     { link: "/notification", icon: "./icons/notification.svg", label: "Thông báo" },
     { link: "#", icon: "./icons/category.svg", label: "Thông tin web" },
   ];
@@ -40,22 +38,15 @@ export default function SideBar() {
     <>
       {isOpen && !isDesktop && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-30"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-60"
           onClick={() => setIsOpen(false)} // Đóng Sidebar khi nhấn vào overlay
         ></div>
       )}
       <aside
-        className={`fixed top-0 left-0 h-full z-40 text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 "}
-          } overflow-hidden`}
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.03)", // Nền trắng mờ
-          backdropFilter: "blur(30px)", // Làm mờ nền
-          top: `${headerHeight}px`
-        }} // Thay thế giá trị top bằng chiều cao header
+        className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
+        // Thay thế giá trị top bằng chiều cao header
       >
-        <div className="fixed left-0 min-h-screen bg-none z-40" style={{ width: "310px" }}>
-          {/* Profile Section */}
-          <div className="flex items-center gap-4 px-3 py-5">
+        <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
             <img
               loading="lazy"
               src="./profile.svg"
@@ -92,31 +83,31 @@ export default function SideBar() {
             </div>
           </Link>
         ))}
-     </div>
+
      </div>
       </aside>
       {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-5 left-5 z-50 p-2 bg-black text-white rounded-md"
+          className="fixed top-5 left-5 z-50 p-2 text-white rounded-md max-md:top-3 max-md:left-3"
         >
           {/* Biểu tượng SVG */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="20" viewBox="0 0 38 20" fill="none">
+          <svg id="mySvg" xmlns="http://www.w3.org/2000/svg" width="38" height="20" viewBox="0 0 38 20" fill="none">
             <path
               d="M1 1H37"
-              stroke="white"
+              stroke="#384D6C"
               strokeWidth="2"
               strokeLinecap="round"
             />
             <path
               d="M1 10H37"
-              stroke="white"
+              stroke="#384D6C"
               strokeWidth="2"
               strokeLinecap="round"
             />
             <path
               d="M1 19H37"
-              stroke="white"
+              stroke="#384D6C"
               strokeWidth="2"
               strokeLinecap="round"
             />

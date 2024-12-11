@@ -9,7 +9,7 @@ block main
   h1 #{pageTitle}
 
   form(
-    action=`${prefixAdmin}/video/edit/${video.id}?_method=PATCH`
+    action=`${prefixAdmin}/exercise/edit/${exer._id}?_method=PATCH`
     method="POST"
     id="form-create-course"
   )
@@ -21,48 +21,45 @@ block main
         id="LessonName"
         name="LessonName"
         disabled
-        value=video.lesson.LessonName
+        value=exer.lesson.LessonName
       )
     div(class="form-group")
-        label(for="VideoPosition") Vị trí
-        input(
-          type="number"
-          class="form-control"
-          id="VideoPosition"
-          name="VideoPosition"
-          placeholder="Tự động tăng"
-          disabled
-          value=video.VideoPosition
-        )
-    div(class="form-group")
-      label(for="VideoName") Tên bài học
+      label(for="ExerciseName") Tên bài tập
       input(
         type="text"
         class="form-control"
-        id="VideoName"
-        name="VideoName"
+        id="ExerciseName"
+        name="ExerciseName"
         required
-        value=video.VideoName
+        value=exer.ExerciseName
       )
     div(class="form-group")
-      label(for="VideoUrl") Embed video bài học
-      input(
-        type="text"
-        class="form-control"
-        id="VideoUrl"
-        name="VideoUrl"
-        required
-        value=video.VideoUrl
-      )
-    div(class="form-group")
-      label(for="VideoDescription") Mô tả
+      label(for="ExerciseQuestion") Đề bài
       textarea(
         class="form-control tiny-mce"
-        id="VideoDescription"
-        name="VideoDescription"
+        id="ExerciseQuestion"
+        name="ExerciseQuestion"
         rows="5"
         textarea-mce
-      ) !{video.VideoDescription}
+      ) !{exer.ExerciseQuestion}
+    div(class="form-group")
+      label(for="ExerciseSample") Code mẫu
+      textarea(
+        class="form-control"
+        id="ExerciseSample"
+        name="ExerciseSample"
+        rows="5"
+        textarea-mce
+      ) !{exer.ExerciseSample}
+    div(class="form-group")
+      label(for="ExerciseAnswer") Đáp án
+      textarea(
+        class="form-control"
+        id="ExerciseAnswer"
+        name="ExerciseAnswer"
+        rows="5"
+        textarea-mce
+      ) !{exer.ExerciseAnswer}
     div(class="form-group")
       button(
         type="submit"

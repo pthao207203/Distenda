@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { loginController } from '../../../controllers/auth.controller.js';
+import { loginOTPController } from '../../../controllers/auth.controller.js';
 
-function OTP({onNext, email}) {
+function OTP({ onNext, email }) {
   const [formData, setFormData] = useState({
     UserEmail: email,
     UserOTP: '',
@@ -20,20 +20,22 @@ function OTP({onNext, email}) {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Ngăn reload trang
     setIsLoading(true); // Bắt đầu trạng thái loading
-  
+
     try {
       if (!/^\d{6}$/.test(formData.UserOTP)) {
         setError("Mã OTP phải là 6 chữ số.");
         setIsLoading(false); // Kết thúc trạng thái loading nếu lỗi
         return;
       }
-  
+
       // Gọi API xử lý
-      await loginController(formData, setSuccess, setError, navigate);
-  
+      const result = await loginOTPController(formData, setSuccess, setError, navigate);
+
       // Thành công -> điều hướng
-      if (onNext) {
-        onNext();
+      if (result.code === 200) {
+        if (onNext) {
+          onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
+        }
       }
     } catch (err) {
       setError("Đã xảy ra lỗi. Vui lòng thử lại.");
@@ -67,7 +69,7 @@ function OTP({onNext, email}) {
           </div>
           <div className="flex gap-1 items-center mt-4 w-full max-md:text-[16px]">
             <p className="flex gap-3 items-center font-medium text-xl self-stretch py-1  my-auto">
-            Chúng tôi vừa gửi một mã OTP tới Email của bạn!
+              Chúng tôi vừa gửi một mã OTP tới Email của bạn!
             </p>
           </div>
           <div className="flex flex-col mt-4 w-full">
@@ -108,9 +110,8 @@ function OTP({onNext, email}) {
           </button>
         </div>
 
-        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${
-          isLoading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           {isLoading ? "Đang xử lý..." : "Xác nhận"}
         </button>

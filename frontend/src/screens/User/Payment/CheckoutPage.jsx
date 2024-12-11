@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import UserForm from "./UserForm";
 
 export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
-  console.log("checkout", course)
+  // console.log("checkout", course)
   const productDetails = {
     title: `${course.CourseName}`,
     duration: `${course.CourseDuration} tháng`,
@@ -12,9 +12,9 @@ export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
   };
 
   const userDetails = {
-    fullName: `${course.user.UserFullName}`,
-    email: `${course.user.UserEmail}`,
-    phone: `${course.user.UserPhone}`
+    fullName: `${course?.user?.UserFullName ? course.user.UserFullName : "Không có"}`,
+    email: `${course?.user?.UserEmail ? course.user.UserEmail : ""}`,
+    phone: `${course?.user?.UserPhone ? course.user.UserPhone : ""}`
   };
 
   return (

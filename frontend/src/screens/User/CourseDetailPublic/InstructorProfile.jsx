@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function InstructorProfile(intructor) {
-  console.log(intructor)
+  // console.log(intructor)
   return (
     <div className="flex flex-wrap basis-auto items-start gap-5 mt-5 w-full max-md:flex-col max-md:max-w-full">
       {/* Phần ảnh */}
