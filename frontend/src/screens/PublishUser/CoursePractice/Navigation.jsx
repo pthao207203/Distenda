@@ -23,8 +23,8 @@ function SubNavigation(video) {
         />
       </div>
       <div className="flex gap-3 items-center self-stretch px-3 py-1.5 my-auto min-w-[240px]">
-        <Link to={`/courses/CoursePurchased/${video.course.CourseSlug}`} className="gap-2.5 self-stretch my-auto min-w-[240px]">
-          {video.course.CourseName}
+        <Link to={`/courses/CoursePurchased/${video.course?.CourseSlug}`} className="gap-2.5 self-stretch my-auto min-w-[240px]">
+          {video.course?.CourseName}
         </Link>
         <img
           loading="lazy"
