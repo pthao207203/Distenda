@@ -65,79 +65,63 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   return (
     <header
       ref={headerRef}
-      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] "
+      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
     >
-      <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
-        <div className="text-6xl uppercase font-['Squada One']">
-          <img src={data?.setting?.WebsiteLogoUser} alt={data?.setting?.WebsiteName} />
-          {/* <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl">Distenda</h1> */}
+      <div className="flex items-center justify-between px-[60px] py-3 text-white lg:gap-5 max-md:pr-[20px] ">
+        {/* Logo */}
+        <div
+          style={{ flexBasis: "auto", textAlign: "center" }}
+        >
+          <img
+            src={data?.setting?.WebsiteLogoUser}
+            alt={data?.setting?.WebsiteName}
+            className="w-auto h-auto "
+          />
         </div>
 
-<<<<<<< HEAD
-    {/* Navigation và Button */}
-    <div className="flex flex-1 items-center justify-between gap-6">
-      {/* Navigation */}
-      <nav
-        className="flex flex-1 items-center text-2xl font-semibold text-center overflow-x-auto scrollbar-hide justify-between"
-        style={{ whiteSpace: "nowrap" }}
-      >
-        <Link
-          to="/courses"
-          className={`flex-1 px-3 py-3 ${
-            activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
-          }`}
-          onClick={() => handleLinkClick("/courses")}
+        {/* Navigation */}
+        <nav
+          className="flex items-center text-2xl font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
+          style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
-          Trang chủ
-        </Link>
-        {data.category.map((cate) => (
           <Link
-            key={cate.CategorySlug}
-            to={`/category/${cate.CategorySlug}`}
+            to="/courses"
             className={`flex-1 px-3 py-3 ${
-              activeLink === `/category/${cate.CategorySlug}` ? "bg-[#CFF500] text-black" : ""
+              activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
             }`}
-            onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
+            onClick={() => handleLinkClick("/courses")}
           >
-            {cate.CategoryName}
+            Trang chủ
           </Link>
-        ))}
-      </nav>
-=======
-        {/* Navigation và Button */}
-        <div className="flex flex-1 items-center justify-between gap-6">
-          {/* Navigation */}
-          <nav className="flex gap-[30px] ml-auto items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
+          {data.category.map((cate) => (
             <Link
-              to="/courses"
-              className={`flex-1 px-3 py-3 ${activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
-                }`}
-              onClick={() => handleLinkClick("/courses")}
+              key={cate.CategorySlug}
+              to={`/category/${cate.CategorySlug}`}
+              className={`flex-1 px-3 py-3 ${
+                activeLink === `/category/${cate.CategorySlug}`
+                  ? "bg-[#CFF500] text-black"
+                  : ""
+              }`}
+              onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
-              Trang chủ
+              {cate.CategoryName}
             </Link>
-            {data.category.map((cate) => (
-              <Link
-                key={cate.CategorySlug}
-                to={`/category/${cate.CategorySlug}`}
-                className={`flex-1 px-3 py-3 ${activeLink === `/category/${cate.CategorySlug}` ? "bg-[#CFF500] text-black" : ""
-                  }`}
-                onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
-              >
-                {cate.CategoryName}
-              </Link>
-            ))}
-          </nav>
->>>>>>> 66e954addfb7428578eb57e445e6361d681506b8
+          ))}
+        </nav>
 
-          {/* Button */}
-          <button
-            className="flex flex-row items-center gap-2"
-            onClick={toggleTaskBar}
-          >
+        {/* Button */}
+        <div
+          className="flex grow flex-row items-center"
+          style={{ flexBasis: "auto", justifyContent: "flex-end" }}
+        >
+          <button onClick={toggleTaskBar} className="flex items-center shrink gap-2">
             <img
               loading="lazy"
-              src={data.setting.user?.UserAvatar ? data.setting.user.UserAvatar : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"}
+              src={
+                data.setting.user?.UserAvatar
+                  ? data.setting.user.UserAvatar
+                  : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
+              }
               alt=""
               className="object-cover shrink-0 w-14 rounded-full aspect-square"
             />
