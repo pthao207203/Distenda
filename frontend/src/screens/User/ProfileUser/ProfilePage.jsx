@@ -4,7 +4,7 @@ import { userController, userPostController } from "../../../controllers/user.co
 import axios from "axios";
 
 function ProfilePage() {
-  const [data, setData] = useState(null);
+  let [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -74,7 +74,7 @@ function ProfilePage() {
       if (response.code === 200) {
         alert("Cập nhật thành công!");
         setData(response.updatedData); // Cập nhật lại dữ liệu trên giao diện
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       console.error("Error updating user data:", error);
