@@ -14,6 +14,7 @@ const videoRoute = require("./video.route");
 const exerRoute = require("./exercise.route");
 const accountRoute = require("./my-account.route");
 const settingRoute = require("./setting.route");
+const payRoute = require("./pay.route");
 
 module.exports = (app) => {
   app.use(
@@ -70,6 +71,11 @@ module.exports = (app) => {
     systemConfig.prefixAdmin + `/setting`,
     authMiddleware.requireAuth,
     settingRoute
+  );
+  app.use(
+    systemConfig.prefixAdmin + `/pay`,
+    authMiddleware.requireAuth,
+    payRoute
   );
   app.use(systemConfig.prefixAdmin + `/auth`, authRoute);
 };
