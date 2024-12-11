@@ -18,7 +18,7 @@ export function CourseForm() {
             />
           </div>
           <div className="flex gap-2.5 items-end px-2 text-3xl whitespace-nowrap min-w-[240px]">
-            <button type="submit" className="flex gap-3 justify-center items-center px-3 py-3 text-white rounded-lg bg-slate-500 min-h-[63px] w-[180px]">
+            <button type="submit" className="flex gap-3 justify-center items-center px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[63px] w-[180px]">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/06c25587ce9cf91cec2298d9a319552d6f67f260590ab623aa6b5c1e069f1103?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"
@@ -38,7 +38,7 @@ export function CourseForm() {
           </label>
           <div className="flex mt-2 w-full bg-indigo-50 min-h-[897px] max-md:max-w-full" />
           <div className="flex flex-col mt-2 max-w-full w-[569px]">
-            <button type="button" className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-slate-500 min-h-[46px]">
+            <button type="button" className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px]">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/5c99e21ebf8289a5ca1f155d497040eba85af0f2bf7275330ff4d1854229cb2a?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"

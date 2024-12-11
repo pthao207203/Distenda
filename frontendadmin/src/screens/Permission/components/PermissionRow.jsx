@@ -33,7 +33,7 @@ export default function PermissionRow({ permission, isFirst, roles }) {
               checked={isChecked} // Liên kết trạng thái với state
               onChange={() => handleCheckboxChange(index)} // Gọi hàm khi thay đổi trạng thái
               className={`w-5 h-5 cursor-pointer appearance-none rounded-[4px] border border-gray-300 ${
-                isChecked ? "bg-slate-500" : "bg-white"
+                isChecked ? "bg-[#6C8299]" : "bg-white"
               }`} // Hiển thị màu bên trong checkbox
             />
             {/* Hiển thị hình ảnh khi checkbox được tick */}

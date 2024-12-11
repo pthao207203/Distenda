@@ -54,7 +54,7 @@ function DashboardPage() {
           {/* Stats Section */}
           <main>
           <div className="max-w-full flex flex-col items-center w-full p-[60px] font-medium bg-white basis-0 max-md:p-5 max-md:max-w-full">
-            <div className="flex flex-1 max-md:flex-wrap flex-grow shrink gap-4 w-full justify-evenly items-center text-white max-md:max-w-full">
+            <div className="flex flex-1 flex-wrap flex-grow shrink gap-4 w-full justify-evenly items-center text-white max-md:max-w-full">
               {stats.map((stat, index) => (
                 <StatCard key={index} {...stat} />
               ))}
@@ -93,7 +93,7 @@ function DashboardPage() {
                       <span className="ml-3">Xem chi tiết</span>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-[30px] h-[30px] bg-slate-500 rounded-full"></div>
+                      <div className="w-[30px] h-[30px] bg-[#6C8299] rounded-full"></div>
                       <span className="ml-3">Thêm vào giỏ</span>
                     </div>
                     <div className="flex items-center">

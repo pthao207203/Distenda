@@ -42,7 +42,7 @@ export default function CourseTable() {
 
   return (
 <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
-  <div className="flex overflow-hidden w-full rounded-t-3xl bg-slate-500 max-h-[70px] max-md:max-w-full">
+  <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] max-h-[70px] max-md:max-w-full">
     {/* Mã khóa học */}
     <div className="flex flex-1 shrink justify-center items-center px-3 py-0 h-[70px] text-white basis-0 min-w-[240px]">
       <span className="text-center">Mã khóa học</span>

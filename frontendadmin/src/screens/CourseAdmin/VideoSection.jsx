@@ -15,7 +15,7 @@ export function VideoSection() {
         />
       </div>
       <div className="flex flex-col mt-2 max-w-full text-xl font-medium leading-none w-[569px]">
-        <button className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-slate-500 min-h-[46px]">
+        <button className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px]">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e6d8440f1f20af9db42a97a51642268ab1311088ced96ec49dc9a2a9191ba40?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"
