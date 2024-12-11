@@ -237,6 +237,7 @@ module.exports.editPatch = async (req, res) => {
   if (req.file) {
     req.body.CoursePicture = `/uploads/${req.file.filename}`;
   }
+  console.log(req.body)
 
   try {
     const editedBy = {
