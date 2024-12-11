@@ -25,7 +25,7 @@ export const loginService = async (data) => {
 };
 
 
-// [GET] /auth/logout
+// [GET] /admin/auth/logout
 export const logoutService = async () => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/logout`, {
