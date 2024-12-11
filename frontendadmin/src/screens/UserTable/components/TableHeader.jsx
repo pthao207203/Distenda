@@ -2,7 +2,7 @@ import * as React from "react";
 
 function TableHeader() {
   return (
-    <div className="flex overflow-hidden w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
+    <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] h-[70px] max-md:max-w-full">
       {/* Mã người dùng */}
       <div className="flex flex-1 justify-center items-center bg-[#EBF1F9] min-w-[240px]">
         <span className="text-center">Tên người dùng</span>

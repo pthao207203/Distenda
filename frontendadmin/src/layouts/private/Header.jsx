@@ -43,9 +43,9 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
   return (
       <header 
         ref={headerRef}
-        className="fixed border-box left top-0 z-50 w-full bg-indigo-50 max-md:max-w-full"
+        className="fixed border-box left top-0 z-50 w-full bg-[#EBF1F9] max-md:max-w-full"
       >
-      <div className="flex items-center justify-between  px-[60px] max-md:px-5">
+      <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-3">
           <img loading="lazy" src="./logo1.svg" alt="Logo"
             className="object-contain w-[200px] h-auto max-md:w-[150px]"

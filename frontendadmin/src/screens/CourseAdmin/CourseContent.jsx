@@ -23,7 +23,7 @@ export default function CourseContent() {
               />
             </div>
             <div className="flex gap-2.5 items-end text-3xl text-white min-w-[240px]">
-              <button type="submit" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500">
+              <button type="submit" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#6C8299]">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9c84cc0d21b5241ee40d83334bf9289f4fc6a242a7bb8a736e90effdbd86720?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"

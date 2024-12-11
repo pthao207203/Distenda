@@ -40,7 +40,7 @@ function App() {
               <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
               <Route path="/payment" element={<PaymentTablePage />} />
               <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
-              <Route path="/permission" element={<Permission />} />
+              <Route path="/authorities" element={<Permission />} />
             </Route>
           {/* </Route> */}
 

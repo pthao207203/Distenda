@@ -12,7 +12,7 @@ function ImageUpload() {
             <button
               type="button"
               onClick={() => document.getElementById('course-image').click()}
-              className="flex gap-3 justify-center items-center self-center px-3 py-3 text-2xl text-white rounded-lg bg-slate-500"
+              className="flex gap-3 justify-center items-center self-center px-3 py-3 text-2xl text-white rounded-lg bg-[#6C8299]"
             >
               <img
                 loading="lazy"

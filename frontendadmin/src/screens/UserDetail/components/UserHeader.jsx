@@ -58,7 +58,7 @@ function UserHeader() {
       {/* Nút chặn hoặc bỏ chặn */}
       {isBlocked ? (
         <button
-          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto text-xl leading-none text-white whitespace-nowrap bg-slate-500 rounded-lg min-h-[46px] hover:bg-slate-00"
+          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto text-xl leading-none text-white whitespace-nowrap bg-[#6C8299] rounded-lg min-h-[46px] hover:bg-slate-00"
           aria-label="Block user"
           onClick={showPopup} // Mở popup để xác nhận bỏ chặn
         >
