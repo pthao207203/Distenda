@@ -9,20 +9,28 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await headerController(setLoading);
+  //     console.log("result", result)
+  //   }
 
-  // Fetch dữ liệu từ controller
+
+  //   fetchData();
+  // }, []);
+
+  const headerRef = useRef(null);
   useEffect(() => {
     async function fetchData() {
-      try {
-        const result = await headerController(setLoading);
-        console.log("Controller result:", result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      // const result = await headerController(setLoading);
+      // console.log("Controller result:", result);
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
       }
     }
-
+  
     fetchData();
-  }, []);
+  }, [setLoading, setHeaderHeight]);
 
   if (loading) {
     return <div>Đang tải...</div>;
