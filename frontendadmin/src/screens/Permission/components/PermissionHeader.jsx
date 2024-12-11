@@ -8,7 +8,7 @@ export default function PermissionHeader({ roles }) {
       </div>
       
       {roles.map((role, index) => (
-        <div key={index} className="flex flex-1 shrink gap-3 justify-center items-center px-2 basis-0 h-[70px]">
+        <div key={index} className=" min-w-[120px] flex flex-1 shrink gap-3 px-2 justify-center items-center basis-0 min-h-[70px] ">
           <img
             loading="lazy"
             src={role.icon}
