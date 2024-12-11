@@ -24,6 +24,7 @@ import CourseAdmin from './screens/CourseAdmin/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
 import Permission from './screens/Permission/PermissionPage';
+import Setting from './screens/Setting/Settingpage';
 
 
 function App() {
@@ -32,7 +33,6 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
-        
         <Route path="/courseadmin" element={<CourseAdmin />} />
         <Route path="/coursebuilder" element={<CourseBuilder />} />
         <Route path="/coursecreation" element={<CourseCreation />} />
@@ -53,6 +53,7 @@ function App() {
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
             <Route path="/authorities" element={<Permission />} />
+            <Route path="/setting" element={<Setting />} />
           </Route>
         {/* </Route> */}
 
