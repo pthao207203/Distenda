@@ -25,15 +25,17 @@ const courseData = [
 ];
 
 function CourseList() {
+  const totalCourses = Array(8).fill(courseData).flat().length; // Tổng số khóa học khi đã nhân bản
   return (
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
-      <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-3xl text-white max-md:max-w-full">
+      <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-2xl text-white max-md:max-w-full">
         <ActionButton text="Thêm phân loại" />
         <ActionButton text="Thêm khóa học" />
       </section>
 
-      <section className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
+      <section className="flex flex-col pb-16 mt-3 w-full text-neutral-900 max-md:max-w-full">
+        <div className="self-stretch text-right text-[#131313] text-xl font-medium leading-tight">Tổng số khóa học: {totalCourses}</div>
         <CourseTableHeader />
         
         {Array(8).fill(courseData).flat().map((course, index) => (
