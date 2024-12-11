@@ -4,71 +4,71 @@ import TableHeader from "./components/TableHeader";
 import TableRow from "./components/TableRow";
 import { usersController } from "../../controllers/user.controller";
 
-const userData = [
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  },
-  {
-    id: "USE1234",
-    name: "Lê Thị Dung",
-    joinDate: "13/11/2024 09:14",
-    revenue: "4.000.000",
-    lastUpdate: "13/11/2024 09:14"
-  }
-];
+// const userData = [
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   },
+//   {
+//     id: "USE1234",
+//     name: "Lê Thị Dung",
+//     joinDate: "13/11/2024 09:14",
+//     revenue: "4.000.000",
+//     lastUpdate: "13/11/2024 09:14"
+//   }
+// ];
 
 function UserTable() {
   const [data, setData] = useState();
@@ -76,9 +76,9 @@ function UserTable() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log("vaof")
+      // console.log("vaof")
       const result = await usersController(setLoading);
-      console.log(result)
+      // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
