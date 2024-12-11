@@ -5,7 +5,7 @@ function ActionButton({ label, variant, width, onClick }) {
   const variantStyles = {
     danger: "bg-red-600 text-white hover:bg-red-700",
     secondary: "bg-gray-300 text-black hover:bg-gray-400",
-    slate: "bg-slate-500 text-white hover:bg-slate-600"
+    slate: "bg-[#6C8299] text-white hover:bg-slate-600"
   };
 
   return (

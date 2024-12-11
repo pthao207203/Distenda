@@ -27,15 +27,19 @@ function TaskBar() {
   };
   const navigate = useNavigate(); // Khởi tạo useNavigate
   const handleProfileNavigation = () => {
-    navigate("/user/profile"); // Điều hướng đến trang profile
+    navigate("/admin-account"); // Điều hướng đến trang profile
+  };
+  const handleBanne = () => {
+    navigate("/banner"); // Điều hướng đến trang Banner
   };
   const menuItems = [
     { text: "Tài khoản", onClick: handleProfileNavigation },
-    { text: "Đăng xuất", onClick: handleLogout }
+    { text: "Banner", onClick: handleBanne },
+    { text: "Đăng xuất", onClick: handleLogout}
   ];
 
   return (
-    <div className="flex flex-col px-4 py-3 justify-center text-xl leading-none text-[#131313] bg-white border-l border-r border-b border-[#cdd5de] min-w-[200px]">
+    <div className="flex flex-col px-4 py-3 justify-center text-xl leading-none text-[#131313] bg-white border-l border-r border-b border-[#cdd5de] min-w-[250px]">
       {menuItems.map((item, index) => (
         <div
           onMouseEnter={(e) =>

@@ -33,38 +33,38 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
       onClick={() => onRowClick && onRowClick(id)}
     >
       {/* Mã thanh toán */}
-      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
-        <span>{id}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{id}</span>
       </div>
 
       {/* Tên người dùng */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <span>{userName}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{userName}</span>
       </div>
 
       {/* Mã khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
-        <span>{courseCode}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{courseCode}</span>
       </div>
 
       {/* Giá */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <span>{price}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{price}</span>
       </div>
 
       {/* Thời gian */}
-      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px]">
-        <span>{time}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{time}</span>
       </div>
 
       {/* Trạng thái */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
         <div
-          className={`flex gap-3 justify-center items-center min-w-[240px] py-2.5 w-280 ${getStatusStyles(
+          className={`self-center shrink w-[90%] max-w-full px-4 py-2 justify-center items-center inline-flex ${getStatusStyles(
             status
           )} min-h-[40px] rounded-[99px]`}
         >
-          <span>{getStatusText(status)}</span>
+          <span className="text-center text-xl font-medium truncate">{getStatusText(status)}</span>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@ function LessonList(video) {
   return (
     <div className="flex flex-col min-w-[240px] w-[410px]">
       {lessons && lessons.length > 0 && lessons.map((lesson, index) => (
-        <LessonCard videoKey={video._id} courseSlug={course.CourseSlug} {...lesson} key={index} />
+        <LessonCard videoKey={video._id} courseSlug={course?.CourseSlug} {...lesson} key={index} />
       ))}
     </div>
   );

@@ -38,13 +38,17 @@ export default function SideBar({headerHeight}) {
     <>
       {isOpen && !isDesktop && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-60"
+          className="fixed top-0 left-0 w-full h-full z-60"
           onClick={() => setIsOpen(false)} // Đóng Sidebar khi nhấn vào overlay
         ></div>
       )}
       <aside
         className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
         // Thay thế giá trị top bằng chiều cao header
+        style={{
+          boxShadow: isOpen ? "4px 0px 30px 0px rgba(0, 0, 0, 0.2)" : "none", // Đổ bóng chỉ khi Sidebar mở
+        }}
+        onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan đến overlay
       >
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
             <img
@@ -64,27 +68,26 @@ export default function SideBar({headerHeight}) {
         
 
         <div className="flex flex-col overflow-auto px-3">
-        {menuItems.map((item, index) => (
-          <Link to={item.link} key={index}>
-            <div
-              className={`flex items-center text-xl gap-4 px-2 py-4 ${
-                location.pathname === item.link ? "bg-[#EBF1F9] font-bold p-1 rounded-xl" : ""
-              }`}
-              style={{ fontSize: "20px", color: "black" }}
-            >
-              <img
-                loading="lazy"
-                src={item.icon}
-                alt=""
-                className="object-contain"
-                style={{ width: "36px", height: "36px" }}
-              />
-              <span>{item.label}</span>
-            </div>
-          </Link>
-        ))}
-
-     </div>
+          {menuItems.map((item, index) => (
+            <Link to={item.link} key={index}>
+              <div
+                className={`flex items-center text-xl gap-4 px-2 py-4 ${
+                  location.pathname === item.link ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
+                }`}
+                style={{ fontSize: "20px", color: "black" }}
+              >
+                <img
+                  loading="lazy"
+                  src={item.icon}
+                  alt=""
+                  className="object-contain"
+                  style={{ width: "36px", height: "36px" }}
+                />
+                <span>{item.label}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </aside>
       {!isDesktop && !isOpen && (
         <button

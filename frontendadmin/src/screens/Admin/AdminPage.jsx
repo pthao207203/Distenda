@@ -27,31 +27,31 @@ function AdminLayout() {
     
 
       {/* Bảng quản lý admin */}
-      <section className="flex flex-col mt-3 w-full text-neutral-900 max-md:max-w-full">
+      <section className="flex flex-col mt-3 w-full text-[#131313] max-md:max-w-full">
         {/* Header của bảng */}
-        <div className="flex overflow-hidden w-full rounded-t-3xl bg-indigo-50 h-[70px] max-md:max-w-full">
+        <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
           {/* Cột ID */}
-          <div className="flex flex-1 justify-center items-center bg-slate-500 text-white min-w-[240px]">
+          <div className="flex basis-1/5 min-w-0 justify-center items-center text-white">
             <span className="text-center">Ảnh đại diện</span>
           </div>
 
           {/* Cột Tên người dùng */}
-          <div className="flex flex-1 justify-center items-center min-w-[240px]">
-            <span className="text-center">Tên quản trị viên</span>
+          <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
+            <span className="text-center">Họ và tên</span>
           </div>
 
           {/* Cột Chức vụ */}
-          <div className="flex flex-1 justify-center items-center text-white bg-slate-500 min-w-[240px]">
+          <div className="flex basis-1/5 min-w-0 justify-center items-center text-white">
             <span className="text-center">Chức vụ</span>
           </div>
 
           {/* Cột Thời gian tham gia */}
-          <div className="flex flex-1 justify-center items-center min-w-[240px]">
+          <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
             <span className="text-center">Thời gian tham gia</span>
           </div>
 
           {/* Cột Trạng thái */}
-          <div className="flex flex-1 justify-center items-center text-white bg-slate-500 min-w-[240px]">
+          <div className="flex basis-1/5 min-w-0 justify-center items-center text-white">
             <span className="text-center">Trạng thái</span>
           </div>
         </div>

@@ -48,7 +48,7 @@ export default function ActionButtons() {
   };
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start md:ml-[5px]">
       {/* Các nút hành động */}
       <div className="flex gap-2.5 items-start self-end text-xl font-semibold leading-none text-white max-md:max-w-full">
         <button
@@ -61,10 +61,10 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Xóa</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[85px]">Xóa</span>
         </button>
         <button
-          className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-h-[46px]"
+          className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#6C8299] min-h-[46px]"
           onClick={handleAddRolePopup}
         >
           <img
@@ -73,10 +73,10 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Thêm chức vụ</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[204px]">Thêm chức vụ</span>
         </button>
         <button
-          className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-h-[46px]"
+          className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#6C8299] min-h-[46px]"
           onClick={() => handlePopup("update")}
         >
           <img
@@ -85,7 +85,7 @@ export default function ActionButtons() {
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">Cập nhật</span>
+          <span className="gap-2.5 self-stretch my-auto min-w-[96px]">Cập nhật</span>
         </button>
       </div>
 
@@ -102,7 +102,7 @@ export default function ActionButtons() {
               <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">{popupContent}</p>
               <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
                 <button
-                  className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
+                  className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
                   onClick={confirmAction}
                 >
                   Có
@@ -136,7 +136,7 @@ export default function ActionButtons() {
               />
               <div className="mt-6 flex gap-4 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
                 <button
-                  className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg hover:bg-slate-600"
+                  className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg hover:bg-slate-600"
                   onClick={handleConfirmAddRole}
                 >
                   Thêm
