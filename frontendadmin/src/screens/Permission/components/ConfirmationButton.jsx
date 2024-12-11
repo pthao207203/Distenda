@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function ConfirmationButton({ text, variant = "primary", onClick }) {
   const baseClasses =
-    "flex gap-3 justify-center items-center px-6 py-3 rounded-lg min-w-[120px] max-w-full transition-all duration-300";
+    "flex gap-3 justify-center items-center  px-6 py-3 rounded-lg min-w-[120px] max-w-full transition-all duration-300";
   const variantClasses =
     variant === "primary"
       ? "text-white bg-slate-500 hover:bg-slate-700"
