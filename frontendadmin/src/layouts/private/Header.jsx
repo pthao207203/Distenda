@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { headerController } from "../../controllers/home.controller"
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Import Link từ react-router-dom
+import { headerController } from "../../controllers/home.controller";
 
 export default function Header({setHeaderHeight,handleTaskBarToggle}) {
   const [openDetails, setOpenDetails] = useState(false);
@@ -8,36 +9,23 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
-  const [loading, setLoading] = useState(false);
 
+  // Fetch dữ liệu từ controller
   useEffect(() => {
     async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("result", result)
+      try {
+        const result = await headerController(setLoading);
+        console.log("Controller result:", result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
 
     fetchData();
   }, []);
 
-  const headerRef = useRef(null);
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("Controller result:", result);
-      if (headerRef.current) {
-        setHeaderHeight(headerRef.current.offsetHeight);
-      }
-    }
-  
-    fetchData();
-  }, [setLoading, setHeaderHeight]);
-
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <div>Đang tải...</div>;
   }
 
   return (
