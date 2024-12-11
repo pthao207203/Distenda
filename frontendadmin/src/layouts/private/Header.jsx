@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { headerController } from "../../controllers/home.controller"
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -11,6 +11,37 @@ export default function Header() {
   const closeDropdown = () => {
     setDropdownVisible(false);
   };
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      console.log("result", result)
+    }
+
+    fetchData();
+  }, []);
+
+  const headerRef = useRef(null);
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      console.log("Controller result:", result);
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    }
+  
+    fetchData();
+  }, [setLoading, setHeaderHeight]);
+
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
 
   return (
     <>
@@ -53,6 +84,5 @@ export default function Header() {
           )}
         </div>
       </header>
-    </>
   );
 }

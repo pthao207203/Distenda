@@ -134,6 +134,7 @@ module.exports.createItem = async (req, res) => {
 // [POST] /admin/courses/create
 module.exports.createPost = async (req, res) => {
   req.body.CoursePrice = parseInt(req.body.CoursePrice);
+  req.body.CourseDuration = parseInt(req.body.CourseDuration);
   req.body.CourseDiscount = req.body.CourseDiscount
     ? parseInt(req.body.CourseDiscount)
     : 0;
@@ -227,6 +228,7 @@ module.exports.editItem = async (req, res) => {
 // [PATCH] /admin/courses/edit/:CourseID
 module.exports.editPatch = async (req, res) => {
   req.body.CoursePrice = parseInt(req.body.CoursePrice);
+  req.body.CourseDuration = parseInt(req.body.CourseDuration);
   req.body.CourseDiscount = req.body.CourseDiscount
     ? parseInt(req.body.CourseDiscount)
     : 0;

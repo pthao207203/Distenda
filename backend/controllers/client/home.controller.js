@@ -16,12 +16,12 @@ module.exports.index = async (req, res) => {
     CourseDeleted: 1
   }).sort({ _id: -1 }).limit(6);
   const role = await Role.findOne({
-    RoleName: "Giảng viên"
+    RoleName: "Quản trị viên"
   })
   const intructor = await Admin.find({
     AdminDeleted: 1,
     AdminRole_id: role.id
-  }).sort({ _id: -1 }).limit(4);
+  }).sort({ _id: -1 }).limit(6);
   res.json({
     courses: courses,
     intructor: intructor,
@@ -36,20 +36,13 @@ module.exports.index = async (req, res) => {
 
 // [GET] /header
 module.exports.header = async (req, res) => {
-  if (req.cookies.user_token) {
-    // console.log("cookies", req.cookies.user_token)
-    const category = await Category.find({
-      CategoryDeleted: 1,
-    })
-    const setting = await Setting.findOne({})
-    res.json({
-      category: category,
-      setting: setting,
-    })
-  } else {
-    res.json({
-      code: 400,
-      message: "Chưa đăng nhập"
-    })
-  }
+  const category = await Category.find({
+    CategoryDeleted: 1,
+  })
+  const setting = await Setting.findOne({}).lean()
+  setting.user = res.locals.user
+  res.json({
+    category: category,
+    setting: setting,
+  })
 };

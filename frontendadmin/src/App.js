@@ -1,8 +1,8 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-
+import ScrollToTop from "./screens/ScrollToTop";
 import Layout from './layouts/Layout';
-import AdminRoutes from './layouts/AdminRoutes';
+//import AdminRoutes from './layouts/AdminRoutes';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
@@ -19,12 +19,23 @@ import Admin from './screens/Admin/AdminPage';
 import { UserProfile as AddAdmin } from './screens/Admin/AddAdminProfile/AddAdminProfilePage';
 import PaymentTablePage from './screens/Payment/PaymentTablePage';
 import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
+import Login from './screens/Login/LoginAdmin'
+import CourseAdmin from './screens/CourseAdmin/CourseContent';
+import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
+import CourseCreation from './screens/CourseCreation/CourseCreation';
 import Permission from './screens/Permission/PermissionPage';
+
 
 function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+        
+        <Route path="/courseadmin" element={<CourseAdmin />} />
+        <Route path="/coursebuilder" element={<CourseBuilder />} />
+        <Route path="/coursecreation" element={<CourseCreation />} />
 
         {/* <Route element={<AdminRoutes />}> */}
           <Route element={<MainAdmin />}>
@@ -45,13 +56,14 @@ function App() {
           </Route>
         {/* </Route> */}
 
-        {/* <Route element={PublicRoutes}> */}
-        {/* <Route element={<Main />}> */}
-        {/* <Route path='/login' element={<Login />} /> */}
-        {/* </Route>
-        </Route> */}
-      </Route>
-    </Routes>
+            <Route element={<PublicRoutes />}>
+              <Route element={<Main />}>
+                <Route path='/login' element={<Login />} />
+              </Route>
+            </Route> 
+        </Route>
+      </Routes>
+    </>
   );
 }
 

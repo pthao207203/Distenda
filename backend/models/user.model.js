@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+  UserMoney: {
+    type: Number,
+    default: 0,
+  },
   UserDeleted: {
     type: Number,
     default: 1,

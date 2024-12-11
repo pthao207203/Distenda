@@ -31,24 +31,29 @@ module.exports.pay = async (req, res) => {
   }
 };
 
-// // [POST] /pay/:CourseID
+// // [POST] /pay/:CourseSlug
 module.exports.payPost = async (req, res) => {
   if (req.cookies.user_token) {
+    const courseTest = await Course.findOne({
+      CourseSlug: req.params.CourseSlug
+    })
+    const CourseID = courseTest._id
+    console.log(CourseID)
     const test = await User.findOne({
       _id: res.locals.user.id,
-      "UserCourse.CourseId": req.params.CourseID
+      "UserCourse.CourseId": CourseID
     })
     if (test) {
-      const course = await Course.findOne({ _id: req.params.CourseID })
+      const course = await Course.findOne({ _id: CourseID })
       req.flash("error", "Bạn đã mua khoá học!")
       res.redirect(`/courses/${course.CourseSlug}`)
       return;
     }
 
-    const course = await Course.findOne({ _id: req.params.CourseID })
+    const course = await Course.findOne({ _id: CourseID })
 
     req.body.UserId = res.locals.user.id
-    req.body.CourseId = req.params.CourseID
+    req.body.CourseId = CourseID
     req.body.Total = course.CoursePrice * (100 - course.CourseDiscount) / 100
     req.body.createdBy = {
       UserId: res.locals.user.id,
@@ -65,10 +70,13 @@ module.exports.payPost = async (req, res) => {
           CourseProcess: [],
         };
 
+        const money = (res.locals.user.UserMoney ? res.locals.user.UserMoney : 0) + req.body.Total
+
         await User.updateOne({
           _id: UserID
         }, {
-          $push: { UserCourse: newCourse }
+          $push: { UserCourse: newCourse },
+          UserMoney: money
         }
         );
 
@@ -79,7 +87,7 @@ module.exports.payPost = async (req, res) => {
 
         console.log("Thanh toán thành công")
       }
-      addCourseUser(res.locals.user.id, req.params.CourseID)
+      addCourseUser(res.locals.user.id, CourseID)
     }, 10000);
 
     // const newCourse = {

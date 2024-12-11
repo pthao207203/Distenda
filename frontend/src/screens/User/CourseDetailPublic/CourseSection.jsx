@@ -8,15 +8,8 @@ const CourseSection = forwardRef(({ title, description, children }, ref) => {
         <div className="flex mt-2.5 w-full bg-white bg-opacity-10 min-h-[2px] max-md:max-w-full" />
       </div>
       {description && (
-        <div className="mt-4 font-medium text-xl max-md:max-w-full">
-          {description
-            .split('.  ')
-            .filter((sentence) => sentence.trim())
-            .map((sentence, index) => (
-              <p key={index} className="mb-2">
-                {sentence.trim()}.
-              </p>
-            ))}
+        <div className="font-medium text-xl max-md:max-w-full">
+          {description}
         </div>
       )}
       {children}

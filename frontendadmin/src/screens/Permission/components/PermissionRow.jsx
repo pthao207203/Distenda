@@ -16,7 +16,7 @@ export default function PermissionRow({ permission, isFirst, roles }) {
   return (
     <div className={`flex flex-wrap w-full bg-white h-[50px] max-md:max-w-full ${!isFirst ? "mt-1.5" : ""}`}>
       {/* Ô hiển thị thông tin permission */}
-      <div className="flex flex-1 justify-center items-center basis-0 h-[50px] text-xl font-medium whitespace-nowrap bg-indigo-50 text-neutral-900">
+      <div className="flex flex-1 justify-center items-center basis-0 h-[50px] text-xl font-medium whitespace-nowrap bg-[#EBF1F9] text-neutral-900">
         <div className="gap-2.5 self-stretch my-auto">{permission}</div>
       </div>
 

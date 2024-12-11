@@ -13,6 +13,8 @@ router.post("/pay/:CourseID", controller.payPost);
 
 router.get("/profile", controller.profile);
 
+router.post("/profile", controller.profilePost);
+
 router.get("/profile/edit", controller.profileEdit);
 
 router.post('/comment/add/:CourseID', controller.addComment)

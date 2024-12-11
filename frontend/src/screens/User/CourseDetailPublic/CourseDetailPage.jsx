@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import CourseContent from "./CourseContent";
 import PageNav from "./PageNav"
 import LoginRequest from "../CourseDetailPublic/LoginRequest";
@@ -6,8 +7,14 @@ import CheckoutPage from "../Payment/CheckoutPage";
 import Bank from "../Payment/Bank";
 import ThankYouPage from "../Payment/ThankYouPage";
 import Cookies from 'js-cookie';
+import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
+import { useOutletContext } from "react-router-dom";
 
 export default function CourseDetailPage() {
+  const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
+
+  // Dùng headerHeight trong việc bố trí giao diện hoặc logic
+  console.log("Header Height:", headerHeight);
   const [isLoginRequestVisible, setIsLoginRequestVisible] = useState(false);
 
   const handleOpenLoginRequest = () => {
@@ -58,16 +65,67 @@ export default function CourseDetailPage() {
   const token = Cookies.get('user_token'); // Lấy token từ cookie
   const isAuthenticated = token !== undefined; // Kiểm tra xem token có tồn tại không
 
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const { CourseSlug } = useParams();
+
+  // Thêm chức năng đăng ký khoá học ở đây
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const result = await coursePayController(setLoading, CourseSlug);
+        if (result === 400) {
+          // console.log("Thành công");
+        }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isBankVisible && CourseSlug) {
+      fetchData(); // Gọi fetchData khi cần
+    }
+  }, [isBankVisible, CourseSlug]);
+
+  useEffect(() => {
+    async function fetchData(courseSlug) {
+      // console.log("vao")
+      const result = await courseDetailController(setLoading, courseSlug);
+      // console.log(result);
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
+
+    if (CourseSlug) {
+      fetchData(CourseSlug); // Gọi fetchData với CourseSlug
+    }
+  }, [CourseSlug]);
+
+
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+  // console.log("course => ", data)
+
   return (
     <div className="flex flex-col relative w-full h-full overflow-y-auto">
-      <PageNav />
+      <PageNav {...data} />
       {/* CourseContent nhận hàm handleOpenPayment */}
-      <CourseContent onRegister={isAuthenticated ? handleOpenPayment : handleOpenLoginRequest} />
+      <CourseContent {...data} headerHeight={headerHeight} onRegister={isAuthenticated ? handleOpenPayment : handleOpenLoginRequest} />
 
       {/* Nếu đã đăng nhập, hiển thị Payment overlay */}
       {isAuthenticated && isPaymentVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-          <CheckoutPage handleOpenBank={handleOpenBank} onClose={handleClosePayment} />
+          <CheckoutPage {...data} handleOpenBank={handleOpenBank} onClose={handleClosePayment} />
         </div>
       )}
 
