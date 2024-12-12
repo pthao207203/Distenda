@@ -1,26 +1,27 @@
 import * as React from "react";
+import moment from 'moment';
 
-export default function PaymentRow({ id, userName, courseCode, price, time, status, onRowClick }) {
+export default function PaymentRow({pay, onRowClick}) {
   const getStatusStyles = (status) => {
     switch (status) {
-      case "pending":
-        return "bg-amber-300";
-      case "paid":
+      case -1: //Chờ thanh toán
+        return "bg-[#FFD75B]";
+      case 1: //Đã thanh toán
         return "bg-[#D1F669]";
-      case "cancelled":
-        return "bg-red-600 text-white";
+      case 0: //Đã hủy
+        return "bg-[#DF322B] text-white";
       default:
-        return "bg-amber-300";
+        return "bg-[#FFD75B]";
     }
   };
 
   const getStatusText = (status) => {
     switch (status) {
-      case "pending":
+      case -1:
         return "Chờ thanh toán";
-      case "paid":
+      case 1:
         return "Đã thanh toán";
-      case "cancelled":
+      case 0:
         return "Đã hủy";
       default:
         return "Chờ thanh toán";
@@ -30,41 +31,41 @@ export default function PaymentRow({ id, userName, courseCode, price, time, stat
   return (
     <div
       className="flex overflow-hidden flex-wrap mt-6 w-280 bg-white h-[70px] cursor-pointer"
-      onClick={() => onRowClick && onRowClick(id)}
+      onClick={() => onRowClick && onRowClick(pay)} // Truyền toàn bộ `pay` khi gọi onRowClick
     >
       {/* Mã thanh toán */}
-      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{id}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center p-3 items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay._id}</span>
       </div>
 
       {/* Tên người dùng */}
-      <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{userName}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center p-3 items-center">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay.user}</span>
       </div>
 
       {/* Mã khóa học */}
-      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{courseCode}</span>
+      <div className="flex basis-1/6 min-w-0 justify-center p-3 items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay.course}</span>
       </div>
 
       {/* Giá */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{price}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay.PayTotal}</span>
       </div>
 
       {/* Thời gian */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{time}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{moment(pay.createdBy.createdAt).format("DD/MM/YYYY hh:mm:ss")}</span>
       </div>
 
       {/* Trạng thái */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
         <div
           className={`self-center shrink w-[90%] max-w-full px-4 py-2 justify-center items-center inline-flex ${getStatusStyles(
-            status
+            pay.PayStatus
           )} min-h-[40px] rounded-[99px]`}
         >
-          <span className="text-center text-xl font-medium truncate">{getStatusText(status)}</span>
+          <span className="text-center text-xl font-medium truncate">{getStatusText(pay.PayStatus)}</span>
         </div>
       </div>
     </div>

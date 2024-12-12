@@ -24,7 +24,7 @@ export const dashboardService = async () => {
 export const headerService = async () => {
   try {
     // console.log(`${process.env.REACT_APP_API_BASE_URL}/header`)
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/header`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/dashboard/header`, {
       method: 'GET',
       credentials: "include"
     });

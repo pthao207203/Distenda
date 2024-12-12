@@ -39,7 +39,7 @@ function TaskBar() {
   ];
 
   return (
-    <div className="flex flex-col px-4 py-3 justify-center text-xl leading-none text-[#131313] bg-white border-l border-r border-b border-[#cdd5de] min-w-[250px]">
+    <div className="flex flex-col justify-center text-xl leading-none text-[#131313] bg-white border-l border-r border-b border-[#cdd5de] min-w-[200px]">
       {menuItems.map((item, index) => (
         <div
           onMouseEnter={(e) =>
@@ -48,7 +48,7 @@ function TaskBar() {
           onMouseLeave={(e) =>
             (e.currentTarget.style.background = "rgba(0, 0, 0, 0)") // Reset khi rời chuột
           }>
-          <TaskBarItem key={index} text={item.text} onClick={item.onClick} />
+          <TaskBarItem key={index} text={item.text} onClick={item.onClick}/>
         </div>
       ))}
     </div>

@@ -76,7 +76,7 @@ export default function Settingpage() {
             <input
               id="website-name"
               type="text"
-              value="DiSTENDA"
+              value="DISTENDA"
               className="flex-1 shrink gap-2.5 self-stretch p-2.5 mt-2 whitespace-nowrap rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
             />
           </div>

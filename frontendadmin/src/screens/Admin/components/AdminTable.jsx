@@ -1,35 +1,5 @@
 import * as React from "react";
 import moment from 'moment';
-// const adminData = [
-//   {
-//     avatar: "https://via.placeholder.com/48", // Đường dẫn ảnh đại diện
-//     name: "Võ Tấn Khoa",
-//     role: "Quản trị viên",
-//     joinDate: "29/11/2024 23:13",
-//     status: "active",
-//   },
-//   {
-//     avatar: "https://via.placeholder.com/48", // Đường dẫn ảnh đại diện
-//     name: "Võ Tấn Khoa",
-//     role: "Giảng viên",
-//     joinDate: "29/11/2024 23:13",
-//     status: "active",
-//   },
-//   {
-//     avatar: "https://via.placeholder.com/48", // Đường dẫn ảnh đại diện
-//     name: "Võ Tấn Khoa",
-//     role: "Giảng viên",
-//     joinDate: "29/11/2024 23:13",
-//     status: "active",
-//   },
-//   {
-//     avatar: "https://via.placeholder.com/48", // Đường dẫn ảnh đại diện
-//     name: "Võ Tấn Khoa",
-//     role: "Quản lý khóa học",
-//     joinDate: "29/11/2024 23:13",
-//     status: "paused",
-//   },
-// ];
 
 function AdminTable(admin) {
   const statusClass = admin.AdminDeleted === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
