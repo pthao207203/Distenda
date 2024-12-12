@@ -78,22 +78,31 @@ module.exports.editItem = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/role`);
   }
 };
-// [PATCH] /admin/role/edit/:RoleID
+// [POST] /admin/role/edit/:RoleID
 module.exports.editPatch = async (req, res) => {
   try {
+    // console.log(req.body.role.permissions)
     await Role.updateOne(
       {
         _id: req.params.RoleID,
-      },
-      req.body
-    );
+      }, {
+      $set: { RolePermissions: req.body.role.permissions }
+    });
 
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 200,
+      message: "Cập nhật thất bại!"
+    })
   }
 
-  res.redirect(`${systemConfig.prefixAdmin}/role`);
+  // res.redirect(`${systemConfig.prefixAdmin}/role`);
 };
 
 // [GET] /admin/role/permission
