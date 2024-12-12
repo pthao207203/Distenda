@@ -23,6 +23,8 @@ export async function headerController(setLoading) {
     return result;
   } catch (err) {
     console.error(err); // Ghi log lỗi
-    setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
+    return null; // Trả về null hoặc giá trị mặc định khi lỗi
+  } finally {
+    setLoading(false); // Tắt trạng thái tải
   }
 };

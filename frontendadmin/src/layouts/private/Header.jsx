@@ -4,26 +4,26 @@ import { headerController } from "../../controllers/home.controller";
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [openDetails, setOpenDetails] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const toggleTaskBar = () => {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const result = await headerController(setLoading);
-  //     console.log("result", result)
-  //   }
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      console.log("result", result)
+    }
 
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   const headerRef = useRef(null);
   useEffect(() => {
     async function fetchData() {
-      // const result = await headerController(setLoading);
-      // console.log("Controller result:", result);
+      const result = await headerController(setLoading);
+      console.log("Header result:", result);
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
@@ -32,9 +32,22 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     fetchData();
   }, [setLoading, setHeaderHeight]);
 
+
   if (loading) {
     return <div>Đang tải...</div>;
   }
+  // useEffect(() => {
+  //   const updateHeight = () => {
+  //     if (headerRef.current) {
+  //       setHeaderHeight(headerRef.current.offsetHeight);
+  //     }
+  //   };
+  
+  //   updateHeight(); // Cập nhật ngay khi mount
+  //   const timeout = setTimeout(updateHeight, 0); // Trì hoãn để DOM ổn định
+  
+  //   return () => clearTimeout(timeout); // Xóa timeout nếu component unmount
+  // }, [headerRef, setHeaderHeight]);
 
   return (
     <header

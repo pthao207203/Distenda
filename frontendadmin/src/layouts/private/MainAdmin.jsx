@@ -38,7 +38,7 @@ const MainAdmin = () => {
         className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[320px]" }`}
       >
         {isTaskBarVisible && (
-          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px]"
+          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px] max-md:right-1"
             style={{
               marginTop: `${headerHeight}px`,
             }}

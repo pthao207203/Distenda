@@ -20,7 +20,7 @@ export default function CourseTableRow(course) {
 
       {/* Giá */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CoursePrice * (100 - course.CourseDiscount)}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CoursePrice * ((100 - course.CourseDiscount) / 100)}</span>
       </div>
 
       {/* Lợi nhuận */}
@@ -35,7 +35,7 @@ export default function CourseTableRow(course) {
             }`}
         >
           <span className="text-[#131313] text-center text-xl font-medium truncate">
-            {course.CourseStatus === 1 ? "Hoạt động" : "Ngưng hoạt động"}
+            {course.CourseStatus === 1 ? "Hoạt động" : "Tạm dừng"}
           </span>
         </div>
       </div>

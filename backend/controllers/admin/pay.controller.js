@@ -4,7 +4,7 @@ const Pay = require("../../models/pay.model");
 const Admin = require("../../models/admin.model");
 const Category = require("../../models/category.model");
 
-// // [GET] /pay/
+// // [GET] /admin/pay/
 module.exports.pay = async (req, res) => {
   const pays = await Pay.find().lean()
   for (const pay of pays) {
@@ -26,7 +26,7 @@ module.exports.pay = async (req, res) => {
   res.json(pays)
 };
 
-// // [POST] /pay/detail/:PayID
+// // [POST] /admin/pay/detail/:PayID
 module.exports.payDetail = async (req, res) => {
   const pay = await Pay.findOne({
     _id: req.params.PayID
