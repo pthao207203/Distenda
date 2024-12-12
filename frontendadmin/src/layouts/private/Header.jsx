@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom"; // Import Link từ react-router-dom
 import { headerController } from "../../controllers/home.controller";
 
-export default function Header({setHeaderHeight,handleTaskBarToggle}) {
+export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [openDetails, setOpenDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const toggleTaskBar = () => {
@@ -28,7 +28,7 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
     }
-  
+
     fetchData();
   }, [setLoading, setHeaderHeight]);
 
@@ -50,10 +50,10 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
   // }, [headerRef, setHeaderHeight]);
 
   return (
-      <header 
-        ref={headerRef}
-        className="fixed border-box left top-0 z-50 w-full bg-[#EBF1F9] max-md:max-w-full"
-      >
+    <header
+      ref={headerRef}
+      className="fixed border-box left top-0 z-50 w-full bg-[#EBF1F9] max-md:max-w-full"
+    >
       <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-3">
           <img loading="lazy" src="./logo1.svg" alt="Logo"
@@ -61,20 +61,20 @@ export default function Header({setHeaderHeight,handleTaskBarToggle}) {
           />
         </div>
         <button
-        className="flex flex-row items-center gap-2"
-        onClick={toggleTaskBar}
+          className="flex flex-row items-center gap-2"
+          onClick={toggleTaskBar}
         >
-        <img loading="lazy" src="./profile.svg" alt="Profile"
-          className="object-contain w-[56px] h-auto"
-        />
-        <img
-          loading="lazy"
-          src={`./icons/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
-          alt=""
-          className="object-center shrink-0 w-[15px] aspect-[2.14]"
-        />
+          <img loading="lazy" src="./profile.svg" alt="Profile"
+            className="object-contain w-[56px] h-auto"
+          />
+          <img
+            loading="lazy"
+            src={`./icons/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
+            alt=""
+            className="object-center shrink-0 w-[15px] aspect-[2.14]"
+          />
         </button>
       </div>
-      </header>
+    </header>
   );
 }
