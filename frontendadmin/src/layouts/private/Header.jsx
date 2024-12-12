@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { headerController } from "../../controllers/home.controller"
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Import Link từ react-router-dom
+import { headerController } from "../../controllers/home.controller";
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [openDetails, setOpenDetails] = useState(false);
@@ -8,22 +9,21 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
-  const [loading, setLoading] = useState(false);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await headerController(setLoading);
+  //     console.log("result", result)
+  //   }
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("result", result)
-    }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const headerRef = useRef(null);
   useEffect(() => {
     async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("Controller result:", result);
+      // const result = await headerController(setLoading);
+      // console.log("Controller result:", result);
       if (headerRef.current) {
         setHeaderHeight(headerRef.current.offsetHeight);
       }
@@ -33,11 +33,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   }, [setLoading, setHeaderHeight]);
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <div>Đang tải...</div>;
   }
 
   return (

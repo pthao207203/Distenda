@@ -109,7 +109,7 @@ function ProfileCard() {
           Thông tin cá nhân
         </div>
         <div className="flex flex-col items-start mt-6 w-full font-medium leading-none max-md:max-w-full">
-          <div className="flex flex-wrap gap-10 justify-between items-start self-stretch w-full max-md:max-w-full">
+          <div className="flex flex-wrap justify-between items-start self-stretch w-full max-md:max-w-full">
             {userFields.slice(0, 3).map((field, index) => (
               <AdminInfoField
                 key={index}
