@@ -49,9 +49,14 @@ module.exports.deleteItem = async (req, res) => {
       deletedAt: new Date(),
     }
   );
+  console.log("Xoá thành công!!")
+  res.json({
+    code: 200,
+    message: "Xoá thành công!!"
+  })
 
-  req.flash("success", "Xóa thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/role`);
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/role`);
 };
 
 // [GET] /admin/role/edit/:RoleID
@@ -97,10 +102,11 @@ module.exports.permission = async (req, res) => {
     RoleDeleted: 1,
   };
   const roles = await Role.find(find);
-  res.render("admin/pages/role/permission", {
-    pageTitle: "Phân quyền",
-    roles: roles,
-  });
+  res.json(roles)
+  // res.render("admin/pages/role/permission", {
+  //   pageTitle: "Phân quyền",
+  //   roles: roles,
+  // });
 };
 // [PATCH] /admin/role/permission
 module.exports.permissionPatch = async (req, res) => {

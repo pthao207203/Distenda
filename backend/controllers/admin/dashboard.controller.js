@@ -57,3 +57,11 @@ module.exports.dashboard = async (req, res) => {
   //   statistic: statistic
   // });
 }
+
+// [GET] /header
+module.exports.header = async (req, res) => {
+  const user = res.locals.user
+  res.json({
+    user: user,
+  })
+};
