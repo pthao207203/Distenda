@@ -17,13 +17,10 @@ export async function dashboardController(setLoading) {
 // [GET] /header
 export async function headerController(setLoading) {
   try {
-    setLoading(true); 
-    console.log("Calling headerService...");
-    
+    setLoading(true);
     const result = await headerService(); // Gọi service để xử lý API
-    console.log("Header: ", result);
-    
-    return result; // Trả về kết quả
+    setLoading(false); // Tải xong
+    return result;
   } catch (err) {
     console.error(err); // Ghi log lỗi
     return null; // Trả về null hoặc giá trị mặc định khi lỗi

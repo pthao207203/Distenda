@@ -1,5 +1,5 @@
 const express = require("express")
-const multer  = require('multer')
+const multer = require('multer')
 const router = express.Router()
 
 const upload = multer()
@@ -17,9 +17,8 @@ router.delete('/delete/:RoleID', controller.deleteItem)
 
 router.get('/edit/:RoleID', controller.editItem)
 
-router.patch(
-  '/edit/:RoleID', 
-  validate.createPost, 
+router.post(
+  '/edit/:RoleID',
   controller.editPatch
 )
 

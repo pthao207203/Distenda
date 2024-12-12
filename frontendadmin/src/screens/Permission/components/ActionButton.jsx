@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { rolesDeleteController, rolesCreateController, rolesUpdateController } from "../../../controllers/role.controller";
 
-export default function ActionButtons() {
+export default function ActionButtons({ selectedRoles, permissions }) {
   const [popupContent, setPopupContent] = useState(null); // Trạng thái quản lý nội dung popup
   const [isPopupVisible, setPopupVisible] = useState(false); // Trạng thái hiển thị popup xác nhận
   const [successPopupVisible, setSuccessPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
   const [isAddRolePopupVisible, setAddRolePopupVisible] = useState(false); // Trạng thái hiển thị popup thêm chức vụ
-  const [position, setPosition] = useState(""); // Lưu trữ tên chức vụ
+  const [name, setName] = useState(""); // Lưu trữ tên chức vụ
+  const [action, setActionType] = useState(null);
+  console.log(permissions)
 
   const handlePopup = (action) => {
+    setActionType(action);
     if (action === "delete") {
       setPopupContent("Bạn có chắc chắn muốn xóa không?");
     } else if (action === "update") {
@@ -23,13 +27,32 @@ export default function ActionButtons() {
     setPopupContent(null);
   };
 
-  const confirmAction = () => {
+  const confirmAction = async () => {
     setPopupVisible(false); // Ẩn popup xác nhận
+    try {
+      let response;
+      if (action === "delete") {
+        // Gọi API xóa
+        // console.log("selectedRoles", selectedRoles)
+        response = await rolesDeleteController(selectedRoles);
+      } else if (action === "update") {
+        // Gọi API cập nhật
+        response = await rolesUpdateController(permissions);
+      }
+
+      if (!response.ok) {
+        throw new Error("Có lỗi xảy ra khi thực hiện hành động.");
+      }
+      console.log("API call thành công!");
+    } catch (error) {
+      console.error("Error calling API:", error);
+    }
     setSuccessPopupVisible(true); // Hiển thị popup thành công
   };
 
   const closeSuccessPopup = () => {
     setSuccessPopupVisible(false); // Ẩn popup thành công
+    window.location.reload();
   };
 
   const handleAddRolePopup = () => {
@@ -38,13 +61,15 @@ export default function ActionButtons() {
 
   const handleCloseAddRolePopup = () => {
     setAddRolePopupVisible(false);
-    setPosition(""); // Reset tên chức vụ
+    setName(""); // Reset tên chức vụ
   };
 
-  const handleConfirmAddRole = () => {
-    console.log(`Thêm chức vụ: ${position}`);
+  const handleConfirmAddRole = async () => {
+    console.log(`Thêm chức vụ: ${name}`);
+    const response = await rolesCreateController(name);
     setAddRolePopupVisible(false);
-    setPosition(""); // Reset tên chức vụ
+    setName(""); // Reset tên chức vụ
+    window.location.reload();
   };
 
   return (
@@ -129,8 +154,8 @@ export default function ActionButtons() {
               </p>
               <input
                 type="text"
-                value={position}
-                onChange={(e) => setPosition(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Nhập chức vụ"
               />
