@@ -5,4 +5,6 @@ const controller = require("../../controllers/admin/dashboard.controller")
 
 router.get('/', controller.dashboard)
 
+router.get('/header', controller.header)
+
 module.exports = router;
