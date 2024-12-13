@@ -10,6 +10,8 @@ const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware")
 
 router.get('/', controller.index)
 
+router.get('/detail/:UserID', controller.detail)
+
 router.get('/create', controller.createItem)
 
 router.post('/create', upload.single('UserAvatar'), uploadCloud.upload, controller.createPost)

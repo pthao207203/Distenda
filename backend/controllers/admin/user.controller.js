@@ -1,6 +1,7 @@
 const md5 = require("md5");
 const User = require("../../models/user.model");
 const Role = require("../../models/role.model");
+const Course = require("../../models/course.model");
 const systemConfig = require("../../config/system");
 const generateHelper = require("../../helpers/generate");
 
@@ -13,6 +14,31 @@ module.exports.index = async (req, res) => {
   const users = await User.find(find).select("-UserPassword -UserToken");
 
   res.json(users)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: user,
+  // });
+};
+
+// [GET] /admin/user/detail/:UserID
+module.exports.detail = async (req, res) => {
+  const find = {
+    UserDeleted: 1,
+    _id: req.params.UserID,
+  };
+
+  const user = await User.findOne(find).lean();
+  for (const courseUser of user.UserCourse) {
+    const course = await Course.findOne({
+      _id: courseUser.CourseId,
+    });
+
+    if (course) {
+      courseUser.course = course;
+    }
+  }
+  console.log(user)
+  res.json(user)
   // res.render("admin/pages/admin/index", {
   //   pageTitle: "Danh sách tài khoản",
   //   admin: user,

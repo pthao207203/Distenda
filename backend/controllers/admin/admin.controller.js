@@ -1,6 +1,7 @@
 const md5 = require("md5");
 const Admin = require("../../models/admin.model");
 const Role = require("../../models/role.model");
+const Course = require("../../models/course.model");
 const systemConfig = require("../../config/system");
 const generateHelper = require("../../helpers/generate");
 
@@ -23,6 +24,26 @@ module.exports.index = async (req, res) => {
   // res.render("admin/pages/admin/index", {
   //   pageTitle: "Danh sách tài khoản",
   //   admin: admin,
+  // });
+};
+
+// [GET] /admin/admin/detail/:AdminID
+module.exports.detail = async (req, res) => {
+  const find = {
+    AdminDeleted: 1,
+    _id: req.params.AdminID,
+  };
+
+  const admin = await Admin.findOne(find).lean();
+  const course = await Course.find({
+    CourseIntructor: admin._id
+  })
+  admin.course = course
+  console.log(admin)
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: user,
   // });
 };
 

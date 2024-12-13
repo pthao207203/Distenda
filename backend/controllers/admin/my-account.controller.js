@@ -5,9 +5,12 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/my-account
 module.exports.index = async (req, res) => {
-  res.render("admin/pages/my-account/index", {
-    pageTitle: "Trang cá nhân",
-  });
+  res.json({
+    user: res.locals.user,
+  })
+  // res.render("admin/pages/my-account/index", {
+  //   pageTitle: "Trang cá nhân",
+  // });
 };
 
 // [GET] /admin/my-account/edit
