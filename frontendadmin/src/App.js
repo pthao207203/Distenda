@@ -51,7 +51,7 @@ function App() {
             <Route path='/admin' element={<Admin />} />
             <Route path='/add-admin' element={<AddAdmin />} />
             <Route path="/payment" element={<PaymentTablePage />} />
-            <Route path="/invoicedetails/:id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+            <Route path="/payment/detail/:_id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
           </Route>
