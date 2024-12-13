@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function FormField({ label, value, id, hasDropdown, dropdownIcon }) {
+function FormField({ label, value, id, hasDropdown, dropdownIcon, onChange }) {
   return (
     <div className="flex flex-col justify-center mt-10 w-full max-md:max-w-full">
       <label htmlFor={id} className="text-neutral-900 text-opacity-50 max-md:max-w-full">
@@ -11,16 +11,9 @@ function FormField({ label, value, id, hasDropdown, dropdownIcon }) {
           type="text"
           id={id}
           value={value}
+          onChange={onChange} // Thêm xử lý onChange
           className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
         />
-        {hasDropdown && (
-          <img
-            loading="lazy"
-            src={dropdownIcon}
-            alt=""
-            className="object-contain absolute right-4 z-0 shrink-0 self-start w-6 h-6 aspect-square top-[19px]"
-          />
-        )}
       </div>
     </div>
   );

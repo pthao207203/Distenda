@@ -125,18 +125,20 @@ module.exports.profilePost = async (req, res) => {
   try {
     // console.log(req.body)
     // const oldPassword = req.body
-    const user = await User.findOne({
-      _id: req.body._id,
-      UserPassword: req.body.currentPassword
-    })
-    if (user) {
-      res.json({
-        code: 400,
-        message: "Sai mật khẩu!!!"
+    if (req.body.currentPassword) {
+      const user = await User.findOne({
+        _id: req.body._id,
+        UserPassword: req.body.currentPassword
       })
-      return;
+      if (user) {
+        res.json({
+          code: 400,
+          message: "Sai mật khẩu!!!"
+        })
+        return;
+      }
+      req.body.UserPassword = md5(req.body.newPassword)
     }
-    req.body.UserPassword = md5(req.body.newPassword)
     const editedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),

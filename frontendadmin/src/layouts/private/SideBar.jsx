@@ -15,7 +15,7 @@ export default function SideBar({ headerHeight }) {
     (role?.role?.RolePermissions?.includes("user_view") && { link: "/user", icon: "/icons/2user.svg", label: "Người dùng" }),
     (role?.role?.RolePermissions?.includes("admin_view") && { link: "/admin", icon: "/icons/work.svg", label: "Quản trị viên" }),
     (role?.role?.RolePermissions?.includes("payment_view") && { link: "/payment", icon: "/icons/paper.svg", label: "Hóa đơn" }),
-    (role?.role?.RolePermissions?.includes("permission_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
+    (role?.role?.RolePermissions?.includes("role_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
     (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
     (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
   ].filter(item => item);;
