@@ -4,6 +4,7 @@ import CourseTableRow from "./components/CourseTableRow";
 import SearchBar from "../../layouts/private/SearchBar";
 import ActionButton from "./components/ActionButton";
 import { coursesController } from "../../controllers/course.controller";
+import { useRole } from "../../layouts/AppContext"
 
 // const courseData = [
 //   {
@@ -27,6 +28,7 @@ import { coursesController } from "../../controllers/course.controller";
 function CourseList() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const { role } = useRole();
 
   useEffect(() => {
     async function fetchData() {
@@ -53,15 +55,18 @@ function CourseList() {
   return (
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
-      <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-2xl text-white max-md:max-w-full">
-        <ActionButton text="Thêm phân loại" />
-        <ActionButton text="Thêm khóa học" />
-      </section>
+      {role?.role?.RolePermissions?.includes("course_view") && (
+        <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-2xl text-white max-md:max-w-full">
+          <ActionButton text="Thêm phân loại" />
+          <ActionButton text="Thêm khóa học" />
+        </section>
+      )}
+
 
       <section className="flex flex-col pb-16 mt-3 w-full text-neutral-900 max-md:max-w-full">
         <div className="self-stretch text-right text-[#131313] text-xl font-medium leading-tight">Tổng số khóa học: {totalCourses}</div>
         <CourseTableHeader />
-        
+
         {data && data.length > 0 && data.map((course, index) => (
           <CourseTableRow key={index} {...course} />
         ))}

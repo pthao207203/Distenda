@@ -1,4 +1,4 @@
-import { dashboardService, headerService } from '../services/home.service';
+import { dashboardService, headerService, roleService } from '../services/home.service';
 
 // [GET] /
 export async function dashboardController(setLoading) {
@@ -14,12 +14,26 @@ export async function dashboardController(setLoading) {
   }
 }
 
-// [GET] /header
+// [GET] /admin/header
 export async function headerController(setLoading) {
   try {
     setLoading(true);
     const result = await headerService(); // Gọi service để xử lý API
     setLoading(false); // Tải xong
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+    return null; // Trả về null hoặc giá trị mặc định khi lỗi
+  } finally {
+    setLoading(false); // Tắt trạng thái tải
+  }
+};
+
+// [GET] /admin/role
+export async function roleController(setLoading) {
+  try {
+    setLoading(true);
+    const result = await roleService(); // Gọi service để xử lý API
     return result;
   } catch (err) {
     console.error(err); // Ghi log lỗi

@@ -9,7 +9,7 @@ const navItems = [
 
 export function NavigationBar() {
   return (
-    <nav className="flex flex-wrap items-center px-5 mt-1.5 w-full text-lg font-semibold leading-none bg-white text-neutral-900 max-md:max-w-full" aria-label="Breadcrumb">
+    <nav className="flex flex-wrap items-center px-5 w-full text-lg font-semibold leading-none bg-white text-neutral-900 max-md:max-w-full" aria-label="Breadcrumb">
       {navItems.map((item, index) => (
         <div key={index} className="flex gap-3 items-center self-stretch px-3 py-1.5 my-auto">
           <div className="gap-2.5 self-stretch my-auto">{item.text}</div>

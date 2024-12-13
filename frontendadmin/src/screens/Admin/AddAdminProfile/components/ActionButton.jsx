@@ -1,13 +1,19 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom"; // Import hook điều hướng
+import { adminCreatePostController } from "../../../../controllers/admin.controller";
 
-export const ActionButton = ({ icon, label, variant }) => {
+export const ActionButton = ({ icon, label, variant, personalInfo }) => {
   const [isPopupVisible, setIsPopupVisible] = React.useState(false); // Trạng thái hiển thị popup
   const navigate = useNavigate(); // Khởi tạo hook điều hướng
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (label === "Lưu") {
-      navigate("/admin"); // Điều hướng đến trang AdminPage
+      console.log("User profile data:", personalInfo); // In ra dữ liệu người dùng
+      // Gọi hàm fetch data khi submit
+      await adminCreatePostController(personalInfo);
+      // Hiển thị popup thành công/thất bại
+
+      // navigate("/admin"); // Điều hướng đến trang AdminPage
     } else if (label === "Hủy") {
       setIsPopupVisible(true); // Hiển thị popup nếu là nút Hủy
     }
@@ -53,8 +59,8 @@ export const ActionButton = ({ icon, label, variant }) => {
                 alt=""
                 className="object-contain aspect-square w-[59px]"
               />
-            <div className="mt-6 text-xl text-neutral-900 font-semibold text-center">
-              Bạn có chắc chắn muốn hủy những thay đổi không?
+              <div className="mt-6 text-xl text-neutral-900 font-semibold text-center">
+                Bạn có chắc chắn muốn hủy những thay đổi không?
               </div>
               <div className="flex gap-2.5 items-start mt-8 text-3xl whitespace-nowrap">
                 <button
