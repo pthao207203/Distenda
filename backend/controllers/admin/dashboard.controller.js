@@ -58,10 +58,19 @@ module.exports.dashboard = async (req, res) => {
   // });
 }
 
-// [GET] /header
+// [GET] /admin/dashboard/header
 module.exports.header = async (req, res) => {
   const user = res.locals.user
   res.json({
     user: user,
+  })
+};
+
+// [GET] /admin/dashboard/role
+module.exports.role = async (req, res) => {
+  const role = res.locals.role
+  // console.log(role)
+  res.json({
+    role: role,
   })
 };

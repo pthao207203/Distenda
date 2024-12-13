@@ -6,7 +6,7 @@ import { VideoSection } from "./VideoSection";
 export default function CourseContent() {
   return (
     <main className="flex overflow-hidden flex-col bg-indigo-50">
-      <CourseHeader />
+      {/* <CourseHeader /> */}
       <NavigationBreadcrumb />
       <section className="flex overflow-hidden flex-col px-16 pt-8 mt-2 w-full bg-white max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col pb-16 w-full max-md:max-w-full">

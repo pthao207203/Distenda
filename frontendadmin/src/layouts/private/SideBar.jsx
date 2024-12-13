@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useRole } from "../AppContext"
 
-export default function SideBar({headerHeight}) {
+export default function SideBar({ headerHeight }) {
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng sidebar
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024); // Kiểm tra xem có phải desktop hay không
   const location = useLocation(); // Lấy đường dẫn hiện tại
+  const { role } = useRole();
+  console.log(role)
 
   const menuItems = [
-    { link: "/", icon: "./icons/home.svg", label: "Trang chủ" },
-    { link: "/courses", icon: "./icons/document.svg", label: "Khóa học" },
-    { link: "/user", icon: "./icons/2user.svg", label: "Người dùng" },
-    { link: "/admin", icon: "./icons/work.svg", label: "Quản trị viên" },
-    { link: "/payment", icon: "./icons/paper.svg", label: "Hóa đơn" },
-    { link: "/authorities", icon: "./icons/setting.svg", label: "Phân quyền" },
-    { link: "/notification", icon: "./icons/notification.svg", label: "Thông báo" },
-    { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web" },
-  ];
+    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/", icon: "/icons/home.svg", label: "Trang chủ" }),
+    (role?.role?.RolePermissions?.includes("course_view") && { link: "/courses", icon: "/icons/document.svg", label: "Khóa học" }),
+    (role?.role?.RolePermissions?.includes("user_view") && { link: "/user", icon: "/icons/2user.svg", label: "Người dùng" }),
+    (role?.role?.RolePermissions?.includes("admin_view") && { link: "/admin", icon: "/icons/work.svg", label: "Quản trị viên" }),
+    (role?.role?.RolePermissions?.includes("payment_view") && { link: "/payment", icon: "/icons/paper.svg", label: "Hóa đơn" }),
+    (role?.role?.RolePermissions?.includes("permission_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
+    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
+    (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
+  ].filter(item => item);;
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +46,7 @@ export default function SideBar({headerHeight}) {
         ></div>
       )}
       <aside
-        className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 " } overflow-hidden`}
+        className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 "} overflow-hidden`}
         // Thay thế giá trị top bằng chiều cao header
         style={{
           boxShadow: isOpen ? "4px 0px 30px 0px rgba(0, 0, 0, 0.2)" : "none", // Đổ bóng chỉ khi Sidebar mở
@@ -51,29 +54,28 @@ export default function SideBar({headerHeight}) {
         onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan đến overlay
       >
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
-            <img
-              loading="lazy"
-              src="./profile.svg"
-              alt="Profile"
-              className="rounded object-cover"
-              style={{ width: "65px", height: "65px" }}
-            />
-            <div>
-              <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
-                Ngọc Khanh
-              </h4>
-              <span className="font-medium text-lg text-black">Manager</span>
-            </div>
+          <img
+            loading="lazy"
+            src="/profile.svg"
+            alt="Profile"
+            className="rounded object-cover"
+            style={{ width: "65px", height: "65px" }}
+          />
+          <div>
+            <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
+              Ngọc Khanh
+            </h4>
+            <span className="font-medium text-lg text-black">Manager</span>
           </div>
-        
+        </div>
+
 
         <div className="flex flex-col overflow-auto px-3">
           {menuItems.map((item, index) => (
             <Link to={item.link} key={index}>
               <div
-                className={`flex items-center text-xl gap-4 px-2 py-4 ${
-                  location.pathname === item.link ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
-                }`}
+                className={`flex items-center text-xl gap-4 px-2 py-4 ${location.pathname === item.link ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
+                  }`}
                 style={{ fontSize: "20px", color: "black" }}
               >
                 <img

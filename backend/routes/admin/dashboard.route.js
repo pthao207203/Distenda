@@ -7,4 +7,6 @@ router.get('/', controller.dashboard)
 
 router.get('/header', controller.header)
 
+router.get('/role', controller.role)
+
 module.exports = router;

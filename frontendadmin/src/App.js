@@ -26,6 +26,8 @@ import CourseCreation from './screens/CourseCreation/CourseCreation';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 
+import { RoleProvider } from "./layouts/AppContext";
+
 
 function App() {
   return (
@@ -33,35 +35,41 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
-        <Route path="/courseadmin" element={<CourseAdmin />} />
-        <Route path="/coursebuilder" element={<CourseBuilder />} />
-        <Route path="/coursecreation" element={<CourseCreation />} />
 
-        {/* <Route element={<AdminRoutes />}> */}
-          <Route element={<MainAdmin />}>
+          {/* <Route element={<AdminRoutes />}> */}
+          <Route
+            element={
+              <RoleProvider>
+                <MainAdmin />
+              </RoleProvider>
+            }
+          >
             <Route path='/admin-account' element={<AdminAccount />} />
             <Route path='/banner' element={<Banner />} />
-              <Route path='/add-banner' element={<AddBanner />} />
-              <Route path='/update-banner' element={<UpdateBanner />} />
+            <Route path='/add-banner' element={<AddBanner />} />
+            <Route path='/update-banner' element={<UpdateBanner />} />
             <Route path='/' element={<Dashboard />} />
-            <Route path='/courses' element={<Courses/>}/>
-                <Route path="/long-term-course" element={<LongTermCoursePage />} />
-            <Route path='/user' element={<UserTable/>} />
+            <Route path='/courses' element={<Courses />} />
+            <Route path="/long-term-course" element={<LongTermCoursePage />} />
+            <Route path='/user' element={<UserTable />} />
             <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path='/admin' element={<Admin />} />
-            <Route path='/add-admin' element={<AddAdmin />} />
+            <Route path='/admin/create' element={<AddAdmin />} />
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/payment/detail/:_id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/courseadmin" element={<CourseAdmin />} />
+            <Route path="/coursebuilder" element={<CourseBuilder />} />
+            <Route path="/coursecreation" element={<CourseCreation />} />
           </Route>
-        {/* </Route> */}
+          {/* </Route> */}
 
-            <Route element={<PublicRoutes />}>
-              <Route element={<Main />}>
-                <Route path='/login' element={<Login />} />
-              </Route>
-            </Route> 
+          <Route element={<PublicRoutes />}>
+            <Route element={<Main />}>
+              <Route path='/login' element={<Login />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </>

@@ -19,17 +19,17 @@ function AdminLayout() {
     }
 
     fetchData();
-    }, []);
+  }, []);
 
-    if (loading) {
-      return (
-        <div>
-          Đang tải...
-        </div>
-      )
-    }
-    console.log("Admin => ", data)
-    const totalAdmin = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+  console.log("Admin => ", data)
+  const totalAdmin = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
   return (
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <AddAccountButton />
@@ -41,7 +41,7 @@ function AdminLayout() {
           Tổng số quản trị viên: {totalAdmin}
         </div>
       </div>
-    
+
 
       {/* Bảng quản lý admin */}
       <section className="flex flex-col mt-3 w-full text-[#131313] max-md:max-w-full">

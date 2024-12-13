@@ -6,7 +6,7 @@ import { CourseForm } from "./components/CourseForm";
 export default function CourseBuilder() {
   return (
     <main className="flex overflow-hidden flex-col leading-none bg-indigo-50">
-      <Header />
+      {/* <Header /> */}
       <NavigationBar />
       <CourseForm />
     </main>
