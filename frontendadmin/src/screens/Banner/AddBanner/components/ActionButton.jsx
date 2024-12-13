@@ -1,12 +1,17 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom"; // Import hook điều hướng
+import { bannerCreatePostController } from "../../../../controllers/banner.controller";
 
-export const ActionButton = ({ icon, label, variant }) => {
+export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
   const [isPopupVisible, setIsPopupVisible] = React.useState(false); // Trạng thái hiển thị popup
   const navigate = useNavigate(); // Khởi tạo hook điều hướng
 
-  const handleClick = () => {
+  const handleClick = async (e) => {
+    e.preventDefault();
     if (label === "Lưu") {
+      const data = await handleSubmit()
+      console.log("User profile data:", data);
+      await bannerCreatePostController(data)
       navigate("/banner"); // Điều hướng đến trang AdminPage
     } else if (label === "Hủy") {
       setIsPopupVisible(true); // Hiển thị popup nếu là nút Hủy

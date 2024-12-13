@@ -46,8 +46,8 @@ function App() {
           >
             <Route path='/admin-account' element={<AdminAccount />} />
             <Route path='/banner' element={<Banner />} />
-            <Route path='/add-banner' element={<AddBanner />} />
-            <Route path='/update-banner' element={<UpdateBanner />} />
+            <Route path='/banner/create' element={<AddBanner />} />
+            <Route path='/banner/edit/:BannerID' element={<UpdateBanner />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/courses' element={<Courses />} />
             <Route path="/long-term-course" element={<LongTermCoursePage />} />

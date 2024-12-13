@@ -43,7 +43,7 @@ const MainAdmin = () => {
               marginTop: `${headerHeight}px`,
             }}
           >
-            <TaskBar />
+            <TaskBar handleTaskBarToggle={handleTaskBarToggle} />
           </div>
         )}
         <Outlet />

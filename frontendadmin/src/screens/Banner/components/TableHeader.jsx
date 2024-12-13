@@ -6,7 +6,7 @@ function TableHeader() {
 
   // Hàm xử lý khi nhấn vào nút "Banner mới"
   const handleAddBanner = () => {
-    navigate("/add-banner"); // Chuyển hướng đến trang AddBannerPage
+    navigate("/banner/create"); // Chuyển hướng đến trang AddBannerPage
   };
 
   return (

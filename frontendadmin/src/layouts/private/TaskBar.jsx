@@ -7,14 +7,13 @@ function TaskBarItem({ text, onClick }) {
     <button className="flex items-center text-left first-letter:justify-start px-3 py-4 w-full"
       onClick={onClick} // Gọi hàm onClick khi nhấn vào button
       tabIndex="0"
-      role="button"
     >
       {text}
     </button>
   );
 }
 
-function TaskBar() {
+function TaskBar({ handleTaskBarToggle }) {
   // Hàm xử lý đăng xuất
   const handleLogout = async () => {
     try {
@@ -27,15 +26,17 @@ function TaskBar() {
   };
   const navigate = useNavigate(); // Khởi tạo useNavigate
   const handleProfileNavigation = () => {
+    handleTaskBarToggle();
     navigate("/admin-account"); // Điều hướng đến trang profile
   };
   const handleBanne = () => {
+    handleTaskBarToggle();
     navigate("/banner"); // Điều hướng đến trang Banner
   };
   const menuItems = [
     { text: "Tài khoản", onClick: handleProfileNavigation },
     { text: "Banner", onClick: handleBanne },
-    { text: "Đăng xuất", onClick: handleLogout}
+    { text: "Đăng xuất", onClick: handleLogout }
   ];
 
   return (
@@ -48,7 +49,7 @@ function TaskBar() {
           onMouseLeave={(e) =>
             (e.currentTarget.style.background = "rgba(0, 0, 0, 0)") // Reset khi rời chuột
           }>
-          <TaskBarItem key={index} text={item.text} onClick={item.onClick}/>
+          <TaskBarItem key={index} text={item.text} onClick={item.onClick} />
         </div>
       ))}
     </div>
