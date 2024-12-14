@@ -7,38 +7,58 @@ import { TextArea } from "./components/TextArea";
 import uploadImage from "../../components/UploadImage"
 import { settingController, settingPostController } from "../../controllers/setting.controller";
 
+import { PopupConfirm } from "../../components/PopupConfirm";
+import { PopupSuccess } from "../../components/PopupSuccess";
+import { PopupError } from "../../components/PopupError";
+import Loading from "../../components/Loading";
+
+
 export default function Settingpage() {
   const [data, setData] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
-  const editorRef = useRef(null);
+  // const editorRef = useRef(null);
+
+  const [imageUrls, setImageUrls] = useState({}); // Lưu URLs của ảnh, key là id
+  const [selectedFiles, setSelectedFiles] = useState({}); // Lưu tệp ảnh theo id
 
 
-  const [imageSrc, setImageSrc] = useState(null);
-  const [selectedFileName, setSelectedFileName] = useState("");
-
-  const uploadImageInputRef = useRef(null);
-  const uploadImagePreviewRef = useRef(null);
-
+  const uploadImageInputRef = useRef({});
+  const uploadImagePreviewRef = useRef({}); // Lưu trữ refs theo id
 
   const [popupContent, setPopupContent] = useState(null); // Trạng thái quản lý nội dung popup
   const [isPopupVisible, setPopupVisible] = useState(false); // Trạng thái hiển thị popup xác nhận
   const [successPopupVisible, setSuccessPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
+  const [errorPopupVisible, setErrorPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
 
+  // Thay đổi hình ảnh 
   const handleImageChange = (e) => {
+    const { id } = e.target; // Lấy id từ input
     const file = e.target.files[0];
+
     if (file) {
       const imageURL = URL.createObjectURL(file);
-      setImageSrc(imageURL);
-      setSelectedFileName(file); // Lưu tên tệp đã chọn
 
-      if (uploadImagePreviewRef.current) {
-        uploadImagePreviewRef.current.src = imageURL;
+      // Cập nhật URL và tệp ảnh theo id
+      setImageUrls((prev) => ({
+        ...prev,
+        [id]: imageURL,
+      }));
+      console.log("imageURL", imageURL)
+      setSelectedFiles((prev) => ({
+        ...prev,
+        [id]: file,
+      }));
+
+      // Nếu cần cập nhật trực tiếp trên ref preview
+      if (uploadImagePreviewRef.current[id]) {
+        uploadImagePreviewRef.current[id].src = imageURL; // Đặt ảnh vào thẻ img
       }
     }
   };
 
+  // Lấy data từ database
   useEffect(() => {
     async function fetchData() {
       // console.log("vaof")
@@ -46,35 +66,46 @@ export default function Settingpage() {
       // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
+        setSelectedFiles({
+          WebsiteLogoAdmin: result.WebsiteLogoAdmin || "",
+          WebsiteLogoUser: result.WebsiteLogoUser || "",
+          WebsiteIcon: result.WebsiteIcon || "",
+        });
+        setImageUrls({
+          WebsiteLogoAdmin: result.WebsiteLogoAdmin || "",
+          WebsiteLogoUser: result.WebsiteLogoUser || "",
+          WebsiteIcon: result.WebsiteIcon || "",
+        });
       }
     }
 
     fetchData();
   }, []);
 
+  // Khi nhấn cập nhật
   const handleSubmit = async () => {
-    let uploadedImageUrl = data.WebsiteLogoAdmin;
-    // Upload ảnh nếu người dùng đã chọn
-    if (selectedFileName) {
-      uploadedImageUrl = await uploadImage(selectedFileName);;
-      console.log("Uploaded Image URL:", uploadedImageUrl);
-    }
-    const updatedData = {
-      ...data,
-      WebsiteLogoAdmin: uploadedImageUrl,
-    };
+    const updatedUrls = { ...data };
 
-    console.log("Data sent to ActionButton:", updatedData);
-    setData(updatedData)
-    const response = await settingPostController(updatedData); // Gửi dữ liệu cập nhật
+    for (const [id, file] of Object.entries(selectedFiles)) {
+      const uploadedUrl = await uploadImage(file);
+      console.log(`Uploaded Image for ${id}:`, uploadedUrl);
+      updatedUrls[id] = uploadedUrl;
+    }
+
+    const response = await settingPostController(updatedUrls);
+
     if (response.code === 200) {
-      alert("Cập nhật thành công!");
-      setData(response.updatedData); // Cập nhật lại dữ liệu trên giao diện
+      setSuccessPopupVisible(true);
+      setData(response.updatedData);
+      setImageUrls({});
+      setSelectedFiles({});
+    } else {
+      setErrorPopupVisible(true);
+      console.error("Cập nhật thất bại:", response);
     }
   };
 
-
-  // Hàm cập nhật dữ liệu khi người dùng nhập vào
+  // Cập nhật dữ liệu khi người dùng nhập vào
   const handleChange = (e) => {
     // Kiểm tra nếu e.target tồn tại (dành cho input và select)
     if (e?.target) {
@@ -92,6 +123,7 @@ export default function Settingpage() {
     }
   };
 
+  // Cập nhật dữ liệu khi người dùng nhập vào social
   const handleIconChange = (e) => {
     if (e?.target) {
       const { value, dataset } = e.target;
@@ -114,8 +146,6 @@ export default function Settingpage() {
       }
     }
   };
-
-
   const textAreas = [
     { label: "Giới thiệu", id: "WebsiteDiscription", minHeight: 101, value: data?.WebsiteDiscription },
     { label: "Tuyển dụng", id: "WebsiteRecruit", minHeight: 88, value: data?.WebsiteRecruit },
@@ -123,36 +153,32 @@ export default function Settingpage() {
     { label: "Hỗ trợ", id: "WebsiteSupport", minHeight: 88, value: data?.WebsiteSupport },
   ];
 
+  // Thao tác popup
   const handlePopup = (action) => {
     if (action === "update") {
       setPopupContent("Bạn có chắc chắn muốn cập nhật những thay đổi không?");
     }
     setPopupVisible(true);
   };
-
   const closePopup = () => {
     setPopupVisible(false);
     setPopupContent(null);
   };
-
   const confirmAction = async () => {
     closePopup();
     await handleSubmit();
-    setSuccessPopupVisible(true);
   };
-
-
   const closeSuccessPopup = () => {
     setSuccessPopupVisible(false); // Ẩn popup thành công
     window.location.reload();
   };
+  const closeErrorPopup = () => {
+    setErrorPopupVisible(false); // Ẩn popup thành công
+    // window.location.reload();
+  };
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   console.log("social => ", data)
 
@@ -221,72 +247,68 @@ export default function Settingpage() {
                 className="flex-1 shrink gap-2.5 self-stretch p-2.5 mt-2 whitespace-nowrap rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
               />
             </div>
-            <div className="flex flex-wrap gap-10 justify-between items-start mt-8 w-full max-md:max-w-full">
+            <div className="flex flex-wrap gap-3 justify-between items-start mt-8 w-full max-md:max-w-full">
               <FileUpload
                 label="Logo Admin"
-                imageUrl={data?.WebsiteLogoAdmin}
-                onFileSelect={() => { }}
+                id="WebsiteLogoAdmin"
+                uploadImagePreviewRef={uploadImagePreviewRef["WebsiteLogoAdmin"]}
+                uploadImageInputRef={uploadImageInputRef["WebsiteLogoAdmin"]}
+                handleImageChange={handleImageChange}
+                imageUrl={imageUrls["WebsiteLogoAdmin"]}
+                onFileSelect={handleImageChange}
               />
               <FileUpload
                 label="Logo User"
-                imageUrl={data?.WebsiteLogoUser}
-                onFileSelect={() => { }}
+                id="WebsiteLogoUser"
+                uploadImagePreviewRef={uploadImagePreviewRef["WebsiteLogoUser"]}
+                uploadImageInputRef={uploadImageInputRef["WebsiteLogoUser"]}
+                handleImageChange={handleImageChange}
+                imageUrl={imageUrls["WebsiteLogoUser"]}
               />
+
+              <div className="flex flex-col min-w-[240px] max-md:max-w-full">
+                <div className="text-neutral-900 text-opacity-50 max-md:max-w-full">
+                  Icon Web
+                </div>
+                <div className="flex flex-wrap gap-4 items-center mt-2 w-full text-white max-md:max-w-full">
+                  <img
+                    loading="lazy"
+                    src={imageUrls["WebsiteIcon"]}
+                    alt={`"Icon Web" preview`}
+                    className="object-contain self-stretch my-auto w-[67px] h-[67px] rounded-lg bg-[#CFCFCF]"
+                    ref={uploadImagePreviewRef["WebsiteIcon"]}
+                  />
+                  <button
+                    className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
+                  >
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/b89b8bfd22bc2795389e527250a9a6d8837d50745dd80eb6ef8da7f2fb81f4a1?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+                      alt=""
+                      className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                    />
+                    <span className="gap-2.5 self-stretch my-auto"></span>
+                    <label htmlFor="WebsiteIcon">
+                      Chọn tệp
+                    </label>
+                    <input
+                      type="file"
+                      className="gap-2.5 self-stretch my-auto form-control-file hidden" // Ẩn input file
+                      id="WebsiteIcon"
+                      name="WebsiteIcon"
+                      accept="image/*"
+                      ref={uploadImageInputRef["WebsiteIcon"]}
+                      onChange={handleImageChange}
+                    />
+                  </button>
+                </div>
+                {/* <div className="mt-2 text-slate-500 text-opacity-80 max-md:max-w-full">
+        Không có tệp nào được chọn
+      </div> */}
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Popup xác nhận */}
-        {isPopupVisible && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
-            <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
-              <div className="flex flex-col items-center w-full text-center">
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/charcoal_dot.svg`}
-                  className="object-contain shrink-0 my-auto w-14 aspect-square"
-                  alt="Icon"
-                />
-                <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">{popupContent}</p>
-                <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
-                  <button
-                    className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
-                    onClick={confirmAction}
-                  >
-                    Có
-                  </button>
-                  <button
-                    className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
-                    onClick={closePopup}
-                  >
-                    Không
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Popup thành công */}
-        {successPopupVisible && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
-            <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
-              <div className="flex flex-col items-center w-full text-center">
-                <img
-                  src={`${process.env.PUBLIC_URL}/icons/check_ring.svg`}
-                  className="object-contain shrink-0 my-auto w-14 aspect-square"
-                  alt="Success icon"
-                />
-                <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">Cập nhật thành công!</p>
-                <button
-                  className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
-                  onClick={closeSuccessPopup}
-                >
-                  Thoát
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         <div className="flex z-0 flex-col mt-10 w-full font-medium max-md:max-w-full">
           <div className="font-semibold text-neutral-900 max-md:max-w-full">
@@ -349,6 +371,26 @@ export default function Settingpage() {
           ))}
         </div>
       </div>
+
+      {/* Popup xác nhận */}
+      <PopupConfirm
+        isVisible={isPopupVisible}
+        content={popupContent}
+        onConfirm={confirmAction}
+        onClose={closePopup}
+      />
+      {/* Popup thành công */}
+      <PopupSuccess
+        isVisible={successPopupVisible}
+        message="Cập nhật thành công!"
+        onClose={closeSuccessPopup}
+      />
+      {/* Popup thất bại */}
+      <PopupError
+        isVisible={errorPopupVisible}
+        message="Cập nhật thất bại. Vui lòng thử lại sau!"
+        onClose={closeErrorPopup}
+      />
 
     </>
   );

@@ -1,9 +1,15 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import hook điều hướng
 import { bannerCreatePostController } from "../../../../controllers/banner.controller";
 
+import { PopupConfirmCancel } from "../../../../components/PopupConfirmCancel";
+import { PopupSuccess } from "../../../../components/PopupSuccess";
+import { PopupError } from "../../../../components/PopupError";
+
 export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
-  const [isPopupVisible, setIsPopupVisible] = React.useState(false); // Trạng thái hiển thị popup
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // Trạng thái hiển thị popup
+  const [successPopupVisible, setSuccessPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
+  const [errorPopupVisible, setErrorPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
   const navigate = useNavigate(); // Khởi tạo hook điều hướng
 
   const handleClick = async (e) => {
@@ -11,7 +17,12 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
     if (label === "Lưu") {
       const data = await handleSubmit()
       console.log("User profile data:", data);
-      await bannerCreatePostController(data)
+      const result = await bannerCreatePostController(data)
+      if (result.code === 200) {
+        setSuccessPopupVisible(true)
+      } else {
+        setErrorPopupVisible(false)
+      }
       navigate("/banner"); // Điều hướng đến trang AdminPage
     } else if (label === "Hủy") {
       setIsPopupVisible(true); // Hiển thị popup nếu là nút Hủy
@@ -20,6 +31,15 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
 
   const handlePopupClose = () => {
     setIsPopupVisible(false); // Đóng popup
+  };
+
+  const closeSuccessPopup = () => {
+    setSuccessPopupVisible(false); // Ẩn popup thành công
+    window.location.reload();
+  };
+  const closeErrorPopup = () => {
+    setErrorPopupVisible(false); // Ẩn popup thành công
+    // window.location.reload();
   };
 
   const handlePopupConfirm = () => {
@@ -51,37 +71,25 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
       </button>
 
       {/* Popup Hủy */}
-      {isPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
-            <div className="flex flex-col items-center w-full">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/e5f9826e22b01b1c8bd327296b2948721450b01230f9c87f02d8f9a1ed2e4ddb?apiKey=7a79403a23cb489f853e4845c47ede19&"
-                alt=""
-                className="object-contain aspect-square w-[59px]"
-              />
-              <div className="mt-6 text-xl text-neutral-900 font-semibold text-center">
-                Bạn có chắc chắn muốn hủy những thay đổi không?
-              </div>
-              <div className="flex gap-2.5 items-start mt-8 text-3xl whitespace-nowrap">
-                <button
-                  className="w-[150px] h-[60px] bg-red-600 text-white rounded-lg flex justify-center items-center hover:bg-red-700"
-                  onClick={handlePopupConfirm}
-                >
-                  Hủy
-                </button>
-                <button
-                  className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg flex justify-center items-center hover:bg-slate-600"
-                  onClick={handlePopupClose}
-                >
-                  Thoát
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <PopupConfirmCancel
+        isVisible={isPopupVisible}
+        content="Bạn có chắc chắn muốn hủy những thay đổi không?"
+        confirm="Huỷ"
+        onConfirm={handlePopupConfirm}
+        onCancel={handlePopupClose}
+      />
+      {/* Popup thành công */}
+      <PopupSuccess
+        isVisible={successPopupVisible}
+        message="Cập nhật thành công!"
+        onClose={closeSuccessPopup}
+      />
+      {/* Popup thất bại */}
+      <PopupError
+        isVisible={errorPopupVisible}
+        message="Cập nhật thất bại. Vui lòng thử lại sau!"
+        onClose={closeErrorPopup}
+      />
     </>
   );
 };

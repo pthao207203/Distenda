@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import ScrollToTop from "./screens/ScrollToTop";
 import Layout from './layouts/Layout';
@@ -30,6 +31,33 @@ import { RoleProvider } from "./layouts/AppContext";
 
 
 function App() {
+  const updateFavicon = (faviconURL) => {
+    const link = document.querySelector("link[rel='icon']");
+    if (link) {
+      link.href = faviconURL; // Cập nhật link favicon
+    } else {
+      const newLink = document.createElement("link");
+      newLink.rel = "icon";
+      newLink.href = faviconURL;
+      document.head.appendChild(newLink); // Tạo mới nếu chưa có
+    }
+  };
+  useEffect(() => {
+    console.log("vaof")
+    // Giả sử bạn lấy link favicon từ API hoặc database
+    const fetchFavicon = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/setting`, {
+        method: 'GET',
+      });
+      console.log("response", response)
+      const data = await response.json();
+      console.log("data", data)
+      updateFavicon(data.WebsiteIcon); // Cập nhật favicon từ API
+    };
+
+    fetchFavicon();
+  }, []);
+
   return (
     <>
       <ScrollToTop />
