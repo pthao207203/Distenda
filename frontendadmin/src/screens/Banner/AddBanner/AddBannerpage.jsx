@@ -42,9 +42,9 @@ function BannerForm() {
 
   useEffect(() => {
     async function fetchData() {
-      // console.log("vaof")
+      setLoading(true)
       const result = await bannerCreateController(setLoading);
-      // console.log(result)
+      setLoading(false)
       if (result) {
         setCourse((prevRoles) => [
           { _id: "", CourseName: "Chọn khoá học", disabled: true },

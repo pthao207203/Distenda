@@ -6,8 +6,11 @@ import { PopupConfirmCancel } from "../../../../components/PopupConfirmCancel";
 import { PopupSuccess } from "../../../../components/PopupSuccess";
 import { PopupError } from "../../../../components/PopupError";
 
+import Loading from "../../../../components/Loading";
+
 function ActionButton({ icon, text, variant, handleSubmit }) {
   const navigate = useNavigate(); // Khởi tạo hook điều hướng
+  const [loading, setLoading] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false); // Trạng thái hiển thị popup
   const [successPopupVisible, setSuccessPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
   const [errorPopupVisible, setErrorPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
@@ -16,31 +19,26 @@ function ActionButton({ icon, text, variant, handleSubmit }) {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       // Lấy dữ liệu từ handleSubmit
       const data = await handleSubmit();
       console.log("User profile data:", data);
 
       // Kiểm tra giá trị của `data` và thực hiện hành động tương ứng
       if (text === "Cập nhật") {
-        if (data && data._id) {
-          const result = await bannerUpdatePostController(data._id, data);
-          if (result.code === 200) {
-            setSuccessPopupVisible(true)
-          } else {
-            setErrorPopupVisible(false)
-          }// Điều hướng đến trang AdminPage
+        const result = await bannerUpdatePostController(data._id, data);
+        setLoading(false)
+        if (result.code === 200) {
+          setSuccessPopupVisible(true)
         } else {
-          console.error("Data không hợp lệ hoặc thiếu _id");
-        }
+          setErrorPopupVisible(false)
+        }// Điều hướng đến trang AdminPage
       } else if (text === "Xóa") {
-        if (data && data._id) {
-          console.log("Xóa");
-          setId(data._id)
-          setIsPopupVisible(true)
-          // setIsPopupVisible(true); // Hiển thị popup nếu cần
-        } else {
-          console.error("Không thể xóa vì thiếu _id");
-        }
+        console.log("Xóa");
+        setId(data._id)
+        setLoading(false)
+        setIsPopupVisible(true)
+        // setIsPopupVisible(true); // Hiển thị popup nếu cần
       }
     } catch (error) {
       console.error("Đã xảy ra lỗi:", error);
@@ -48,7 +46,14 @@ function ActionButton({ icon, text, variant, handleSubmit }) {
   };
   const handlePopupConfirm = async () => {
     setIsPopupVisible(false); // Đảm bảo đóng popup trước
-    await bannerDeleteController(id);
+    setLoading(false)
+    const result = await bannerDeleteController(id);
+    if (result.code === 200) {
+      setSuccessPopupVisible(true)
+    } else {
+      setErrorPopupVisible(false)
+    }
+    setLoading(false)
     setTimeout(() => {
       navigate("/banner"); // Điều hướng về AdminPage sau khi popup đóng
     }, 200); // Thêm độ trễ nhỏ để đảm bảo người dùng thấy popup đóng trước khi điều hướng
@@ -64,6 +69,10 @@ function ActionButton({ icon, text, variant, handleSubmit }) {
     setErrorPopupVisible(false); // Ẩn popup thành công
     // window.location.reload();
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const bgColor = variant === "red" ? "bg-red-600" : "bg-slate-500";
 
