@@ -57,7 +57,7 @@ function CourseList() {
       <SearchBar />
       {role?.role?.RolePermissions?.includes("course_view") && (
         <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-2xl text-white max-md:max-w-full">
-          <ActionButton text="Thêm phân loại" />
+          <ActionButton text="Danh mục" />
           <ActionButton text="Thêm khóa học" />
         </section>
       )}
