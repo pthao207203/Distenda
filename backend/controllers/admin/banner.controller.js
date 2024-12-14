@@ -131,9 +131,10 @@ module.exports.editItem = async (req, res) => {
     //   listRole: listRole,
     // });
   } catch (error) {
+    console.log(error)
     res.json({
       code: 400,
-      message: "Không tìm thấy tài khoản!"
+      message: "Không tìm banner!"
     })
     // req.flash("error", "Không tìm thấy tài khoản!");
     // res.redirect(`${systemConfig.prefixAdmin}/admin`);

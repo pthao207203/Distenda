@@ -3,6 +3,8 @@ import { PersonalInfoField } from "./components/PersonalInfoField";
 import { ActionButton } from "./components/ActionButton";
 import { adminCreateController } from "../../../controllers/admin.controller";
 
+import Loading from "../../../components/Loading";
+
 export const UserProfile = () => {
   // Quản lý thông tin người dùng
   const [personalInfo, setPersonalInfo] = useState({
@@ -47,12 +49,9 @@ export const UserProfile = () => {
   };
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
+
   // console.log(roles)
 
   return (

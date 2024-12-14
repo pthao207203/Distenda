@@ -1,4 +1,5 @@
 const Admin = require("../../models/admin.model");
+const Setting = require("../../models/setting.model");
 const md5 = require("md5");
 
 const systemConfig = require("../../config/system");
@@ -55,4 +56,10 @@ module.exports.logout = (req, res) => {
     code: 200,
     message: "Đăng xuất thành công!"
   })
+};
+
+// [GET] /admin/auth/setting
+module.exports.setting = async (req, res) => {
+  const setting = await Setting.findOne({}).lean()
+  res.json(setting)
 };
