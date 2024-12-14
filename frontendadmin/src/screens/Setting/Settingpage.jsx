@@ -61,9 +61,8 @@ export default function Settingpage() {
   // Lấy data từ database
   useEffect(() => {
     async function fetchData() {
-      // console.log("vaof")
+      setLoading(true)
       const result = await settingController(setLoading);
-      // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
         setSelectedFiles({
@@ -77,6 +76,7 @@ export default function Settingpage() {
           WebsiteIcon: result.WebsiteIcon || "",
         });
       }
+      setLoading(false)
     }
 
     fetchData();
@@ -86,14 +86,15 @@ export default function Settingpage() {
   const handleSubmit = async () => {
     const updatedUrls = { ...data };
 
+    setLoading(true)
     for (const [id, file] of Object.entries(selectedFiles)) {
       const uploadedUrl = await uploadImage(file);
       console.log(`Uploaded Image for ${id}:`, uploadedUrl);
       updatedUrls[id] = uploadedUrl;
     }
-
     const response = await settingPostController(updatedUrls);
 
+    setLoading(false)
     if (response.code === 200) {
       setSuccessPopupVisible(true);
       setData(response.updatedData);

@@ -80,7 +80,7 @@ function App() {
             <Route path='/banner/edit/:BannerID' element={<UpdateBanner />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/courses' element={<Courses />} />
-            <Route path='/course-category' element={<CourseCategory />} />
+            <Route path='/category' element={<CourseCategory />} />
             <Route path='/course-details/:id' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
             <Route path='/user' element={<UserTable />} />

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ActionButton from "./components/ActionButton";
 import FormField from "./components/FormField";
 import uploadImage from "../../../components/UploadImage"
 import { bannerUpdateController } from "../../../controllers/banner.controller";
 import { Editor } from '@tinymce/tinymce-react';
+
+import Loading from "../../../components/Loading";
 
 const courseData = {
   name: "HTML cơ bản",
@@ -49,7 +51,9 @@ function BannerForm() {
   useEffect(() => {
     async function fetchData() {
       // console.log("vaof")
+      setLoading(true)
       const result = await bannerUpdateController(setLoading, BannerID);
+      setLoading(false)
       // console.log(result)
       if (result) {
         setCourse((prevRoles) => [
@@ -81,11 +85,7 @@ function BannerForm() {
   };
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   // console.log("banner => ", data)
 

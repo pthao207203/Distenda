@@ -6,6 +6,8 @@ import ActionButton from "./components/ActionButton";
 import { coursesController } from "../../controllers/course.controller";
 import { useRole } from "../../layouts/AppContext"
 
+import Loading from "../../components/Loading";
+
 // const courseData = [
 //   {
 //     id: "HTML2025",
@@ -44,11 +46,7 @@ function CourseList() {
   }, []);
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   console.log("Courses => ", data)
   const totalCourses = data?.length || 0; // Đảm bảo không lỗi nếu data undefined

@@ -6,7 +6,10 @@ import { PopupConfirmCancel } from "../../../../components/PopupConfirmCancel";
 import { PopupSuccess } from "../../../../components/PopupSuccess";
 import { PopupError } from "../../../../components/PopupError";
 
+import Loading from "../../../../components/Loading";
+
 export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
+  const [loading, setLoading] = useState(false)
   const [isPopupVisible, setIsPopupVisible] = useState(false); // Trạng thái hiển thị popup
   const [successPopupVisible, setSuccessPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
   const [errorPopupVisible, setErrorPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
@@ -15,9 +18,11 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     if (label === "Lưu") {
+      setLoading(true)
       const data = await handleSubmit()
       console.log("User profile data:", data);
       const result = await bannerCreatePostController(data)
+      setLoading(false)
       if (result.code === 200) {
         setSuccessPopupVisible(true)
       } else {
@@ -48,6 +53,10 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
       navigate("/banner"); // Điều hướng về AdminPage sau khi popup đóng
     }, 200); // Thêm độ trễ nhỏ để đảm bảo người dùng thấy popup đóng trước khi điều hướng
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const baseClasses =
     "flex gap-3 justify-center items-center px-8 py-3 rounded-lg min-h-[46px] max-md:px-5";

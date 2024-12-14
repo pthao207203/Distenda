@@ -8,7 +8,7 @@ function ActionButton({ text }) {
 
   const handleClick = () => {
     if (text === "Danh mục") {
-      navigate("/course-category"); // Điều hướng tới trang CourseCategorypage
+      navigate("/category"); // Điều hướng tới trang CourseCategorypage
     } else if (text === "Thêm khóa học") {
       togglePopup(); // Hiển thị popup
     } else {
