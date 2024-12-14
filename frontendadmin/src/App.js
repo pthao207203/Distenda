@@ -12,6 +12,8 @@ import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
 import UpdateBanner from './screens/Banner/UpdateBanner/UpdateBannerpage';
 import Dashboard from './screens/DashBoard/DashBoardPage';
 import Courses from './screens/Courses/CoursesListPage';
+import CourseCategory from './screens/CourseCategory/CourseCategorypage';
+import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
@@ -50,6 +52,8 @@ function App() {
             <Route path='/banner/edit/:BannerID' element={<UpdateBanner />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/courses' element={<Courses />} />
+            <Route path='/course-category' element={<CourseCategory />} />
+            <Route path='/course-details/:id' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
             <Route path='/user' element={<UserTable />} />
             <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
