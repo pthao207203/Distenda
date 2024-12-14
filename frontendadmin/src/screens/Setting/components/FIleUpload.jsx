@@ -11,9 +11,9 @@ export function FileUpload({ label, imageUrl, buttonText = "Chọn tệp", onFil
           loading="lazy"
           src={imageUrl}
           alt={`${label} preview`}
-          className="object-contain self-stretch my-auto aspect-[5.88] min-w-[240px] w-[399px]"
+          className="object-contain self-stretch my-auto aspect-[5.88] min-w-[240px] w-[399px] rounded-lg bg-[#CFCFCF]"
         />
-        <button 
+        <button
           className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
           onClick={onFileSelect}
         >
