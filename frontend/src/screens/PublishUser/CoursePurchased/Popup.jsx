@@ -7,18 +7,18 @@ function ImageWithShadow({ src, alt }) {
       loading="lazy"
       src={src}
       alt={alt}
-      className="object-contain shrink-0 bg-none w-[60px]"
+      className="object-contain inset-0 bg-none w-[60px]"
     />
   );
 }
 
-function ThankYouPage({ onClose }) {
-  const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
+// Component Popup
+function Popup() {
+  const [isOpen, setIsOpen] = React.useState(true); // Trạng thái để mở/đóng popup
 
   // Hàm đóng popup
-  const handleClose = () => {
-    setIsOpen(false);
-    onClose && onClose(); // Đảm bảo gọi onClose từ cha nếu có
+  const onClose = () => {
+    setIsOpen(false); // Đóng popup
   };
 
   // Dữ liệu hình ảnh trang trí ở các góc
@@ -33,10 +33,10 @@ function ThankYouPage({ onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="flex flex-col bg-neutral-900 max-w-[607px] w-full max-h-[347px] ">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 max-md:px-2">
+      <div className="flex flex-col bg-neutral-900 max-w-[607px] w-full ">
         {/* Hình ảnh góc trên bên trái và bên phải */}
-        <div className="relative flex flex-wrap gap-5 justify-between w-full bg-none">
+        <div className="relative flex flex-wrap inset-0  justify-between w-full bg-none">
           {/* Hình ảnh góc trên bên trái */}
           <ImageWithShadow src={cornerImages[0].src} alt={cornerImages[0].alt} />
           
@@ -48,26 +48,26 @@ function ThankYouPage({ onClose }) {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bbfb14016c67d4716e0a6366eed76fac938e5a78f6cba88c3ed041abcc52d72?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
               className="absolute top-[20px] right-[20px] w-[20px] h-[20px] object-contain z-10"
               alt="Close icon"
-              onClick={handleClose} // Gọi hàm handleClose khi click vào icon
+              onClick={onClose} // Gọi hàm onClose khi click vào icon
             />
           </div>
         </div>
 
         {/* Nội dung chính của popup */}
-        <div className="flex flex-col self-center mt-[36px] pl-[43px] pr-[42px] w-full text-2xl font-medium leading-tight text-center text-white">
+        <div className="flex flex-col self-center mt-12 w-full text-2xl font-medium leading-tight text-center text-white">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a6a5817082f280412966ed5513456d7a3fd8ac3b8d23fcf2b01b905379ac593?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
             alt="Feedback confirmation icon"
             className="object-contain self-center rounded-none aspect-square w-[54px]"
           />
-          <div className="text-[24px] mt-[40px]" role="status" aria-live="polite">
-            Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!
+          <div className="mt-12" role="status" aria-live="polite">
+            Cảm ơn bạn đã đánh giá!
           </div>
         </div>
 
         {/* Hình ảnh góc dưới bên trái và phải */}
-        <div className="flex flex-wrap gap-5 justify-between w-full">
+        <div className="flex flex-wrap inset-0  justify-between items-end w-full">
           <ImageWithShadow src={cornerImages[2].src} alt={cornerImages[2].alt} />
           <ImageWithShadow src={cornerImages[3].src} alt={cornerImages[3].alt} />
         </div>
@@ -76,4 +76,4 @@ function ThankYouPage({ onClose }) {
   );
 }
 
-export default ThankYouPage;
+export default Popup;

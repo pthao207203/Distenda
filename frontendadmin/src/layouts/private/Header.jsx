@@ -9,11 +9,12 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      console.log("result", result)
-    }
+  const [loading, setLoading]=useState(false)
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await headerController(setLoading);
+  //     console.log("result", result)
+  //   }
 
 
     fetchData();
