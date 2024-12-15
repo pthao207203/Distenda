@@ -98,7 +98,7 @@ const ReviewSection = () => {
         <div className="flex flex-col justify-center items-end mt-5 w-full text-xl font-semibold leading-none whitespace-nowrap text-neutral-900 max-md:max-w-full">
           {!isSubmitted ? (
             <button
-              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF150] max-h-[56px] w-full max-w-[180px] mb-[40px]"
+              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
               aria-label="Submit review"
               onClick={handleSubmit} // Hiển thị Popup khi click vào nút Đăng
             >
@@ -106,7 +106,7 @@ const ReviewSection = () => {
             </button>
           ) : (
             <button
-              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF150] max-h-[56px] w-full max-w-[180px] mb-[40px]"
+              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
               aria-label="Edit review"
               onClick={handleEdit} // Chuyển về trạng thái chỉnh sửa
             >
