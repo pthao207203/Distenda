@@ -6,14 +6,15 @@ const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] /admin/setting/general
 module.exports.general = async (req, res) => {
-  const setting = await Setting.findOne({})
-  res.render("admin/pages/setting/general", {
-    pageTitle: "Cài đặt chung",
-    setting: setting,
-  });
+  const setting = await Setting.findOne({}).lean()
+  res.json(setting)
+  // res.render("admin/pages/setting/general", {
+  //   pageTitle: "Cài đặt chung",
+  //   setting: setting,
+  // });
 };
 
-// [PATCH] /admin/setting/general
+// [POST] /admin/setting/general
 module.exports.generalPatch = async (req, res) => {
   const setting = await Setting.findOne({})
   if (setting) {
@@ -24,6 +25,9 @@ module.exports.generalPatch = async (req, res) => {
     const record = new Setting(req.body);
     await record.save();
   }
-
-  res.redirect("back")
+  res.json({
+    code: 200,
+    message: "Cập nhật thành công!"
+  })
+  // res.redirect("back")
 };

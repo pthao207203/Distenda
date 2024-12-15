@@ -19,4 +19,6 @@ router.post("/password/otp", controller.passwordOTP);
 
 router.post("/password/new", controller.passwordNew);
 
+router.get("/setting", controller.setting);
+
 module.exports = router;

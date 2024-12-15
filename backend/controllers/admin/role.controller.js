@@ -49,9 +49,14 @@ module.exports.deleteItem = async (req, res) => {
       deletedAt: new Date(),
     }
   );
+  console.log("Xoá thành công!!")
+  res.json({
+    code: 200,
+    message: "Xoá thành công!!"
+  })
 
-  req.flash("success", "Xóa thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/role`);
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/role`);
 };
 
 // [GET] /admin/role/edit/:RoleID
@@ -73,22 +78,31 @@ module.exports.editItem = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/role`);
   }
 };
-// [PATCH] /admin/role/edit/:RoleID
+// [POST] /admin/role/edit/:RoleID
 module.exports.editPatch = async (req, res) => {
   try {
+    // console.log(req.body.role.permissions)
     await Role.updateOne(
       {
         _id: req.params.RoleID,
-      },
-      req.body
-    );
+      }, {
+      $set: { RolePermissions: req.body.role.permissions }
+    });
 
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 200,
+      message: "Cập nhật thất bại!"
+    })
   }
 
-  res.redirect(`${systemConfig.prefixAdmin}/role`);
+  // res.redirect(`${systemConfig.prefixAdmin}/role`);
 };
 
 // [GET] /admin/role/permission
@@ -97,10 +111,11 @@ module.exports.permission = async (req, res) => {
     RoleDeleted: 1,
   };
   const roles = await Role.find(find);
-  res.render("admin/pages/role/permission", {
-    pageTitle: "Phân quyền",
-    roles: roles,
-  });
+  res.json(roles)
+  // res.render("admin/pages/role/permission", {
+  //   pageTitle: "Phân quyền",
+  //   roles: roles,
+  // });
 };
 // [PATCH] /admin/role/permission
 module.exports.permissionPatch = async (req, res) => {

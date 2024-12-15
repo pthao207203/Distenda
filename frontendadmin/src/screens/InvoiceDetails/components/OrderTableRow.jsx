@@ -1,22 +1,24 @@
 import * as React from "react";
 
-function CourseTableRow({ item }) {
+function OrderTableRow({ data }) {
   return (
     <div className="flex flex-wrap mt-6 w-full bg-white min-h-[70px]">
       {/* Mã khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <div className="gap-2.5 self-stretch my-auto">{item.courseId}</div>
+      <div className="flex basis-1/3 min-w-0  justify-center items-center ">
+        <div className="text-[#131313] text-center text-xl font-medium truncate">{data._id}</div> 
       </div>
       {/* Tên khóa học */}
-      <div className="flex flex-1 shrink justify-center items-center bg-[#EBF1F9] min-w-[240px] text-neutral-900">
-        <div className="gap-2.5 self-stretch my-auto">{item.courseName}</div>
+      <div className="flex basis-1/3 min-w-0 justify-center items-center p-3 bg-[#EBF1F9] text-neutral-900">
+        <div className="text-[#131313] text-center text-xl font-medium truncate">{data.CourseName}</div>
       </div>
       {/* Giá */}
-      <div className="flex flex-1 shrink justify-center items-center min-w-[240px]">
-        <div className="gap-2.5 self-stretch my-auto">{item.price}</div>
+      <div className="flex basis-1/3 min-w-0  justify-center items-center ">
+        <div className="text-[#131313] text-center text-xl font-medium truncate">
+          {data.CoursePrice * ((100 - data.CourseDiscount) / 100)}
+        </div>
       </div>
     </div>
   );
 }
 
-export default CourseTableRow;
+export default OrderTableRow;

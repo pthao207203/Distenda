@@ -1,6 +1,7 @@
 const md5 = require("md5");
 const Admin = require("../../models/admin.model");
 const Role = require("../../models/role.model");
+const Course = require("../../models/course.model");
 const systemConfig = require("../../config/system");
 const generateHelper = require("../../helpers/generate");
 
@@ -10,7 +11,7 @@ module.exports.index = async (req, res) => {
     AdminDeleted: 1,
   };
 
-  const admin = await Admin.find(find).select("-AdminPassword -AdminToken");
+  const admin = await Admin.find(find).select("-AdminPassword -AdminToken").lean();
 
   for (const item of admin) {
     const role = await Role.findOne({
@@ -19,26 +20,59 @@ module.exports.index = async (req, res) => {
     });
     item.role = role;
   }
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: admin,
+  // });
+};
 
-  res.render("admin/pages/admin/index", {
-    pageTitle: "Danh sách tài khoản",
-    admin: admin,
-  });
+// [GET] /admin/admin/detail/:AdminID
+module.exports.detail = async (req, res) => {
+  const find = {
+    AdminDeleted: 1,
+    _id: req.params.AdminID,
+  };
+
+  const admin = await Admin.findOne(find).lean();
+  const course = await Course.find({
+    CourseIntructor: admin._id
+  })
+  admin.course = course
+  console.log(admin)
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: user,
+  // });
 };
 
 // [GET] /admin/admin/create
 module.exports.createItem = async (req, res) => {
   const role = await Role.find({ RoleDeleted: 1 });
 
-  res.render("admin/pages/admin/create", {
-    pageTitle: "Thêm tài khoản",
-    roles: role,
-  });
+  // res.render("admin/pages/admin/create", {
+  //   pageTitle: "Thêm tài khoản",
+  //   roles: role,
+  // });
+  res.json(role)
 };
 
 // [POST] /admin/admin/create
 module.exports.createPost = async (req, res) => {
-  req.body.AdminStatus = req.body.AdminStatus == "active" ? 1 : 0;
+  // console.log(req.body)
+  const test = await Admin.findOne({
+    AdminEmail: req.body.AdminEmail
+  })
+  if (test) {
+    res.json({
+      code: 400,
+      message: "Email đã tồn tại!"
+    })
+    return;
+  }
+  req.body.AdminStatus = 1;
+  req.body.AdminDeleted = 1;
   req.body.AdminPassword = md5(req.body.AdminPassword);
   req.body.AdminToken = generateHelper.generateRandomString(30);
   req.body.createdBy = {
@@ -47,8 +81,12 @@ module.exports.createPost = async (req, res) => {
 
   const admin = new Admin(req.body);
   await admin.save();
-  req.flash("success", "Thêm tài khoản admin thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  res.json({
+    code: 200,
+    message: "Tạo tài khoản thành công!"
+  })
+  // req.flash("success", "Thêm tài khoản admin thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };
 
 // // [PATCH] /admin/admin/change-status/:status/:AdminID

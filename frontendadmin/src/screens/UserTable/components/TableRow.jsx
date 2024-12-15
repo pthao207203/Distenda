@@ -25,27 +25,27 @@ function TableRow(user) {
       to={`/user-details/${user._id}`}
       className="flex overflow-hidden flex-wrap mt-6 w-full bg-white text-[#131313] h-[70px] cursor-pointer"
     >
-      {/* Mã người dùng */}
+      {/* Tên người dùng */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{user.UserFullName}</span>
       </div>
 
-      {/* Tên người dùng */}
+      {/* Thời gian tham gia  */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{moment(user.createdAt).format("DD/MM/YYYY hh:mm:ss")}</span>
       </div>
 
-      {/* Thời gian tham gia */}
+      {/* Doanh thu */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">0</span>
       </div>
 
-      {/* Doanh thu */}
+      {/* Lần cuối cập nhật */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{moment(user.createdAt).format("DD/MM/YYYY hh:mm:ss")}</span>
       </div>
 
-      {/* Lần cuối cập nhật */}
+      {/* Trạng thái */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <div
           className={`self-center shrink w-[90%] max-w-full px-4 py-2 justify-center items-center inline-flex ${getStatusStyles(

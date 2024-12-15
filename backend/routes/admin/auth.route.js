@@ -9,4 +9,6 @@ router.post("/login", controller.loginPost);
 
 router.get("/logout", controller.logout);
 
+router.get("/setting", controller.setting);
+
 module.exports = router;

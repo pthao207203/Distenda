@@ -8,8 +8,21 @@ const settingSchema = new mongoose.Schema(
     WebsiteIcon: String,
     WebsitePhone: String,
     WebsiteEmail: String,
-    WebsiteFacebook: String,
-    WebsiteTiktok: String,
+    WebsiteSocial: [
+      {
+        URL: String,
+        Icon: String,
+        Value: String,
+      }
+    ],
+    // WebsiteFacebook: String,
+    // WebsiteTiktok: String,
+    // WebsiteInstagram: String,
+    // WebsiteGithub: String,
+    WebsiteDiscription: String,
+    WebsiteRecruit: String,
+    WebsiteSecurity: String,
+    WebsiteSupport: String,
     WebsiteCopyright: String,
     editedBy: [
       {

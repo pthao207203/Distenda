@@ -1,9 +1,9 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import SideBar from './SideBar'
 import Header from '../private/Header'
 import Cookies from 'js-cookie';
-import TaskBar from '../private/TaskBar'; 
+import TaskBar from '../private/TaskBar';
 
 const MainAdmin = () => {
   let token = Cookies.get('token');
@@ -32,18 +32,18 @@ const MainAdmin = () => {
 
   return (
     <div className="flex flex-col justify-start bg-[#EBF1F9] bg-center bg-fixed min-h-screen">
-      <Header setHeaderHeight={setHeaderHeight}  handleTaskBarToggle={handleTaskBarToggle} /> 
-      <SideBar headerHeight={headerHeight}/>
+      <Header setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} />
+      <SideBar headerHeight={headerHeight} />
       <div
-        className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[320px]" }`}
+        className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[320px]"}`}
       >
         {isTaskBarVisible && (
-          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px]"
+          <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px] max-md:right-1"
             style={{
               marginTop: `${headerHeight}px`,
             }}
           >
-            <TaskBar />
+            <TaskBar handleTaskBarToggle={handleTaskBarToggle} />
           </div>
         )}
         <Outlet />
