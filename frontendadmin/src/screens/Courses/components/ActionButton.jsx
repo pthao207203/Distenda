@@ -10,7 +10,8 @@ function ActionButton({ text }) {
     if (text === "Danh mục") {
       navigate("/category"); // Điều hướng tới trang CourseCategorypage
     } else if (text === "Thêm khóa học") {
-      togglePopup(); // Hiển thị popup
+      navigate("/courses/create")
+      // togglePopup(); // Hiển thị popup
     } else {
       console.log(`Action for "${text}" not implemented.`);
     }

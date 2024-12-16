@@ -1,6 +1,6 @@
 import * as React from "react";
-import ActionButton from "./ActionButton";
-import LessonRow from "./LessonRow";
+import ActionButton from "./components/ActionButton";
+import LessonRow from "./components/LessonRow";
 
 export default function CourseDetails() {
   const lessons = [

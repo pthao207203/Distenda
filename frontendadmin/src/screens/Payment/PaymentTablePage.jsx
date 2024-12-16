@@ -6,7 +6,7 @@ import SearchBar from "../../layouts/private/SearchBar";
 import { payController } from "../../controllers/pay.controller";
 import Loading from "../../components/Loading";
 
-function PaymentTable() {  
+function PaymentTable() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Sử dụng hook điều hướng
@@ -21,18 +21,18 @@ function PaymentTable() {
     }
 
     fetchData();
-    }, []);
+  }, []);
 
-    if (loading) {
-      return <Loading />;
-    }
-    console.log("Pay => ", data)
-    const totalPayment = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
+  if (loading) {
+    return <Loading />;
+  }
+  console.log("Pay => ", data)
+  const totalPayment = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
 
 
-    const handleRowClick = (data) => {
-      navigate(`detail/${data._id}`); // Điều hướng tới trang chi tiết với `id`
-    };
+  const handleRowClick = (data) => {
+    navigate(`detail/${data._id}`); // Điều hướng tới trang chi tiết với `id`
+  };
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
       <SearchBar />
