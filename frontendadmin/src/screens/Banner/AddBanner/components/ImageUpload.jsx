@@ -6,11 +6,11 @@ function ImageUpload({ label, uploadIcon }) {
       <label className="text-neutral-900 text-opacity-50 max-md:max-w-full">
         {label}
       </label>
-      <div className="flex mt-2 w-full bg-indigo-50 min-h-[217px] max-md:max-w-full" />
+      <div className="flex mt-2 w-full bg-[#EBF1F9] min-h-[217px] max-md:max-w-full" />
       <div className="flex flex-col mt-2 max-w-full w-[569px]">
         <button
           type="button"
-          className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-slate-500 min-h-[46px]"
+          className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px]"
           tabIndex={0}
         >
           <img

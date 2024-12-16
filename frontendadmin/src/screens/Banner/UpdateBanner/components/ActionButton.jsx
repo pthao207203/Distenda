@@ -34,7 +34,7 @@ function ActionButton({ icon, text, variant, handleSubmit }) {
     }
   };
 
-  const bgColor = variant === "red" ? "bg-red-600" : "bg-slate-500";
+  const bgColor = variant === "red" ? "bg-[#DF322B]" : "bg-[#6C8299]";
 
   return (
     <button

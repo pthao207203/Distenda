@@ -11,8 +11,8 @@ function CourseTableRow(course) {
         <span className="text-[#131313] text-center text-xl font-medium px-3 truncate">{course.CourseName}</span>
       </div>
 
-      {/* Tên sản phẩm */}
-      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+      {/* Tên giảng viên*/}
+      <div className="flex basis-1/6 min-w-0 p-3 justify-center items-center">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{course.intructorFullName}</span>
       </div>
 

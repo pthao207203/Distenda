@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
-export function AdminInfoField({ label, value, editable }) {
+export function AdminInfoField({ label, value, editable, onChange }) {
   // Quản lý trạng thái giá trị của trường input
   const [inputValue, setInputValue] = useState(value);
 
   // Hàm xử lý khi người dùng nhập vào input
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+        onChange(label, e.target.value); // Gọi callback khi thay đổi
+    };
+
 
   const fieldClasses = `flex items-center flex-1 shrink p-2.5 mt-2 rounded-lg size-full text-neutral-900 ${
     editable

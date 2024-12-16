@@ -5,7 +5,7 @@ import CourseForm from './CourseForm';
 
 function CourseCreationPage() {
   return (
-    <div className="flex overflow-hidden flex-col bg-indigo-50">
+    <div className="flex overflow-hidden flex-col bg-[#EBF1F9]">
       {/* <Header /> */}
       <NavigationBar />
       <CourseForm />

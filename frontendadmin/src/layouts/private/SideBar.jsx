@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useRole } from "../AppContext"
+import { useRole } from "../AppContext";
+import { headerController } from "../../controllers/home.controller"
 
 export default function SideBar({ headerHeight }) {
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng sidebar
@@ -19,7 +20,8 @@ export default function SideBar({ headerHeight }) {
     (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
     (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
   ].filter(item => item);;
-
+  const [data, setData] = useState();
+  
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1024); // Màn hình >= 1024px là desktop
@@ -31,12 +33,34 @@ export default function SideBar({ headerHeight }) {
     return () => window.removeEventListener("resize", handleResize); // Cleanup
   }, []);
 
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     if (isDesktop) {
       setIsOpen(false); // Đặt về mặc định là không mở khi ở desktop
     }
   }, [isDesktop]);
 
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+
+  console.log("SideBar => ", data)
   return (
     <>
       {isOpen && !isDesktop && (
@@ -56,14 +80,14 @@ export default function SideBar({ headerHeight }) {
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src="/profile.svg"
+            src={data?.user?.AdminAvatar ? data.user?.AdminAvatar : "/profile.svg"}
             alt="Profile"
-            className="rounded object-cover"
+            className="rounded-full object-cover"
             style={{ width: "65px", height: "65px" }}
           />
           <div>
             <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
-              Ngọc Khanh
+            {data?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
             </h4>
             <span className="font-medium text-lg text-black">Manager</span>
           </div>

@@ -9,12 +9,15 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
+
+    const [data, setData] = useState();
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
-      console.log("result", result)
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
     }
-
 
     fetchData();
   }, []);
@@ -64,8 +67,8 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
           className="flex flex-row items-center gap-2"
           onClick={toggleTaskBar}
         >
-          <img loading="lazy" src="/profile.svg" alt="Profile"
-            className="object-contain w-[56px] h-auto"
+          <img loading="lazy" src={data?.user?.AdminAvatar ? data.user?.AdminAvatar : "/profile.svg"} alt="Profile"
+            className="object-cover rounded-full w-[56px] h-[56px]"
           />
           <img
             loading="lazy"

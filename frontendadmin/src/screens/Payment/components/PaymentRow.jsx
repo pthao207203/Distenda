@@ -30,7 +30,7 @@ export default function PaymentRow({pay, onRowClick}) {
 
   return (
     <div
-      className="flex overflow-hidden flex-wrap mt-6 w-280 bg-white h-[70px] cursor-pointer"
+      className="flex overflow-hidden flex-wrap mt-3 w-280 bg-white h-[70px] cursor-pointer"
       onClick={() => onRowClick && onRowClick(pay)} // Truyền toàn bộ `pay` khi gọi onRowClick
     >
       {/* Mã thanh toán */}
@@ -50,7 +50,7 @@ export default function PaymentRow({pay, onRowClick}) {
 
       {/* Giá */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay.PayTotal}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{pay.PayTotal? pay.PayTotal : 0}</span>
       </div>
 
       {/* Thời gian */}

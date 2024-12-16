@@ -52,7 +52,7 @@ function App() {
             <Route path='/courses' element={<Courses />} />
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
             <Route path='/user' element={<UserTable />} />
-            <Route path="/user-details/:id" element={<UserProfile />} /> {/* Route tới UserProfile */}
+            <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
             <Route path="/payment" element={<PaymentTablePage />} />

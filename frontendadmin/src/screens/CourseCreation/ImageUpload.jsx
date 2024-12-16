@@ -7,7 +7,7 @@ function ImageUpload() {
         <label htmlFor="course-image" className="text-xl text-neutral-900">
           Ảnh minh họa
         </label>
-        <div className="flex flex-col justify-center items-center px-20 py-32 mt-2 w-full bg-indigo-50 max-md:px-5 max-md:py-24">
+        <div className="flex flex-col justify-center items-center px-20 py-32 mt-2 w-full bg-[#EBF1F9] max-md:px-5 max-md:py-24">
           <div className="flex flex-col mb-0 max-w-full w-[294px] max-md:mb-2.5">
             <button
               type="button"

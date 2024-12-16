@@ -6,25 +6,6 @@ import ActionButton from "./components/ActionButton";
 import { coursesController } from "../../controllers/course.controller";
 import { useRole } from "../../layouts/AppContext"
 
-// const courseData = [
-//   {
-//     id: "HTML2025",
-//     name: "HTML cơ bản",
-//     sold: "23",
-//     price: "1.000.000",
-//     profit: "23.000.000",
-//     status: "active"
-//   },
-//   {
-//     id: "HTML2024",
-//     name: "HTML cơ bản",
-//     sold: "23",
-//     price: "23.000.000", 
-//     profit: "1.000.000",
-//     status: "inactive"
-//   }
-// ];
-
 function CourseList() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);

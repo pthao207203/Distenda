@@ -71,3 +71,24 @@ export const adminCreatePostService = async (personalInfo) => {
     throw new Error(error); // Thông báo lỗi
   }
 };
+
+// [GET] /
+export const adminDetailService = async (AdminID) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/admin/detail/${AdminID}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("responseData => ", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};

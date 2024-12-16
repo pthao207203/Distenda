@@ -6,7 +6,7 @@ function AdminTable(admin) {
   const statusText = admin.AdminDeleted === 1 ? "Đang hoạt động" : "Tạm dừng";
 
   return (
-    <article className="flex overflow-hidden flex-wrap mt-2 w-full bg-white text-[#131313]  min-h-[70px] cursor-pointer">
+    <article className="flex overflow-hidden flex-wrap mt-3 w-full bg-white text-[#131313]  min-h-[70px] cursor-pointer">
       {/* Avatar */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <img
@@ -23,7 +23,7 @@ function AdminTable(admin) {
 
       {/* Chức vụ */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{admin.role.RoleName}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{admin?.role?.RoleName}</span>
       </div>
 
       {/* Thời gian tham gia */}

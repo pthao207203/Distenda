@@ -33,7 +33,7 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
     "flex gap-3 justify-center items-center px-8 py-3 rounded-lg min-h-[46px] max-md:px-5";
   const variantClasses =
     variant === "primary"
-      ? "text-white bg-slate-500 hover:bg-slate-600"
+      ? "text-white bg-[#6C8299] hover:bg-slate-600"
       : "bg-slate-300 text-blue-950 hover:bg-slate-400";
 
   return (
@@ -66,13 +66,13 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
               </div>
               <div className="flex gap-2.5 items-start mt-8 text-3xl whitespace-nowrap">
                 <button
-                  className="w-[150px] h-[60px] bg-red-600 text-white rounded-lg flex justify-center items-center hover:bg-red-700"
+                  className="w-[150px] h-[60px] bg-[#DF322B] text-white rounded-lg flex justify-center items-center hover:bg-red-700"
                   onClick={handlePopupConfirm}
                 >
                   Hủy
                 </button>
                 <button
-                  className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg flex justify-center items-center hover:bg-slate-600"
+                  className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg flex justify-center items-center hover:bg-slate-600"
                   onClick={handlePopupClose}
                 >
                   Thoát

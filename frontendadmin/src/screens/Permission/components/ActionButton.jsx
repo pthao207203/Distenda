@@ -77,7 +77,7 @@ export default function ActionButtons({ selectedRoles, permissions }) {
       {/* Các nút hành động */}
       <div className="flex gap-2.5 items-start self-end text-xl font-semibold leading-none text-white max-md:max-w-full">
         <button
-          className="flex gap-3 justify-center items-center px-3 py-3 whitespace-nowrap bg-red-600 rounded-lg min-h-[46px]"
+          className="flex gap-3 justify-center items-center px-3 py-3 whitespace-nowrap bg-[#DF322B] rounded-lg min-h-[46px]"
           onClick={() => handlePopup("delete")}
         >
           <img
