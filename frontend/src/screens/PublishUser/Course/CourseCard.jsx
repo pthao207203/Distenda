@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function CourseCard(course) {
   return (
-    <article className="flex flex-col grow shrink-0 min-w-[300px] lg:max-w-[480px] py-[20px] px-[20px] bg-white bg-opacity-10 backdrop-blur-[10px] overflow-hidden">
+    <article className="flex flex-col grow shrink-0 min-w-[300px] lg:max-w-[500px] py-[20px] px-[20px] bg-white bg-opacity-10 backdrop-blur-[10px] overflow-hidden">
       <img
         loading="lazy"
         src={course.CoursePicture}

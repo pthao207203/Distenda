@@ -5,6 +5,8 @@ import { bannerCreateController } from "../../../controllers/banner.controller";
 import uploadImage from "../../../components/UploadImage"
 import { Editor } from '@tinymce/tinymce-react';
 
+import Loading from "../../../components/Loading";
+
 function BannerForm() {
   const [data, setData] = useState({
     BannerName: "",
@@ -40,9 +42,9 @@ function BannerForm() {
 
   useEffect(() => {
     async function fetchData() {
-      // console.log("vaof")
+      setLoading(true)
       const result = await bannerCreateController(setLoading);
-      // console.log(result)
+      setLoading(false)
       if (result) {
         setCourse((prevRoles) => [
           { _id: "", CourseName: "Chọn khoá học", disabled: true },
@@ -72,11 +74,7 @@ function BannerForm() {
   };
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   // console.log("course => ", course)
 

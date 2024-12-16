@@ -1,4 +1,5 @@
 const User = require("../../models/user.model");
+const Setting = require("../../models/setting.model");
 const ForgotPassword = require("../../models/forgotpw.model");
 const md5 = require("md5");
 const generateHelper = require("../../helpers/generate")
@@ -229,4 +230,10 @@ module.exports.passwordNew = async (req, res) => {
     code: 200,
     message: "Đổi mật khẩu thành công!"
   })
+};
+
+// [GET] /admin/auth/setting
+module.exports.setting = async (req, res) => {
+  const setting = await Setting.findOne({}).lean()
+  res.json(setting)
 };

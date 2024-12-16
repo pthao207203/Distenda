@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Import Link từ react-router-dom
 import { headerController } from "../../controllers/home.controller";
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {

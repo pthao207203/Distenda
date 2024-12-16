@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import ScrollToTop from "./screens/ScrollToTop";
 import Layout from './layouts/Layout';
@@ -12,6 +13,8 @@ import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
 import UpdateBanner from './screens/Banner/UpdateBanner/UpdateBannerpage';
 import Dashboard from './screens/DashBoard/DashBoardPage';
 import Courses from './screens/Courses/CoursesListPage';
+import CourseCategory from './screens/CourseCategory/CourseCategorypage';
+import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
@@ -30,6 +33,33 @@ import { RoleProvider } from "./layouts/AppContext";
 
 
 function App() {
+  const updateFavicon = (faviconURL) => {
+    const link = document.querySelector("link[rel='icon']");
+    if (link) {
+      link.href = faviconURL; // Cập nhật link favicon
+    } else {
+      const newLink = document.createElement("link");
+      newLink.rel = "icon";
+      newLink.href = faviconURL;
+      document.head.appendChild(newLink); // Tạo mới nếu chưa có
+    }
+  };
+  useEffect(() => {
+    console.log("vaof")
+    // Giả sử bạn lấy link favicon từ API hoặc database
+    const fetchFavicon = async () => {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/auth/setting`, {
+        method: 'GET',
+      });
+      console.log("response", response)
+      const data = await response.json();
+      console.log("data", data)
+      updateFavicon(data.WebsiteIcon); // Cập nhật favicon từ API
+    };
+
+    fetchFavicon();
+  }, []);
+
   return (
     <>
       <ScrollToTop />
@@ -50,6 +80,8 @@ function App() {
             <Route path='/banner/edit/:BannerID' element={<UpdateBanner />} />
             <Route path='/' element={<Dashboard />} />
             <Route path='/courses' element={<Courses />} />
+            <Route path='/category' element={<CourseCategory />} />
+            <Route path='/course-details/:id' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
             <Route path='/user' element={<UserTable />} />
             <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
