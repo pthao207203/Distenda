@@ -43,7 +43,7 @@ export function CourseHeader() {
     <div className="flex gap-2.5 items-start self-start text-xl font-medium leading-none text-white">
       {/* Nút Cập nhật */}
       <button
-        className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-500 min-h-[46px]"
+        className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#6C8299] min-h-[46px]"
         onClick={() => handlePopup("update")}
       >
         <img
@@ -57,7 +57,7 @@ export function CourseHeader() {
 
       {/* Nút Xóa */}
       <button
-        className="flex gap-3 justify-center items-center px-3 py-3 bg-red-600 rounded-lg min-h-[46px]"
+        className="flex gap-3 justify-center items-center px-3 py-3 bg-[#DF322B] rounded-lg min-h-[46px]"
         onClick={() => handlePopup("delete")}
       >
         <img
@@ -90,7 +90,7 @@ export function CourseHeader() {
                   Có
                 </button>
                 <button
-                  className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
+                  className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
                   onClick={closePopup}
                 >
                   Không
@@ -115,7 +115,7 @@ export function CourseHeader() {
                 Cập nhật thành công!
               </p>
               <button
-                className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
+                className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
                 onClick={closeSuccessPopup}
               >
                 Đóng

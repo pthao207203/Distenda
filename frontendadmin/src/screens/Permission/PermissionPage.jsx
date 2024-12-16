@@ -3,6 +3,7 @@ import PermissionRow from "./components/PermissionRow";
 import PermissionHeader from "./components/PermissionHeader";
 import ActionButtons from "./components/ActionButton";
 import { rolesController } from "../../controllers/role.controller";
+import Loading from "../../components/Loading"; 
 
 export default function PermissionTable() {
   const permissionGroups = [
@@ -89,11 +90,7 @@ export default function PermissionTable() {
   };
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   // console.log("roles => ", Array.isArray(Object.values(roles)))
 
@@ -111,7 +108,7 @@ export default function PermissionTable() {
 
         {permissionGroups.map((group, index) => (
           <div key={index} className="mt-4 justify-between w-full items-center ">
-            <div className="text-xl font-semibold leading-none text-blue-950">
+            <div className="text-xl font-semibold leading-none text-[#14375F]">
               {group.title}
             </div>
             <div className="flex flex-col justify-center mt-2 w-full max-md:w-screen">

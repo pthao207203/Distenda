@@ -3,6 +3,7 @@ const Category = require("../../models/category.model");
 const Admin = require("../../models/admin.model");
 const User = require("../../models/user.model");
 const Pay = require("../../models/pay.model");
+const Setting = require("../../models/setting.model")
 
 // [GET] /admin/dashboard
 module.exports.dashboard = async (req, res) => {
@@ -60,9 +61,10 @@ module.exports.dashboard = async (req, res) => {
 
 // [GET] /admin/dashboard/header
 module.exports.header = async (req, res) => {
-  const user = res.locals.user
+  const setting = await Setting.findOne({}).lean()
+  setting.user = res.locals.user
   res.json({
-    user: user,
+    setting: setting,
   })
 };
 

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-export function ProfileHeader({ name, email, avatarSrc, updateIconSrc, openPopup }) {
+export function AccountHeader({ name, email, avatarSrc, updateIconSrc, openPopup }) {
     return (
       <div className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full ">
         <div className="flex flex-wrap flex-1 shrink gap-3 items-center basis-4 min-w-[240px] max-md:max-w-full">
@@ -8,7 +8,7 @@ export function ProfileHeader({ name, email, avatarSrc, updateIconSrc, openPopup
               loading="lazy"
               src={avatarSrc}
               alt={`Profile picture of ${name}`}
-              className="object-contain shrink-0 self-stretch my-auto aspect-square w-[119px]"
+              className="object-cover shrink-0 self-stretch my-auto aspect-square rounded-full w-[119px] h-[119px]"
             />
           </div>
           <div className="flex flex-col self-stretch my-auto">
@@ -22,7 +22,7 @@ export function ProfileHeader({ name, email, avatarSrc, updateIconSrc, openPopup
         </div>
         {/* Nút Cập nhật */}
         <button
-          className="flex gap-3 justify-center items-center px-3 py-3 text-xl font-medium leading-none text-white rounded-lg bg-slate-500 min-h-[46px]"
+          className="flex gap-3 justify-center items-center px-3 py-3 text-xl font-medium leading-none text-white rounded-lg bg-[#6C8299] min-h-[46px]"
           onClick={openPopup} // Gọi hàm mở popup
           tabIndex="0"
         >

@@ -3,6 +3,7 @@ import CustomerInfo from './components/CustomerInfo';
 import OrderTable from './components/OrderTable';
 import { useParams } from "react-router-dom";
 import { payDetailController } from "../../controllers/pay.controller";
+import Loading from "../../components/Loading"; 
 
 function InvoiceDetails() {
   const { _id } = useParams(); // Lấy giá trị _id từ URL
@@ -25,9 +26,7 @@ function InvoiceDetails() {
 
     if (loading) {
       return (
-        <div>
-          Đang tải...
-        </div>
+        <Loading />
       )
     }
     console.log("PayDetail => ", data)

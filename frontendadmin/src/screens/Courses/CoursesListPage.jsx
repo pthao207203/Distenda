@@ -5,25 +5,7 @@ import SearchBar from "../../layouts/private/SearchBar";
 import ActionButton from "./components/ActionButton";
 import { coursesController } from "../../controllers/course.controller";
 import { useRole } from "../../layouts/AppContext"
-
-// const courseData = [
-//   {
-//     id: "HTML2025",
-//     name: "HTML cơ bản",
-//     sold: "23",
-//     price: "1.000.000",
-//     profit: "23.000.000",
-//     status: "active"
-//   },
-//   {
-//     id: "HTML2024",
-//     name: "HTML cơ bản",
-//     sold: "23",
-//     price: "23.000.000", 
-//     profit: "1.000.000",
-//     status: "inactive"
-//   }
-// ];
+import Loading from "../../components/Loading";
 
 function CourseList() {
   const [data, setData] = useState();
@@ -44,11 +26,7 @@ function CourseList() {
   }, []);
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   console.log("Courses => ", data)
   const totalCourses = data?.length || 0; // Đảm bảo không lỗi nếu data undefined

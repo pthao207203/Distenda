@@ -1,26 +1,78 @@
 import * as React from "react";
 
-function ThankYouPage({onClose}) {
+// Component để hiển thị hình ảnh với bóng đổ
+function ImageWithShadow({ src, alt }) {
   return (
-    <main className="flex overflow-hidden flex-col justify-center items-center p-10 text-2xl font-medium leading-6 text-black bg-white max-w-[600px] max-md:p-5">
-      <button className="justify-end self-end " onClick={onClose}>
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/18ce7f5d3a0e8a95408a91d7f810fd4a3daa1c23a4824327ff1f5f9f74b720b0?apiKey=1914b3001bed44e2a53adf842ab19f47&"
-        alt="Close"
-        className="object-contain self-end aspect-[0.94] hover:brightness-110 hover:scale-105 transition duration-200"
-      />
-      </button>
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/0032579ccd4f40c5aad73283cc7045c51358011fcf0dabe482b3831d4c2904ec?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
-        alt=""
-        className="object-contain self-center aspect-square"
-      />
-      <p className="self-center text-left mt-10 max-md:mt-5 max-md:max-w-full">
-        Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!
-      </p>
-    </main>
+    <img
+      loading="lazy"
+      src={src}
+      alt={alt}
+      className="object-contain shrink-0 bg-none w-[60px]"
+    />
+  );
+}
+
+function ThankYouPage({ onClose }) {
+  const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
+
+  // Hàm đóng popup
+  const handleClose = () => {
+    setIsOpen(false);
+    onClose && onClose(); // Đảm bảo gọi onClose từ cha nếu có
+  };
+
+  // Dữ liệu hình ảnh trang trí ở các góc
+  const cornerImages = [
+    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/59b9819b2f8bcba5a532bac25a2a11282419b6aabd38e3a3bd70b97c7bbec430?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e", alt: "Top left decorative element" },
+    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/631194690e0d3936d5085113c8d86eb3414e79c243145ce47d95df9316e6e37e?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e", alt: "Top right decorative element" },
+    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/29ca412ec35dc720602a949c8cfc32eb796543795e2d5aa33c030019556c26ae?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9ce1976069f6b0e", alt: "Bottom left decorative element" },
+    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/37fc4790a46aa078c69f7f7e2592a3795899a59503c0ea27bb49607794680bdf?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e", alt: "Bottom right decorative element" },
+  ];
+
+  // Nếu popup đã đóng, không render gì
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div className="flex flex-col bg-neutral-900 max-w-[607px] w-full max-h-[347px] ">
+        {/* Hình ảnh góc trên bên trái và bên phải */}
+        <div className="relative flex flex-wrap gap-5 justify-between w-full bg-none">
+          {/* Hình ảnh góc trên bên trái */}
+          <ImageWithShadow src={cornerImages[0].src} alt={cornerImages[0].alt} />
+          
+          {/* Hình ảnh góc trên bên phải và ảnh icon đóng */}
+          <div className="relative">
+            <ImageWithShadow src={cornerImages[1].src} alt={cornerImages[1].alt} />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bbfb14016c67d4716e0a6366eed76fac938e5a78f6cba88c3ed041abcc52d72?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
+              className="absolute top-[20px] right-[20px] w-[20px] h-[20px] object-contain z-10"
+              alt="Close icon"
+              onClick={handleClose} // Gọi hàm handleClose khi click vào icon
+            />
+          </div>
+        </div>
+
+        {/* Nội dung chính của popup */}
+        <div className="flex flex-col self-center mt-[36px] pl-[43px] pr-[42px] w-full text-2xl font-medium leading-tight text-center text-white">
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a6a5817082f280412966ed5513456d7a3fd8ac3b8d23fcf2b01b905379ac593?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
+            alt="Feedback confirmation icon"
+            className="object-contain self-center rounded-none aspect-square w-[54px]"
+          />
+          <div className="text-[24px] mt-[40px]" role="status" aria-live="polite">
+            Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!
+          </div>
+        </div>
+
+        {/* Hình ảnh góc dưới bên trái và phải */}
+        <div className="flex flex-wrap gap-5 justify-between w-full">
+          <ImageWithShadow src={cornerImages[2].src} alt={cornerImages[2].alt} />
+          <ImageWithShadow src={cornerImages[3].src} alt={cornerImages[3].alt} />
+        </div>
+      </div>
+    </div>
   );
 }
 

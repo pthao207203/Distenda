@@ -4,6 +4,8 @@ import AddAccountButton from "./components/AddAccountButton";
 import SearchBar from "../../layouts/private/SearchBar";
 import { adminController } from "../../controllers/admin.controller";
 
+import Loading from "../../components/Loading";
+
 function AdminLayout() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -22,11 +24,7 @@ function AdminLayout() {
   }, []);
 
   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+    return <Loading />;
   }
   console.log("Admin => ", data)
   const totalAdmin = data?.length || 0; // Đảm bảo không lỗi nếu data undefined

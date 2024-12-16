@@ -5,7 +5,7 @@ import { VideoSection } from "./VideoSection";
 
 export default function CourseContent() {
   return (
-    <main className="flex overflow-hidden flex-col bg-indigo-50">
+    <main className="flex overflow-hidden flex-col bg-[#EBF1F9]">
       {/* <CourseHeader /> */}
       <NavigationBreadcrumb />
       <section className="flex overflow-hidden flex-col px-16 pt-8 mt-2 w-full bg-white max-md:px-5 max-md:max-w-full">
@@ -32,7 +32,7 @@ export default function CourseContent() {
                 />
                 <span className="gap-2.5 self-stretch my-auto">Cập nhật</span>
               </button>
-              <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 bg-red-600 rounded-lg">
+              <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 bg-[#DF322B] rounded-lg">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"

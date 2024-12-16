@@ -139,7 +139,7 @@ function ChapterRow({ id, title, lastUpdate }) {
             </button>
             {/* Button Xóa */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white bg-red-600 basis-0 rounded-[99px] hover:bg-red-700 transition-colors"
+              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white bg-[#DF322B] basis-0 rounded-[99px] hover:bg-red-700 transition-colors"
             >
               <div className="gap-2.5 self-stretch my-auto">Xóa</div>
             </button>

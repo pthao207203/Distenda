@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export function FileUpload({ label, imageUrl, buttonText = "Chọn tệp", onFileSelect }) {
+export function FileUpload({ id, label, imageUrl, buttonText = "Chọn tệp", uploadImagePreviewRef, handleImageChange, uploadImageInputRef }) {
   return (
     <div className="flex flex-col min-w-[240px] max-md:max-w-full">
       <div className="text-neutral-900 text-opacity-50 max-md:max-w-full">
@@ -11,11 +11,11 @@ export function FileUpload({ label, imageUrl, buttonText = "Chọn tệp", onFil
           loading="lazy"
           src={imageUrl}
           alt={`${label} preview`}
-          className="object-contain self-stretch my-auto aspect-[5.88] min-w-[240px] w-[399px]"
+          className="object-contain self-stretch my-auto aspect-[5.88] min-w-[240px] w-[399px] rounded-lg bg-[#CFCFCF]"
+          ref={uploadImagePreviewRef}
         />
-        <button 
-          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
-          onClick={onFileSelect}
+        <button
+          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-[#6C8299] min-h-[46px]"
         >
           <img
             loading="lazy"
@@ -23,12 +23,24 @@ export function FileUpload({ label, imageUrl, buttonText = "Chọn tệp", onFil
             alt=""
             className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
           />
-          <span className="gap-2.5 self-stretch my-auto">{buttonText}</span>
+          <span className="gap-2.5 self-stretch my-auto"></span>
+          <label htmlFor={id}>
+            {buttonText}
+          </label>
+          <input
+            type="file"
+            className="gap-2.5 self-stretch my-auto form-control-file hidden" // Ẩn input file
+            id={id}
+            name={id}
+            accept="image/*"
+            ref={uploadImageInputRef}
+            onChange={handleImageChange}
+          />
         </button>
       </div>
-      <div className="mt-2 text-slate-500 text-opacity-80 max-md:max-w-full">
+      {/* <div className="mt-2 text-slate-500 text-opacity-80 max-md:max-w-full">
         Không có tệp nào được chọn
-      </div>
+      </div> */}
     </div>
   );
 }

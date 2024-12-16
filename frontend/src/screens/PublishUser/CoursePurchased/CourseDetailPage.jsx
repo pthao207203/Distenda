@@ -4,6 +4,8 @@ import CourseContent from "./CourseContent";
 import { courseDetailController } from "../../../controllers/course.controller";
 
 import { useParams } from "react-router-dom";
+import Rating from "./Rating";
+
 
 export default function CourseDetailPage() {
   const [data, setData] = useState();
@@ -40,6 +42,8 @@ export default function CourseDetailPage() {
       <CourseHeader {...data} />
       <div className="flex z-10 flex-col mt-0 w-full bg-white bg-opacity-10 min-h-screen max-md:mt-0 max-md:max-w-full">
         <CourseContent {...data} />
+        <Rating/>
+        
       </div>
     </div>
   );

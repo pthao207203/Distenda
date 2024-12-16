@@ -23,7 +23,7 @@ function TableRow(user) {
   return (
     <Link
       to={`/user-details/${user._id}`}
-      className="flex overflow-hidden flex-wrap mt-6 w-full bg-white text-[#131313] h-[70px] cursor-pointer"
+      className="flex overflow-hidden flex-wrap mt-3 w-full bg-white text-[#131313] h-[70px] cursor-pointer"
     >
       {/* Tên người dùng */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">

@@ -1,12 +1,13 @@
 import React from 'react';
+import moment from 'moment';
 
-function PersonalInfo() {
+function PersonalInfo({data}) {
   const personalDetails = [
-    { label: 'Họ và tên', value: 'Lê Thị Dung' },
-    { label: 'Số điện thoại', value: '09876543213' },
-    { label: 'Gmail', value: 'cabietbay@gmail.com' },
-    { label: 'Ngày tham gia', value: '20/08/2023' },
-    { label: 'Cập nhật lần cuối', value: '20/10/2023' }
+    { label: 'Họ và tên', value: data.UserFullName },
+    { label: 'Số điện thoại', value: data.UserPhone },
+    { label: 'Gmail', value: data.UserEmail },
+    { label: 'Ngày tham gia', value: moment(data.createdAt).format("DD/MM/YYYY hh:mm:ss")},
+    { label: 'Cập nhật lần cuối', value: moment(data.createdAt).format("DD/MM/YYYY hh:mm:ss") }
   ];
 
   return (
