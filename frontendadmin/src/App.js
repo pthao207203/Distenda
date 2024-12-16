@@ -7,6 +7,7 @@ import Layout from './layouts/Layout';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
+import AdminProfilespage from './screens/Admin/AdminProfiles/AdminProfilespage';
 import AdminAccount from './screens/Admin/AdminAccount/AdminAccountPage';
 import Banner from './screens/Banner/Bannerpage';
 import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
@@ -87,6 +88,8 @@ function App() {
             <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
+            <Route path='/addadmin' element={<AddAdmin />} />
+            <Route path='/admin-profiles' element={<AdminProfilespage />} />
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/payment/detail/:_id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
             <Route path="/authorities" element={<Permission />} />
