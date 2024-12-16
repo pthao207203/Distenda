@@ -9,7 +9,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     handleTaskBarToggle();
   };
 
-    const [data, setData] = useState();
+  const [data, setData] = useState();
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
@@ -59,8 +59,8 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
       <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-2">
         <img
-            src={data?.setting?.WebsiteLogoAdmin ? data?.setting?.WebsiteLogoAdmin : "/logo1.svg"}
-            alt={data?.setting?.WebsiteName ? data?.setting?.WebsiteName : "DISTENDA"}
+            src={data?.setting?.WebsiteLogoAdmin ? data.setting.WebsiteLogoAdmin : "/logo1.svg"}
+            alt={data?.setting?.WebsiteName ? data.setting.WebsiteName : "DISTENDA"}
             className="w-[200px] h-auto object-contain "
           />
         </div>

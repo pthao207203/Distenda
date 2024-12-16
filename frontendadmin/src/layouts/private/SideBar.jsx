@@ -10,18 +10,8 @@ export default function SideBar({ headerHeight }) {
   const { role } = useRole();
   console.log(role)
 
-  const menuItems = [
-    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/", icon: "/icons/home.svg", label: "Trang chủ" }),
-    (role?.role?.RolePermissions?.includes("course_view") && { link: "/courses", icon: "/icons/document.svg", label: "Khóa học" }),
-    (role?.role?.RolePermissions?.includes("user_view") && { link: "/user", icon: "/icons/2user.svg", label: "Người dùng" }),
-    (role?.role?.RolePermissions?.includes("admin_view") && { link: "/admin", icon: "/icons/work.svg", label: "Quản trị viên" }),
-    (role?.role?.RolePermissions?.includes("payment_view") && { link: "/payment", icon: "/icons/paper.svg", label: "Hóa đơn" }),
-    (role?.role?.RolePermissions?.includes("role_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
-    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
-    (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
-  ].filter(item => item);;
   const [data, setData] = useState();
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1024); // Màn hình >= 1024px là desktop
@@ -51,6 +41,18 @@ export default function SideBar({ headerHeight }) {
       setIsOpen(false); // Đặt về mặc định là không mở khi ở desktop
     }
   }, [isDesktop]);
+  
+  const menuItems = [
+    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/", icon: "/icons/home.svg", label: "Trang chủ" }),
+    (role?.role?.RolePermissions?.includes("course_view") && { link: "/courses", icon: "/icons/document.svg", label: "Khóa học" }),
+    (role?.role?.RolePermissions?.includes("user_view") && { link: "/user", icon: "/icons/2user.svg", label: "Người dùng" }),
+    (role?.role?.RolePermissions?.includes("admin_view") && { link: "/admin", icon: "/icons/work.svg", label: "Quản trị viên" }),
+    (role?.role?.RolePermissions?.includes("payment_view") && { link: "/payment", icon: "/icons/paper.svg", label: "Hóa đơn" }),
+    (role?.role?.RolePermissions?.includes("role_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
+    (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
+    (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
+  ].filter(item => item);;
+  
   const adminAvatar = data?.setting?.user?.AdminAvatar || "/profile.svg";
 
   console.log("SideBar => ", data)
@@ -73,14 +75,14 @@ export default function SideBar({ headerHeight }) {
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src={data?.setting?.user?.AdminAvatar ? data?.setting?.user?.AdminAvatar : "/profile.svg"}
+            src={data?.setting?.user?.AdminAvatar ? data.setting.user.AdminAvatar : "/profile.svg"}
             alt="Profile"
             className="rounded-full object-cover"
             style={{ width: "65px", height: "65px" }}
           />
           <div>
             <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
-            {data?.setting?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
+              {data?.setting?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
             </h4>
             <span className="font-medium text-lg text-black">Manager</span>
           </div>
