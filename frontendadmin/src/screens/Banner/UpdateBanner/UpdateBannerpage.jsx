@@ -211,19 +211,18 @@ function BannerForm() {
               className="flex mt-2 w-full bg-[#EBF1F9] max-h-[300px] min-h-[200px] max-md:max-w-full object-contain"
             />
             <div className="flex flex-col mt-2 max-w-full w-[569px]">
-              <button
-                type="button"
-                className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px]"
-                tabIndex={0}
-              >
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b516c63e31267ce6e114c8d3b4292335012bee5e99d5deb37cc823ac993268f?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-                  alt=""
-                  className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
-                />
+              <button type="button" tabIndex={0}>
                 {/* <div className="gap-2.5 self-stretch my-auto">Chọn tệp</div> */}
-                <label htmlFor="BannerPicture">
+                <label
+                  htmlFor="BannerPicture"
+                  className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px] w-[166px]"
+                >
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b516c63e31267ce6e114c8d3b4292335012bee5e99d5deb37cc823ac993268f?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+                    alt=""
+                    className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                  />
                   Chọn tệp
                 </label>
                 <input
