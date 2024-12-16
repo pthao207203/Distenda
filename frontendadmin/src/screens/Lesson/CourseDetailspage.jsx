@@ -20,7 +20,7 @@ export default function CourseDetails() {
         <ActionButton
           icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
           label="Xóa"
-          bgColor="bg-red-600"
+          bgColor="bg-[#DF322B]"
         />
       </div>
 
@@ -42,7 +42,7 @@ export default function CourseDetails() {
               Trạng thái
             </div>
             <div className="flex flex-col justify-center self-stretch p-3 my-auto w-64 min-w-[240px] text-neutral-900">
-              <div className="flex gap-3 justify-center items-center px-3 py-2.5 w-full bg-lime-300 min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+              <div className="flex gap-3 justify-center items-center px-3 py-2.5 w-full bg-[#D1F669] min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
                 <div className="gap-2.5 self-stretch my-auto">
                   Đang hoạt động
                 </div>
@@ -64,7 +64,7 @@ export default function CourseDetails() {
           <ActionButton
             icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
             label="Xóa"
-            bgColor="bg-red-600"
+            bgColor="bg-[#DF322B]"
           />
         </div>
       </div>
@@ -78,14 +78,14 @@ export default function CourseDetails() {
         </div>
 
         <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
-          <div className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
-            <div className="flex gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-indigo-50 shadow-[-6px_6px_0px_rgba(255,255,255,1)] w-[200px]">
+          <div className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
+            <div className="flex gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-[#EBF1F9] shadow-[-6px_6px_0px_rgba(255,255,255,1)] w-[200px]">
               <div className="gap-2.5 self-stretch my-auto">STT</div>
             </div>
             <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white basis-0 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
               <div className="gap-2.5 self-stretch my-auto">Tên bài</div>
             </div>
-            <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
+            <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-[#EBF1F9] basis-0 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
               <div className="gap-2.5 self-stretch my-auto">
                 Lần cuối cập nhật
               </div>

@@ -47,13 +47,13 @@ export function ChapterList() {
 function ChapterHeader({ onAddCategoryClick }) {
   return (
     <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] h-[70px] max-md:max-w-full">
-      <div className="flex gap-3 justify-center items-center px-3 bg-indigo-50 w-[200px]">
+      <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
         <span className="text-center">STT</span>
       </div>
       <div className="flex flex-1 justify-center items-center px-3 text-white">
         <span className="text-center">Tên chương</span>
       </div>
-      <div className="flex flex-1 gap-3 justify-center items-center px-3 bg-indigo-50 w-[200px]">
+      <div className="flex flex-1 gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
         <span className="text-center">Lần cuối cập nhật</span>
       </div>
       <div className="flex justify-center items-center px-3 text-white w-[258px]">
@@ -87,7 +87,7 @@ function ChapterRow({ id, title, lastUpdate }) {
   return (
     <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
       {/* STT */}
-      <div className="flex gap-3 justify-center items-center px-3 h-full bg-indigo-50 text-neutral-900 w-[200px]">
+      <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">{id}</div>
       </div>
 
@@ -105,7 +105,7 @@ function ChapterRow({ id, title, lastUpdate }) {
       </div>
 
       {/* Lần cuối cập nhật */}
-      <div className="flex flex-1 gap-3 justify-center items-center px-3 h-full bg-indigo-50 text-neutral-900 w-[240px]">
+      <div className="flex flex-1 gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[240px]">
         <div className="gap-2.5 self-stretch my-auto">{lastUpdate}</div>
       </div>
 
@@ -115,7 +115,7 @@ function ChapterRow({ id, title, lastUpdate }) {
           <>
             {/* Button Xong */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-lime-300 basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleSaveClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Xong</div>
@@ -132,7 +132,7 @@ function ChapterRow({ id, title, lastUpdate }) {
           <>
             {/* Button Sửa */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-lime-300 basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleEditClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Sửa</div>

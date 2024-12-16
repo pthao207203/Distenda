@@ -20,7 +20,7 @@ function TableRow({ id, name, courseCount }) {
   return (
     <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
       {/* ID */}
-      <div className="flex gap-3 justify-center items-center px-3 h-full bg-indigo-50 text-neutral-900 w-[200px]">
+      <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">{id}</div>
       </div>
 
@@ -30,7 +30,7 @@ function TableRow({ id, name, courseCount }) {
       </div>
 
       {/* Course Count */}
-      <div className="flex gap-3 justify-center items-center px-3 h-full bg-indigo-50 text-neutral-900 w-[205px]">
+      <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[205px]">
         <div className="gap-2.5 self-stretch my-auto">{courseCount}</div>
       </div>
 
@@ -40,7 +40,7 @@ function TableRow({ id, name, courseCount }) {
           <>
             {/* Button Xong */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-lime-300 basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleSaveClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Xong</div>
@@ -57,7 +57,7 @@ function TableRow({ id, name, courseCount }) {
           <>
             {/* Button Sửa */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-lime-300 basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleEditClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Sửa</div>
