@@ -16,7 +16,7 @@ router.get('/create', controller.createItem)
 
 router.post('/create', upload.single('UserAvatar'), uploadCloud.upload, controller.createPost)
 
-// router.patch('/change-status/:status/:UserID', controller.changeStatus)
+router.post('/change-status/:status/:UserID', controller.changeStatus)
 
 router.delete('/delete/:UserID', controller.deleteItem)
 
