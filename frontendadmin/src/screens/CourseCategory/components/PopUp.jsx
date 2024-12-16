@@ -30,7 +30,7 @@ function CategoryPopup({ onClose }) {
               Thêm
             </button>
             <button
-              className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400"
+              className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg hover:bg-gray-400"
               onClick={onClose}
             >
               Hủy

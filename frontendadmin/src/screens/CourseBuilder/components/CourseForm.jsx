@@ -27,7 +27,7 @@ export function CourseForm() {
               />
               <span className="gap-2.5 self-stretch my-auto">Lưu</span>
             </button>
-            <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-300 min-h-[63px] text-blue-950 w-[180px]">
+            <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#CDD5DF] min-h-[63px] text-[#14375F] w-[180px]">
               <span className="gap-2.5 self-stretch my-auto">Hủy</span>
             </button>
           </div>

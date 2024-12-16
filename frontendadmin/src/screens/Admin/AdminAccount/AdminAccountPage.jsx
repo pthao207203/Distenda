@@ -120,7 +120,7 @@ function ProfileCard() {
                   Có
                 </button>
                 <button
-                  className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
+                  className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
                   onClick={closePopup}
                 >
                   Không
@@ -145,7 +145,7 @@ function ProfileCard() {
                 Cập nhật thành công!
               </p>
               <button
-                className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
+                className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
                 onClick={closeSuccessPopup}
               >
                 Thoát

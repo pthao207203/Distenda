@@ -14,7 +14,7 @@ export function AdminInfoField({ label, value, editable, onChange }) {
   const fieldClasses = `flex items-center flex-1 shrink p-2.5 mt-2 rounded-lg size-full text-neutral-900 ${
     editable
       ? "border border-solid border-slate-500 border-opacity-80"
-      : "bg-slate-300 bg-opacity-50"
+      : "bg-[#CDD5DF] bg-opacity-50"
   }`;
 
   return (

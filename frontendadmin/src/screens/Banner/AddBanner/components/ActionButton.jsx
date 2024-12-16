@@ -63,7 +63,7 @@ export const ActionButton = ({ icon, label, variant, handleSubmit }) => {
   const variantClasses =
     variant === "primary"
       ? "text-white bg-[#6C8299] hover:bg-slate-600"
-      : "bg-slate-300 text-blue-950 hover:bg-slate-400";
+      : "bg-[#CDD5DF] text-[#14375F] hover:bg-slate-400";
 
   return (
     <>

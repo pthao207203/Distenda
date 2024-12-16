@@ -94,7 +94,7 @@ function DashboardPage() {
               <div className="relative">
                 <div className="flex flex-wrap gap-3.5 items-center text-sm">
                   <div className="flex items-center">
-                    <div className="w-[30px] h-[30px] bg-slate-300 rounded-full"></div>
+                    <div className="w-[30px] h-[30px] bg-[#CDD5DF] rounded-full"></div>
                     <span className="ml-3">Thoát trang</span>
                   </div>
                   <div className="flex items-center">

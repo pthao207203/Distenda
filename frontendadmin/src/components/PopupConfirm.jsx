@@ -15,13 +15,13 @@ export const PopupConfirm = ({ isVisible, content, onConfirm, onClose }) => {
           <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">{content}</p>
           <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
             <button
-              className="w-[150px] h-[60px] bg-slate-500 text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
+              className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
               onClick={onConfirm}
             >
               Có
             </button>
             <button
-              className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
+              className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
               onClick={onClose}
             >
               Không

@@ -108,7 +108,7 @@ export default function PermissionTable() {
 
         {permissionGroups.map((group, index) => (
           <div key={index} className="mt-4 justify-between w-full items-center ">
-            <div className="text-xl font-semibold leading-none text-blue-950">
+            <div className="text-xl font-semibold leading-none text-[#14375F]">
               {group.title}
             </div>
             <div className="flex flex-col justify-center mt-2 w-full max-md:w-screen">

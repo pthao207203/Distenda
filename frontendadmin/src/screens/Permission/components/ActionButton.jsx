@@ -133,7 +133,7 @@ export default function ActionButtons({ selectedRoles, permissions }) {
                   Có
                 </button>
                 <button
-                  className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
+                  className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
                   onClick={closePopup}
                 >
                   Không
@@ -167,7 +167,7 @@ export default function ActionButtons({ selectedRoles, permissions }) {
                   Thêm
                 </button>
                 <button
-                  className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400"
+                  className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg hover:bg-gray-400"
                   onClick={handleCloseAddRolePopup}
                 >
                   Hủy
@@ -190,7 +190,7 @@ export default function ActionButtons({ selectedRoles, permissions }) {
               />
               <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">Cập nhật thành công!</p>
               <button
-                className="w-[150px] h-[60px] bg-gray-300 text-gray-900 rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
+                className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
                 onClick={closeSuccessPopup}
               >
                 Thoát

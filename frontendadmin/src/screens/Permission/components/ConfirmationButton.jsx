@@ -6,7 +6,7 @@ export function ConfirmationButton({ text, variant = "primary", onClick }) {
   const variantClasses =
     variant === "primary"
       ? "text-white bg-[#6C8299] hover:bg-slate-700"
-      : "text-blue-950 bg-slate-300 hover:bg-slate-400";
+      : "text-[#14375F] bg-[#CDD5DF] hover:bg-slate-400";
 
   return (
     <button

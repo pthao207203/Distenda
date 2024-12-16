@@ -58,7 +58,7 @@ export function CourseInfo() {
       </div>
       <button
         onClick={() => setShowMore(!showMore)} // Toggle hiển thị thêm
-        className="flex gap-3 justify-center items-center self-start px-3 py-3 mt-6 text-xl font-medium leading-none text-white rounded-lg bg-slate-500 min-h-[46px]"
+        className="flex gap-3 justify-center items-center self-start px-3 py-3 mt-6 text-xl font-medium leading-none text-white rounded-lg bg-[#6C8299] min-h-[46px]"
       >
         <img
           loading="lazy"
