@@ -14,13 +14,13 @@ export const PopupConfirmCancel = ({ isVisible, content, confirm, onConfirm, onC
           <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">{content}</p>
           <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
             <button
-              className="w-[150px] h-[60px] bg-red-600 text-white rounded-lg flex justify-center items-center hover:bg-red-700"
+              className="w-[150px] h-[60px] bg-[#DF322B] text-white rounded-lg flex justify-center items-center hover:bg-red-700"
               onClick={onConfirm}
             >
               {confirm}
             </button>
             <button
-              className="w-[150px] h-[60px] bg-gray-300 text-neutral-900 rounded-lg flex justify-center items-center hover:bg-gray-400"
+              className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
               onClick={onCancel}
             >
               Thoát

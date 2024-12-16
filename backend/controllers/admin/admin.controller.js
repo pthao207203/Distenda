@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const md5 = require("md5");
 const Admin = require("../../models/admin.model");
 const Role = require("../../models/role.model");
@@ -14,11 +15,15 @@ module.exports.index = async (req, res) => {
   const admin = await Admin.find(find).select("-AdminPassword -AdminToken").lean();
 
   for (const item of admin) {
-    const role = await Role.findOne({
-      _id: item.AdminRole_id,
-      RoleDeleted: 1,
-    });
-    item.role = role;
+    if (mongoose.Types.ObjectId.isValid(item.AdminRole_id)) {
+      const role = await Role.findOne({
+        _id: item.AdminRole_id,
+        RoleDeleted: 1,
+      });
+      item.role = role;
+    } else {
+      item.role = null; // Hoặc xử lý lỗi phù hợp
+    }
   }
   res.json(admin)
   // res.render("admin/pages/admin/index", {

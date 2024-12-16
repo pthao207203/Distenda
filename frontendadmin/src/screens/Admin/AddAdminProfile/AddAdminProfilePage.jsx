@@ -55,7 +55,7 @@ export const UserProfile = () => {
   // console.log(roles)
 
   return (
-    <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+    <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white min-h-screen basis-0 max-md:px-5 max-md:max-w-full">
       {/* Nút hành động */}
       <div className="flex gap-3 justify-end items-center w-full">
         <ActionButton
@@ -72,7 +72,7 @@ export const UserProfile = () => {
         <h1 className="font-semibold text-neutral-900 text-2xl mb-6">
           Thông tin cá nhân
         </h1>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 ">
           {[
             { label: "Họ và tên", field: "AdminFullName" },
             { label: "Gmail", field: "AdminEmail" },

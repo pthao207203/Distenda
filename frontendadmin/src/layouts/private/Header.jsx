@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom"; // Import Link từ react-router-dom
 import { headerController } from "../../controllers/home.controller";
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
@@ -9,13 +8,15 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     setOpenDetails(!openDetails); // Đảo trạng thái openDetails
     handleTaskBarToggle();
   };
-  const [loading, setLoading]=useState(false)
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const result = await headerController(setLoading);
-  //     console.log("result", result)
-  //   }
 
+    const [data, setData] = useState();
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
 
     fetchData();
   }, []);
@@ -57,16 +58,18 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     >
       <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-3">
-          <img loading="lazy" src="/logo1.svg" alt="Logo"
-            className="object-contain w-[200px] h-auto max-md:w-[150px]"
+        <img
+            src={data?.setting?.WebsiteLogoAdmin}
+            alt={data?.setting?.WebsiteName}
+            className="w-[200px] object-contain "
           />
         </div>
         <button
           className="flex flex-row items-center gap-2"
           onClick={toggleTaskBar}
         >
-          <img loading="lazy" src="/profile.svg" alt="Profile"
-            className="object-contain w-[56px] h-auto"
+          <img loading="lazy" src={data.setting.user?.AdminAvatar ? data.setting.user?.AdminAvatar: "/profile.svg"} alt="Profile"
+            className="object-cover rounded-full w-[56px] h-[56px]"
           />
           <img
             loading="lazy"

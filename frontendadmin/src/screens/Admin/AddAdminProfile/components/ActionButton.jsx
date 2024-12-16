@@ -50,8 +50,8 @@ export const ActionButton = ({ icon, label, variant, personalInfo }) => {
     "flex gap-3 justify-center items-center px-8 py-3 rounded-lg min-h-[46px] max-md:px-5";
   const variantClasses =
     variant === "primary"
-      ? "text-white bg-slate-500 hover:bg-slate-600"
-      : "bg-slate-300 text-blue-950 hover:bg-slate-400";
+      ? "text-white bg-[#6C8299] hover:bg-slate-600"
+      : "bg-[#CDD5DF] text-[#14375F] hover:bg-slate-400";
 
   return (
     <>

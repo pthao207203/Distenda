@@ -27,7 +27,7 @@ export function CourseForm() {
               />
               <span className="gap-2.5 self-stretch my-auto">Lưu</span>
             </button>
-            <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-slate-300 min-h-[63px] text-blue-950 w-[180px]">
+            <button type="button" className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#CDD5DF] min-h-[63px] text-[#14375F] w-[180px]">
               <span className="gap-2.5 self-stretch my-auto">Hủy</span>
             </button>
           </div>
@@ -36,7 +36,7 @@ export function CourseForm() {
           <label htmlFor="videoUpload" className="text-neutral-900 text-opacity-50 max-md:max-w-full">
             Video
           </label>
-          <div className="flex mt-2 w-full bg-indigo-50 min-h-[897px] max-md:max-w-full" />
+          <div className="flex mt-2 w-full bg-[#EBF1F9] min-h-[897px] max-md:max-w-full" />
           <div className="flex flex-col mt-2 max-w-full w-[569px]">
             <button type="button" className="flex gap-3 justify-center items-center self-start px-3 py-3 text-white rounded-lg bg-[#6C8299] min-h-[46px]">
               <img

@@ -6,7 +6,7 @@ export function VideoSection() {
       <label className="text-xl font-medium leading-none text-neutral-900 text-opacity-50 max-md:max-w-full">
         Video
       </label>
-      <div className="flex flex-col mt-2 w-full bg-indigo-50 max-md:max-w-full">
+      <div className="flex flex-col mt-2 w-full bg-[#EBF1F9] max-md:max-w-full">
         <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2a3302df829ca14b40222377650598d8d5fbdf510977445d1164d142fe99acc?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"

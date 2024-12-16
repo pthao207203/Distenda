@@ -2,7 +2,7 @@ import * as React from "react";
 
 function SearchBar() {
   return (
-    <form className="flex items-start w-full text-blue-950 max-md:max-w-full" role="search">
+    <form className="flex items-start w-full text-[#14375F] max-md:max-w-full" role="search">
       <div className="flex flex-wrap gap-3 items-center px-3 py-4 bg-[#D6E4F6] min-h-[60px] min-w-[240px] rounded-[100px] w-full max-md:max-w-full">
         <img
           loading="lazy"

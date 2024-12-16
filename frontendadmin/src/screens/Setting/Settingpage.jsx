@@ -220,7 +220,7 @@ export default function Settingpage() {
         <div className="flex z-0 flex-col w-full max-md:max-w-full">
           <div className="flex justify-end items-center w-full">
             <button
-              className="flex gap-3 justify-center items-center px-3 font-medium leading-none text-white rounded-lg bg-slate-500 h-[46px] min-h-[46px]"
+              className="flex gap-3 justify-center items-center px-3 font-medium leading-none text-white rounded-lg bg-[#6C8299] h-[46px] min-h-[46px]"
               onClick={() => handlePopup("update")} // Sửa lỗi: Truyền tham số "update"
             >
               <img
@@ -280,7 +280,7 @@ export default function Settingpage() {
                     ref={uploadImagePreviewRef["WebsiteIcon"]}
                   />
                   <button
-                    className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
+                    className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-[#6C8299] min-h-[46px]"
                   >
                     <img
                       loading="lazy"

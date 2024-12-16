@@ -5,7 +5,7 @@ import TableHeader from "./components/TableHeader";
 import SideBar from "../../layouts/private/SideBar";
 import { dashboardController } from "../../controllers/home.controller";
 import { Link } from "react-router-dom"
-
+import Loading from "../../components/Loading"; 
 
 function DashboardPage() {
   const [data, setData] = useState();
@@ -26,9 +26,7 @@ function DashboardPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("dashboard => ", data)
@@ -96,7 +94,7 @@ function DashboardPage() {
               <div className="relative">
                 <div className="flex flex-wrap gap-3.5 items-center text-sm">
                   <div className="flex items-center">
-                    <div className="w-[30px] h-[30px] bg-slate-300 rounded-full"></div>
+                    <div className="w-[30px] h-[30px] bg-[#CDD5DF] rounded-full"></div>
                     <span className="ml-3">Thoát trang</span>
                   </div>
                   <div className="flex items-center">

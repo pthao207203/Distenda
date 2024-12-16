@@ -15,7 +15,7 @@ export function FileUpload({ id, label, imageUrl, buttonText = "Chọn tệp", u
           ref={uploadImagePreviewRef}
         />
         <button
-          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
+          className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-[#6C8299] min-h-[46px]"
         >
           <img
             loading="lazy"
