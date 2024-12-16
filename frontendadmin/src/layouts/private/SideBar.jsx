@@ -41,7 +41,7 @@ export default function SideBar({ headerHeight }) {
       setIsOpen(false); // Đặt về mặc định là không mở khi ở desktop
     }
   }, [isDesktop]);
-
+  
   const menuItems = [
     (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/", icon: "/icons/home.svg", label: "Trang chủ" }),
     (role?.role?.RolePermissions?.includes("course_view") && { link: "/courses", icon: "/icons/document.svg", label: "Khóa học" }),
@@ -52,6 +52,8 @@ export default function SideBar({ headerHeight }) {
     (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
     (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
   ].filter(item => item);;
+  
+  const adminAvatar = data?.setting?.user?.AdminAvatar || "/profile.svg";
 
   console.log("SideBar => ", data)
   return (
