@@ -111,7 +111,7 @@ function StatItem({ label, value, type, onChange }) {
     switch (type) {
       case "status":
         return (
-          <div className="flex mt-3 gap-3 justify-center items-center px-3 py-2.5 w-full bg-lime-300 min-h-[40px] rounded-[99px]">
+          <div className="flex mt-3 gap-3 justify-center items-center px-3 py-2.5 w-full bg-[#D1F669] min-h-[40px] rounded-[99px]">
             <div className="gap-2.5 self-stretch my-auto">{value}</div>
           </div>
         );

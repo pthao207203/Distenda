@@ -3,7 +3,7 @@ import * as React from "react";
 export default function ActionButton({
   icon,
   label,
-  bgColor = "bg-slate-500",
+  bgColor = "bg-[#6C8299]",
   onClick,
 }) {
   return (
