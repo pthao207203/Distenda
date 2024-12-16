@@ -16,7 +16,7 @@ import Dashboard from './screens/DashBoard/DashBoardPage';
 import Courses from './screens/Courses/CoursesListPage';
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
-import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
+// import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import Admin from './screens/Admin/AdminPage';
@@ -27,6 +27,7 @@ import Login from './screens/Login/LoginAdmin'
 import CourseAdmin from './screens/CourseAdmin/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
+import LessonDetail from './screens/Lesson/CourseDetailspage'
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 
@@ -75,28 +76,28 @@ function App() {
               </RoleProvider>
             }
           >
+            <Route path='/' element={<Dashboard />} />
             <Route path='/admin-account' element={<AdminAccount />} />
             <Route path='/banner' element={<Banner />} />
             <Route path='/banner/create' element={<AddBanner />} />
             <Route path='/banner/edit/:BannerID' element={<UpdateBanner />} />
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/courses' element={<Courses />} />
             <Route path='/category' element={<CourseCategory />} />
-            <Route path='/course-details/:CourseID' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
-            <Route path="/long-term-course" element={<LongTermCoursePage />} />
+            <Route path='/courses' element={<Courses />} />
+            <Route path="/courses/create" element={<CourseCreation />} />
+            <Route path='/courses/detail/:CourseID' element={<CourseDetails />} />
+            <Route path='/courses/lesson/detail/:LessonID' element={<LessonDetail />} />
+            <Route path="/courses/lesson/edit/:LessonID" element={<CourseAdmin />} />
+            <Route path="/courses/lesson/create" element={<CourseBuilder />} />
+            {/* <Route path="/long-term-course" element={<LongTermCoursePage />} /> */}
             <Route path='/user' element={<UserTable />} />
-            <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
+            <Route path="/user/detail/:UserID" element={<UserProfile />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
-            <Route path='/addadmin' element={<AddAdmin />} />
-            <Route path='/admin-profiles' element={<AdminProfilespage />} />
+            <Route path='/admin/detail/:AdminID' element={<AdminProfilespage />} />
             <Route path="/payment" element={<PaymentTablePage />} />
-            <Route path="/payment/detail/:_id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+            <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
-            <Route path="/courseadmin" element={<CourseAdmin />} />
-            <Route path="/coursebuilder" element={<CourseBuilder />} />
-            <Route path="/coursecreation" element={<CourseCreation />} />
           </Route>
           {/* </Route> */}
 

@@ -8,10 +8,10 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import Loading from "../../../components/Loading";
 
-const courseData = {
-  name: "HTML cơ bản",
-  options: ["HTML cơ bản"]
-};
+// const courseData = {
+//   name: "HTML cơ bản",
+//   options: ["HTML cơ bản"]
+// };
 
 function BannerForm() {
   const [data, setData] = useState({
@@ -65,6 +65,7 @@ function BannerForm() {
     }
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async () => {

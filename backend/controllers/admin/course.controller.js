@@ -124,11 +124,15 @@ module.exports.createItem = async (req, res) => {
   const intructor = await Admin.find({
     AdminDeleted: 1,
   });
-  res.render("admin/pages/course/create", {
-    pageTitle: "Thêm khoá học",
-    listCategory: newList,
-    intructor: intructor,
-  });
+  res.json({
+    categories: listCategory,
+    intructors: intructor
+  })
+  // res.render("admin/pages/course/create", {
+  //   pageTitle: "Thêm khoá học",
+  //   listCategory: newList,
+  //   intructor: intructor,
+  // });
 };
 
 // [POST] /admin/courses/create
@@ -144,8 +148,11 @@ module.exports.createPost = async (req, res) => {
   };
   const course = new Course(req.body);
   await course.save();
-
-  res.redirect(`${systemConfig.prefixAdmin}/courses`);
+  res.json({
+    code: 200,
+    message: "Tạo khoá học thành công!"
+  })
+  // res.redirect(`${systemConfig.prefixAdmin}/courses`);
 };
 
 // [GET] /admin/courses/detail/:CourseID

@@ -5,18 +5,18 @@ import PopUp from "./../../CourseCategory/components/PopUp"; // Component popup
 export function ChapterList({ data, lessonChange }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const chapters = [
-    {
-      id: 1,
-      title: "Tổng quan về HTML",
-      lastUpdate: "29/11/2024 23:13",
-    },
-    {
-      id: 2,
-      title: "HTML cơ bản",
-      lastUpdate: "29/11/2024 23:13",
-    },
-  ];
+  // const chapters = [
+  //   {
+  //     id: 1,
+  //     title: "Tổng quan về HTML",
+  //     lastUpdate: "29/11/2024 23:13",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "HTML cơ bản",
+  //     lastUpdate: "29/11/2024 23:13",
+  //   },
+  // ];
 
   const handleAddCategoryClick = () => setIsPopupOpen(true);
   const handleClosePopup = () => setIsPopupOpen(false);

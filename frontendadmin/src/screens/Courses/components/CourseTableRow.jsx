@@ -5,7 +5,7 @@ function CourseTableRow(course) {
   const navigate = useNavigate();
 
   const handleRowClick = () => {
-    navigate(`/course-details/${course._id}`); // Điều hướng đến trang CourseDetailsPage với ID khóa học
+    navigate(`/courses/detail/${course._id}`); // Điều hướng đến trang CourseDetailsPage với ID khóa học
   };
 
   const statusClass =
