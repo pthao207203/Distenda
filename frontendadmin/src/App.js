@@ -17,6 +17,7 @@ import Courses from './screens/Courses/CoursesListPage';
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
+import Chapter from './screens/Chapter/ChapterDetailspage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import Admin from './screens/Admin/AdminPage';
@@ -84,6 +85,7 @@ function App() {
             <Route path='/category' element={<CourseCategory />} />
             <Route path='/course-details/:id' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
+            <Route path='/chapter' element={<Chapter />} />
             <Route path='/user' element={<UserTable />} />
             <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path='/admin' element={<Admin />} />
