@@ -212,6 +212,7 @@ module.exports.editItem = async (req, res) => {
     const intructor = await Admin.find({
       AdminDeleted: 1,
     });
+    // console.log(course)
 
     res.render("admin/pages/course/edit", {
       pageTitle: "Chỉnh sửa khoá học",
