@@ -52,13 +52,6 @@ export default function SideBar({ headerHeight }) {
     }
   }, [isDesktop]);
 
-  if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
-  }
 
   console.log("SideBar => ", data)
   return (
@@ -80,14 +73,14 @@ export default function SideBar({ headerHeight }) {
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src={data?.user?.AdminAvatar ? data.user?.AdminAvatar : "/profile.svg"}
+            src={data.setting.user?.AdminAvatar ? data.setting.user?.AdminAvatar : "/profile.svg"}
             alt="Profile"
             className="rounded-full object-cover"
             style={{ width: "65px", height: "65px" }}
           />
           <div>
             <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
-            {data?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
+            {data.setting.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
             </h4>
             <span className="font-medium text-lg text-black">Manager</span>
           </div>

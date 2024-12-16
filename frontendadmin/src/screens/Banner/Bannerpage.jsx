@@ -3,6 +3,7 @@ import SearchBar from "./../../layouts/private/SearchBar";
 import TableHeader from "./components/TableHeader";
 import BannerRow from "./components/BannerRow";
 import { bannersController } from "../../controllers/banner.controller";
+import Loading from "../../components/Loading"; 
 
 function BannerList() {
   const [data, setData] = useState();
@@ -23,9 +24,7 @@ function BannerList() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("banner => ", data)

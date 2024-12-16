@@ -4,6 +4,7 @@ import PaymentRow from "./components/PaymentRow";
 import TableHeader from "./components/TableHeader";
 import SearchBar from "../../layouts/private/SearchBar";
 import { payController } from "../../controllers/pay.controller";
+import Loading from "../../components/Loading";
 
 function PaymentTable() {  
   const [data, setData] = useState();
@@ -23,11 +24,7 @@ function PaymentTable() {
     }, []);
 
     if (loading) {
-      return (
-        <div>
-          Đang tải...
-        </div>
-      )
+      return <Loading />;
     }
     console.log("Pay => ", data)
     const totalPayment = data?.length || 0; // Đảm bảo không lỗi nếu data undefined

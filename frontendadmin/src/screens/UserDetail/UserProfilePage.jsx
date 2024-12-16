@@ -5,6 +5,7 @@ import CourseTableHeader from './components/CourseTableHeader';
 import CourseTableRow from "./components/CourseTableRow";
 import { userDetailController } from "../../controllers/user.controller";
 import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";  
 
 function UserProfile() {
     const { UserID } = useParams(); // Lấy giá trị UserID từ URL
@@ -27,9 +28,7 @@ function UserProfile() {
   
     if (loading) {
       return (
-        <div>
-          Đang tải...
-        </div>
+        <Loading />
       )
     }
     console.log("User Detail => ", data)

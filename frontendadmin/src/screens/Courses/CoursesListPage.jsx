@@ -5,6 +5,7 @@ import SearchBar from "../../layouts/private/SearchBar";
 import ActionButton from "./components/ActionButton";
 import { coursesController } from "../../controllers/course.controller";
 import { useRole } from "../../layouts/AppContext"
+import Loading from "../../components/Loading";
 
 function CourseList() {
   const [data, setData] = useState();

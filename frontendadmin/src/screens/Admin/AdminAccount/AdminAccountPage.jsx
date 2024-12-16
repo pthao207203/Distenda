@@ -3,6 +3,7 @@ import { AdminInfoField } from "./components/AdminInfo";
 import { AccountHeader } from "./components/AccountHeader";
 import { myAccountController} from "../../../controllers/myAccount.controller";
 import moment from 'moment';
+import Loading from "../../../components/Loading"; 
 
 function ProfileCard() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -82,9 +83,7 @@ function ProfileCard() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading/>
     )
   }
   console.log("My account => ", data)

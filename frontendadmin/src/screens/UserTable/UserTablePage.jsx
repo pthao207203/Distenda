@@ -3,6 +3,7 @@ import SearchBar from "../../layouts/private/SearchBar";
 import TableHeader from "./components/TableHeader";
 import TableRow from "./components/TableRow";
 import { usersController } from "../../controllers/user.controller";
+import Loading from "../../components/Loading"; 
 
 function UserTable() {
   const [data, setData] = useState();
@@ -23,9 +24,7 @@ function UserTable() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("users => ", data)

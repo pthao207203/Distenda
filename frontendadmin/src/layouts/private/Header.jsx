@@ -58,15 +58,17 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     >
       <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-3">
-          <img loading="lazy" src="/logo1.svg" alt="Logo"
-            className="object-contain w-[200px] h-auto max-md:w-[150px]"
+        <img
+            src={data?.setting?.WebsiteLogoAdmin}
+            alt={data?.setting?.WebsiteName}
+            className="w-[200px] object-contain "
           />
         </div>
         <button
           className="flex flex-row items-center gap-2"
           onClick={toggleTaskBar}
         >
-          <img loading="lazy" src={data?.user?.AdminAvatar ? data.user?.AdminAvatar : "/profile.svg"} alt="Profile"
+          <img loading="lazy" src={data.setting.user?.AdminAvatar ? data.setting.user?.AdminAvatar: "/profile.svg"} alt="Profile"
             className="object-cover rounded-full w-[56px] h-[56px]"
           />
           <img

@@ -5,7 +5,7 @@ import TableHeader from "./components/TableHeader";
 import SideBar from "../../layouts/private/SideBar";
 import { dashboardController } from "../../controllers/home.controller";
 import { Link } from "react-router-dom"
-
+import Loading from "../../components/Loading"; 
 
 function DashboardPage() {
   const [data, setData] = useState();
@@ -26,9 +26,7 @@ function DashboardPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("dashboard => ", data)
