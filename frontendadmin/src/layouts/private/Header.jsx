@@ -9,7 +9,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     handleTaskBarToggle();
   };
 
-    const [data, setData] = useState();
+  const [data, setData] = useState();
   useEffect(() => {
     async function fetchData() {
       const result = await headerController(setLoading);
@@ -58,7 +58,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     >
       <div className="flex items-center justify-between px-[60px] max-md:pr-[20px]">
         <div className="flex items-center p-3">
-        <img
+          <img
             src={data?.setting?.WebsiteLogoAdmin}
             alt={data?.setting?.WebsiteName}
             className="w-[200px] object-contain "
@@ -68,7 +68,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
           className="flex flex-row items-center gap-2"
           onClick={toggleTaskBar}
         >
-          <img loading="lazy" src={data.setting.user?.AdminAvatar ? data.setting.user?.AdminAvatar: "/profile.svg"} alt="Profile"
+          <img loading="lazy" src={data?.setting?.user?.AdminAvatar ? data.setting.user.AdminAvatar : "/profile.svg"} alt="Profile"
             className="object-cover rounded-full w-[56px] h-[56px]"
           />
           <img
