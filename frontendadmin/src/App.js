@@ -30,6 +30,8 @@ import VideoDetail from './screens/VideoDetail/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
 import LessonDetail from './screens/Lesson/CourseDetailspage'
+import LessonEdit from './screens/Lesson/LessonEdit/QuestionEditorpage';
+import QuestionEditorpage from './screens/Lesson/LessonEdit/QuestionEditorpage';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 
@@ -92,6 +94,7 @@ function App() {
             <Route path="/courses/lesson/video/edit/:VideoID" element={<CourseAdmin />} />
             <Route path="/courses/lesson/video/detail/:VideoID" element={<VideoDetail />} />
             <Route path="/courses/lesson/video/create/:LessonID" element={<CourseBuilder />} />
+            <Route path="/edit-question" element={<QuestionEditorpage />} />
             {/* <Route path="/long-term-course" element={<LongTermCoursePage />} /> */}
             <Route path='/user' element={<UserTable />} />
             <Route path="/user/detail/:UserID" element={<UserProfile />} />
