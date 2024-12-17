@@ -41,11 +41,29 @@ module.exports.detail = async (req, res) => {
   };
 
   const admin = await Admin.findOne(find).lean();
+  if (!admin) {
+    res.json({
+      code: 400,
+      message: "Không tìm thấy người dùng!"
+    })
+    return;
+  }
   const course = await Course.find({
     CourseIntructor: admin._id
   })
   admin.course = course
-  console.log(admin)
+
+  const role = await Role.findOne({
+    _id: admin.AdminRole_id,
+    RoleDeleted: 1,
+  });
+  admin.role = role ? role : null;
+  const roles = await Role.find({
+    RoleDeleted: 1,
+  })
+  console.log("roles", roles)
+  admin.roles = roles ? roles : null;
+  // console.log(admin)
   res.json(admin)
   // res.render("admin/pages/admin/index", {
   //   pageTitle: "Danh sách tài khoản",
@@ -121,9 +139,12 @@ module.exports.deleteItem = async (req, res) => {
       },
     }
   );
-
-  req.flash("success", "Xóa thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  res.json({
+    code: 200,
+    message: "Xoá thành công!"
+  })
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };
 
 // [GET] /admin/admin/edit/:AdminID
@@ -151,29 +172,39 @@ module.exports.editItem = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/admin/edit/:AdminID
-module.exports.editPatch = async (req, res) => {
-  req.body.AdminStatus = req.body.AdminStatus == "active" ? 1 : 0;
+// [POST] /admin/admin/edit/:AdminID
+module.exports.editPost = async (req, res) => {
+  const { editedBy, ...updateFields } = req.body;
 
   try {
-    const editedBy = {
+    const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
+
     await Admin.updateOne(
       {
         _id: req.params.AdminID,
       },
       {
-        ...req.body,
-        $push: { editedBy: editedBy },
+        ...updateFields, // Cập nhật các trường khác
+        $push: { editedBy: newEditedBy },
       }
     );
 
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    // req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
   }
 
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };

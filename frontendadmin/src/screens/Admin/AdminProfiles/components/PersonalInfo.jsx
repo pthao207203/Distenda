@@ -1,6 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 
-const PersonalInfo = ({ name, email, phone, position, status }) => {
+const PersonalInfo = ({ data, handleChange, handleToggle, roles }) => {
+  // Class và nội dung text cho status
+  const statusClass = data?.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
+  const statusText = data?.CourseStatus === 1 ? "Đang hoạt động" : "Tạm dừng";
+  console.log("roles", roles)
+
   return (
     <div className="flex flex-col mt-10 w-full text-xl max-md:max-w-full">
       <div className="font-semibold text-neutral-900 max-md:max-w-full">
@@ -8,78 +13,107 @@ const PersonalInfo = ({ name, email, phone, position, status }) => {
       </div>
       <div className="flex flex-col mt-6 w-full font-medium leading-none max-md:max-w-full">
         <div className="flex flex-wrap gap-10 justify-between items-start w-full max-md:max-w-full">
+          {/* Họ và tên */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="name" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminFullName" className="text-neutral-900 text-opacity-50">
               Họ và tên
             </label>
-            <div
-              id="name"
-              className="flex-1 shrink gap-2.5 self-stretch p-2.5 mt-2 rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
-            >
-              {name}
-            </div>
+            <input
+              id="AdminFullName"
+              type="text"
+              value={data?.AdminFullName}
+              onChange={handleChange}
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
+            />
           </div>
-          <div className="flex flex-col whitespace-nowrap min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="email" className="text-neutral-900 text-opacity-50">
+
+          {/* Gmail */}
+          <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
+            <label htmlFor="AdminEmail" className="text-neutral-900 text-opacity-50">
               Gmail
             </label>
-            <div
-              id="email"
-              className="flex-1 shrink gap-2.5 self-stretch p-2.5 mt-2 rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
-            >
-              {email}
-            </div>
+            <input
+              id="AdminEmail"
+              type="email"
+              value={data?.AdminEmail}
+              onChange={handleChange}
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
+            />
           </div>
+
+          {/* Số điện thoại */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="phone" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminPhone" className="text-neutral-900 text-opacity-50">
               Số điện thoại
             </label>
-            <div
-              id="phone"
-              className="flex-1 shrink gap-2.5 self-stretch p-2.5 mt-2 whitespace-nowrap rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
-            >
-              {phone}
-            </div>
+            <input
+              id="AdminPhone"
+              type="tel"
+              value={data?.AdminPhone}
+              onChange={handleChange}
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
+            />
           </div>
         </div>
-        <div className="flex flex-wrap gap-10 justify-between items-start mt-8 max-w-full w-[818px]">
+
+        {/* Chức vụ */}
+        <div className="flex flex-wrap gap-10 justify-between items-start mt-8 max-w-full w-[900px]">
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label
-              htmlFor="position"
-              className="text-neutral-900 text-opacity-50"
-            >
+            <label htmlFor="position" className="text-neutral-900 text-opacity-50">
               Chức vụ
             </label>
-            <div
+            <select
+              id="AdminRole_id"
+              value={data?.AdminRole_id}
+              onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
+            >
+              {roles && roles.length > 0 && roles.map((option, index) => (
+                <option key={index} value={option._id} disabled={option.disabled} selected={option._id === data.AdminRole_id}>
+                  {option.RoleName}
+                </option>
+              ))}
+            </select>
+            {/* <select
               id="position"
-              className="flex relative flex-1 gap-2.5 items-start p-2.5 mt-2 rounded-lg border border-solid border-slate-500 border-opacity-80 size-full text-neutral-900"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
             >
-              <div className="z-0 flex-1 shrink my-auto basis-0">
-                {position}
-              </div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/08223d2e0151893bb0c67c9f4e9fae4e42409d304bba895c48f833ba33717bab?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-                alt=""
-                className="object-contain absolute right-4 z-0 shrink-0 self-start w-6 h-6 aspect-square top-[19px]"
-              />
-            </div>
+              {positionOptions.map((role) => (
+                <option key={role._id} value={role._id} disabled={role.disabled}>
+                  {role.RoleName}
+                </option>
+              ))}
+            </select> */}
           </div>
-          <div className="flex flex-col h-[91px] min-w-[240px] w-[360px]">
-            <label
-              htmlFor="status"
-              className="text-neutral-900 text-opacity-50"
-            >
+
+          {/* Trạng thái */}
+          <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
+            <label htmlFor="AdminStatus" className="text-neutral-900 text-opacity-50">
               Trạng thái
             </label>
-            <div
-              id="status"
-              className="flex flex-col justify-center p-3 mt-2 w-full text-neutral-900"
+            {data?.AdminStatus === 1 ? (
+              <button
+                onClick={handleToggle}
+                className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] bg-[#D1F669]`}
+              >
+                Đang hoạt động
+              </button>
+            ) : (
+              <button
+                onClick={handleToggle}
+                className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] bg-[#FFD75B]`}
+              >
+                Tạm dừng
+              </button>
+            )}
+            {/* <button
+              onClick={handleToggle}
+              className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] ${statusClass}`}
             >
-              <div className="flex gap-3 justify-center items-center px-3 py-2.5 w-full bg-lime-300 min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                <div className="gap-2.5 self-stretch my-auto">{status}</div>
-              </div>
-            </div>
+              {statusText}
+            </button> */}
           </div>
         </div>
       </div>

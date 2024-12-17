@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import moment from 'moment';
 
 function AdminTable(admin) {
@@ -6,7 +7,10 @@ function AdminTable(admin) {
   const statusText = admin.AdminDeleted === 1 ? "Đang hoạt động" : "Tạm dừng";
 
   return (
-    <article className="flex overflow-hidden flex-wrap mt-3 w-full bg-white text-[#131313]  min-h-[70px] cursor-pointer">
+    <Link
+    to={`/admin/detail/${admin._id}`}
+    className="flex overflow-hidden flex-wrap mt-3 w-full bg-white text-[#131313] min-h-[70px] cursor-pointer"
+  >
       {/* Avatar */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center">
         <img
@@ -39,7 +43,7 @@ function AdminTable(admin) {
           <span className="text-[#131313] text-center text-xl font-medium truncate">{statusText}</span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 

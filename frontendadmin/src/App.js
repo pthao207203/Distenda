@@ -7,7 +7,7 @@ import Layout from './layouts/Layout';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
-import AdminProfilespage from './screens/Admin/AdminProfiles/AdminProfilespage';
+import AdminDetailPage from './screens/Admin/AdminProfiles/AdminDetailPage';
 import AdminAccount from './screens/Admin/AdminAccount/AdminAccountPage';
 import Banner from './screens/Banner/Bannerpage';
 import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
@@ -93,7 +93,7 @@ function App() {
             <Route path="/user/detail/:UserID" element={<UserProfile />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
-            <Route path='/admin/detail/:AdminID' element={<AdminProfilespage />} />
+            <Route path='/admin/detail/:AdminID' element={<AdminDetailPage />} />
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />

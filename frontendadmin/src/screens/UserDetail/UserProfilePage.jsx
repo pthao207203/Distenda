@@ -40,6 +40,7 @@ function UserProfile() {
         <CourseTableHeader />
         {data && data.UserCourse && data.UserCourse.length > 0 && data.UserCourse.map((course, index) => (
           <CourseTableRow
+          key={index}
             index={index}
             course={course}
           />

@@ -43,13 +43,14 @@ function TaskBar({ handleTaskBarToggle }) {
     <div className="flex flex-col justify-center text-xl leading-none text-[#131313] bg-white border-l border-r border-b border-[#cdd5de] min-w-[200px]">
       {menuItems.map((item, index) => (
         <div
+          key={index}
           onMouseEnter={(e) =>
             (e.currentTarget.style.background = "rgb(235, 241, 249)") // Hiệu ứng hover
           }
           onMouseLeave={(e) =>
             (e.currentTarget.style.background = "rgba(0, 0, 0, 0)") // Reset khi rời chuột
           }>
-          <TaskBarItem key={index} text={item.text} onClick={item.onClick} />
+          <TaskBarItem text={item.text} onClick={item.onClick} />
         </div>
       ))}
     </div>
