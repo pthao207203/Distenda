@@ -1,17 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PersonalInfo from "./components/PersonalInfo";
 import CourseTableRow from "./components/CourseTableRow";
-import { adminDetailController } from "../../../controllers/admin.controller";
-import { useParams } from "react-router-dom";
+import { adminDetailController, adminUpdatePostController, adminDeleteController } from "../../../controllers/admin.controller";
+
 import Loading from "../../../components/Loading";
+import uploadImage from "../../../components/UploadImage"
+import { PopupConfirm } from "../../../components/PopupConfirm";
+import { PopupSuccess } from "../../../components/PopupSuccess";
+import { PopupError } from "../../../components/PopupError";
 
 function AdminDetailPage() {
-  
+
+  const navigate = useNavigate()
   const { AdminID } = useParams(); // Lấy giá trị UserID từ URL
   console.log("ID from URL: ", AdminID);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [roles, setRoles] = useState([]); // Mảng roles duy nhất
+  const [action, setAction] = useState("");
+  const [isPopupVisible, setPopupVisible] = useState(false);
+  const [popupContent, setPopupContent] = useState("");
+  const [successPopupVisible, setSuccessPopupVisible] = useState(false);
+  const [errorPopupVisible, setErrorPopupVisible] = useState(false);
+  const editorRef = useRef(null);
+
+
+  const [imageUrl, setImageUrl] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState("");
+
+  const uploadImageInputRef = useRef(null);
+  const uploadImagePreviewRef = useRef(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,10 +41,11 @@ function AdminDetailPage() {
       if (result) {
         setData(result);
 
-        // Set roles với giá trị mặc định từ data
-        setRoles([
-          { _id: result.role?.RoleName || "", RoleName: result.role?.RoleName || "Chọn chức vụ", disabled: true },
-          ...(result.roles || []), // Thêm các roles khác nếu có
+        setSelectedFileName(result.AdminAvatar)
+        setImageUrl(result.AdminAvatar)
+        setRoles((prevRoles) => [
+          { _id: "", RoleName: "Chọn chức vụ", disabled: true },
+          ...result.roles,
         ]);
       }
       setLoading(false);
@@ -32,10 +53,113 @@ function AdminDetailPage() {
 
     fetchData();
   }, [AdminID]);
-  
+
   if (loading) {
     return <Loading />;
   }
+
+  const handleSubmit = async () => {
+    let uploadedImageUrl = data.BannerPicture;
+    // Upload ảnh nếu người dùng đã chọn
+    if (selectedFileName) {
+      uploadedImageUrl = await uploadImage(selectedFileName);;
+      console.log("Uploaded Image URL:", uploadedImageUrl);
+    }
+    const updatedData = {
+      ...data,
+      CoursePicture: uploadedImageUrl,
+    };
+
+    console.log("Data sent to ActionButton:", updatedData);
+    setData(updatedData)
+    return updatedData;
+  };
+
+  // Hàm cập nhật dữ liệu khi người dùng nhập vào
+  const handleChange = (e) => {
+    // Kiểm tra nếu e.target tồn tại (dành cho input và select)
+    if (e?.target) {
+      const { id, value } = e.target;
+      setData((prevData) => ({
+        ...prevData,
+        [id]: value, // Cập nhật theo id của input
+      }));
+    } else if (e) {
+      // Nếu không có e.target (TinyMCE)
+      setData((prevData) => ({
+        ...prevData,
+        [e.id]: e.getContent(), // Lấy nội dung từ TinyMCE và cập nhật theo id
+      }));
+    }
+  };
+
+  const handlePopup = (actionType) => {
+    setAction(actionType);
+    if (actionType === "update") {
+      setPopupContent("Bạn có chắc chắn muốn cập nhật những thay đổi không?");
+    } else if (actionType === "delete") {
+      setPopupContent(
+        <>
+          Bạn muốn xóa người này?
+          <br />
+          Bạn sẽ không thể khôi phục sau khi xóa.
+        </>
+      );
+    }
+    setPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false);
+    setPopupContent("");
+  };
+
+  const confirmAction = async () => {
+    setPopupVisible(false);
+    // 
+    if (action === "update") {
+      setLoading(true)
+      const newData = await handleSubmit()
+      setLoading(false)
+      console.log("newData", newData)
+      const result = await adminUpdatePostController(setLoading, data._id, newData)
+      if (result.code === 200) {
+        setSuccessPopupVisible(true);
+      } else {
+        setErrorPopupVisible(true);
+      }
+    } else {
+      console.log("xoas")
+      const result = await adminDeleteController(setLoading, data._id)
+      if (result.code === 200) {
+        setSuccessPopupVisible(true);
+      } else {
+        setErrorPopupVisible(true);
+      }
+    }
+  };
+
+  const closeSuccessPopup = () => {
+    setSuccessPopupVisible(false);
+    if (action === "update") {
+      window.location.reload();
+    } else {
+      navigate('/admin')
+    }
+  };
+  const closeErrorPopup = () => {
+    setErrorPopupVisible(false); // Ẩn popup thành công
+    // window.location.reload();
+  };
+
+  const handleToggle = () => {
+    setData((prevData) => ({
+      ...prevData,
+      AdminStatus:
+        prevData.AdminStatus === 1 ? 0 : 1,
+    }));
+  };
+
   console.log("Admin Detail => ", data)
   const totalCourse = data?.course.length || 0; // Đảm bảo không lỗi nếu data undefined
 
@@ -61,7 +185,10 @@ function AdminDetailPage() {
         </div>
         {/* Nút hành động */}
         <div className="flex gap-2.5 items-center text-xl font-medium leading-none text-white min-w-[240px]">
-        <button className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]">
+          <button
+            className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto rounded-lg bg-slate-500 min-h-[46px]"
+            onClick={() => handlePopup("update")}
+          >
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/84fdfd4c4d34c64c558acb40d245b2d594b0b0f000c7b4c1dd0353682f135f9d?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
@@ -70,26 +197,27 @@ function AdminDetailPage() {
             />
             <span className="gap-2.5 self-stretch my-auto">Cập nhật</span>
           </button>
-          <button className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto whitespace-nowrap bg-red-600 rounded-lg min-h-[46px]">
+          <button
+            className="flex gap-3 justify-center items-center self-stretch px-3 py-3 my-auto whitespace-nowrap bg-red-600 rounded-lg min-h-[46px]"
+            onClick={() => handlePopup("delete")}
+          >
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/39a71fd8008a53a09d7a877aea83770214d261a5f742c728f7c5a0a06accb635?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
               alt=""
               className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
             />
-            <span className="gap-2.5 self-stretch my-auto">Chặn</span>
+            <span className="gap-2.5 self-stretch my-auto">Xoá</span>
           </button>
         </div>
       </div>
 
       {/* Thông tin cá nhân */}
       <PersonalInfo
-        name={data?.AdminFullName || "Null"}
-        email={data?.AdminEmail || "Null"}
-        phone={data?.AdminPhone || "Null"}
-        positionOptions={roles} // Dữ liệu roles đầy đủ (_id và RoleName)
-        position={data?.role?.RoleName|| ""} // Giá trị mặc định là _id
-        status={data?.AdminStatus || "Null"}
+        data={data}
+        roles={roles}
+        handleChange={handleChange}
+        handleToggle={handleToggle}
       />
 
       {/* Tiêu đề Khóa học */}
@@ -126,14 +254,34 @@ function AdminDetailPage() {
         {/* Dữ liệu Table */}
         <div className="flex overflow-hidden flex-wrap w-full rounded-b-3xl bg-white min-h-[70px] max-md:max-w-full">
           {data && data.course && data.course.length > 0 && data.course.map((course, index) => (
-          <CourseTableRow
-            index={index}
-            name={data?.AdminFullName}
-            course={course}
-          />
-            ))}
+            <CourseTableRow
+              index={index}
+              name={data?.AdminFullName}
+              course={course}
+            />
+          ))}
         </div>
       </div>
+      {/* Popup xác nhận */}
+      <PopupConfirm
+        isVisible={isPopupVisible}
+        content={popupContent}
+        onConfirm={confirmAction}
+        onClose={closePopup}
+      />
+
+      {/* Popup thành công */}
+      <PopupSuccess
+        isVisible={successPopupVisible}
+        message="Cập nhật thành công!"
+        onClose={closeSuccessPopup}
+      />
+      {/* Popup thất bại */}
+      <PopupError
+        isVisible={errorPopupVisible}
+        message="Cập nhật thất bại. Vui lòng thử lại sau!"
+        onClose={closeErrorPopup}
+      />
     </div>
   );
 }

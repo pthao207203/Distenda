@@ -1,4 +1,4 @@
-import { adminService, adminCreateService, adminCreatePostService, adminUpdatePostService, adminDetailService } from '../services/admin.service';
+import { adminService, adminCreateService, adminCreatePostService, adminUpdatePostService, adminDetailService, adminDeleteService } from '../services/admin.service';
 
 export async function adminController(setLoading) {
   try {
@@ -36,17 +36,7 @@ export async function adminCreatePostController(personalInfo) {
   }
 }
 
-// export async function adminUpdatePostController(personalInfo) {
-//   try {
-//     const result = await adminUpdatePostService(personalInfo); // Gọi API
-//     // console.log("result admin ", result);
-//     return result;
-//   } catch (err) {
-//     console.error(err); // Ghi log lỗi
-//   }
-// }
-
-export async function adminDetailController(AdminID,setLoading) {
+export async function adminDetailController(AdminID, setLoading) {
   try {
     setLoading(true); // Đang tải
     const result = await adminDetailService(AdminID); // Gọi API
@@ -59,3 +49,26 @@ export async function adminDetailController(AdminID,setLoading) {
   }
 }
 
+export async function adminUpdatePostController(setLoading, AdminID, data) {
+  try {
+    setLoading(true)
+    const result = await adminUpdatePostService(AdminID, data); // Gọi API
+    // console.log("result admin ", result);
+    setLoading(false)
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+  }
+}
+
+export async function adminDeleteController(setLoading, AdminID, data) {
+  try {
+    setLoading(true)
+    const result = await adminDeleteService(AdminID, data); // Gọi API
+    // console.log("result admin ", result);
+    setLoading(false)
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+  }
+}

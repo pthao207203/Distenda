@@ -1,28 +1,10 @@
 import React, { useState } from "react";
 
-const PersonalInfo = ({
-  name: initialName,
-  email: initialEmail,
-  phone: initialPhone,
-  positionOptions,
-  position: initialPosition,
-  status: initialStatus,
-}) => {
-  // Quản lý trạng thái cho các trường thông tin
-  const [name, setName] = useState(initialName);
-  const [email, setEmail] = useState(initialEmail);
-  const [phone, setPhone] = useState(initialPhone);
-  const [position, setPosition] = useState(initialPosition || positionOptions[0]);
-  const [status, setStatus] = useState(initialStatus);
-
-  // Chuyển đổi trạng thái khi nhấn vào statusText
-  const toggleStatus = () => {
-    setStatus((prevStatus) => (prevStatus === 1 ? 0 : 1));
-  };
-
+const PersonalInfo = ({ data, handleChange, handleToggle, roles }) => {
   // Class và nội dung text cho status
-  const statusClass = status === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
-  const statusText = status === 1 ? "Đang hoạt động" : "Tạm dừng";
+  const statusClass = data?.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
+  const statusText = data?.CourseStatus === 1 ? "Đang hoạt động" : "Tạm dừng";
+  console.log("roles", roles)
 
   return (
     <div className="flex flex-col mt-10 w-full text-xl max-md:max-w-full">
@@ -33,42 +15,42 @@ const PersonalInfo = ({
         <div className="flex flex-wrap gap-10 justify-between items-start w-full max-md:max-w-full">
           {/* Họ và tên */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="name" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminFullName" className="text-neutral-900 text-opacity-50">
               Họ và tên
             </label>
             <input
-              id="name"
+              id="AdminFullName"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={data?.AdminFullName}
+              onChange={handleChange}
               className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
             />
           </div>
 
           {/* Gmail */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="email" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminEmail" className="text-neutral-900 text-opacity-50">
               Gmail
             </label>
             <input
-              id="email"
+              id="AdminEmail"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={data?.AdminEmail}
+              onChange={handleChange}
               className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
             />
           </div>
 
           {/* Số điện thoại */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="phone" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminPhone" className="text-neutral-900 text-opacity-50">
               Số điện thoại
             </label>
             <input
-              id="phone"
+              id="AdminPhone"
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={data?.AdminPhone}
+              onChange={handleChange}
               className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
             />
           </div>
@@ -81,6 +63,18 @@ const PersonalInfo = ({
               Chức vụ
             </label>
             <select
+              id="AdminRole_id"
+              value={data?.AdminRole_id}
+              onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
+              className="p-2.5 mt-2 rounded-lg border border-solid border-slate-500 text-neutral-900"
+            >
+              {roles && roles.length > 0 && roles.map((option, index) => (
+                <option key={index} value={option._id} disabled={option.disabled} selected={option._id === data.AdminRole_id}>
+                  {option.RoleName}
+                </option>
+              ))}
+            </select>
+            {/* <select
               id="position"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
@@ -91,20 +85,35 @@ const PersonalInfo = ({
                   {role.RoleName}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
 
           {/* Trạng thái */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
-            <label htmlFor="status" className="text-neutral-900 text-opacity-50">
+            <label htmlFor="AdminStatus" className="text-neutral-900 text-opacity-50">
               Trạng thái
             </label>
-            <button
-              onClick={toggleStatus}
+            {data?.AdminStatus === 1 ? (
+              <button
+                onClick={handleToggle}
+                className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] bg-[#D1F669]`}
+              >
+                Đang hoạt động
+              </button>
+            ) : (
+              <button
+                onClick={handleToggle}
+                className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] bg-[#FFD75B]`}
+              >
+                Tạm dừng
+              </button>
+            )}
+            {/* <button
+              onClick={handleToggle}
               className={`flex justify-center items-center p-3 mt-2 w-full rounded-[99px] ${statusClass}`}
             >
               {statusText}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

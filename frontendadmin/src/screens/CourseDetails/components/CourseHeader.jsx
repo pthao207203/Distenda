@@ -21,7 +21,7 @@ export function CourseHeader({ data, handleSubmit }) {
     } else if (actionType === "delete") {
       setPopupContent(
         <>
-          Bạn muốn xóa khóa học này?
+          Bạn muốn xóa người dùng này?
           <br />
           Khóa học sẽ không thể khôi phục sau khi xóa.
         </>

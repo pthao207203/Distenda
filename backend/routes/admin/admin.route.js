@@ -22,11 +22,11 @@ router.delete('/delete/:AdminID', controller.deleteItem)
 
 router.get('/edit/:AdminID', controller.editItem)
 
-router.patch(
+router.post(
   '/edit/:AdminID',
-  upload.single('AdminAvatar'),
-  uploadCloud.upload,
+  // upload.single('AdminAvatar'),
+  // uploadCloud.upload,
   // validate.createPost, 
-  controller.editPatch)
+  controller.editPost)
 
 module.exports = router;
