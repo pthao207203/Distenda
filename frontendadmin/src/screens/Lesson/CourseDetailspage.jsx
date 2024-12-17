@@ -11,46 +11,44 @@ export default function CourseDetails() {
   ];
 
   return (
-    <div className="flex flex-col grow shrink px-16 py-14 bg-white min-w-[240px] w-[1347px] max-md:px-5 max-md:max-w-full">
-      <div className="flex gap-2.5 items-start self-start text-xl font-medium leading-none text-white">
-        <ActionButton
-          icon="https://cdn.builder.io/api/v1/image/assets/TEMP/84fdfd4c4d34c64c558acb40d245b2d594b0b0f000c7b4c1dd0353682f135f9d?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-          label="Cập nhật"
-        />
-        <ActionButton
-          icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-          label="Xóa"
-          bgColor="bg-[#DF322B]"
-        />
+    <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+<div className="flex justify-between items-start mt-10 w-full max-md:max-w-full">
+  {/* Nội dung bên trái */}
+  <div className="flex flex-col gap-4">
+    <div className="text-xl font-semibold text-neutral-900">
+      Thông tin cơ bản
+    </div>
+    <div className="flex gap-10 items-center">
+      {/* Tên chương */}
+      <div className="flex flex-col font-semibold min-w-[240px] w-[270px]">
+        <div className="text-lg text-neutral-900 text-opacity-50">
+          Tên chương
+        </div>
+        <div className="mt-4 text-xl text-neutral-900 text-opacity-80">
+          Tổng quan về HTML
+        </div>
       </div>
+      {/* Trạng thái */}
+      <div className="flex gap-2 items-center text-xl font-medium leading-none">
+        <div className="text-neutral-900 text-opacity-50">Trạng thái</div>
+        <div className="px-4 py-2 bg-lime-300 rounded-[99px]">
+          Đang hoạt động
+        </div>
+      </div>
+    </div>
+  </div>
 
-      <div className="flex flex-col mt-10 w-full max-md:max-w-full">
-        <div className="text-xl font-semibold text-neutral-900 max-md:max-w-full">
-          Thông tin cơ bản
-        </div>
-        <div className="flex flex-wrap gap-10 items-start mt-6 w-full max-md:max-w-full">
-          <div className="flex flex-col font-semibold min-w-[240px] w-[270px]">
-            <div className="text-lg text-neutral-900 text-opacity-50">
-              Tên chương
-            </div>
-            <div className="mt-4 text-xl text-neutral-900 text-opacity-80">
-              Tổng quan về HTML
-            </div>
-          </div>
-          <div className="flex gap-2 items-center text-xl font-medium leading-none min-w-[240px]">
-            <div className="self-stretch my-auto text-neutral-900 text-opacity-50">
-              Trạng thái
-            </div>
-            <div className="flex flex-col justify-center self-stretch p-3 my-auto w-64 min-w-[240px] text-neutral-900">
-              <div className="flex gap-3 justify-center items-center px-3 py-2.5 w-full bg-[#D1F669] min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-                <div className="gap-2.5 self-stretch my-auto">
-                  Đang hoạt động
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  {/* Button Xóa */}
+  <div className="self-start">
+    <ActionButton
+      icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+      label="Xóa"
+      bgColor="bg-red-600"
+    />
+  </div>
+</div>
+
+
 
       <div className="flex flex-wrap gap-6 items-center mt-10 w-full text-xl max-md:max-w-full">
         <div className="self-stretch my-auto font-semibold text-neutral-900">
@@ -60,11 +58,6 @@ export default function CourseDetails() {
           <ActionButton
             icon="https://cdn.builder.io/api/v1/image/assets/TEMP/633de2d3639375a6ff1a98039c27b613549cb8289fb7e40b9d60eb0e5e6224cc?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
             label="Chỉnh sửa"
-          />
-          <ActionButton
-            icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-            label="Xóa"
-            bgColor="bg-[#DF322B]"
           />
         </div>
       </div>
@@ -78,28 +71,35 @@ export default function CourseDetails() {
         </div>
 
         <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
-          <div className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
-            <div className="flex gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-[#EBF1F9] shadow-[-6px_6px_0px_rgba(255,255,255,1)] w-[200px]">
-              <div className="gap-2.5 self-stretch my-auto">STT</div>
-            </div>
-            <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white basis-0 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-              <div className="gap-2.5 self-stretch my-auto">Tên bài</div>
-            </div>
-            <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-[#EBF1F9] basis-0 min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-              <div className="gap-2.5 self-stretch my-auto">
-                Lần cuối cập nhật
-              </div>
-            </div>
-            <div className="flex gap-3 justify-center items-center px-3 py-5 h-full text-white min-w-[240px] shadow-[-6px_6px_0px_rgba(255,255,255,1)] w-[247px]">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4ed99d5fa1c35d0b53a77a4661afcb70ba8fd8f57d1e0f756eab68f69535ca53?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-                alt=""
-                className="object-contain shrink-0 self-stretch my-auto aspect-square w-[30px]"
-              />
-              <div className="gap-2.5 self-stretch my-auto">Bài mới</div>
-            </div>
-          </div>
+  {/* Header Table */}
+  <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] h-[70px] max-md:max-w-full">
+      {/* STT */}
+      <div className="flex justify-center items-center p-3 bg-[#F3F6FC] basis-1/6 border-r border-white">
+        <span className="text-[#131313] text-xl font-medium">STT</span>
+      </div>
+
+      {/* Tên bài */}
+      <div className="flex justify-center items-center p-3 text-white basis-1/3 border-r border-white">
+        <span className="text-xl font-medium">Tên bài</span>
+      </div>
+
+      {/* Lần cuối cập nhật */}
+      <div className="flex justify-center items-center p-3 bg-[#F3F6FC] basis-1/3 border-r border-white">
+        <span className="text-[#131313] text-xl font-medium">Lần cuối cập nhật</span>
+      </div>
+
+      {/* Bài mới */}
+      <div className="flex justify-center items-center p-3 text-white basis-1/6">
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4ed99d5fa1c35d0b53a77a4661afcb70ba8fd8f57d1e0f756eab68f69535ca53?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+          alt="Bài mới"
+          className="object-contain aspect-square w-[30px]"
+        />
+        <span className="text-xl font-medium">Bài mới</span>
+      </div>
+  </div>
+
 
           {lessons.map((lesson, index) => (
             <LessonRow
