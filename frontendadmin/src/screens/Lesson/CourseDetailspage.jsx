@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import ActionButton from "./components/ActionButton";
 import LessonRow from "./components/LessonRow";
 
@@ -9,6 +10,12 @@ export default function CourseDetails() {
     { number: 3, title: "HTML cơ bản", lastUpdated: "29/11/2024 23:13" },
     { number: 4, title: "HTML cơ bản", lastUpdated: "29/11/2024 23:13" },
   ];
+
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate("/edit-question"); // Điều hướng đến trang QuestionEditorPage
+  };
 
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
@@ -56,6 +63,7 @@ export default function CourseDetails() {
           <ActionButton
             icon="https://cdn.builder.io/api/v1/image/assets/TEMP/633de2d3639375a6ff1a98039c27b613549cb8289fb7e40b9d60eb0e5e6224cc?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
             label="Chỉnh sửa"
+            onClick={handleEdit} 
           />
         </div>
       </div>

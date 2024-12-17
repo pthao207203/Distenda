@@ -29,6 +29,8 @@ import CourseAdmin from './screens/CourseAdmin/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
 import LessonDetail from './screens/Lesson/CourseDetailspage'
+import LessonEdit from './screens/Lesson/LessonEdit/QuestionEditorpage';
+import QuestionEditorpage from './screens/Lesson/LessonEdit/QuestionEditorpage';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 
@@ -88,6 +90,7 @@ function App() {
             <Route path='/courses/detail/:CourseID' element={<CourseDetails />} />
             <Route path='/chapter' element={<Chapter />} />
             <Route path='/courses/lesson/detail/:LessonID' element={<LessonDetail />} />
+            <Route path="/edit-question" element={<QuestionEditorpage />} />
             <Route path="/courses/lesson/edit/:LessonID" element={<CourseAdmin />} />
             <Route path="/courses/lesson/create" element={<CourseBuilder />} />
             {/* <Route path="/long-term-course" element={<LongTermCoursePage />} /> */}
