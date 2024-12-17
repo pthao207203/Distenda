@@ -1,21 +1,22 @@
 import React, { useState } from "react";
+import moment from 'moment';
 import PopUp from "./../../CourseCategory/components/PopUp"; // Component popup
 
-export function ChapterList() {
+export function ChapterList({ data, lessonChange }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const chapters = [
-    {
-      id: 1,
-      title: "Tổng quan về HTML",
-      lastUpdate: "29/11/2024 23:13",
-    },
-    {
-      id: 2,
-      title: "HTML cơ bản",
-      lastUpdate: "29/11/2024 23:13",
-    },
-  ];
+  // const chapters = [
+  //   {
+  //     id: 1,
+  //     title: "Tổng quan về HTML",
+  //     lastUpdate: "29/11/2024 23:13",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "HTML cơ bản",
+  //     lastUpdate: "29/11/2024 23:13",
+  //   },
+  // ];
 
   const handleAddCategoryClick = () => setIsPopupOpen(true);
   const handleClosePopup = () => setIsPopupOpen(false);
@@ -26,15 +27,15 @@ export function ChapterList() {
       <div className="flex flex-wrap gap-6 w-full max-md:max-w-full">
         <div className="self-start font-semibold">Danh sách chương</div>
         <div className="flex-1 shrink font-medium leading-none text-right basis-0 max-md:max-w-full">
-          Tổng số chương: {chapters.length}
+          Tổng số chương: {data?.lesson?.length || "0"}
         </div>
       </div>
 
       {/* Table */}
       <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
         <ChapterHeader onAddCategoryClick={handleAddCategoryClick} />
-        {chapters.map((chapter) => (
-          <ChapterRow key={chapter.id} {...chapter} />
+        {data?.lesson?.length > 0 && data.lesson.map((chapter, index) => (
+          <ChapterRow key={index} id={index} lesson={chapter} lessonChange={lessonChange} />
         ))}
       </div>
 
@@ -74,13 +75,13 @@ function ChapterHeader({ onAddCategoryClick }) {
   );
 }
 
-function ChapterRow({ id, title, lastUpdate }) {
+function ChapterRow({ id, lesson, lessonChange }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => setIsEditing(true);
   const handleCancelClick = () => setIsEditing(false);
   const handleSaveClick = () => {
-    console.log("Lưu thay đổi:", { id, title });
+    console.log("Lưu thay đổi:");
     setIsEditing(false);
   };
 
@@ -95,23 +96,24 @@ function ChapterRow({ id, title, lastUpdate }) {
       <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full basis-0 w-[240px] text-neutral-900 max-md:max-w-full">
         {isEditing ? (
           <input
+            onChange={(e) => lessonChange(lesson._id, e)}
             type="text"
-            defaultValue={title}
+            value={lesson.LessonName}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         ) : (
-          <div className="gap-2.5 self-stretch my-auto">{title}</div>
+          <div className="gap-2.5 self-stretch my-auto">{lesson.LessonName}</div>
         )}
       </div>
 
       {/* Lần cuối cập nhật */}
       <div className="flex flex-1 gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[240px]">
-        <div className="gap-2.5 self-stretch my-auto">{lastUpdate}</div>
+        <div className="gap-2.5 self-stretch my-auto">{moment(lesson?.editedBy?.[lesson.editedBy?.length - 1]?.editedAt || lesson?.createdAt).format("DD/MM/YYYY")}</div>
       </div>
 
       {/* Actions */}
       <div className="flex gap-2.5 justify-center px-3 py-2 h-full min-w-[240px] w-[258px]">
-      {isEditing ? (
+        {isEditing ? (
           <>
             {/* Button Xong */}
             <button
