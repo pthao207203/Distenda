@@ -16,6 +16,7 @@ import Dashboard from './screens/DashBoard/DashBoardPage';
 import Courses from './screens/Courses/CoursesListPage';
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
+import Chapter from './screens/Chapter/ChapterDetailspage';
 // import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
@@ -85,6 +86,7 @@ function App() {
             <Route path='/courses' element={<Courses />} />
             <Route path="/courses/create" element={<CourseCreation />} />
             <Route path='/courses/detail/:CourseID' element={<CourseDetails />} />
+            <Route path='/chapter' element={<Chapter />} />
             <Route path='/courses/lesson/detail/:LessonID' element={<LessonDetail />} />
             <Route path="/courses/lesson/edit/:LessonID" element={<CourseAdmin />} />
             <Route path="/courses/lesson/create" element={<CourseBuilder />} />
