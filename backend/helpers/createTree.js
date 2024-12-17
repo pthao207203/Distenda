@@ -3,11 +3,11 @@ let count = 0;
 const createTree = (arr, parentId = "") => {
   const tree = [];
   arr.forEach((item) => {
-    if (item.CategoryParent_id === parentId) {
+    if (item.CategoryParent_id?.toString() === parentId.toString()) {
       count++;
       const newItem = item;
       newItem.index = count;
-      const children = createTree(arr, item.id);
+      const children = createTree(arr, item._id);
       if (children.length > 0) {
         newItem.children = children;
       }

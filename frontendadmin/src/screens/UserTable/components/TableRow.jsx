@@ -37,7 +37,7 @@ function TableRow(user) {
 
       {/* Doanh thu */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">0</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{user.UserMoney}</span>
       </div>
 
       {/* Lần cuối cập nhật */}

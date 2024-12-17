@@ -26,6 +26,7 @@ import PaymentTablePage from './screens/Payment/PaymentTablePage';
 import InvoiceDetails from './screens/InvoiceDetails/InvoiceDetailsPage';
 import Login from './screens/Login/LoginAdmin'
 import CourseAdmin from './screens/CourseAdmin/CourseContent';
+import VideoDetail from './screens/VideoDetail/CourseContent';
 import CourseBuilder from './screens/CourseBuilder/CourseBuilder';
 import CourseCreation from './screens/CourseCreation/CourseCreation';
 import LessonDetail from './screens/Lesson/CourseDetailspage'
@@ -86,10 +87,11 @@ function App() {
             <Route path='/courses' element={<Courses />} />
             <Route path="/courses/create" element={<CourseCreation />} />
             <Route path='/courses/detail/:CourseID' element={<CourseDetails />} />
-            <Route path='/chapter' element={<Chapter />} />
-            <Route path='/courses/lesson/detail/:LessonID' element={<LessonDetail />} />
-            <Route path="/courses/lesson/edit/:LessonID" element={<CourseAdmin />} />
-            <Route path="/courses/lesson/create" element={<CourseBuilder />} />
+            {/* <Route path='/chapter' element={<Chapter />} /> */}
+            <Route path='/courses/lesson/detail/:LessonID' element={<Chapter />} />
+            <Route path="/courses/lesson/video/edit/:VideoID" element={<CourseAdmin />} />
+            <Route path="/courses/lesson/video/detail/:VideoID" element={<VideoDetail />} />
+            <Route path="/courses/lesson/video/create/:LessonID" element={<CourseBuilder />} />
             {/* <Route path="/long-term-course" element={<LongTermCoursePage />} /> */}
             <Route path='/user' element={<UserTable />} />
             <Route path="/user/detail/:UserID" element={<UserProfile />} />
