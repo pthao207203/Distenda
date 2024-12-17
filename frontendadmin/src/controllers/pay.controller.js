@@ -13,10 +13,10 @@ export async function payController(setLoading) {
   }
 }
 
-export async function payDetailController(_id,setLoading) {
+export async function payDetailController(PayID,setLoading) {
     try {
       setLoading(true); // Đang tải
-      const result = await payDetailService(_id); // Gọi API
+      const result = await payDetailService(PayID); // Gọi API
       console.log("result pay detail ", result);
       setLoading(false); // Tải xong
       return result;

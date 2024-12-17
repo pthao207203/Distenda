@@ -44,6 +44,12 @@ module.exports.detail = async (req, res) => {
     CourseIntructor: admin._id
   })
   admin.course = course
+
+  const role = await Role.findOne({
+    _id: admin.AdminRole_id,
+    RoleDeleted: 1,
+  });
+  admin.role = role ? role : null;
   console.log(admin)
   res.json(admin)
   // res.render("admin/pages/admin/index", {

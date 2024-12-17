@@ -7,7 +7,7 @@ import Layout from './layouts/Layout';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
-import AdminProfilespage from './screens/Admin/AdminProfiles/AdminProfilespage';
+import AdminDetailPage from './screens/Admin/AdminProfiles/AdminDetailPage';
 import AdminAccount from './screens/Admin/AdminAccount/AdminAccountPage';
 import Banner from './screens/Banner/Bannerpage';
 import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
@@ -85,13 +85,13 @@ function App() {
             <Route path='/course-details/:id' element={<CourseDetails />} /> {/* Route tới CourseDetails */}
             <Route path="/long-term-course" element={<LongTermCoursePage />} />
             <Route path='/user' element={<UserTable />} />
-            <Route path="/user-details/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
+            <Route path="/user/detail/:UserID" element={<UserProfile />} /> {/* Route tới UserProfile */}
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
             <Route path='/addadmin' element={<AddAdmin />} />
-            <Route path='/admin-profiles' element={<AdminProfilespage />} />
+            <Route path='/admin/detail/:AdminID' element={<AdminDetailPage />} />
             <Route path="/payment" element={<PaymentTablePage />} />
-            <Route path="/payment/detail/:_id" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
+            <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} /> {/* Route tới InvoiceDetails */}
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/courseadmin" element={<CourseAdmin />} />

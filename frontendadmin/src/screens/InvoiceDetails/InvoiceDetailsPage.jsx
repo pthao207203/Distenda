@@ -6,15 +6,15 @@ import { payDetailController } from "../../controllers/pay.controller";
 import Loading from "../../components/Loading"; 
 
 function InvoiceDetails() {
-  const { _id } = useParams(); // Lấy giá trị _id từ URL
-  console.log("ID from URL: ", _id);
+  const { PayID } = useParams(); // Lấy giá trị PayID từ URL
+  console.log("ID from URL: ", PayID);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       // console.log("vao")
-      const result = await payDetailController(_id,setLoading);
+      const result = await payDetailController(PayID,setLoading);
       console.log("Result from payDetailController: ", result);
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
@@ -22,7 +22,7 @@ function InvoiceDetails() {
     }
 
     fetchData();
-    }, [_id]);
+    }, [PayID]);
 
     if (loading) {
       return (

@@ -26,7 +26,7 @@ function TableHeader() {
       >
         <img
           loading="lazy"
-          src={process.env.PUBLIC_URL + "/icons/paper_plus.svg"}
+          src={process.env.PUBLIC_URL + "./icons/paper_plus.svg"}
           alt=""
           className="object-contain shrink-0 self-stretch my-auto aspect-square w-[30px]"
         />
