@@ -93,7 +93,7 @@ function App() {
             <Route path="/user/detail/:UserID" element={<UserProfile />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin/create' element={<AddAdmin />} />
-            <Route path='/admin/detail/:AdminID' element={<AdminProfilespage />} />
+            <Route path='/admin/detail/:AdminID' element={<AdminDetailPage />} />
             <Route path="/payment" element={<PaymentTablePage />} />
             <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />

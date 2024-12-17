@@ -1,34 +1,57 @@
 import React, { useState, useEffect } from 'react';
-
-// Dữ liệu hình ảnh banner (URL hình ảnh hoặc đường dẫn đến các hình ảnh mẫu)
-const bannerImages = [
-  "https://via.placeholder.com/1920x300/0000FF/808080?text=Chào+mừng+đến+với+khóa+học+của+chúng+tôi!",
-  "https://via.placeholder.com/1920x300/00FF00/808080?text=Khám+phá+các+khóa+học+mới+ngay+hôm+nay!",
-  "https://via.placeholder.com/1920x300/FF5733/808080?text=Cải+thiện+kỹ+năng+của+bạn+với+các+khóa+học+chuyên+sâu!",
-  "https://via.placeholder.com/1920x300/8E44AD/808080?text=Trở+thành+chuyên+gia+trong+lĩnh+vực+của+bạn!"
-];
+import { bannerController } from "../../../controllers/banner.controller";
 
 function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await bannerController(setLoading);
+      // console.log(result)
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+      
+    }
+
+    fetchData();
+  }, []);
 
   // Hàm chuyển sang banner kế tiếp (trượt qua trái)
   const nextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
+    if (data && data.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+    }
   };
 
   // Hàm quay lại banner trước
   const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? bannerImages.length - 1 : prevIndex - 1
-    );
+    if (data && data.length > 0) {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      );
+    }
   };
 
   // Sử dụng useEffect để tự động thay đổi banner sau mỗi 2.5 giây
   useEffect(() => {
-    const interval = setInterval(nextImage, 2500); // Trượt sau mỗi 2.5 giây
-    return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
-  }, []); // Chạy 1 lần khi component được render lần đầu tiên
+    if (data?.length) {
+      const interval = setInterval(nextImage, 2500); // Trượt sau mỗi 2.5 giây
+      return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
+    }
+  }, [data]);  // Nếu data có dữ liệu mới sẽ render lại
 
+  
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    )
+  }
+  console.log("Banner => ", data)
   return (
     <div className="relative w-full h-full">
       {/* Nút mũi tên bên trái (SVG) */}
@@ -83,10 +106,10 @@ function Banner() {
             transform: `translateX(-${currentIndex * 100}%)`, // Điều chỉnh để trượt giữa các ảnh
           }}
         >
-          {bannerImages.map((image, index) => (
+          {data && data.length > 0 && data.map((banner, index) => (
             <div key={index} className="w-full flex-shrink-0">
               <img
-                src={image}
+                src={banner?.BannerPicture || "https://via.placeholder.com/1920x300?text=No+Image"}
                 alt={`Banner ${index + 1}`}
                 className="w-full h-full object-cover"
               />
