@@ -1,40 +1,78 @@
 import React, { useState, useEffect } from 'react';
-
-// Dữ liệu hình ảnh banner (URL hình ảnh hoặc đường dẫn đến các hình ảnh mẫu)
-const bannerImages = [
-  "https://via.placeholder.com/1920x300/0000FF/808080?text=Chào+mừng+đến+với+khóa+học+của+chúng+tôi!",
-  "https://via.placeholder.com/1920x300/00FF00/808080?text=Khám+phá+các+khóa+học+mới+ngay+hôm+nay!",
-  "https://via.placeholder.com/1920x300/FF5733/808080?text=Cải+thiện+kỹ+năng+của+bạn+với+các+khóa+học+chuyên+sâu!",
-  "https://via.placeholder.com/1920x300/8E44AD/808080?text=Trở+thành+chuyên+gia+trong+lĩnh+vực+của+bạn!"
-];
+import { bannerController } from "../../../controllers/banner.controller";
 
 function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [autoSlide, setAutoSlide] = useState(true); // Thêm state để kiểm soát việc trượt tự động
+  const [timer, setTimer] = useState(null); // State để lưu timer
 
-  // Hàm chuyển sang banner kế tiếp (trượt qua trái)
+  useEffect(() => {
+    async function fetchData() {
+      const result = await bannerController(setLoading);
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // Hàm chuyển sang banner kế tiếp (trượt sang phải)
   const nextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % bannerImages.length);
+    if (data && data.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+      setAutoSlide(false); // Tắt auto-slide khi người dùng bấm nút
+      resetAutoSlideTimer(); // Khởi tạo lại timer
+    }
   };
 
-  // Hàm quay lại banner trước
+  // Hàm quay lại banner trước (trượt sang trái)
   const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? bannerImages.length - 1 : prevIndex - 1
-    );
+    if (data && data.length > 0) {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      );
+      setAutoSlide(false); // Tắt auto-slide khi người dùng bấm nút
+      resetAutoSlideTimer(); // Khởi tạo lại timer
+    }
+  };
+
+  // Hàm để reset lại timer
+  const resetAutoSlideTimer = () => {
+    if (timer) {
+      clearTimeout(timer); // Dọn dẹp timer cũ
+    }
+    // Khởi tạo timer mới để sau 2.5 giây tự động chuyển banner
+    const newTimer = setTimeout(() => {
+      setAutoSlide(true); // Bắt đầu auto-slide trở lại sau 2.5 giây
+    }, 2500);
+    setTimer(newTimer); // Lưu timer mới
   };
 
   // Sử dụng useEffect để tự động thay đổi banner sau mỗi 2.5 giây
   useEffect(() => {
-    const interval = setInterval(nextImage, 2500); // Trượt sau mỗi 2.5 giây
-    return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
-  }, []); // Chạy 1 lần khi component được render lần đầu tiên
+    if (autoSlide && data?.length) {
+      const interval = setInterval(nextImage, 2500); // Trượt sau mỗi 2.5 giây
+      return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
+    }
+  }, [autoSlide, data]); // Theo dõi autoSlide và data
+
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-full">
       {/* Nút mũi tên bên trái (SVG) */}
       <button
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
-        onClick={prevImage}
+        onClick={prevImage}  // Điều chỉnh khi nhấn vào nút trái
         aria-label="Previous"
       >
         <svg
@@ -56,7 +94,7 @@ function Banner() {
       {/* Nút mũi tên bên phải (SVG) */}
       <button
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
-        onClick={nextImage}
+        onClick={nextImage}  // Điều chỉnh khi nhấn vào nút phải
         aria-label="Next"
       >
         <svg
@@ -83,10 +121,10 @@ function Banner() {
             transform: `translateX(-${currentIndex * 100}%)`, // Điều chỉnh để trượt giữa các ảnh
           }}
         >
-          {bannerImages.map((image, index) => (
+          {data && data.length > 0 && data.map((banner, index) => (
             <div key={index} className="w-full flex-shrink-0">
               <img
-                src={image}
+                src={banner?.BannerPicture || "https://via.placeholder.com/1920x300?text=No+Image"}
                 alt={`Banner ${index + 1}`}
                 className="w-full h-full object-cover"
               />
