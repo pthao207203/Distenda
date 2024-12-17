@@ -92,3 +92,50 @@ export const adminDetailService = async (AdminID) => {
     throw new Error(error); // Thông báo lỗi
   }
 };
+
+export const adminUpdatePostService = async (AdminID, data) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/admin/edit/${AdminID}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+    });
+    // console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/admin`)
+
+    // console.log("response => ", response.text());
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("responseData => ", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+export const adminDeleteService = async (AdminID) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/admin/delete/${AdminID}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("responseData => ", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    throw new Error(error); // Thông báo lỗi
+  }
+};
