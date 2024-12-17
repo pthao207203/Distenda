@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import moment from 'moment';
 import PopUp from "./../../CourseCategory/components/PopUp"; // Component popup
 
@@ -77,6 +78,7 @@ function ChapterHeader({ onAddCategoryClick }) {
 
 function ChapterRow({ id, lesson, lessonChange }) {
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate()
 
   const handleEditClick = () => setIsEditing(true);
   const handleCancelClick = () => setIsEditing(false);
@@ -85,11 +87,15 @@ function ChapterRow({ id, lesson, lessonChange }) {
     setIsEditing(false);
   };
 
+  const onClick = () => {
+    navigate(`/courses/lesson/detail/${lesson._id}`)
+  }
+
   return (
     <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
       {/* STT */}
       <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
-        <div className="gap-2.5 self-stretch my-auto">{id}</div>
+        <div className="gap-2.5 self-stretch my-auto">{id + 1}</div>
       </div>
 
       {/* Tên chương */}
@@ -102,7 +108,7 @@ function ChapterRow({ id, lesson, lessonChange }) {
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         ) : (
-          <div className="gap-2.5 self-stretch my-auto">{lesson.LessonName}</div>
+          <button onClick={onClick} className="gap-2.5 self-stretch my-auto">{lesson.LessonName}</button>
         )}
       </div>
 
