@@ -7,7 +7,7 @@ import Layout from './layouts/Layout';
 import PublicRoutes from './layouts/PublicRoutes';
 import Main from './layouts/public/Main';
 import MainAdmin from './layouts/private/MainAdmin';
-import AdminProfilespage from './screens/Admin/AdminProfiles/AdminProfilespage';
+import AdminDetailPage from './screens/Admin/AdminProfiles/AdminDetailPage';
 import AdminAccount from './screens/Admin/AdminAccount/AdminAccountPage';
 import Banner from './screens/Banner/Bannerpage';
 import AddBanner from './screens/Banner/AddBanner/AddBannerpage';

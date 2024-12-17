@@ -6,7 +6,7 @@ import { payDetailController } from "../../controllers/pay.controller";
 import Loading from "../../components/Loading";
 
 function InvoiceDetails() {
-  const { PayID } = useParams(); // Lấy giá trị _id từ URL
+  const { PayID } = useParams(); // Lấy giá trị PayID từ URL
   console.log("ID from URL: ", PayID);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);

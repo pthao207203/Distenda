@@ -1,4 +1,4 @@
-import { adminService, adminCreateService, adminCreatePostService, adminDetailService } from '../services/admin.service';
+import { adminService, adminCreateService, adminCreatePostService, adminUpdatePostService, adminDetailService } from '../services/admin.service';
 
 export async function adminController(setLoading) {
   try {
@@ -35,6 +35,16 @@ export async function adminCreatePostController(personalInfo) {
     console.error(err); // Ghi log lỗi
   }
 }
+
+// export async function adminUpdatePostController(personalInfo) {
+//   try {
+//     const result = await adminUpdatePostService(personalInfo); // Gọi API
+//     // console.log("result admin ", result);
+//     return result;
+//   } catch (err) {
+//     console.error(err); // Ghi log lỗi
+//   }
+// }
 
 export async function adminDetailController(AdminID,setLoading) {
   try {
