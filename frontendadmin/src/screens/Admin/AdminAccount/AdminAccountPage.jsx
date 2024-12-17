@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AdminInfoField } from "./components/AdminInfo";
 import { AccountHeader } from "./components/AccountHeader";
 import { myAccountController} from "../../../controllers/myAccount.controller";
 import moment from 'moment';
+import uploadImage from "../../../components/UploadImage"
 import Loading from "../../../components/Loading"; 
 
 function ProfileCard() {
@@ -34,13 +35,14 @@ function ProfileCard() {
   const [data, setData] = useState();
   const [userFields, setUserFields] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+  const [avatar, setAvatar] = useState(""); // State lưu trữ ảnh đại diện mới
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       const result = await myAccountController(setLoading);
         if (result && result.user) {
           setData(result); // Lưu dữ liệu nếu hợp lệ
+          setAvatar(result?.user?.AdminAvatar || ""); // Gán avatar ban đầu
           const fields = [
             { label: "Họ và tên", value: result.user.AdminFullName, editable: true },
             { label: "Gmail", value: result.user.AdminEmail, editable: true },
@@ -50,9 +52,36 @@ function ProfileCard() {
           ];
           setUserFields(fields);
         }
+        setLoading(false);
     }
     fetchData();
   }, []);
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const uploadImagePreviewRef = useRef(null);
+
+   // Hàm xử lý khi upload ảnh
+   const handleAvatarChange  = async (e)  => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setAvatar(imageURL);
+      setSelectedFileName(file); // Lưu tên tệp đã chọn
+
+      if (uploadImagePreviewRef.current) {
+        uploadImagePreviewRef.current.src = imageURL;
+      }
+    }
+    try {
+      // Gọi hàm uploadImage để upload file lên Cloudinary
+      const uploadedImageUrl = await uploadImage(file);
+      console.log("Uploaded Image URL:", uploadedImageUrl);
+      setAvatar(uploadedImageUrl); // Cập nhật state avatar bằng link mới
+    } catch (error) {
+      console.error("Lỗi khi tải ảnh lên:", error);
+      alert("Đã xảy ra lỗi khi tải ảnh lên. Vui lòng thử lại.");
+    }
+  };
+
   async function updateUserInfo() {
     try {
         const updatedData = userFields.reduce((acc, field) => {
@@ -92,11 +121,12 @@ function ProfileCard() {
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
       {/* Header */}
       <AccountHeader
-        name={data?.user?.AdminFullName?.split(" ").slice(-1)[0]}
+        name={data?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
         email={data?.user?.AdminEmail}
-        avatarSrc={data?.user?.AdminAvatar}
+        avatarSrc={avatar}
         updateIconSrc="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/e9c84cc0d21b5241ee40d83334bf9289f4fc6a242a7bb8a736e90effdbd86720?apiKey=bb36f631e8e54463aa9d0d8a1339282b&"
         openPopup={openPopup}
+        onAvatarChange={handleAvatarChange} // Truyền hàm xử lý upload ảnh
       />
 
       {/* Popup xác nhận */}
