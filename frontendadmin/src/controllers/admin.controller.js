@@ -36,7 +36,7 @@ export async function adminCreatePostController(personalInfo) {
   }
 }
 
-export async function adminDetailController(AdminID,setLoading) {
+export async function adminDetailController(AdminID, setLoading) {
   try {
     setLoading(true); // Đang tải
     const result = await adminDetailService(AdminID); // Gọi API

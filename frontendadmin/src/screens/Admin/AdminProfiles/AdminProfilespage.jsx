@@ -1,6 +1,12 @@
-import * as React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import PersonalInfo from "./components/PersonalInfo";
 import CourseTableRow from "./components/CourseTableRow";
+
+import uploadImage from "../../../components/UploadImage"
+import { adminDetailController } from "../../../controllers/admin.controller";
+
+import Loading from "../../../components/Loading";
 
 const courseData = [
   {
@@ -38,8 +44,113 @@ const courseData = [
 ];
 
 function InstructorProfile() {
+  const [data, setData] = useState({});
+
+  const [loading, setLoading] = useState(false);
+
+  const editorRef = useRef(null);
+
+
+  const [imageUrl, setImageUrl] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState("");
+
+  const uploadImageInputRef = useRef(null);
+  const uploadImagePreviewRef = useRef(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      // setImageSrc(imageURL);
+      setSelectedFileName(file); // Lưu tên tệp đã chọn
+
+      if (uploadImagePreviewRef.current) {
+        uploadImagePreviewRef.current.src = imageURL;
+      }
+    }
+  };
+
+  const { AdminID } = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      // console.log("vaof")
+      setLoading(true)
+      const result = await adminDetailController(setLoading, AdminID);
+      setLoading(false)
+      // console.log(result)
+      if (result) {
+        setSelectedFileName(result.AdminAvatar)
+        setImageUrl(result.AdminAvatar)
+        setData(result)
+      }
+    }
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = async () => {
+    let uploadedImageUrl = data.BannerPicture;
+    // Upload ảnh nếu người dùng đã chọn
+    if (selectedFileName) {
+      uploadedImageUrl = await uploadImage(selectedFileName);;
+      console.log("Uploaded Image URL:", uploadedImageUrl);
+    }
+    const updatedData = {
+      ...data,
+      CoursePicture: uploadedImageUrl,
+    };
+
+    console.log("Data sent to ActionButton:", updatedData);
+    setData(updatedData)
+    return updatedData;
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+  console.log("coursedetail => ", data)
+
+  // Hàm cập nhật dữ liệu khi người dùng nhập vào
+  const handleChange = (e) => {
+    // Kiểm tra nếu e.target tồn tại (dành cho input và select)
+    if (e?.target) {
+      const { id, value } = e.target;
+      setData((prevData) => ({
+        ...prevData,
+        [id]: value, // Cập nhật theo id của input
+      }));
+    } else if (e) {
+      // Nếu không có e.target (TinyMCE)
+      setData((prevData) => ({
+        ...prevData,
+        [e.id]: e.getContent(), // Lấy nội dung từ TinyMCE và cập nhật theo id
+      }));
+    }
+  };
+
+  const handleToggle = () => {
+    setData((prevData) => ({
+      ...prevData,
+      CourseStatus:
+        prevData.CourseStatus === 1 ? 0 : 1,
+    }));
+  };
+
+  const lessonChange = (lessonID, event) => {
+    const newLessonName = event.target.value; // Lấy giá trị từ input
+    setData((prevData) => {
+      const updatedLessons = prevData.lesson.map((chapter) =>
+        chapter._id === lessonID
+          ? { ...chapter, LessonName: newLessonName, change: 1 }
+          : chapter
+      );
+      return { ...prevData, lesson: updatedLessons }; // Sử dụng 'lesson' thay vì 'lessons'
+    });
+  };
   return (
-    <div className="flex overflow-hidden flex-col px-16 pt-16 bg-white max-md:px-5">
+    <div className="flex overflow-hidden flex-col px-16 py-16 bg-white max-md:px-5">
       <div className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full">
         {/* Thông tin giảng viên */}
         <div className="flex flex-wrap flex-1 shrink gap-4 items-center basis-0 min-w-[240px] max-md:max-w-full">
@@ -51,10 +162,10 @@ function InstructorProfile() {
           />
           <div className="flex flex-col self-stretch my-auto">
             <div className="text-2xl font-semibold text-neutral-900">
-              Võ Tấn Khoa
+              {data?.AdminFullName}
             </div>
             <div className="mt-3 text-lg font-medium text-neutral-900 text-opacity-50">
-              khoavt@uit.edu.vn
+              {data?.AdminEmail}
             </div>
           </div>
         </div>

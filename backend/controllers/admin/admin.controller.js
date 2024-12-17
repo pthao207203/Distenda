@@ -36,6 +36,7 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
   const find = {
     AdminDeleted: 1,
+    AdminStatus: 1,
     _id: req.params.AdminID,
   };
 
