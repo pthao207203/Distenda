@@ -15,7 +15,7 @@ function TableHeader() {
 
       {/* Thời gian tham gia */}
       <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <span className="text-center">Doanh thu</span>
+        <span className="text-center">Chi tiêu</span>
       </div>
 
       {/* Doanh thu */}

@@ -20,9 +20,12 @@ module.exports.deleteItem = async (req, res) => {
       },
     }
   );
-
-  req.flash("success", "Xóa thành công!");
-  res.redirect("back");
+  res.json({
+    code: 200,
+    message: "Xóa thành công!"
+  })
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect("back");
 };
 
 // [GET] /admin/lesson/create/:CourseID
@@ -83,8 +86,8 @@ module.exports.editItem = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/lesson/edit/:LessonID
-module.exports.editPatch = async (req, res) => {
+// [POST] /admin/lesson/edit/:LessonID
+module.exports.editPost = async (req, res) => {
   try {
     const editedBy = {
       UserId: res.locals.user.id,
@@ -99,16 +102,25 @@ module.exports.editPatch = async (req, res) => {
       }
     );
 
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
+    // req.flash("error", "Cập nhật thất bại!");
   }
-  const find = {
-    LessonDeleted: 1,
-    _id: req.params.LessonID,
-  };
-  const lesson = await Lesson.findOne(find);
-  res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${lesson.CourseId}`);
+  // const find = {
+  //   LessonDeleted: 1,
+  //   _id: req.params.LessonID,
+  // };
+  // const lesson = await Lesson.findOne(find);
+  // res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${lesson.CourseId}`);
 };
 
 // [GET] /admin/lesson/detail/:LessonID
@@ -119,7 +131,7 @@ module.exports.detailItem = async (req, res) => {
       _id: req.params.LessonID,
     };
 
-    const lesson = await Lesson.findOne(find);
+    const lesson = await Lesson.findOne(find).lean();
 
     const course = await Course.findOne({
       _id: lesson.CourseId,
@@ -149,12 +161,18 @@ module.exports.detailItem = async (req, res) => {
       lesson.exer = exer;
     }
 
-    res.render("admin/pages/lesson/detail", {
-      pageTitle: lesson.LessonName,
-      lesson: lesson,
-    });
+    res.json(lesson)
+    // res.render("admin/pages/lesson/detail", {
+    //   pageTitle: lesson.LessonName,
+    //   lesson: lesson,
+    // });
   } catch (error) {
-    req.flash("error", "Không tìm thấy sản phẩm!");
-    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+    res.json({
+      code: 400,
+      message: "Lỗi!"
+    })
+    console.log(error)
+    // req.flash("error", "Không tìm thấy sản phẩm!");
+    // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
 };

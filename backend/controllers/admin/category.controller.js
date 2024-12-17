@@ -1,4 +1,5 @@
 const Category = require("../../models/category.model");
+const Course = require("../../models/course.model");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
 
@@ -6,16 +7,26 @@ const createTreeHelper = require("../../helpers/createTree");
 module.exports.index = async (req, res) => {
   let find = {
     CategoryDeleted: 1,
+    CategoryStatus: 1,
   };
 
-  const categories = await Category.find(find);
+  const categories = await Category.find(find).lean();
+  for (const item of categories) {
+    const count = await Course.countDocuments({
+      CourseDeleted: 1,
+      CourseCatogory: item._id
+    });
+    item.count = count
+  }
 
   const newList = createTreeHelper.tree(categories);
 
-  res.render("admin/pages/category/index", {
-    pageTitle: "Danh mục khoá học",
-    categories: newList,
-  });
+  // console.log(newList)
+  res.json(newList)
+  // res.render("admin/pages/category/index", {
+  //   pageTitle: "Danh mục khoá học",
+  //   categories: newList,
+  // });
 };
 
 // [GET] /admin/ategory/create
