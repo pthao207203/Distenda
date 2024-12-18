@@ -3,7 +3,7 @@ import PermissionRow from "./components/PermissionRow";
 import PermissionHeader from "./components/PermissionHeader";
 import ActionButtons from "./components/ActionButton";
 import { rolesController } from "../../controllers/role.controller";
-import Loading from "../../components/Loading"; 
+import Loading from "../../components/Loading";
 
 export default function PermissionTable() {
   const permissionGroups = [
@@ -73,8 +73,9 @@ export default function PermissionTable() {
 
     fetchData();
   }, []);
-
+  console.log(permissions)
   const handlePermissionChange = (roleId, permissionName, checked) => {
+    console.log(permissions)
     setPermissions((prevPermissions) => {
       const updatedPermissions = { ...prevPermissions };
       if (!updatedPermissions[roleId]) {
