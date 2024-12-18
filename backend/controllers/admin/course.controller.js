@@ -142,7 +142,6 @@ module.exports.createPost = async (req, res) => {
   req.body.CourseDiscount = req.body.CourseDiscount
     ? parseInt(req.body.CourseDiscount)
     : 0;
-  req.body.CourseStatus = req.body.CourseStatus == "active" ? 1 : 0;
   req.body.createdBy = {
     UserId: res.locals.user.id,
   };
@@ -251,8 +250,6 @@ module.exports.editPost = async (req, res) => {
   updateFields.CourseDiscount = updateFields.CourseDiscount
     ? parseInt(updateFields.CourseDiscount)
     : 0;
-  updateFields.CourseStatus = updateFields.CourseStatus == "active" ? 1 : 0;
-
   if (req.file) {
     updateFields.CoursePicture = `/uploads/${req.file.filename}`;
   }

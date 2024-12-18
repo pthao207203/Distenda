@@ -44,7 +44,7 @@ function CoursePage() {
           <Banner />
           {/* Khu vực chứa các thẻ */}
           {data && data.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-[60px] mt-10 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  justify-between gap-[60px] mt-10 w-full">
               {data.map((course, index) => (
                 <CourseCard key={index} {...course} className="" />
               ))}

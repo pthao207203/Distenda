@@ -54,7 +54,7 @@ export function CourseHeader({ data, handleSubmit }) {
 
   const closeSuccessPopup = () => {
     setSuccessPopupVisible(false);
-    window.location.reload();
+    // window.location.reload();
   };
   const closeErrorPopup = () => {
     setErrorPopupVisible(false); // Ẩn popup thành công

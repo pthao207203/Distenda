@@ -1,13 +1,13 @@
-export default function TableHeader() {
+export default function TableHeader({ onClickVideo }) {
   return (
-    <div className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
-      <div className="flex gap-3 justify-center items-center px-3 h-full whitespace-nowrap bg-indigo-50 w-[200px]">
+    <div className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
+      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] basis-0 min-w-[240px]">
         <div className="gap-2.5 self-stretch my-auto">STT</div>
       </div>
       <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white basis-0 min-w-[240px]">
         <div className="gap-2.5 self-stretch my-auto">Tên bài</div>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-indigo-50 basis-0 min-w-[240px]">
+      <div className="flex gap-3 justify-center items-center px-3 h-full whitespace-nowrap bg-[#EBF1F9] min-w-[240px]">
         <div className="gap-2.5 self-stretch my-auto">Lần cuối cập nhật</div>
       </div>
       <div className="flex gap-3 justify-center items-center px-3 h-full text-white min-w-[240px] w-[247px]">
@@ -17,7 +17,7 @@ export default function TableHeader() {
           alt=""
           className="object-contain shrink-0 self-stretch my-auto aspect-square w-[30px]"
         />
-        <div className="gap-2.5 self-stretch my-auto">Bài mới</div>
+        <button onClick={onClickVideo} className="gap-2.5 self-stretch my-auto">Bài mới</button>
       </div>
     </div>
   );
