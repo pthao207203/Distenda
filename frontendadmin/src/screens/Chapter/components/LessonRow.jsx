@@ -50,7 +50,7 @@ export default function LessonRow({ setLoading, video }) {
   };
   return (
     <>
-      <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
+      <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer">
         {/* STT */}
         <div className="flex flex-1 shrink justify-center items-center px-3 h-full bg-[#EBF1F9] shadow-md min-w-[240px]">
           <span className="text-[#131313] text-center text-xl font-medium truncate">

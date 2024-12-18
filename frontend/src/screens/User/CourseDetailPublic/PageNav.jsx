@@ -7,7 +7,7 @@ export default function PageNav(course) {
       <div className="flex gap-3 items-center self-center py-1.5 my-auto">
         <Link to='/courses' className="gap-2.5 self-stretch my-auto">Trang chủ</Link>
       </div>
-      <img loading="lazy" src="../Icon/navigate_next.svg" alt="Navigation arrow" className="object-contain shrink-0 pl-3 self-stretch my-auto aspect-square" />
+      <img loading="lazy" src="/Icon/navigate_next.svg" alt="Navigation arrow" className="object-contain shrink-0 pl-3 self-stretch my-auto aspect-square" />
       <div className="flex gap-3 items-center self-center pl-3 py-1.5 my-auto">
         <Link className="gap-2.5 self-stretch my-auto">{course.CourseName}</Link>
       </div>

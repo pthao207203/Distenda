@@ -9,6 +9,7 @@ import ThankYouPage from "../Payment/ThankYouPage";
 import Cookies from 'js-cookie';
 import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
 import { useOutletContext } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 export default function CourseDetailPage() {
   const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
@@ -73,16 +74,16 @@ export default function CourseDetailPage() {
   // Thêm chức năng đăng ký khoá học ở đây
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
-        const result = await coursePayController(setLoading, CourseSlug);
+        const result = await coursePayController( CourseSlug);
         if (result === 400) {
           // console.log("Thành công");
         }
       } catch (error) {
         console.error("Lỗi khi gọi API:", error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -109,9 +110,7 @@ export default function CourseDetailPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("course => ", data)

@@ -7,7 +7,7 @@ export default function CourseTableRow(course) {
     navigate(`/courses/detail/${course._id}`)
   }
   return (
-    <div onClick={onClick} className="flex shrink overflow-hidden mt-3 bg-white cursor-pointer h-[70px] w-full">
+    <div onClick={onClick} className="flex shrink overflow-hidden mt-3 bg-white cursor-pointer min-h-[70px] w-full">
       {/* Mã khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CategoryName}</span>

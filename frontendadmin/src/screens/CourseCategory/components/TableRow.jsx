@@ -27,7 +27,7 @@ function TableRow({ categories }) {
         return [
           <div
             key={item._id}
-            className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer"
+            className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer"
           >
             {/* ID */}
             <div className="flex flex-1 shrink gap-3 justify-center items-center bg-[#EBF1F9] px-3 h-full basis-0 w-[240px] text-neutral-900 max-md:max-w-full">

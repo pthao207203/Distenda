@@ -8,7 +8,7 @@ export default function InstructorProfile(intructor) {
       <div className="flex flex-col items-start justify-start text-lg font-semibold">
         <img
           loading="lazy"
-          src={`${intructor.AdminAvatar ? intructor.AdminAvatar : "../Icon/image.svg"}`}
+          src={`${intructor.AdminAvatar ? intructor.AdminAvatar : "/Icon/image.svg"}`}
           alt="Instructor profile"
           className="object-cover z-0 w-[230px] h-[240px] rounded-3xl"
         />

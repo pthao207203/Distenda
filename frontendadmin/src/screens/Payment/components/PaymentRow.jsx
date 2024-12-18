@@ -30,7 +30,7 @@ export default function PaymentRow({pay, onRowClick}) {
 
   return (
     <div
-      className="flex overflow-hidden flex-wrap mt-3 w-280 bg-white h-[70px] cursor-pointer"
+      className="flex overflow-hidden flex-wrap mt-3 w-280 bg-white min-h-[70px] cursor-pointer"
       onClick={() => onRowClick && onRowClick(pay)} // Truyền toàn bộ `pay` khi gọi onRowClick
     >
       {/* Mã thanh toán */}

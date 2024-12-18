@@ -13,7 +13,7 @@ export const PopupConfirm = ({ isVisible, content, onConfirm, onClose }) => {
             alt="Icon"
           />
           <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">{content}</p>
-          <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
+          <div className="mt-4 flex gap-3 justify-center items-center min-h-[70px] py-4 rounded-lg text-2xl">
             <button
               className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
               onClick={onConfirm}

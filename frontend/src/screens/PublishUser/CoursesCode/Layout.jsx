@@ -4,6 +4,7 @@ import TaskContent from "./Content";
 import CodeEditor from "./Editor";
 import { useParams } from "react-router-dom";
 import { exerciseController } from "../../../controllers/video.controller";
+import Loading from "../../../components/Loading";
 
 function CourseLayout() {
   const [data, setData] = useState();
@@ -29,9 +30,7 @@ function CourseLayout() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   // console.log("exer => ", data)

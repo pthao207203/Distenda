@@ -13,7 +13,7 @@ function CourseTableHeader() {
   };
 
   return (
-    <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] h-[70px] max-md:max-w-full">
+    <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
       {/* Mã khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-center">Tên khóa học</span>
@@ -47,9 +47,9 @@ function CourseTableHeader() {
           onClick={toggleDropdown}
         >
           <span className="text-center">Trạng thái</span>
-          <span className="transform transition-transform">
+          {/* <span className="transform transition-transform">
             {isDropdownOpen ? "▲" : "▼"}
-          </span>
+          </span> */}
         </button>
 
         {/* Dropdown */}

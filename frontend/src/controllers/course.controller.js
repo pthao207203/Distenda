@@ -26,16 +26,16 @@ export async function courseDetailController(setLoading, courseSlug) {
   }
 }
 
-export async function coursePayController(setLoading, courseSlug) {
+export async function coursePayController( courseSlug) {
   try {
-    setLoading(true); // Đang tải
+    // setLoading(true); // Đang tải
     const result = await coursePayService(courseSlug); // Gọi API
     // console.log("result course ", result);
-    setLoading(false); // Tải xong
+    // setLoading(false); // Tải xong
     return result;
   } catch (err) {
     console.error(err); // Ghi log lỗi
-    setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
+    // setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
   }
 }
 

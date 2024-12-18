@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseCard from "../MyCoursePurchased/CourseCard";
 import SearchBar from "../Course/SearchBar"; // Import SearchBar
 import { coursesCompletedController } from "../../../controllers/course.controller";
+import Loading from "../../../components/Loading";
 
 function CoursePage() {
   const [data, setData] = useState();
@@ -21,9 +22,7 @@ function CoursePage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   // console.log("courses => ", data)
