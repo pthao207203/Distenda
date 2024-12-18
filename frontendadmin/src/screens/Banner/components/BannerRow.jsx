@@ -18,22 +18,22 @@ function BannerRow({ id, index, name, linkedCourse }) {
   return (
     <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] max-md:max-w-full">
       {/* Cột ID */}
-      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+      <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center bg-[#EBF1F9]">
         <div className="text-[#131313] text-center text-xl font-medium truncate">{index}</div>
       </div>
 
       {/* Cột Tên */}
-      <div className="flex basis-1/3 min-w-0 shrink gap-3 justify-center items-center px-3 max-md:max-w-full">
+      <div className="flex basis-1/3 min-w-0 min-h-[70px] shrink gap-3 justify-center items-center px-3 max-md:max-w-full">
         <div className="text-[#131313] text-center text-xl font-medium truncate">{name}</div>
       </div>
 
       {/* Cột Khóa học liên kết */}
-      <div className="flex basis-1/4 min-w-0 shrink gap-3 justify-center items-center px-3 bg-[#EBF1F9] max-md:max-w-full">
+      <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink gap-3 justify-center items-center px-3 bg-[#EBF1F9] max-md:max-w-full">
         <div className="text-[#131313] text-center text-xl font-medium truncate">{linkedCourse}</div>
       </div>
 
       {/* Cột Hành động */}
-      <div className="flex basis-1/4 min-w-0 shrink gap-3 justify-center items-center px-3  max-md:max-w-full">
+      <div className="flex basis-1/4 min-w-0 shrink gap-3 justify-center items-center px-3 min-h-[70px] max-md:max-w-full">
         {/* Nút Sửa */}
         <button
           className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  bg-[#D1F669] rounded-[99px]"

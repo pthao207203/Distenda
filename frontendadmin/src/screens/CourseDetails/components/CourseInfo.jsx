@@ -44,7 +44,7 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
   };
 
   return (
-    <div className="flex flex-col mt-10 w-full max-md:max-w-full min-w-[240px] w-[270px]">
+    <div className="flex flex-col mt-10 w-full max-md:max-w-full min-w-[240px]">
       <div className="text-xl font-semibold text-neutral-900 max-md:max-w-full">
         Thông tin cơ bản
       </div>

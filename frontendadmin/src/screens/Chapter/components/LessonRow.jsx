@@ -52,33 +52,30 @@ export default function LessonRow({ setLoading, video }) {
     <>
       <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer">
         {/* STT */}
-        <div className="flex flex-1 shrink justify-center items-center px-3 h-full bg-[#EBF1F9] shadow-md min-w-[240px]">
+        <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink justify-center items-center px-3 bg-[#EBF1F9]  ">
           <span className="text-[#131313] text-center text-xl font-medium truncate">
             {video._id}
           </span>
         </div>
 
         {/* Tên bài học */}
-        <div className="flex flex-1 shrink justify-center items-center px-3 h-full bg-white shadow-md min-w-[240px]">
+        <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink justify-center items-center px-3 bg-white  ">
 
-          <button onClick={onClick} className="gap-2.5 self-stretch my-auto">{video.VideoName}</button>
-          {/* <span className="text-[#131313] text-center text-xl font-medium truncate">
-          {video.VideoName}
-        </span> */}
+          <button onClick={onClick} className="text-[#131313] text-center text-xl font-medium truncate">{video.VideoName}</button>
         </div>
 
         {/* Lần cuối cập nhật */}
-        <div className="flex justify-center items-center px-3 h-full w-[200px] bg-[#EBF1F9] shadow-md min-w-[240px]">
+        <div className="flex basis-1/4 min-w-0 min-h-[70px] justify-center items-center px-3 bg-[#EBF1F9] ">
           <span className="text-[#131313] text-center text-xl font-medium truncate">
             {moment(video?.editedBy?.[video.editedBy?.length - 1]?.editedAt || video?.createdAt).format("DD/MM/YYYY")}
           </span>
         </div>
 
         {/* Hành động */}
-        <div className="flex gap-2.5 justify-center px-3 py-2 h-full min-w-[240px] w-[247px]">
+        <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-2.5 justify-center px-3 py-2">
           {/* Button Sửa */}
           <button
-            className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+            className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3 bg-[#D1F669] rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
             onClick={handleEditClick}
           >
             <div className="gap-2.5 self-stretch my-auto">Sửa</div>
@@ -86,9 +83,9 @@ export default function LessonRow({ setLoading, video }) {
           {/* Button Xóa */}
           <button
             onClick={handleDeleteClick}
-            className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white bg-[#DF322B] basis-0 rounded-[99px] hover:bg-red-700 transition-colors"
+            className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3 text-white bg-[#DF322B] rounded-[99px] hover:bg-red-700 transition-colors"
           >
-            <div className="gap-2.5 self-stretch my-auto">Xóa</div>
+            <div className="self-center shrink w-[90%] max-w-full px-4 py-2 rounded-[99px] justify-center items-center inline-flex text-center text-xl font-medium">Xóa</div>
           </button>
         </div>
 
