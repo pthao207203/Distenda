@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import ProfileForm from "./ProfileForm";
 import { userController, userPostController } from "../../../controllers/user.controller";
 import axios from "axios";
@@ -74,7 +75,7 @@ function ProfilePage() {
       if (response.code === 200) {
         alert("Cập nhật thành công!");
         setData(response.updatedData); // Cập nhật lại dữ liệu trên giao diện
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       console.error("Error updating user data:", error);
@@ -89,6 +90,10 @@ function ProfilePage() {
   }
 
   return (
+    <>
+    <Helmet>
+        <title>Thông tin tài khoản</title>
+    </Helmet>
     <div
       className="flex flex-col w-full min-h-screen"
       style={{ backgroundColor: "rgba(255, 255, 255, 0.03)" }}
@@ -152,6 +157,7 @@ function ProfilePage() {
         </section>
       </div>
     </div>
+  </>
   );
 }
 
