@@ -98,7 +98,7 @@ function DashboardPage() {
                     <span className="ml-3">Thoát trang</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-[30px] h-[30px] bg-blue-900 rounded-full"></div>
+                    <div className="w-[30px] h-[30px] bg-[#6C8299] rounded-full"></div>
                     <span className="ml-3">Xem chi tiết</span>
                   </div>
                   <div className="flex items-center">
