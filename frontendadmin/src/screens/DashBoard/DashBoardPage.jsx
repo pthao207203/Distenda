@@ -62,7 +62,7 @@ function DashboardPage() {
     <div className="flex flex-col w-full min-h-screen">
       {/* Stats Section */}
       <main>
-        <div className="max-w-full flex flex-col items-center w-full p-[60px] font-medium bg-white basis-0 max-md:p-5 max-md:max-w-full">
+        <div className="max-w-full flex flex-col items-center w-full p-16 font-medium bg-white basis-0 max-md:p-5 max-md:max-w-full">
           <div className="flex flex-1 flex-wrap flex-grow shrink gap-4 w-full justify-evenly items-center text-white max-md:max-w-full">
             {stats.map((stat, index) => (
               <StatCard key={index} {...stat} />

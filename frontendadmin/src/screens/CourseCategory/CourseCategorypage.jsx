@@ -56,16 +56,16 @@ function CourseTable() {
 
           {/* Header Bảng */}
           <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
-            <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3 bg-[#EBF1F9]">
               <span className="text-center">STT</span>
             </div>
-            <div className="flex flex-1 justify-center items-center px-3 text-white">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] justify-center items-center px-3 text-white">
               <span className="text-center">Tên</span>
             </div>
-            <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3 bg-[#EBF1F9] ">
               <span className="text-center">Số khóa học</span>
             </div>
-            <div className="flex justify-center items-center px-3 text-white w-[258px]">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] justify-center items-center px-3 text-white">
               <button
                 className="flex items-center gap-2 text-center"
                 onClick={handleAddCategoryClick}
@@ -76,7 +76,7 @@ function CourseTable() {
                   alt="Icon"
                   className="w-[30px] aspect-square"
                 />
-                <span className="text-center">Danh mục mới</span>
+                <span className="text-center max-md:hidden">Danh mục mới</span>
               </button>
             </div>
           </div>

@@ -57,7 +57,7 @@ export default function CourseContent() {
       <main className="flex overflow-hidden flex-col bg-[#EBF1F9]">
         {/* <CourseHeader /> */}
         {/* <NavigationBreadcrumb /> */}
-        <section className="flex overflow-hidden flex-col px-16 pt-8 w-full bg-white max-md:px-5 max-md:max-w-full">
+        <section className="flex overflow-hidden flex-col px-16 pt-8 w-full bg-white max-md:px-5 min-h-screen max-md:max-w-full">
           <div className="flex flex-col pb-16 w-full max-md:max-w-full">
             <div className="flex flex-wrap gap-10 items-end w-full font-medium leading-none max-md:max-w-full">
               <div className="flex flex-col flex-1 shrink justify-center text-xl basis-0 min-w-[240px] max-md:max-w-full">
