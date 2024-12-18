@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseCard({ onRegister, ...course }) {
   // console.log("course", course)
   // console.log("intructor", course.intructor.AdminFullName)
   let lessons = [];
+  const navigate = useNavigate()
 
   // Kiểm tra xem course.lesson có tồn tại và là một đối tượng hay mảng
   if (Array.isArray(course.lesson)) {
@@ -37,6 +39,10 @@ export default function CourseCard({ onRegister, ...course }) {
     { label: "Giảng viên", value: `${course.intructor ? course.intructor.AdminFullName : "Không có"}` },
   ];
 
+  const onChange = () => {
+    navigate(`/courses/CoursePurchased/${course.CourseSlug}`)
+  }
+
   return (
     <article className="inline-flex relative flex-col self-end px-[1.3rem] pt-2.5 justify-start items-start gap-6 pb-20 mt-24 md:mr-16 max-w-full bg-white max-md:w-full max-md:pb-5 max-md:mt-10 max-md:mr-0">
       <img
@@ -60,7 +66,7 @@ export default function CourseCard({ onRegister, ...course }) {
           </span>
         </div>
       </div>
-
+      {!course.has ? (
         <button
           onClick={onRegister} // Gọi hàm được truyền từ parent
           className="flex justify-center items-center px-3 py-2 w-full text-xl font-medium leading-none bg-[#CFF500] min-h-[60px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
@@ -68,7 +74,15 @@ export default function CourseCard({ onRegister, ...course }) {
         >
           Đăng ký ngay
         </button>
-
+      ):(
+        <button
+          onClick={onChange} // Gọi hàm được truyền từ parent
+          className="flex justify-center items-center px-3 py-2 w-full text-xl font-medium leading-none bg-[#CFF500] min-h-[60px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
+          tabIndex={0}
+        >
+          Vào học ngay
+        </button>
+      )}
       <section className="flex flex-col px-[0.8rem] w-full text-lg justify-start gap-4 items-start">
         {courseDetails.map((detail, index) => (
           <div key={index} className="inline-flex justify-between items-start gap-5 first:mt-0 w-full">
