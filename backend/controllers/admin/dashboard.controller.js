@@ -20,7 +20,7 @@ module.exports.dashboard = async (req, res) => {
 
   // Tính thời gian 24 giờ trước
   const twentyFourHoursAgo = new Date();
-  twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
+  twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 168);
   const pay = await Pay.find({
     "createdBy.createdAt": { $gte: twentyFourHoursAgo }
   })
@@ -34,7 +34,7 @@ module.exports.dashboard = async (req, res) => {
 
   // Tính thời gian 48 giờ trước
   const fortyEightHoursAgo = new Date();
-  fortyEightHoursAgo.setHours(fortyEightHoursAgo.getHours() - 48);
+  fortyEightHoursAgo.setHours(fortyEightHoursAgo.getHours() - 336);
   const payMonthAgo = await Pay.find({
     "createdBy.createdAt": { $gte: fortyEightHoursAgo, $lte: twentyFourHoursAgo }
   })

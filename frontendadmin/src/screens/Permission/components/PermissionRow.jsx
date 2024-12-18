@@ -31,13 +31,16 @@ export default function PermissionRow({ index, permission, isFirst, roles, onPer
         });
       }
     });
-  }, [roles, permission]);
+  }, []);
 
   // Hàm xử lý khi thay đổi trạng thái checkbox
   const handleCheckboxChange = (roleIndex) => {
     const updatedStates = [...checkboxStates];
+    // console.log("checkboxStates", updatedStates)
     updatedStates[roleIndex] = !updatedStates[roleIndex]; // Đảo trạng thái checkbox
+    console.log("checkboxStates", updatedStates)
     setCheckboxStates(updatedStates);
+    console.log("checkboxStates", checkboxStates)
 
     // Gửi dữ liệu về `PermissionTable`
     const roleId = roles[roleIndex]._id; // Lấy `roleId` chính xác
@@ -59,21 +62,43 @@ export default function PermissionRow({ index, permission, isFirst, roles, onPer
         >
           <div className="flex justify-center items-center w-full relative">
             {/* Checkbox chính */}
-            <input
+            {isChecked ? (
+              <>
+                <input
+                  type="checkbox"
+                  checked={isChecked} // Liên kết trạng thái với state
+                  onChange={() => handleCheckboxChange(index)} // Gọi hàm khi thay đổi trạng thái
+                  className={`w-5 h-5 cursor-pointer appearance-none rounded-[4px] border border-gray-300 bg-[#6C8299]`} // Hiển thị màu bên trong checkbox
+                />
+                <img
+                  src={`${process.env.PUBLIC_URL}/icons/check.svg`}
+                  alt="Checked"
+                  className="absolute w-4 h-4 pointer-events-none" // Không chặn sự kiện click
+                />
+              </>
+            ) : (
+              <input
+                type="checkbox"
+                checked={isChecked} // Liên kết trạng thái với state
+                onChange={() => handleCheckboxChange(index)} // Gọi hàm khi thay đổi trạng thái
+                className={`w-5 h-5 cursor-pointer appearance-none rounded-[4px] border border-gray-300 bg-white`} // Hiển thị màu bên trong checkbox
+              />
+            )}
+            {/* <input
               type="checkbox"
               checked={isChecked} // Liên kết trạng thái với state
               onChange={() => handleCheckboxChange(index)} // Gọi hàm khi thay đổi trạng thái
               className={`w-5 h-5 cursor-pointer appearance-none rounded-[4px] border border-gray-300 ${isChecked ? "bg-[#6C8299]" : "bg-white"
                 }`} // Hiển thị màu bên trong checkbox
-            />
+            /> */}
             {/* Hiển thị hình ảnh khi checkbox được tick */}
-            {isChecked && (
+            {/* {isChecked && (
               <img
                 src={`${process.env.PUBLIC_URL}/icons/check.svg`}
                 alt="Checked"
                 className="absolute w-4 h-4 pointer-events-none" // Không chặn sự kiện click
               />
-            )}
+            )} */}
           </div>
         </div>
       ))}
