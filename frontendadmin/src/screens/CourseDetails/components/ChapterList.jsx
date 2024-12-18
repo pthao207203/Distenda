@@ -49,29 +49,27 @@ export function ChapterList({ data, lessonChange }) {
 function ChapterHeader({ onAddCategoryClick }) {
   return (
     <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
-      <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
+      <div className="flex basis-1/6 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3 bg-[#EBF1F9]">
         <span className="text-center">STT</span>
       </div>
-      <div className="flex flex-1 justify-center items-center px-3 text-white">
+      <div className="flex basis-1/4 min-w-0 min-h-[70px] justify-center items-center px-3 text-white">
         <span className="text-center">Tên chương</span>
       </div>
-      <div className="flex flex-1 gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
+      <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3 bg-[#EBF1F9]">
         <span className="text-center">Lần cuối cập nhật</span>
       </div>
-      <div className="flex justify-center items-center px-3 text-white w-[258px]">
-        <button
-          className="flex items-center gap-2 text-center"
-          onClick={onAddCategoryClick}
-        >
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/e8c4b8a9ea3e04a3f28765b51e5832394bc0fb959c8132d5d62ff26652eebc19?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-            alt="Icon"
-            className="w-[30px] aspect-square"
-          />
-          <span className="text-center">Chương mới</span>
-        </button>
-      </div>
+      <button
+          className="flex basis-1/3 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  text-white"
+        onClick={onAddCategoryClick}
+      >
+        <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/e8c4b8a9ea3e04a3f28765b51e5832394bc0fb959c8132d5d62ff26652eebc19?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+          alt="Icon"
+          className="w-[30px] aspect-square"
+        />
+        <span className="text-center">Chương mới</span>
+      </button>
     </div>
   );
 }
@@ -87,50 +85,50 @@ function ChapterRow({ id, lesson, lessonChange }) {
     setIsEditing(false);
   };
 
-  const onClick = () => {
+  const handleRowClick = () => {
     navigate(`/courses/lesson/detail/${lesson._id}`)
   }
 
   return (
-    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer">
+    <div className="flex overflow-hidden mt-3 w-full bg-white  text-neutral-900 min-h-[70px] cursor-pointer" onClick={handleRowClick}>
       {/* STT */}
-      <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
-        <div className="gap-2.5 self-stretch my-auto">{id + 1}</div>
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <div className="text-[#131313] text-center text-xl font-medium truncate">{id + 1}</div>
       </div>
 
       {/* Tên chương */}
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full basis-0 w-[240px] text-neutral-900 max-md:max-w-full">
+      <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink gap-3 justify-center items-center px-3   text-neutral-900 max-md:max-w-full">
         {isEditing ? (
           <input
             onChange={(e) => lessonChange(lesson._id, e)}
             type="text"
             value={lesson.LessonName}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 text-[#131313] text-center text-xl font-medium truncate focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         ) : (
-          <button onClick={onClick} className="gap-2.5 self-stretch my-auto">{lesson.LessonName}</button>
+          <button className="text-[#131313] text-center text-xl font-medium truncate">{lesson.LessonName}</button>
         )}
       </div>
 
       {/* Lần cuối cập nhật */}
-      <div className="flex flex-1 gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[240px]">
-        <div className="gap-2.5 self-stretch my-auto">{moment(lesson?.editedBy?.[lesson.editedBy?.length - 1]?.editedAt || lesson?.createdAt).format("DD/MM/YYYY")}</div>
+      <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  bg-[#EBF1F9] text-neutral-900 w-[240px]">
+        <div className="text-[#131313] text-center text-xl font-medium truncate">{moment(lesson?.editedBy?.[lesson.editedBy?.length - 1]?.editedAt || lesson?.createdAt).format("DD/MM/YYYY")}</div>
       </div>
 
       {/* Actions */}
-      <div className="flex gap-2.5 justify-center px-3 py-2 h-full min-w-[240px] w-[258px]">
+      <div className="flex basis-1/3 min-w-0 min-h-[70px] gap-2.5 justify-center px-3 py-2 bg-white">
         {isEditing ? (
           <>
             {/* Button Xong */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  bg-[#D1F669] rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleSaveClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Xong</div>
             </button>
             {/* Button Hủy */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-gray-300 basis-0 rounded-[99px] text-neutral-900 hover:bg-gray-400 transition-colors"
+              className="flex basis-1/2 min-w-0 justify-center items-center px-3  rounded-[99px] shrink gap-3 bg-gray-300 text-neutral-900 hover:bg-gray-400 transition-colors"
               onClick={handleCancelClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Hủy</div>
@@ -140,14 +138,14 @@ function ChapterRow({ id, lesson, lessonChange }) {
           <>
             {/* Button Sửa */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
+              className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  bg-[#D1F669] rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors"
               onClick={handleEditClick}
             >
               <div className="gap-2.5 self-stretch my-auto">Sửa</div>
             </button>
             {/* Button Xóa */}
             <button
-              className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white bg-[#DF322B] basis-0 rounded-[99px] hover:bg-red-700 transition-colors"
+              className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  text-white bg-[#DF322B] rounded-[99px] hover:bg-red-700 transition-colors"
             >
               <div className="gap-2.5 self-stretch my-auto">Xóa</div>
             </button>

@@ -5,7 +5,7 @@ import TableHeader from "./components/TableHeader";
 import StatusBadge from "./components/StatusBadge";
 import EditButton from "./components/EditButton";
 import DeleteButton from "./components/DeleteButton";
-import uploadImage from "../../components/UploadImage"
+import uploadImage from "../../components/UploadImage";
 import { lessonDetailController } from "../../controllers/lesson.controller"
 
 import Loading from "../../components/Loading";

@@ -35,10 +35,7 @@ export default function CourseContent() {
     return <Loading />;
   } else
     return (
-      <main className="flex overflow-hidden flex-col bg-[#EBF1F9]">
-        {/* <CourseHeader /> */}
-        {/* <NavigationBreadcrumb /> */}
-        <section className="flex overflow-hidden flex-col px-16 pt-8 w-full bg-white max-md:px-5 max-md:max-w-full">
+        <section className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full overflow-hidden">
           <div className="flex flex-col pb-16 w-full max-md:max-w-full h-full">
             <form className="flex flex-wrap gap-10 items-end w-full font-medium leading-none max-md:max-w-full">
               <div className="flex flex-col flex-1 shrink justify-center text-xl basis-0 min-w-[240px] max-md:max-w-full">
@@ -84,6 +81,5 @@ export default function CourseContent() {
             <VideoSection video={data} />
           </div>
         </section>
-      </main>
     );
 }

@@ -10,17 +10,6 @@ import { courseDetailController } from "../../controllers/course.controller";
 
 import Loading from "../../components/Loading";
 
-function Breadcrumb() {
-  return (
-    <nav className="flex items-center text-sm font-medium text-neutral-600">
-      <Link to="/courses" className="hover:underline text-neutral-900">
-        Khóa học
-      </Link>
-      <span className="mx-2 text-neutral-400">›</span>
-      <span className="text-neutral-900">HTML cơ bản</span>
-    </nav>
-  );
-}
 
 function CourseDetails() {
   const [data, setData] = useState({});
@@ -143,7 +132,6 @@ function CourseDetails() {
 
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-      <Breadcrumb />
       <CourseHeader data={data} handleSubmit={handleSubmit} />
       <CourseImage data={data} uploadImageInputRef={uploadImageInputRef} uploadImagePreviewRef={uploadImagePreviewRef} handleImageChange={handleImageChange} imageUrl={imageUrl} />
       <CourseInfo data={data} category={category} intructor={intructor} handleChange={handleChange} handleToggle={handleToggle} editorRef={editorRef} />
