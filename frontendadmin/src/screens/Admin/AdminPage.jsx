@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import AdminTable from "./components/AdminTable";
 import AddAccountButton from "./components/AddAccountButton";
 import SearchBar from "../../layouts/private/SearchBar";
@@ -29,6 +30,10 @@ function AdminLayout() {
   console.log("Admin => ", data)
   const totalAdmin = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
   return (
+    <>
+      <Helmet>
+        <title>Quản trị viên</title>
+      </Helmet>
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <AddAccountButton />
       <section className="flex flex-wrap gap-3 mt-3 max-md:max-w-full">
@@ -39,8 +44,6 @@ function AdminLayout() {
           Tổng số quản trị viên: {totalAdmin}
         </div>
       </div>
-
-
       {/* Bảng quản lý admin */}
       <section className="flex flex-col mt-3 w-full text-[#131313] max-md:max-w-full">
         {/* Header của bảng */}
@@ -80,6 +83,7 @@ function AdminLayout() {
         ))}
       </section>
     </main>
+  </>
   );
 }
 
