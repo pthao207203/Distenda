@@ -136,3 +136,51 @@ export const videoDeleteService = async (VideoID) => {
     throw new Error(error); // Thông báo lỗi
   }
 };
+
+export const exerciseDetailService = async (LessonID) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/exercise/detail/${LessonID}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    // console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/courses`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    console.log(error)
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+export const exerciseUpdatePostService = async (LessonID, data) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/exercise/edit/${LessonID}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+    });
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/courses/edit/${LessonID}`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    console.log("error", error)
+    throw new Error(error); // Thông báo lỗi
+  }
+};
