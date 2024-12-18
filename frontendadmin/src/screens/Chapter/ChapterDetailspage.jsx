@@ -24,7 +24,7 @@ function CourseLesson() {
   const navigate = useNavigate()
 
   const onClickExercise = () => {
-    navigate(``)
+    navigate(`/courses/lesson/exercise/create/${data._id}`)
   }
 
   const onClickVideo = () => {
