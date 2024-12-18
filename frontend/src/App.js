@@ -21,6 +21,7 @@ import CoursesCode from './screens/PublishUser/CoursesCode/Layout';
 import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
 import UserProfile from './screens/User/ProfileUser/ProfilePage';
+import UserNotification from './screens/User/Notification/NotificationsPage';
 
 import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
 import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
@@ -63,6 +64,7 @@ function App() {
           <Route element={<UserRoutes />}>
             <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
+              <Route path='/user/notification' element={<UserNotification />} />
             </Route>
             <Route element={<MainPublic />} >
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />

@@ -18,7 +18,7 @@ const Courses = () => {
     setIsTaskBarVisible((prev) => !prev); // Đảo trạng thái hiển thị TaskBar
   };
   return (
-    <div className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
+    <div className="bg-[url('/Image/BG.png')] overflow-x-hidden bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
       {token ? <HeaderPrivate setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} /> : <HeaderPublic setHeight={setHeight} />}
       <div
         style={{

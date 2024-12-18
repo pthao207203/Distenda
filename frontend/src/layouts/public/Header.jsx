@@ -57,7 +57,7 @@ export default function Header({ setHeight }) {
   return (
     <header
       ref={headerRefPublic}
-      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
     >
       <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
         <div className="text-6xl uppercase font-['Squada One']">

@@ -23,8 +23,11 @@ function TaskBar() {
   const handleProfileNavigation = () => {
     navigate("/user/profile"); // Điều hướng đến trang profile
   };
+  const handleNotiNavigation = () => {
+    navigate("/user/notification"); // Điều hướng đến trang profile
+  };
   const menuItems = [
-    { text: "Thông báo" },
+    { text: "Thông báo", onClick: handleNotiNavigation },
     { text: "Thông tin học viên", onClick: handleProfileNavigation },
     { text: "Đăng xuất", onClick: handleLogout }
   ];
