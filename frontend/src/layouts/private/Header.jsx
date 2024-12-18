@@ -65,7 +65,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   return (
     <header
       ref={headerRef}
-      className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
     >
       <div className="flex items-center justify-between px-[60px] py-3 text-white lg:gap-5 max-md:pr-[20px] ">
         {/* Logo */}

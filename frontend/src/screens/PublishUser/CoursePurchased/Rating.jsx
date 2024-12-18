@@ -81,18 +81,18 @@ const ReviewSection = () => {
     <div className="flex flex-col justify-center items-center mt-10 px-16 max-md:px-5">
       <div className="flex flex-col w-full text-3xl font-semibold text-white max-md:max-w-full">
         <div className="max-md:max-w-full">Đánh giá</div>
-        <div className="flex mt-2.5 w-full bg-slate-300 min-h-[2px] max-md:max-w-full" />
+        <div className="flex mt-2.5 w-full bg-[#CDD5DF] min-h-[2px] max-md:max-w-full" />
       </div>
       <div className="justify-center items-center w-full max-w-[1542px]">
         <StarRating />
-        <div className="flex mt-[20px] max-w-full bg-slate-300 bg-opacity-50 min-h-[137px] p-[20px]">
+        <div>
           <textarea
             ref={textAreaRef}
             value={review}
             onChange={handleChange}
             placeholder="Nhập đánh giá của bạn tại đây..."
-            className="w-full min-h-[137px] p-2 bg-transparent border-2 border-gray-400 rounded-md text-black focus:outline-none focus:border-white overflow-y-hidden"
-            disabled={isSubmitted} // Disable textarea khi đã đăng
+            className="flex z-20 mt-[20px] bg-[#CDD5DF] bg-opacity-50 min-h-[137px] p-3 relative w-full border-2 border-gray-400 rounded-md text-white text-xl focus:border-white placeholder-white"
+            disabled={isSubmitted}
           />
         </div>
         <div className="flex flex-col justify-center items-end mt-5 w-full text-xl font-semibold leading-none whitespace-nowrap text-neutral-900 max-md:max-w-full">

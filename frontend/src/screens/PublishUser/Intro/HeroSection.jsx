@@ -1,8 +1,9 @@
 import React from 'react';
 import InfoCards from './InfoCards'; 
+import { Link } from 'react-router-dom';
 
 function HeroSection() {
-  return (
+    return (
     <section
       className="flex relative flex-col items-start mt-5 max-w-full md:container"
       style={{
@@ -18,13 +19,13 @@ function HeroSection() {
           Với khóa học chuyên sâu, lộ trình rõ ràng và giảng viên tận tâm, chúng tôi đồng hành cùng bạn trên hành trình trở thành chuyên gia IT!
         </p>
       </div>
-      <button className="flex gap-10 justify-center items-center px-10 py-3 mt-2 text-xl border-0 font-semibold  text-black bg-[#CFF500] lg:ml-[100px] max-md:ml-[5px]">
-        Bắt đầu
+      <button 
+       className="flex gap-10 justify-center items-center px-10 py-3 mt-2 text-xl border-0 font-semibold  text-black bg-[#CFF500] lg:ml-[100px] max-md:ml-[5px]">
+        <Link to="/login">Bắt đầu</Link>
       </button>
       <div className="lg:ml-[100px] max-md:ml-[5px] max-md:container">
         <InfoCards />
       </div>
-
     </section>
   );
 }
