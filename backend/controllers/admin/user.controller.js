@@ -70,17 +70,21 @@ module.exports.createPost = async (req, res) => {
   res.redirect(`${systemConfig.prefixAdmin}/user`);
 };
 
-// // [PATCH] /admin/user/change-status/:status/:UserID
-// module.exports.changeStatus = async (req, res) => {
-//   const status = req.params.status;
-//   const CategoryID = req.params.CategoryID;
+// [POST] /admin/user/change-status/:status/:UserID
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const UserID = req.params.UserID;
 
-//   await Category.updateOne({ _id: CategoryID}, {CategoryStatus: status == "active"?1:0})
+  await User.updateOne({ _id: UserID }, { UserStatus: status == "active" ? 1 : 0 })
 
-//   req.flash('success', 'Cập nhật trạng thái thành công');
+  res.json({
+    code: 200,
+    message: "Cập nhật thành công!"
+  })
 
-//   res.redirect('back')
-// }
+  // req.flash('success', 'Cập nhật trạng thái thành công');
+  // res.redirect('back')
+}
 
 // [DELETE] /admin/user/delete/:UserID
 module.exports.deleteItem = async (req, res) => {

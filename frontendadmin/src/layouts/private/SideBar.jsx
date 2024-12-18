@@ -102,7 +102,7 @@ export default function SideBar({ headerHeight }) {
                   src={item.icon}
                   alt=""
                   className="object-contain"
-                  style={{ width: "36px", height: "36px" }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <span>{item.label}</span>
               </div>

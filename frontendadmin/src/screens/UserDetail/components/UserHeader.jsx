@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import BlockUserModal from './BlockUserModal';
+import Loading from '../../../components/Loading'
+import { userUnblockController, userBlockController } from "../../../controllers/user.controller"
 
-function UserHeader({data}) {
+function UserHeader({ data }) {
   // State để kiểm soát hiển thị popup và trạng thái chặn người dùng
+  const [loading, setLoading] = useState(false)
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [isBlocked, setIsBlocked] = useState(false); // Trạng thái chặn người dùng
+  const [isBlocked, setIsBlocked] = useState(!data?.UserStatus); // Trạng thái chặn người dùng
 
   // Hàm mở popup
   const showPopup = () => {
@@ -17,16 +20,29 @@ function UserHeader({data}) {
   };
 
   // Hàm xử lý khi xác nhận chặn người dùng
-  const handleBlockUser = () => {
-    setIsBlocked(true); // Chuyển trạng thái thành "đã chặn"
-    setIsPopupVisible(false); // Đóng popup
+  const handleBlockUser = async () => {
+    const result = await userBlockController(setLoading, data._id)
+    if (result.code === 200) {
+      setIsBlocked(true); // Chuyển trạng thái thành "đã chặn"
+      setIsPopupVisible(false); // Đóng popup
+    }
   };
 
   // Hàm xử lý khi xác nhận bỏ chặn người dùng
-  const handleUnblockUser = () => {
-    setIsBlocked(false); // Chuyển trạng thái thành "không bị chặn"
-    setIsPopupVisible(false); // Đóng popup
+  const handleUnblockUser = async () => {
+    // Gọi API đổi trạng thái
+    const result = await userUnblockController(setLoading, data._id)
+    if (result.code === 200) {
+      setIsBlocked(false); // Chuyển trạng thái thành "không bị chặn"
+      setIsPopupVisible(false); // Đóng popup
+    }
   };
+
+  if (loading) {
+    return (
+      <Loading />
+    )
+  }
 
   return (
     <div className="flex flex-wrap gap-3 items-center w-full font-medium max-md:max-w-full">
@@ -43,14 +59,14 @@ function UserHeader({data}) {
           </div>
           <div className="flex gap-1 items-center self-start mt-3">
             <div className="self-stretch my-auto text-neutral-900 text-opacity-50">
-              Tổng hóa đơn: 
+              Tổng hóa đơn:
             </div>
             <div className="self-stretch my-auto text-neutral-900">
-              {data.UserMoney ? data.UserMoney : 0 }
+              {data.UserMoney ? data.UserMoney : 0}
             </div>
           </div>
           <div className="mt-3 text-neutral-900 text-opacity-50">
-          {data.UserEmail}
+            {data.UserEmail}
           </div>
         </div>
       </div>
@@ -62,11 +78,11 @@ function UserHeader({data}) {
           aria-label="Block user"
           onClick={showPopup} // Mở popup để xác nhận bỏ chặn
         >
-        <img
-          src={`${process.env.PUBLIC_URL}/icons/unlock.svg`}
-          className="object-contain shrink-0 my-auto w-6 aspect-square"
-          alt="Unlock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
-        />
+          <img
+            src={`${process.env.PUBLIC_URL}/icons/unlock.svg`}
+            className="object-contain shrink-0 my-auto w-6 aspect-square"
+            alt="Unlock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
+          />
           <span className="gap-2.5 self-stretch my-auto">Bỏ chặn</span>
         </button>
       ) : (
@@ -75,11 +91,11 @@ function UserHeader({data}) {
           aria-label="Block user"
           onClick={showPopup} // Mở popup để xác nhận chặn
         >
-        <img
-          src={`${process.env.PUBLIC_URL}/icons/lock.svg`}
-          className="object-contain shrink-0 my-auto w-6 aspect-square"
-          alt="Lock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
-        />
+          <img
+            src={`${process.env.PUBLIC_URL}/icons/lock.svg`}
+            className="object-contain shrink-0 my-auto w-6 aspect-square"
+            alt="Lock icon" // Cung cấp thông tin alt nếu icon mang ý nghĩa quan trọng
+          />
           <span className="gap-2.5 self-stretch my-auto">Chặn</span>
         </button>
       )}

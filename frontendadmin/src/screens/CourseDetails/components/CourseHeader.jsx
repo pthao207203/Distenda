@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { courseUpdatePostController } from "../../../controllers/course.controller";
 
-export function CourseHeader() {
+import { PopupConfirm } from "../../../components/PopupConfirm";
+import { PopupSuccess } from "../../../components/PopupSuccess";
+import { PopupError } from "../../../components/PopupError";
+import Loading from "../../../components/Loading";
+
+export function CourseHeader({ data, handleSubmit }) {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [popupContent, setPopupContent] = useState("");
   const [successPopupVisible, setSuccessPopupVisible] = useState(false);
+  const [errorPopupVisible, setErrorPopupVisible] = useState(false); // Trạng thái hiển thị popup thành công
   const [action, setAction] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handlePopup = (actionType) => {
     setAction(actionType);
@@ -13,12 +21,12 @@ export function CourseHeader() {
     } else if (actionType === "delete") {
       setPopupContent(
         <>
-          Bạn muốn xóa khóa học này?
+          Bạn muốn xóa người dùng này?
           <br />
           Khóa học sẽ không thể khôi phục sau khi xóa.
         </>
       );
-          }
+    }
     setPopupVisible(true);
   };
 
@@ -27,20 +35,38 @@ export function CourseHeader() {
     setPopupContent("");
   };
 
-  const confirmAction = () => {
+  const confirmAction = async () => {
     setPopupVisible(false);
-    // Thực hiện logic cập nhật hoặc xóa ở đây
-    console.log(`${action} action confirmed.`);
-    setSuccessPopupVisible(true);
+    // 
+    if (action === "update") {
+      setLoading(true)
+      const newData = await handleSubmit()
+      setLoading(false)
+      console.log("newData", newData)
+      const result = await courseUpdatePostController(setLoading, data._id, newData)
+      if (result.code === 200) {
+        setSuccessPopupVisible(true);
+      } else {
+        setErrorPopupVisible(true);
+      }
+    }
   };
 
   const closeSuccessPopup = () => {
     setSuccessPopupVisible(false);
-    console.log("Success popup closed.");
+    // window.location.reload();
+  };
+  const closeErrorPopup = () => {
+    setErrorPopupVisible(false); // Ẩn popup thành công
+    // window.location.reload();
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="flex gap-2.5 items-start self-start text-xl font-medium leading-none text-white">
+    <div className="flex gap-2.5 items-end self-start text-xl font-medium leading-none text-white">
       {/* Nút Cập nhật */}
       <button
         className="flex gap-3 justify-center items-center px-3 py-3 rounded-lg bg-[#6C8299] min-h-[46px]"
@@ -70,60 +96,25 @@ export function CourseHeader() {
       </button>
 
       {/* Popup xác nhận */}
-      {isPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
-          <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
-            <div className="flex flex-col items-center w-full text-center">
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/charcoal_dot.svg`}
-                className="object-contain shrink-0 my-auto w-14 aspect-square"
-                alt="Icon"
-              />
-              <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">
-                {popupContent}
-              </p>
-              <div className="mt-4 flex gap-3 justify-center items-center max-h-[70px] py-4 rounded-lg text-2xl">
-                <button
-                  className="w-[150px] h-[60px] bg-[#6C8299] text-white rounded-lg flex justify-center items-center hover:bg-slate-700"
-                  onClick={confirmAction}
-                >
-                  Có
-                </button>
-                <button
-                  className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center hover:bg-gray-400"
-                  onClick={closePopup}
-                >
-                  Không
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <PopupConfirm
+        isVisible={isPopupVisible}
+        content={popupContent}
+        onConfirm={confirmAction}
+        onClose={closePopup}
+      />
 
       {/* Popup thành công */}
-      {successPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
-          <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
-            <div className="flex flex-col items-center w-full text-center">
-              <img
-                src={`${process.env.PUBLIC_URL}/icons/check_ring.svg`}
-                className="object-contain shrink-0 my-auto w-14 aspect-square"
-                alt="Success Icon"
-              />
-              <p className="mt-6 text-xl text-neutral-900 font-semibold text-center">
-                Cập nhật thành công!
-              </p>
-              <button
-                className="w-[150px] h-[60px] bg-[#CDD5DF] text-[#14375F] rounded-lg flex justify-center items-center font-semibold text-2xl hover:bg-gray-400 mt-4"
-                onClick={closeSuccessPopup}
-              >
-                Đóng
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <PopupSuccess
+        isVisible={successPopupVisible}
+        message="Cập nhật thành công!"
+        onClose={closeSuccessPopup}
+      />
+      {/* Popup thất bại */}
+      <PopupError
+        isVisible={errorPopupVisible}
+        message="Cập nhật thất bại. Vui lòng thử lại sau!"
+        onClose={closeErrorPopup}
+      />
     </div>
   );
 }

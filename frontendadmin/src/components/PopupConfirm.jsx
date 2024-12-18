@@ -4,7 +4,7 @@ export const PopupConfirm = ({ isVisible, content, onConfirm, onClose }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999]">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[10000]">
       <div className="flex flex-col justify-center px-10 py-16 bg-white rounded-3xl w-[600px] font-semibold">
         <div className="flex flex-col items-center w-full text-center">
           <img

@@ -80,49 +80,81 @@ module.exports.editItem = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/exercise/edit/:ExerciseID
-module.exports.editPatch = async (req, res) => {
+// [POST] /admin/exercise/edit/:LessonID
+module.exports.editPost = async (req, res) => {
   try {
-    const editedBy = {
-      UserId: res.locals.user.id,
-      editedAt: new Date(),
-    };
-    // console.log(req.body);
-    await Exercise.updateOne(
-      { _id: req.params.ExerciseID },
-      {
-        ...req.body,
-        $push: { editedBy: editedBy },
-      }
-    );
-
-    req.flash("success", "Cập nhật thành công!");
+    const exercise = await Exercise.findOne({
+      LessonId: req.params.LessonID
+    })
+    if (exercise) {
+      const { editedBy, ...updateFields } = req.body.exercise;
+      const newEditedBy = {
+        UserId: res.locals.user.id,
+        editedAt: new Date(),
+      };
+      console.log(updateFields);
+      await Exercise.updateOne(
+        { LessonId: req.params.LessonID },
+        {
+          ...updateFields,
+          $push: { editedBy: newEditedBy },
+        }
+      );
+    } else {
+      // req.body.exercise.createdBy = {
+      //   UserId: res.locals.user.id,
+      // };
+      console.log(req.body)
+      const exer = new Exercise({
+        ...req.body.exercise,
+        "createdBy.UserId": res.locals.user.id
+      })
+      await exer.save()
+    }
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
+    // req.flash("error", "Cập nhật thất bại!");
   }
-  const find = {
-    ExerciseDeleted: 1,
-    _id: req.params.ExerciseID,
-  };
-  const exer = await Exercise.findOne(find);
-  res.redirect(`${systemConfig.prefixAdmin}/lesson/detail/${exer.LessonId}`);
+  // const find = {
+  //   ExerciseDeleted: 1,
+  //   _id: req.params.ExerciseID,
+  // };
+  // const exer = await Exercise.findOne(find);
+  // res.redirect(`${systemConfig.prefixAdmin}/lesson/detail/${exer.LessonId}`);
 };
 
-// [GET] /admin/exercise/detail/:ExerciseID
+// [GET] /admin/exercise/detail/:LessonID
 module.exports.detailItem = async (req, res) => {
   try {
+    console.log(req.params.LessonID)
     const find = {
       ExerciseDeleted: 1,
-      _id: req.params.ExerciseID,
+      LessonId: req.params.LessonID,
     };
 
     const exer = await Exercise.findOne(find);
-
+    console.log(exer)
     const lesson = await Lesson.findOne({
-      _id: exer.LessonId,
+      _id: req.params.LessonID,
       LessonDeleted: 1,
-    });
-    exer.lesson = lesson;
+    }).lean();
+    lesson.exercise = exer ? exer : {
+      LessonId: req.params.LessonID,
+      ExerciseName: "",
+      ExerciseQuestion: "",
+      ExerciseSample: "",
+      ExerciseAnswer: "",
+    };
+    res.json(lesson)
 
     // const count = await Lesson.countDocuments({
     //   CourseId: req.params.CourseID,
@@ -135,10 +167,10 @@ module.exports.detailItem = async (req, res) => {
     //   course.lesson = lesson;
     // }
 
-    res.render("admin/pages/exercise/detail", {
-      pageTitle: exer.ExerciseName,
-      exer: exer,
-    });
+    // res.render("admin/pages/exercise/detail", {
+    //   pageTitle: exer.ExerciseName,
+    //   exer: exer,
+    // });
   } catch (error) {
     req.flash("error", "Không tìm thấy sản phẩm!");
     res.redirect(`${systemConfig.prefixAdmin}/courses`);

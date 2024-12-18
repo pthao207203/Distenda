@@ -7,7 +7,7 @@ export default function CourseBuilder() {
   return (
     <main className="flex overflow-hidden flex-col leading-none bg-[#EBF1F9]">
       {/* <Header /> */}
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <CourseForm />
     </main>
   );

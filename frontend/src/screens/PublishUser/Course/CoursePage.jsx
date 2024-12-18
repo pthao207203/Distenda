@@ -5,7 +5,7 @@ import CourseCard from "./CourseCard"; // Import CourseCard
 import { coursesController } from "../../../controllers/course.controller";
 //import TestimonialSection from "./TestimonialSection"; // Import TestimonialSection
 //import TeacherSection from "./TeacherSection"; // Import TeacherSection
-import Banner from "./Banner"; 
+import Banner from "./Banner";
 
 function CoursePage() {
   const [data, setData] = useState();
@@ -30,7 +30,7 @@ function CoursePage() {
       </div>
     )
   }
-  // console.log("courses => ", data)
+  console.log("courses => ", data)
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -42,7 +42,7 @@ function CoursePage() {
         <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
           {/* Thanh tìm kiếm */}
           <SearchBar />
-          <Banner /> 
+          <Banner />
           {/* Khu vực chứa các thẻ */}
           {data && data.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  justify-between gap-[60px] mt-10 w-full">

@@ -16,8 +16,8 @@ router.post("/create/:LessonID", controller.createPost);
 
 router.get("/edit/:ExerciseID", controller.editItem);
 
-router.patch("/edit/:ExerciseID", controller.editPatch);
+router.post("/edit/:LessonID", controller.editPost);
 
-router.get("/detail/:ExerciseID", controller.detailItem);
+router.get("/detail/:LessonID", controller.detailItem);
 
 module.exports = router;

@@ -10,7 +10,7 @@ block main
     h1 #{pageTitle}
 
     form(
-      action=`${prefixAdmin}/courses/edit/${course.id}?_method=PATCH`
+      action=`${prefixAdmin}/courses/edit/${course._id}?_method=PATCH`
       method="POST"
       enctype="multipart/form-data"
     )

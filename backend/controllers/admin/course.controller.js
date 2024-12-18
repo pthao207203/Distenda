@@ -61,7 +61,7 @@ module.exports.index = async (req, res) => {
   // });
 };
 
-// [PATCH] /admin/courses/change-status/:status/:CourseID
+// [POST] /admin/courses/change-status/:status/:CourseID
 module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const courseID = req.params.CourseID;
@@ -124,11 +124,15 @@ module.exports.createItem = async (req, res) => {
   const intructor = await Admin.find({
     AdminDeleted: 1,
   });
-  res.render("admin/pages/course/create", {
-    pageTitle: "Thêm khoá học",
-    listCategory: newList,
-    intructor: intructor,
-  });
+  res.json({
+    categories: listCategory,
+    intructors: intructor
+  })
+  // res.render("admin/pages/course/create", {
+  //   pageTitle: "Thêm khoá học",
+  //   listCategory: newList,
+  //   intructor: intructor,
+  // });
 };
 
 // [POST] /admin/courses/create
@@ -138,14 +142,16 @@ module.exports.createPost = async (req, res) => {
   req.body.CourseDiscount = req.body.CourseDiscount
     ? parseInt(req.body.CourseDiscount)
     : 0;
-  req.body.CourseStatus = req.body.CourseStatus == "active" ? 1 : 0;
   req.body.createdBy = {
     UserId: res.locals.user.id,
   };
   const course = new Course(req.body);
   await course.save();
-
-  res.redirect(`${systemConfig.prefixAdmin}/courses`);
+  res.json({
+    code: 200,
+    message: "Tạo khoá học thành công!"
+  })
+  // res.redirect(`${systemConfig.prefixAdmin}/courses`);
 };
 
 // [GET] /admin/courses/detail/:CourseID
@@ -156,7 +162,11 @@ module.exports.detailItem = async (req, res) => {
       _id: req.params.CourseID,
     };
 
-    const course = await Course.findOne(find);
+    const course = await Course.findOne(find).lean();
+    const categories = await Category.find().lean();
+    course.categories = categories
+    const intructors = await Admin.find().lean();
+    course.intructors = intructors
 
     if (course.CourseCatogory && course.CourseCatogory != "") {
       const category = await Category.findOne({
@@ -184,14 +194,15 @@ module.exports.detailItem = async (req, res) => {
       });
       course.lesson = lesson;
     }
-
-    res.render("admin/pages/course/detail", {
-      pageTitle: course.CourseName,
-      course: course,
-    });
+    res.json(course)
+    // res.render("admin/pages/course/detail", {
+    //   pageTitle: course.CourseName,
+    //   course: course,
+    // });
   } catch (error) {
-    req.flash("error", "Không tìm thấy sản phẩm!");
-    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+    console.log(error)
+    // req.flash("error", "Không tìm thấy sản phẩm!");
+    // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
 };
 
@@ -212,50 +223,79 @@ module.exports.editItem = async (req, res) => {
     const intructor = await Admin.find({
       AdminDeleted: 1,
     });
-
-    res.render("admin/pages/course/edit", {
-      pageTitle: "Chỉnh sửa khoá học",
-      course: course,
-      listCategory: newList,
-      intructor: intructor,
-    });
+    // console.log(course)
+    res.json(course)
+    // res.render("admin/pages/course/edit", {
+    //   pageTitle: "Chỉnh sửa khoá học",
+    //   course: course,
+    //   listCategory: newList,
+    //   intructor: intructor,
+    // });
   } catch (error) {
-    req.flash("error", "Không tìm thấy khoá học!");
-    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+    res.json({
+      code: 200,
+      message: error
+    })
+    // req.flash("error", "Không tìm thấy khoá học!");
+    // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
 };
 
-// [PATCH] /admin/courses/edit/:CourseID
-module.exports.editPatch = async (req, res) => {
-  req.body.CoursePrice = parseInt(req.body.CoursePrice);
-  req.body.CourseDuration = parseInt(req.body.CourseDuration);
-  req.body.CourseDiscount = req.body.CourseDiscount
-    ? parseInt(req.body.CourseDiscount)
+// [POST] /admin/courses/edit/:CourseID
+module.exports.editPost = async (req, res) => {
+  console.log(req.body.lesson)
+  const { editedBy, ...updateFields } = req.body;
+  updateFields.CoursePrice = parseInt(updateFields.CoursePrice);
+  updateFields.CourseDuration = parseInt(updateFields.CourseDuration);
+  updateFields.CourseDiscount = updateFields.CourseDiscount
+    ? parseInt(updateFields.CourseDiscount)
     : 0;
-  req.body.CourseStatus = req.body.CourseStatus == "active" ? 1 : 0;
-
   if (req.file) {
-    req.body.CoursePicture = `/uploads/${req.file.filename}`;
+    updateFields.CoursePicture = `/uploads/${req.file.filename}`;
   }
-  console.log(req.body)
-
+  console.log(updateFields)
   try {
-    const editedBy = {
+    const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
     await Course.updateOne(
       { _id: req.params.CourseID },
       {
-        ...req.body,
-        $push: { editedBy: editedBy },
+        ...updateFields,
+        $push: { editedBy: newEditedBy },
       }
     );
 
-    req.flash("success", "Cập nhật thành công!");
+    if (updateFields.lesson) {
+      for (const item of updateFields.lesson) {
+        if (item.change == 1) {
+          const { editedBy, ...updateFields } = item;
+          await Lesson.updateOne(
+            { _id: item._id },
+            {
+              ...updateFields,
+              $push: { editedBy: newEditedBy },
+            }
+          );
+        }
+
+      }
+    }
+
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
+    // req.flash("error", "Cập nhật thất bại!");
   }
 
-  res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${req.params.id}`);
+  // res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${req.params.id}`);
 };

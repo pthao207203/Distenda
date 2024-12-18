@@ -7,7 +7,7 @@ function CourseCreationPage() {
   return (
     <div className="flex overflow-hidden flex-col bg-[#EBF1F9]">
       {/* <Header /> */}
-      <NavigationBar />
+      {/* <NavigationBar /> */}
       <CourseForm />
     </div>
   );

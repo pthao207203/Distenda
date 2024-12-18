@@ -13,7 +13,8 @@ module.exports.index = async (req, res) => {
   const allCategory = createTreeHelper.tree(category);
 
   const courses = await Course.find({
-    CourseDeleted: 1
+    CourseDeleted: 1,
+    CourseStatus: 1
   }).sort({ _id: -1 }).limit(6);
   const role = await Role.findOne({
     RoleName: "Quản trị viên"
