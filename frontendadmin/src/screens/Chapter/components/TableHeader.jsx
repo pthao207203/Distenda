@@ -1,6 +1,6 @@
 export default function TableHeader() {
   return (
-    <div className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 h-[70px] max-md:max-w-full">
+    <div className="flex overflow-hidden flex-wrap w-full rounded-t-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
       <div className="flex gap-3 justify-center items-center px-3 h-full whitespace-nowrap bg-indigo-50 w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">STT</div>
       </div>

@@ -127,7 +127,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             />
             <img
               loading="lazy"
-              src={`../Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
+              src={`/Icon/${openDetails ? "tam_giac2" : "tam_giac"}.svg`}
               alt=""
               className="object-center shrink-0 w-[15px] aspect-[2.14]"
             />

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function CourseTableRow(course) {
   return (
-    <div className="flex shrink overflow-hidden mt-3 bg-white h-[70px] w-full">
+    <div className="flex shrink overflow-hidden mt-3 bg-white min-h-[70px] w-full">
       {/* Mã khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CategoryName}</span>

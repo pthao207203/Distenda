@@ -32,7 +32,7 @@ function CourseTable() {
         </div>
 
         {/* Header Bảng */}
-        <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] h-[70px] max-md:max-w-full">
+        <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
           <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
             <span className="text-center">STT</span>
           </div>

@@ -230,29 +230,29 @@ function AdminDetailPage() {
         </div>
 
         {/* Header Table */}
-        <div className="flex overflow-hidden flex-wrap w-full mt-3 rounded-t-3xl bg-[#6C8299] font-medium min-h-[70px] max-md:max-w-full">
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
+        <div className="flex overflow-hidden flex-wrap w-full mt-3 rounded-t-3xl bg-[#6C8299] font-medium min-min-h-[70px] max-md:max-w-full">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
             <span className="text-center">Tên khóa học</span>
           </div>
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] text-white basis-1/6 min-w-0">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] text-white basis-1/6 min-w-0">
             <span className="text-center">Tên giảng viên</span>
           </div>
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
             <span className="text-center">Đã bán</span>
           </div>
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] text-white basis-1/6 min-w-0">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] text-white basis-1/6 min-w-0">
             <span className="text-center">Giá</span>
           </div>
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] bg-[#EBF1F9] basis-1/6 min-w-0">
             <span className="text-center">Lợi nhuận</span>
           </div>
-          <div className="flex shrink justify-center items-center px-3 py-0 h-[70px] text-white basis-1/6 min-w-0">
+          <div className="flex shrink justify-center items-center px-3 py-0 min-h-[70px] text-white basis-1/6 min-w-0">
             <span className="text-center">Trạng thái</span>
           </div>
         </div>
 
         {/* Dữ liệu Table */}
-        <div className="flex overflow-hidden flex-wrap w-full rounded-b-3xl bg-white min-h-[70px] max-md:max-w-full">
+        <div className="flex overflow-hidden flex-wrap w-full rounded-b-3xl bg-white min-min-h-[70px] max-md:max-w-full">
           {data && data.course && data.course.length > 0 && data.course.map((course, index) => (
             <CourseTableRow
               index={index}

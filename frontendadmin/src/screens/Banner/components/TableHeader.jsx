@@ -10,7 +10,7 @@ function TableHeader() {
   };
 
   return (
-    <div className="flex overflow-hidden mt-3 flex-wrap w-full rounded-t-3xl bg-[#6C8299] h-[70px] max-md:max-w-full">
+    <div className="flex overflow-hidden mt-3 flex-wrap w-full rounded-t-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
       <div className="flex basis-1/6 min-w-0 gap-3 justify-center items-center px-3 h-full whitespace-nowrap bg-[#EBF1F9] w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">STT</div>
       </div>

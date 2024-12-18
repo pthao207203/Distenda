@@ -47,7 +47,7 @@ export function ChapterList({ data, lessonChange }) {
 
 function ChapterHeader({ onAddCategoryClick }) {
   return (
-    <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] h-[70px] max-md:max-w-full">
+    <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
       <div className="flex gap-3 justify-center items-center px-3 bg-[#EBF1F9] w-[200px]">
         <span className="text-center">STT</span>
       </div>
@@ -86,7 +86,7 @@ function ChapterRow({ id, lesson, lessonChange }) {
   };
 
   return (
-    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
+    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer">
       {/* STT */}
       <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">{id}</div>

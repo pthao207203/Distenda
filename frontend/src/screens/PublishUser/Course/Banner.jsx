@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { bannerController } from "../../../controllers/banner.controller";
+// import Loading from '../../../components/Loading';
 
 function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,14 +20,25 @@ function Banner() {
     fetchData();
   }, []);
 
+  // Hàm để reset lại timer
+  const resetAutoSlideTimer = useCallback(() => {
+    if (timer) {
+      clearTimeout(timer); // Dọn dẹp timer cũ
+    }
+    const newTimer = setTimeout(() => {
+      setAutoSlide(true);
+    }, 2500);
+    setTimer(newTimer);
+  }, [timer]);
+
   // Hàm chuyển sang banner kế tiếp (trượt sang phải)
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (data && data.length > 0) {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
       setAutoSlide(false); // Tắt auto-slide khi người dùng bấm nút
       resetAutoSlideTimer(); // Khởi tạo lại timer
     }
-  };
+  }, [data, resetAutoSlideTimer]);
 
   // Hàm quay lại banner trước (trượt sang trái)
   const prevImage = () => {
@@ -39,31 +51,19 @@ function Banner() {
     }
   };
 
-  // Hàm để reset lại timer
-  const resetAutoSlideTimer = () => {
-    if (timer) {
-      clearTimeout(timer); // Dọn dẹp timer cũ
-    }
-    // Khởi tạo timer mới để sau 2.5 giây tự động chuyển banner
-    const newTimer = setTimeout(() => {
-      setAutoSlide(true); // Bắt đầu auto-slide trở lại sau 2.5 giây
-    }, 2500);
-    setTimer(newTimer); // Lưu timer mới
-  };
-
   // Sử dụng useEffect để tự động thay đổi banner sau mỗi 2.5 giây
   useEffect(() => {
     if (autoSlide && data?.length) {
       const interval = setInterval(nextImage, 2500); // Trượt sau mỗi 2.5 giây
       return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
     }
-  }, [autoSlide, data]); // Theo dõi autoSlide và data
+  }, [autoSlide, data, nextImage]); // Theo dõi autoSlide và data
 
   if (loading) {
     return (
       <div>
-        Đang tải...
-      </div>
+      Đang tải...
+    </div>
     );
   }
 

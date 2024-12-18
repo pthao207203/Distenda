@@ -60,7 +60,7 @@ export default function CourseCard({ onRegister, ...course }) {
           </span>
         </div>
       </div>
-      {!course.has && (
+
         <button
           onClick={onRegister} // Gọi hàm được truyền từ parent
           className="flex justify-center items-center px-3 py-2 w-full text-xl font-medium leading-none bg-[#CFF500] min-h-[60px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
@@ -68,7 +68,7 @@ export default function CourseCard({ onRegister, ...course }) {
         >
           Đăng ký ngay
         </button>
-      )}
+
       <section className="flex flex-col px-[0.8rem] w-full text-lg justify-start gap-4 items-start">
         {courseDetails.map((detail, index) => (
           <div key={index} className="inline-flex justify-between items-start gap-5 first:mt-0 w-full">

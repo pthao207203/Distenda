@@ -12,7 +12,7 @@ const CourseTableRow = ({ course, name }) => {
   }
   return (
     <div
-      className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer"
+      className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer"
       onClick={onClick}
     >
       {/* Tên khóa học */}

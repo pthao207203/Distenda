@@ -1,6 +1,6 @@
 export default function StatCard({ title, value, percentage, iconSrc }) {
   return (
-    <div className="flex flex-col flex-1  w-full items-center self-center px-3 pt-1.5 pb-2 my-auto rounded-3xl bg-[#6C8299] min-w-[200px] max-w-[350px] max-h-[230px]">
+    <div className="flex flex-col flex-1  w-full items-center self-center px-3 pt-1.5 pb-2 my-auto rounded-3xl bg-[#6C8299] min-w-[200px] max-w-[500px] max-h-[230px]">
       <div className="flex items-center px-3 py-3 w-full text-xl">
         <img
           loading="lazy"
@@ -12,7 +12,7 @@ export default function StatCard({ title, value, percentage, iconSrc }) {
           {title}
         </div>
       </div>
-      <div className="flex gap-2 items-center px-3 py-2 w-full text-3xl font-semibold whitespace-nowrap max-h-[70px]">
+      <div className="flex gap-2 items-center px-3 py-2 w-full text-3xl font-semibold whitespace-nowrap min-h-[70px]">
         <div className="flex shrink gap-2 self-center my-auto w-full">
           {value}
         </div>

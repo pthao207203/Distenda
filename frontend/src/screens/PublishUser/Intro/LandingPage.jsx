@@ -7,6 +7,7 @@ import TeacherSection from './TeacherSection';
 //import Footer from './Footer';
 import { Container, Row, Col } from 'react-bootstrap';
 import { homeController } from '../../../controllers/home.controller';
+import Loading from '../../../components/Loading';
 
 function LandingPage() {
   const [data, setData] = useState(
@@ -30,9 +31,7 @@ function LandingPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("intructor ", data.intructor)

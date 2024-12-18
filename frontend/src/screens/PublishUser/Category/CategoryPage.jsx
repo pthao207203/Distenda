@@ -6,6 +6,8 @@ import CourseCard from "../Course/CourseCard"; // Import CourseCard
 import { categoryController } from "../../../controllers/category.controller";
 //import TestimonialSection from "./TestimonialSection"; // Import TestimonialSection
 //import TeacherSection from "./TeacherSection"; // Import TeacherSection
+import Banner from "../Course/Banner";
+import Loading from "../../../components/Loading";
 
 function CategoryPage() {
   const [data, setData] = useState();
@@ -30,9 +32,7 @@ function CategoryPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   // console.log("courses => ", data)
@@ -47,9 +47,7 @@ function CategoryPage() {
         <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
           {/* Thanh tìm kiếm */}
           <SearchBar />
-          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 mt-5 bg-white min-h-[265px]">
-            <div className="col-span-full w-full h-full" />
-          </div>
+          <Banner />
 
           {/* Khu vực chứa các thẻ */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-[24px] mt-10 w-full">

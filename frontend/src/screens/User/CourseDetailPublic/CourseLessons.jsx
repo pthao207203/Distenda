@@ -42,7 +42,7 @@ export default function CourseLessons(lessonsData) {
           <summary className="flex flex-wrap gap-1 justify-start items-center px-2.5 w-full text-2xl font-semibold tracking-normal leading-none min-h-[70px] cursor-pointer">
             <img
               loading="lazy"
-              src="../Icon/play-circle.svg"
+              src="/Icon/play-circle.svg"
               alt=""
               className="object-center shrink-0 self-center my-auto w-6 aspect-square"
             />
@@ -51,7 +51,7 @@ export default function CourseLessons(lessonsData) {
             </span>
             <img
               loading="lazy"
-              src={`../Icon/${openDetails[index] ? "minus" : "plus"}.svg`} // Thay đổi biểu tượng theo trạng thái
+              src={`/Icon/${openDetails[index] ? "minus" : "plus"}.svg`} // Thay đổi biểu tượng theo trạng thái
               alt=""
               className="object-contain shrink-0 self-stretch my-auto aspect-[1.7] w-[34px]"
             />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseHeader from "./CourseHeader";
 import CourseContent from "./CourseContent";
 import { courseDetailController } from "../../../controllers/course.controller";
-
+import Loading from "../../../components/Loading";
 import { useParams } from "react-router-dom";
 import Rating from "./Rating";
 
@@ -30,9 +30,7 @@ export default function CourseDetailPage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   // console.log("course => ", data)

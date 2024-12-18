@@ -12,7 +12,7 @@ function TeacherCard(teacher) {
   return (
     <div className="text-center d-flex flex-column align-items-center">
       <img
-        src={teacher.AdminAvatar ? teacher.AdminAvatar : "../Icon/image.svg"}
+        src={teacher.AdminAvatar ? teacher.AdminAvatar : "/Icon/image.svg"}
         alt={teacher.AdminFullName}
         className="rounded-circle object-cover"
         style={{ width: '104px', height: '104px' }}

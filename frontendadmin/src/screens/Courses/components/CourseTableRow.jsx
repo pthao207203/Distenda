@@ -15,7 +15,7 @@ function CourseTableRow(course) {
 
   return (
     <article
-      className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer hover:bg-gray-100 transition-colors"
+      className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer hover:bg-gray-100 transition-colors"
       onClick={handleRowClick} // Thêm sự kiện onClick
     >
       {/* Tên khóa học */}

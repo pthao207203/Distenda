@@ -18,7 +18,7 @@ function TableRow({ id, name, courseCount }) {
   };
 
   return (
-    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white h-[70px] cursor-pointer">
+    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer">
       {/* ID */}
       <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[200px]">
         <div className="gap-2.5 self-stretch my-auto">{id}</div>

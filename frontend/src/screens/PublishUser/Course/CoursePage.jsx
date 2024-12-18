@@ -6,6 +6,7 @@ import { coursesController } from "../../../controllers/course.controller";
 //import TestimonialSection from "./TestimonialSection"; // Import TestimonialSection
 //import TeacherSection from "./TeacherSection"; // Import TeacherSection
 import Banner from "./Banner";
+import Loading from "../../../components/Loading";
 
 function CoursePage() {
   const [data, setData] = useState();
@@ -25,9 +26,7 @@ function CoursePage() {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   console.log("courses => ", data)

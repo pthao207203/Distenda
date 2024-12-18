@@ -41,7 +41,7 @@ function ThankYouPage({ onClose }) {
           <ImageWithShadow src={cornerImages[0].src} alt={cornerImages[0].alt} />
           
           {/* Hình ảnh góc trên bên phải và ảnh icon đóng */}
-          <div className="relative">
+          <button className="relative">
             <ImageWithShadow src={cornerImages[1].src} alt={cornerImages[1].alt} />
             <img
               loading="lazy"
@@ -50,7 +50,7 @@ function ThankYouPage({ onClose }) {
               alt="Close icon"
               onClick={handleClose} // Gọi hàm handleClose khi click vào icon
             />
-          </div>
+          </button>
         </div>
 
         {/* Nội dung chính của popup */}
