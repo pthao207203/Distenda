@@ -38,7 +38,7 @@ export default function LoginRequest({ onClose }) {
   if (!isOpen) return null;
 
   return (
-    <main className="relative flex overflow-hidden flex-col justify-center items-center p-10 text-2xl font-medium leading-6 text-white bg-neutral-900 max-w-[607px] w-full max-h-[347px] max-md:p-5">
+    <main className="relative flex overflow-hidden flex-col justify-center items-center p-10 text-2xl font-medium leading-6 text-white bg-neutral-900 max-w-[607px] w-full min-h-[347px] max-md:p-5">
       {/* Hình ảnh trang trí góc */}
       {cornerImages.map((image, index) => (
         <ImageWithShadow key={index} src={image.src} alt={image.alt} className={image.className} />
@@ -54,13 +54,13 @@ export default function LoginRequest({ onClose }) {
       />
 
       {/* Nội dung chính */}
-      <p className="self-center text-center mt-10 max-md:mt-5 max-md:max-w-full">
+      <p className="self-center text-center mt-[40px] max-md:mt-5 max-md:max-w-full">
         Bạn phải đăng nhập để có thể đăng ký khóa học này!
       </p>
 
       {/* Nút đăng nhập */}
       <button
-        className="flex gap-3 justify-center items-center px-3 py-6 mt-11 w-4/5 max-w-full text-xl font-medium bg-[#CFF500] min-h-[60px] max-md:mt-10"
+        className="flex gap-3 justify-center items-center px-[12px] py-[20px] mt-11 w-4/5 max-w-full text-xl font-medium bg-[#CFF500] text-black min-h-[60px] max-md:mt-10"
         onClick={handleLogin}
         tabIndex={0}
       >
@@ -68,12 +68,12 @@ export default function LoginRequest({ onClose }) {
       </button>
 
       {/* Phần đăng ký tài khoản */}
-      <div className="flex gap-1 items-center max-w-full text-lg w-[346px] mt-6">
-        <p className="flex gap-3 items-center font-normal self-stretch py-5 my-auto">
+      <div className="flex gap-1 items-center max-w-full text-lg w-[346px]">
+        <p className="flex gap-3 items-center font-normal self-stretch my-auto">
           Bạn chưa có tài khoản?{" "}
         </p>
         <button
-          className="flex gap-3 items-center self-stretch py-5 my-auto font-semibold text-[#CFF500]"
+          className="flex gap-3 items-center self-stretch py-[20px] my-auto font-semibold text-[#CFF500]"
           onClick={() => navigate("/register")}
           tabIndex={0}
         >
