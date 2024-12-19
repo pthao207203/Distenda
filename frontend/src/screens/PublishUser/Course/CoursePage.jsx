@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 //import SideBar from "./SideBar"; // Import Sidebar
 import SearchBar from "./SearchBar"; // Import SearchBar
 import CourseCard from "./CourseCard"; // Import CourseCard
@@ -32,33 +33,38 @@ function CoursePage() {
   console.log("courses => ", data)
 
   return (
-    <div className="flex flex-col w-full min-h-screen">
-      {/* Sidebar */}
-      {/*<SideBar />*/}
+    <> 
+      <Helmet>    
+        <title>Khóa học</title>
+      </Helmet> 
+      <div className="flex flex-col w-full min-h-screen">
+        {/* Sidebar */}
+        {/*<SideBar />*/}
 
-      {/* Nội dung chính */}
-      <main>
-        <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
-          {/* Thanh tìm kiếm */}
-          <SearchBar />
-          <Banner />
-          {/* Khu vực chứa các thẻ */}
-          {data && data.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  justify-between gap-[60px] mt-10 w-full">
-              {data.map((course, index) => (
-                <CourseCard key={index} {...course} className="" />
-              ))}
-            </div>
-          )}
-          {(!data || data.length === 0) && (
-            <div className="flex text-white/30 text-4xl justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
-          )}
-          {/* Thêm TestimonialSection và TeacherSection 
-          <TestimonialSection />
-          <TeacherSection />*/}
-        </div>
-      </main>
-    </div>
+        {/* Nội dung chính */}
+        <main>
+          <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
+            {/* Thanh tìm kiếm */}
+            <SearchBar />
+            <Banner />
+            {/* Khu vực chứa các thẻ */}
+            {data && data.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  justify-between gap-[60px] mt-10 w-full">
+                {data.map((course, index) => (
+                  <CourseCard key={index} {...course} className="" />
+                ))}
+              </div>
+            )}
+            {(!data || data.length === 0) && (
+              <div className="flex text-white/30 text-4xl justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
+            )}
+            {/* Thêm TestimonialSection và TeacherSection 
+            <TestimonialSection />
+            <TeacherSection />*/}
+          </div>
+        </main>
+      </div>
+  </>
   );
 }
 
