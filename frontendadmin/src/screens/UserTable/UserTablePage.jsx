@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import SearchBar from "../../layouts/private/SearchBar";
 import TableHeader from "./components/TableHeader";
 import TableRow from "./components/TableRow";
@@ -31,6 +32,10 @@ function UserTable() {
   const totalUser = data?.length || 0;
 
   return (
+    <>
+      <Helmet>
+        <title>Người dùng</title>
+      </Helmet>
     <div className="flex flex-col flex-1 justify-center items-center shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
       <div className="flex flex-col mt-6 w-full text-neutral-900 max-md:max-w-full">
@@ -48,6 +53,7 @@ function UserTable() {
         ))}
       </div>
     </div>
+  </>
   );
 }
 

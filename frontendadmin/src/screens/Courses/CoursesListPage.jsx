@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import CourseTableHeader from "./components/CourseTableHeader";
 import CourseTableRow from "./components/CourseTableRow";
 import SearchBar from "../../layouts/private/SearchBar";
@@ -31,6 +32,10 @@ function CourseList() {
   console.log("Courses => ", data)
   const totalCourses = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
   return (
+    <>
+      <Helmet>
+        <title>Khóa học</title>
+      </Helmet>
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
       {role?.role?.RolePermissions?.includes("course_view") && (
@@ -50,6 +55,7 @@ function CourseList() {
         ))}
       </section>
     </main>
+  </>
   );
 }
 

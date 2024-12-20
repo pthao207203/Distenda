@@ -92,7 +92,7 @@ function ProfilePage() {
   return (
     <>
     <Helmet>
-        <title>Thông tin tài khoản</title>
+        <title>Thông tin cá nhân</title>
     </Helmet>
     <div
       className="flex flex-col w-full min-h-screen"

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import CustomerInfo from './components/CustomerInfo';
 import OrderTable from './components/OrderTable';
 import { useParams } from "react-router-dom";
@@ -32,10 +33,15 @@ function InvoiceDetails() {
   console.log("PayDetail => ", data)
 
   return (
+    <>
+      <Helmet>
+        <title>Chi tiết hóa đơn</title>
+      </Helmet>
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
       {data?.user && <CustomerInfo data={data} />}
       {data?.course && <OrderTable items={[data.course]} />}
     </div>
+  </>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import PermissionRow from "./components/PermissionRow";
 import PermissionHeader from "./components/PermissionHeader";
 import ActionButtons from "./components/ActionButton";
@@ -101,36 +102,41 @@ export default function PermissionTable() {
   }));
 
   return (
-    <div className="flex flex-col flex-1 px-16 py-5 bg-white basis-0 max-md:px-[5px]  w-full max-md:min-w-[600px]">
-      <ActionButtons selectedRoles={selectedRoles} permissions={formattedPermissions} />
+    <>
+      <Helmet>
+        <title>Phân quyền</title> 
+      </Helmet>
+      <div className="flex flex-col flex-1 px-16 py-5 bg-white basis-0 max-md:px-[5px]  w-full max-md:min-w-[600px]">
+        <ActionButtons selectedRoles={selectedRoles} permissions={formattedPermissions} />
 
-      <div className="mt-6">
-        <PermissionHeader roles={roles} setSelectedRoles={setSelectedRoles} />
+        <div className="mt-6">
+          <PermissionHeader roles={roles} setSelectedRoles={setSelectedRoles} />
 
-        {permissionGroups.map((group, index) => (
-          <div key={index} className="mt-4 justify-between w-full items-center ">
-            <div className="text-xl font-semibold leading-none text-[#14375F]">
-              {group.title}
+          {permissionGroups.map((group, index) => (
+            <div key={index} className="mt-4 justify-between w-full items-center ">
+              <div className="text-xl font-semibold leading-none text-[#14375F]">
+                {group.title}
+              </div>
+              <div className="flex flex-col justify-center mt-2 w-full max-md:w-screen">
+                {group.permissions.map((permission, pIndex) => (
+                  <>
+                    {permission !== "" && (
+                      <PermissionRow
+                        key={pIndex}
+                        index={pIndex}
+                        permission={permission}
+                        isFirst={pIndex === 0}
+                        roles={Object.values(roles)}
+                        onPermissionChange={handlePermissionChange}
+                      />
+                    )}
+                  </>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-col justify-center mt-2 w-full max-md:w-screen">
-              {group.permissions.map((permission, pIndex) => (
-                <>
-                  {permission !== "" && (
-                    <PermissionRow
-                      key={pIndex}
-                      index={pIndex}
-                      permission={permission}
-                      isFirst={pIndex === 0}
-                      roles={Object.values(roles)}
-                      onPermissionChange={handlePermissionChange}
-                    />
-                  )}
-                </>
-              ))}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

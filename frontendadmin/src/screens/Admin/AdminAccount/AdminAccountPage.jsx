@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import { AdminInfoField } from "./components/AdminInfo";
 import { AccountHeader } from "./components/AccountHeader";
 import { myAccountController} from "../../../controllers/myAccount.controller";
@@ -118,6 +119,10 @@ function ProfileCard() {
   console.log("My account => ", data)
 
   return (
+    <>
+      <Helmet>
+        <title>Tài khoản</title>
+      </Helmet> 
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
       {/* Header */}
       <AccountHeader
@@ -214,6 +219,7 @@ function ProfileCard() {
         </div>
       </div>
     </main>
+  </>
   );
 }
 

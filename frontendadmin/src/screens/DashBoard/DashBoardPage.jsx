@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import StatCard from "./components/StatCard";
 import CourseTableRow from "./components/CourseTableRow";
 import TableHeader from "./components/TableHeader";
@@ -59,6 +60,10 @@ function DashboardPage() {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Trang chủ</title>
+      </Helmet>
     <div className="flex flex-col w-full min-h-screen">
       {/* Stats Section */}
       <main>
@@ -133,6 +138,7 @@ function DashboardPage() {
 
       </main>
     </div>
+  </>
   );
 }
 
