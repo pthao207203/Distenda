@@ -19,7 +19,7 @@ export default function StatCard({ title, value, percentage, iconSrc }) {
       </div>
       <div className="flex gap-2 items-end p-3 w-full text-lg min-h-[70px] ">
         <div className="flex shrink gap-2.5 self-stretch w-full ">
-          {percentage > 100 ? `Tăng ${percentage - 100}%` : (percentage === 100 ? `Tăng 0%` : `Giảm ${100 - percentage}%`)}
+          {percentage > 0 ? `Tăng ${percentage.toFixed(2)}%` : `Giảm ${percentage.toFixed(2)}%`}
         </div>
       </div>
     </div>
