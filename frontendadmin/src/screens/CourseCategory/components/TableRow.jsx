@@ -30,30 +30,30 @@ function TableRow({ categories }) {
             className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] cursor-pointer"
           >
             {/* ID */}
-            <div className="flex flex-1 shrink gap-3 justify-center items-center bg-[#EBF1F9] px-3 h-full basis-0 w-[240px] text-neutral-900 max-md:max-w-full">
-              <div className="gap-2.5 self-stretch my-auto">{item._id}</div>
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink gap-3 justify-center items-center bg-[#EBF1F9] px-3  text-neutral-900 max-md:max-w-full">
+              <div className="text-[#131313] text-center text-xl font-medium truncate">{item._id}</div>
             </div>
 
             {/* Name */}
-            <div className="flex flex-1 gap-3 justify-start items-center px-3 h-full text-neutral-900 w-[200px]">
-              <div className="gap-2.5 self-stretch my-auto">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-start items-center px-3  text-neutral-900 w-[200px]">
+              <div className="text-[#131313] text-center text-xl font-medium truncate">
                 {"--".repeat(level)} {item.CategoryName}
               </div>
             </div>
 
             {/* Course Count */}
-            <div className="flex gap-3 justify-center items-center px-3 h-full bg-[#EBF1F9] text-neutral-900 w-[300px]">
-              <div className="gap-2.5 self-stretch my-auto">{item.count || 0}</div>
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  bg-[#EBF1F9] text-neutral-900 w-[300px]">
+              <div className="text-[#131313] text-center text-xl font-medium truncate">{item.count || 0}</div>
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2.5 justify-center px-3 py-2 h-full min-w-[240px] w-[258px]">
+            <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-2.5 justify-center px-3 py-2  min- w-[258px]">
               {/* Button Sửa */}
-              <button className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full bg-[#D1F669] basis-0 rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors">
+              <button className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3 bg-[#D1F669] rounded-[99px] text-neutral-900 hover:bg-lime-400 transition-colors">
                 <div className="gap-2.5 self-stretch my-auto">Sửa</div>
               </button>
               {/* Button Xóa */}
-              <button className="flex flex-1 shrink gap-3 justify-center items-center px-3 h-full text-white bg-[#DF322B] basis-0 rounded-[99px] hover:bg-red-700 transition-colors">
+              <button className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  text-white bg-[#DF322B] rounded-[99px] hover:bg-red-700 transition-colors">
                 <div className="gap-2.5 self-stretch my-auto">Xóa</div>
               </button>
             </div>

@@ -9,7 +9,7 @@ function AddAccountButton() {
   };
 
   return (
-    <div className="flex justify-end items-center w-full mt-3">
+    <div className="flex justify-end items-center w-full">
       <button
         className="flex gap-3 justify-center items-center px-3 py-3 text-xl font-medium text-white rounded-lg bg-[#6C8299] min-w-[240px] hover:bg-slate-600"
         onClick={handleAddAccount}
