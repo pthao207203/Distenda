@@ -103,9 +103,14 @@ module.exports.detail = async (req, res) => {
         course.has = 1;
         const test1 = await User.findOne({
           _id: res.locals.user._id,
-          "UserCourse.CourseId": course._id,
-          "UserCourse.CourseReview": 0,
-        })
+          UserCourse: {
+            $elemMatch: {
+              CourseId: course._id,
+              CourseReview: 0
+            }
+          }
+        });
+        console.log(test1)
         if (test1) {
           course.review = 0;
         }

@@ -28,21 +28,19 @@ export default function CourseDetailPage() {
     }
   }, [CourseSlug]);
 
+  console.log("course => ", data)
   if (loading) {
     return (
       <Loading />
     )
-  }
-  // console.log("course => ", data)
-
-  return (
-    <div className="flex overflow-hidden flex-col">
-      <CourseHeader {...data} />
-      <div className="flex z-10 flex-col mt-0 w-full bg-white bg-opacity-10 min-h-screen max-md:mt-0 max-md:max-w-full">
-        <CourseContent {...data} />
-        <Rating/>
-        
+  } else
+    return (
+      <div className="flex overflow-hidden flex-col">
+        <CourseHeader {...data} />
+        <div className="flex z-10 flex-col mt-0 w-full bg-white bg-opacity-10 min-h-screen max-md:mt-0 max-md:max-w-full">
+          <CourseContent {...data} />
+          <Rating setLoading={setLoading} courseID={data?._id} courseReview={data?.CourseReview} has={data?.review} />
+        </div>
       </div>
-    </div>
-  );
+    );
 }

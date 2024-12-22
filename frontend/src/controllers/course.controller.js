@@ -1,4 +1,4 @@
-import { coursesService, courseDetailService, coursePayService, coursesCompletedService, coursesPurchasedService, coursesStudyingService } from '../services/course.service';
+import { coursesService, courseDetailService, coursePayService, coursesCompletedService, coursesPurchasedService, coursesStudyingService, courseReviewService } from '../services/course.service';
 
 export async function coursesController(setLoading) {
   try {
@@ -26,7 +26,7 @@ export async function courseDetailController(setLoading, courseSlug) {
   }
 }
 
-export async function coursePayController( courseSlug) {
+export async function coursePayController(courseSlug) {
   try {
     // setLoading(true); // Đang tải
     const result = await coursePayService(courseSlug); // Gọi API
@@ -69,6 +69,19 @@ export async function coursesStudyingController(setLoading) {
   try {
     setLoading(true); // Đang tải
     const result = await coursesStudyingService(); // Gọi API
+    // console.log("result courses ", result);
+    setLoading(false); // Tải xong
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+    setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
+  }
+}
+
+export async function courseReviewController(setLoading, courseID, data) {
+  try {
+    setLoading(true); // Đang tải
+    const result = await courseReviewService(courseID, data); // Gọi API
     // console.log("result courses ", result);
     setLoading(false); // Tải xong
     return result;

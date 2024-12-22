@@ -179,6 +179,10 @@ module.exports.addComment = async (req, res) => {
       _id: res.locals.user._id,
     })
     if (!test) {
+      res.json({
+        code: 400,
+        message: "Bạn chưa mua khoá học!"
+      })
       return;
     }
 

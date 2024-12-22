@@ -12,7 +12,7 @@ function ImageWithShadow({ src, alt }) {
   );
 }
 
-function ThankYouPage({ onClose }) {
+function ThankYouPage({ onClose, content }) {
   const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
 
   // Hàm đóng popup
@@ -39,7 +39,7 @@ function ThankYouPage({ onClose }) {
         <div className="relative flex flex-wrap gap-5 justify-between w-full bg-none">
           {/* Hình ảnh góc trên bên trái */}
           <ImageWithShadow src={cornerImages[0].src} alt={cornerImages[0].alt} />
-          
+
           {/* Hình ảnh góc trên bên phải và ảnh icon đóng */}
           <button className="relative">
             <ImageWithShadow src={cornerImages[1].src} alt={cornerImages[1].alt} />
@@ -62,7 +62,7 @@ function ThankYouPage({ onClose }) {
             className="object-contain self-center rounded-none aspect-square w-[54px]"
           />
           <div className="text-[24px] mt-[40px]" role="status" aria-live="polite">
-            Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!
+            {content}
           </div>
         </div>
 

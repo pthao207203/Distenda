@@ -28,7 +28,7 @@ export default function CourseReviews(reviews) {
   const voteAve = totalVotes > 0 ? (totalPoints / totalVotes).toFixed(1) : 0;
 
   return (
-    <section className="flex flex-col items-start self-start  w-full rounded-3xl ">
+    <section className="flex flex-col items-start self-start text-white w-full rounded-3xl ">
       <div className="flex flex-wrap gap-10 items-start self-start px-8 py-5 whitespace-nowrap">
         <div className="flex flex-col text-7xl font-bold w-[150px] py-3 max-md:text-4xl">
           <span className="text-center max-w-full w-full">{voteAve}</span>

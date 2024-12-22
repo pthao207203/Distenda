@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import Popup from "./Popup"; // Import Popup vào file
+import { courseReviewController } from "../../../controllers/course.controller"
+import CourseReviews from "../../User/CourseDetailPublic/CourseReviews";
 
-const StarRating = () => {
+const StarRating = ({ setSelectedStars, selectedStars }) => {
   const [hoveredStars, setHoveredStars] = useState(0); // Số ngôi sao khi hover
-  const [selectedStars, setSelectedStars] = useState(0); // Số ngôi sao khi click
 
   const handleMouseEnter = (index) => {
     setHoveredStars(index); // Cập nhật số ngôi sao được hover
@@ -28,9 +29,8 @@ const StarRating = () => {
         return (
           <span
             key={`star-${index}`}
-            className={`cursor-pointer text-[50px] aspect-square w-[50px] mx-1 justify-center items-start transition duration-200 ${
-              isActive ? "text-yellow-500" : "text-gray-400"
-            }`}
+            className={`cursor-pointer text-[50px] aspect-square w-[50px] mx-1 justify-center items-start transition duration-200 ${isActive ? "text-yellow-500" : "text-gray-400"
+              }`}
             onMouseEnter={() => handleMouseEnter(starIndex)}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick(starIndex)}
@@ -43,11 +43,25 @@ const StarRating = () => {
   );
 };
 
-const ReviewSection = () => {
+const ReviewSection = ({ setLoading, courseID, courseReview, has }) => {
+  const [data, setData] = useState();
+  const [selectedStars, setSelectedStars] = useState(0); // Số ngôi sao khi click
+
   const [review, setReview] = useState(""); // Quản lý nội dung review
   const [showPopup, setShowPopup] = useState(false); // Quản lý trạng thái hiển thị Popup
   const [isSubmitted, setIsSubmitted] = useState(false); // Trạng thái đã đăng
   const textAreaRef = useRef(null); // Tham chiếu tới textarea
+
+  useEffect(() => {
+    // Cập nhật giá trị của data khi review hoặc selectedStars thay đổi
+    setData((prevData) => ({
+      ...prevData,
+      Rate: selectedStars,
+      Comment: review,
+    }));
+    console.log("data", data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [review, selectedStars]);
 
   const handleChange = (e) => {
     setReview(e.target.value);
@@ -57,10 +71,13 @@ const ReviewSection = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (review.trim()) {
-      setShowPopup(true); // Hiển thị Popup khi bấm Đăng
-      setIsSubmitted(true); // Đánh dấu là đã đăng, không cho phép đăng lại
+      const result = await courseReviewController(setLoading, courseID, data)
+      if (result.code === 200) {
+        setShowPopup(true); // Hiển thị Popup khi bấm Đăng
+        setIsSubmitted(true); // Đánh dấu là đã đăng, không cho phép đăng lại
+      }
     }
   };
 
@@ -83,38 +100,41 @@ const ReviewSection = () => {
         <div className="max-md:max-w-full">Đánh giá</div>
         <div className="flex mt-2.5 w-full bg-[#CDD5DF] min-h-[2px] max-md:max-w-full" />
       </div>
-      <div className="justify-center items-center w-full max-w-[1542px]">
-        <StarRating />
-        <div>
-          <textarea
-            ref={textAreaRef}
-            value={review}
-            onChange={handleChange}
-            placeholder="Nhập đánh giá của bạn tại đây..."
-            className="flex z-20 mt-[20px] bg-[#CDD5DF] bg-opacity-50 min-h-[137px] p-3 relative w-full border-2 border-gray-400 rounded-md text-white text-xl focus:border-white placeholder-white"
-            disabled={isSubmitted}
-          />
+      <CourseReviews {...courseReview} />
+      {has === 0 && (
+        <div className="justify-center items-center w-full max-w-[1542px]">
+          <StarRating setSelectedStars={setSelectedStars} selectedStars={selectedStars} />
+          <div>
+            <textarea
+              ref={textAreaRef}
+              value={review}
+              onChange={handleChange}
+              placeholder="Nhập đánh giá của bạn tại đây..."
+              className="flex z-20 mt-[20px] bg-[#CDD5DF] bg-opacity-50 min-h-[137px] p-3 relative w-full border-2 border-gray-400 rounded-md text-white text-xl focus:border-white placeholder-white"
+              disabled={isSubmitted}
+            />
+          </div>
+          <div className="flex flex-col justify-center items-end mt-5 w-full text-xl font-semibold leading-none whitespace-nowrap text-neutral-900 max-md:max-w-full">
+            {!isSubmitted ? (
+              <button
+                className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
+                aria-label="Submit review"
+                onClick={handleSubmit} // Hiển thị Popup khi click vào nút Đăng
+              >
+                <span className="self-stretch my-auto">Đăng</span>
+              </button>
+            ) : (
+              <button
+                className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
+                aria-label="Edit review"
+                onClick={handleEdit} // Chuyển về trạng thái chỉnh sửa
+              >
+                <span className="self-stretch my-auto">Chỉnh sửa</span>
+              </button>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col justify-center items-end mt-5 w-full text-xl font-semibold leading-none whitespace-nowrap text-neutral-900 max-md:max-w-full">
-          {!isSubmitted ? (
-            <button
-              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
-              aria-label="Submit review"
-              onClick={handleSubmit} // Hiển thị Popup khi click vào nút Đăng
-            >
-              <span className="self-stretch my-auto">Đăng</span>
-            </button>
-          ) : (
-            <button
-              className="flex justify-center items-center px-[12px] py-[20px] bg-[#CFF500] max-h-[56px] w-full max-w-[180px] mb-[40px]"
-              aria-label="Edit review"
-              onClick={handleEdit} // Chuyển về trạng thái chỉnh sửa
-            >
-              <span className="self-stretch my-auto">Chỉnh sửa</span>
-            </button>
-          )}
-        </div>
-      </div>
+      )}
       {showPopup && <Popup />} {/* Hiển thị Popup khi bấm nút Đăng */}
     </div>
   );

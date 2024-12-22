@@ -76,7 +76,7 @@ export default function CourseDetailPage() {
     const fetchData = async () => {
       // setLoading(true);
       try {
-        const result = await coursePayController( CourseSlug);
+        const result = await coursePayController(CourseSlug);
         if (result === 400) {
           // console.log("Thành công");
         }
@@ -138,7 +138,7 @@ export default function CourseDetailPage() {
       {/* Nếu có ThankYou overlay */}
       {isThankVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-          <ThankYouPage onClose={handleCloseThank} />
+          <ThankYouPage onClose={handleCloseThank} content="Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!" />
         </div>
       )}
 
