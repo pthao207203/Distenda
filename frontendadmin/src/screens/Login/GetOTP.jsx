@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { loginController } from '../../controllers/auth.controller.js';
 
-function GetOTP({onNext, onSetEmail}) {
+function GetOTP({ onNext, onSetEmail }) {
   const [formData, setFormData] = useState({
     AdminEmail: '',
   })
@@ -25,13 +25,18 @@ function GetOTP({onNext, onSetEmail}) {
     setError(null);
     setSuccess(null);
     setIsLoading(true); // Bắt đầu trạng thái loading
-    
+
     // Gửi dữ liệu tới server
     try {
       if (onNext) {
-        onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
+        const result = await loginController(formData, setSuccess, setError);
+        console.log(result)
+        if (result.code === 200) {
+          onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
+        }
       }
     } catch (err) {
+      console.log(err)
       setError("Đã xảy ra lỗi. Vui lòng thử lại.");
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
@@ -64,9 +69,8 @@ function GetOTP({onNext, onSetEmail}) {
           </div>
         </div>
 
-        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 rounded-lg w-full text-xl max-md:text-lg font-normal bg-[#6C8299] min-h-[58px] text-white max-md:max-w-full ${
-          isLoading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 rounded-lg w-full text-xl max-md:text-lg font-normal bg-[#6C8299] min-h-[58px] text-white max-md:max-w-full ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           {isLoading ? "Đang xử lý..." : "Nhận mã"}
         </button>

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function CourseHeader() {
   const menuItems = [
-    "TRANG CHỦ", "NOTEJS", "JQUERY", "JAVACRIPT", "REACT", 
+    "TRANG CHỦ", "NOTEJS", "JQUERY", "JAVACRIPT", "REACT",
     "PHP", "SQL", "HTML", "CSS", "PYTHON", "MYSQL", "C++"
   ];
 
@@ -16,7 +16,7 @@ export default function CourseHeader() {
       <nav className="flex relative items-center self-stretch my-auto text-xl font-semibold text-center min-w-[240px]">
         <div className="flex absolute bottom-0 left-0 z-0 shrink-0 self-start bg-yellow-400 h-[60px] w-[166px]" />
         {menuItems.map((item, index) => (
-          <button 
+          <button
             key={index}
             className="flex z-0 gap-3 items-center self-stretch p-5 my-auto whitespace-nowrap"
             tabIndex={0}

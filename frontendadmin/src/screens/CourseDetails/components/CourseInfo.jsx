@@ -60,7 +60,7 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
             <input
               type="text"
               id="CourseName"
-              value={data.CourseName}
+              value={data?.CourseName}
               onChange={handleChange} // Thêm xử lý onChange
               className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
             />
@@ -73,7 +73,7 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
           <div className="flex relativen min-w-[240px] w-[400px] gap-2.5 items-start px-2.5 py-3 mt-2 rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
             <select
               id="CourseCatogory"
-              value={data.CourseCatogory}
+              value={data?.CourseCatogory}
               onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
               className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
             >
@@ -92,12 +92,12 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
           <div className="flex relativen w-full gap-2.5 items-start px-2.5 py-3 mt-2 rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
             <select
               id="CourseIntructor"
-              value={data.CourseIntructor}
+              value={data?.CourseIntructor}
               onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
               className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
             >
               {intructor && intructor.length > 0 && intructor.map((option, index) => (
-                <option key={index} value={option._id} disabled={option.disabled} selected={option._id === data.intructor._id}>
+                <option key={index} value={option._id} disabled={option.disabled} selected={option._id === data.intructor?._id}>
                   {option.AdminFullName}
                 </option>
               ))}
@@ -117,13 +117,13 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
             }}
           />
         ))} */}
-        <StatItem id="CoursePrice" label="Giá" value={data.CoursePrice} type="input" onChange={handleChange} />
-        <StatItem id="CourseDiscount" label="Giảm giá" value={data.CourseDiscount} type="input" onChange={handleChange} />
+        <StatItem id="CoursePrice" label="Giá" value={data?.CoursePrice} type="input" onChange={handleChange} />
+        <StatItem id="CourseDiscount" label="Giảm giá" value={data?.CourseDiscount} type="input" onChange={handleChange} />
         <div
           className={`flex flex-col grow shrink "h-[91px]" min-w-[240px] w-[240px]`}
         >
           <div className="text-neutral-900 text-opacity-50">Trạng thái</div>
-          {data.CourseStatus === 1 ? (
+          {data?.CourseStatus === 1 ? (
             <button
               onClick={handleToggle}
               className="flex mt-3 gap-3 justify-center items-center px-3 py-[20px] min-w-[300px] bg-lime-300 min-h-[40px] rounded-[99px]"
@@ -173,21 +173,21 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
           <EditableDetail
             id="CourseDescription"
             title="Mô tả"
-            value={data.CourseDescription}
+            value={data?.CourseDescription}
             onChange={handleChange}
             editorRef={editorRef}
           />
           <EditableDetail
             id="CourseOverview"
             title="Tổng quan khóa học"
-            value={data.CourseOverview}
+            value={data?.CourseOverview}
             onChange={handleChange}
             editorRef={editorRef}
           />
           <EditableDetail
             id="CourseLearning"
             title="Bạn sẽ học được gì?"
-            value={data.CourseLearning}
+            value={data?.CourseLearning}
             onChange={handleChange}
             editorRef={editorRef}
           />
@@ -241,7 +241,7 @@ function StatItem({ label, value, type, onChange }) {
 }
 
 function EditableDetail({ id, title, value, onChange, editorRef }) {
-  console.log("id", id)
+  // console.log("id", id)
   return (
     <div className="mt-6">
       <h3 className="text-xl font-semibold text-neutral-900">{title}</h3>

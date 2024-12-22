@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"
 import FormSection from './FormSection';
 import ImageUpload from './ImageUpload';
 import uploadImage from "../../components/UploadImage"
@@ -16,6 +17,7 @@ function CourseForm() {
   const [category, setCategory] = useState();
   const [intructor, setIntructor] = useState();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const editorRef = useRef(null);
 
@@ -87,7 +89,7 @@ function CourseForm() {
 
   const closeSuccessPopup = () => {
     setSuccessPopupVisible(false);
-    // window.location.reload();
+    navigate('/courses')
   };
   const closeErrorPopup = () => {
     setErrorPopupVisible(false); // Ẩn popup thành công
@@ -185,7 +187,7 @@ function CourseForm() {
                 <div className="flex gap-2.5 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 h-[63px]">
                   <select
                     id="CourseIntructor"
-                    value={data.CourseCatogory}
+                    value={data.CourseIntructor}
                     onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
                     className="z-0 flex-1 shrink my-auto basis-0 px-3 max-md:max-w-full bg-transparent border-none outline-none"
                   >

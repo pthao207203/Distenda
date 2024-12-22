@@ -21,7 +21,7 @@ export default function CourseOverview(course) {
             )}
           </div>
         </div>
-        <div className="flex gap-7 items-center self-start mt-4">
+        {/* <div className="flex gap-7 items-center self-start mt-4">
           <div className="flex relative flex-col text-xl font-semibold text-amber-500 whitespace-nowrap aspect-[5.6] w-[140px]">
             <img
               loading="lazy"
@@ -30,8 +30,8 @@ export default function CourseOverview(course) {
               className="object-contain absolute inset-0 size-full"
             />
             5.0
-          </div>
-          {/* <div className="flex gap-1.5 text-sm font-light text-white">
+          </div> */}
+        {/* <div className="flex gap-1.5 text-sm font-light text-white">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/f0bbf77da14dacd16945c1606101c97cc8e38d261a7db20d463c9e79447d709e?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
@@ -40,7 +40,7 @@ export default function CourseOverview(course) {
             />
             <span>100 học viên</span>
           </div> */}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

@@ -5,13 +5,13 @@ function CourseTableRow(course) {
   const navigate = useNavigate();
 
   const handleRowClick = () => {
-    navigate(`/courses/detail/${course._id}`); // Điều hướng đến trang CourseDetailsPage với ID khóa học
+    navigate(`/courses/detail/${course?._id}`); // Điều hướng đến trang CourseDetailsPage với ID khóa học
   };
 
   const statusClass =
-    course.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
+    course?.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
   const statusText =
-    course.CourseStatus === 1 ? "Hoạt động" : "Tạm dừng";
+    course?.CourseStatus === 1 ? "Hoạt động" : "Tạm dừng";
 
   return (
     <article
@@ -21,33 +21,33 @@ function CourseTableRow(course) {
       {/* Tên khóa học */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium px-3 truncate">
-          {course.CourseName}
+          {course?.CourseName}
         </span>
       </div>
 
       {/* Tên giảng viên*/}
       <div className="flex basis-1/6 min-w-0 p-3 justify-center items-center">
-        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.intructorFullName}</span>
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course?.intructorFullName || "Không có"}</span>
       </div>
 
       {/* Số lượng đã bán */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">
-          {course.CourseBought}
+          {course?.CourseBought}
         </span>
       </div>
 
       {/* Giá */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center">
         <span className="text-[#131313] text-center text-xl font-medium truncate">
-          {course.CoursePrice * ((100 - course.CourseDiscount) / 100)}
+          {course?.CoursePrice * ((100 - course.CourseDiscount) / 100)}
         </span>
       </div>
 
       {/* Lợi nhuận */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">
-          0
+          {course?.CourseProfit || "0"}
         </span>
       </div>
 

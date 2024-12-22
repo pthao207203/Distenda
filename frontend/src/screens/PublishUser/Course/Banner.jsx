@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom'
 import { bannerController } from "../../../controllers/banner.controller";
-// import Loading from '../../../components/Loading';
+import Loading from '../../../components/Loading';
 
 function Banner() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,81 +60,79 @@ function Banner() {
     }
   }, [autoSlide, data, nextImage]); // Theo dõi autoSlide và data
 
+  console.log(data)
   if (loading) {
     return (
-      <div>
-      Đang tải...
-    </div>
+      <Loading />
     );
-  }
-
-  return (
-    <div className="relative w-full h-full">
-      {/* Nút mũi tên bên trái (SVG) */}
-      <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
-        onClick={prevImage}  // Điều chỉnh khi nhấn vào nút trái
-        aria-label="Previous"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-white"
+  } else
+    return (
+      <div className="relative w-full h-full">
+        {/* Nút mũi tên bên trái (SVG) */}
+        <button
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
+          onClick={prevImage}  // Điều chỉnh khi nhấn vào nút trái
+          aria-label="Previous"
         >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
 
-      {/* Nút mũi tên bên phải (SVG) */}
-      <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
-        onClick={nextImage}  // Điều chỉnh khi nhấn vào nút phải
-        aria-label="Next"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-white"
+        {/* Nút mũi tên bên phải (SVG) */}
+        <button
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-10"
+          onClick={nextImage}  // Điều chỉnh khi nhấn vào nút phải
+          aria-label="Next"
         >
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
 
-      {/* Hiển thị các banner trượt bằng map */}
-      <div className="w-full h-full mt-[20px] overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{
-            transform: `translateX(-${currentIndex * 100}%)`, // Điều chỉnh để trượt giữa các ảnh
-          }}
-        >
-          {data && data.length > 0 && data.map((banner, index) => (
-            <div key={index} className="w-full flex-shrink-0">
-              <img
-                src={banner?.BannerPicture || "https://via.placeholder.com/1920x300?text=No+Image"}
-                alt={`Banner ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
+        {/* Hiển thị các banner trượt bằng map */}
+        <div className="w-full h-full mt-[20px] overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * 100}%)`, // Điều chỉnh để trượt giữa các ảnh
+            }}
+          >
+            {data && data.length > 0 && data.map((banner, index) => (
+              <Link to={`/courses/${banner.course.CourseSlug}`} key={index} className="w-full flex-shrink-0">
+                <img
+                  src={banner?.BannerPicture || "https://via.placeholder.com/1920x300?text=No+Image"}
+                  alt={`Banner ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default Banner;

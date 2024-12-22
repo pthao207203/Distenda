@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
+import Loading from '../../components/Loading';
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   const [activeLink, setActiveLink] = useState('');
@@ -54,9 +55,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
 
   if (loading) {
     return (
-      <div>
-        Đang tải...
-      </div>
+      <Loading />
     )
   }
   // console.log("category ", data.category)
@@ -86,9 +85,8 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
         >
           <Link
             to="/courses"
-            className={`flex-1 px-3 py-3 ${
-              activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
-            }`}
+            className={`flex-1 px-3 py-3 ${activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
+              }`}
             onClick={() => handleLinkClick("/courses")}
           >
             Trang chủ
@@ -97,11 +95,10 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             <Link
               key={cate.CategorySlug}
               to={`/category/${cate.CategorySlug}`}
-              className={`flex-1 px-3 py-3 ${
-                activeLink === `/category/${cate.CategorySlug}`
-                  ? "bg-[#CFF500] text-black"
-                  : ""
-              }`}
+              className={`flex-1 px-3 py-3 ${activeLink === `/category/${cate.CategorySlug}`
+                ? "bg-[#CFF500] text-black"
+                : ""
+                }`}
               onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
               {cate.CategoryName}
