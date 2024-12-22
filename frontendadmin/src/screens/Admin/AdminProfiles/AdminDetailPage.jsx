@@ -61,6 +61,7 @@ function AdminDetailPage() {
   const handleSubmit = async () => {
     let uploadedImageUrl = data.BannerPicture;
     // Upload ảnh nếu người dùng đã chọn
+    console.log("selectedFileName", selectedFileName)
     if (selectedFileName) {
       uploadedImageUrl = await uploadImage(selectedFileName);;
       console.log("Uploaded Image URL:", uploadedImageUrl);

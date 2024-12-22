@@ -31,10 +31,7 @@ module.exports.index = async (req, res) => {
     user.role = role ? role.RoleName : "Chưa có vai trò";
 
     // Gửi dữ liệu về client
-    res.json({
-      success: true,
-      user, // Thông tin user đang đăng nhập
-    });
+    res.json(user);
   } catch (err) {
     console.error("Error fetching user account:", err);
     res.status(500).json({ success: false, message: "Error" });
@@ -48,27 +45,37 @@ module.exports.editItem = async (req, res) => {
   });
 };
 
-// [PATCH] /admin/my-account/edit
-module.exports.editPatch = async (req, res) => {
+// [POST] /admin/my-account/edit
+module.exports.editPost = async (req, res) => {
   try {
-    const editedBy = {
+    console.log(req.body)
+    const { editedBy, ...updateFields } = req.body;
+    const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
-    // console.log(req.body);
     await Admin.updateOne(
       { _id: res.locals.user.id },
       {
-        ...req.body,
-        $push: { editedBy: editedBy },
+        ...updateFields,
+        $push: { editedBy: newEditedBy },
       }
     );
 
-    req.flash("success", "Cập nhật thành công!");
+    // req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    // req.flash("error", "Cập nhật thất bại!");
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
   }
-  res.redirect(`${systemConfig.prefixAdmin}/my-account`);
+  // res.redirect(`${systemConfig.prefixAdmin}/my-account`);
 };
 
 // // [DELETE] /admin/my-account/delete/:VideoID

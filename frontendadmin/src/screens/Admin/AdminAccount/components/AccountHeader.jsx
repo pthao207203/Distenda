@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 /* eslint-disable jsx-a11y/img-redundant-alt */
-export function AccountHeader({ name, email, avatarSrc, updateIconSrc, openPopup, onAvatarChange }) {
+export function AccountHeader({ name, email, avatarSrc, updateIconSrc, openPopup, onAvatarChange, uploadImagePreviewRef }) {
   const fileInputRef = useRef(null); // Tham chiếu đến input file
 
   // Hàm xử lý nhấp vào ảnh
@@ -15,6 +15,7 @@ export function AccountHeader({ name, email, avatarSrc, updateIconSrc, openPopup
         <div className="flex flex-col">
           {/* Ảnh đại diện */}
           <img
+            ref={uploadImagePreviewRef}
             loading="lazy"
             src={avatarSrc}
             alt={`Profile picture of ${name}`}

@@ -53,7 +53,7 @@ export async function adminUpdatePostController(setLoading, AdminID, data) {
   try {
     setLoading(true)
     const result = await adminUpdatePostService(AdminID, data); // Gọi API
-    // console.log("result admin ", result);
+    console.log("result admin ", result);
     setLoading(false)
     return result;
   } catch (err) {
