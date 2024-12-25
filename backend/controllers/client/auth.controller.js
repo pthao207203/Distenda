@@ -155,6 +155,7 @@ module.exports.passwordForgot = async (req, res) => {
       code: 400,
       message: "Email không tồn tại!!!"
     })
+    return;
   }
   //
   const otp = generateHelper.generateRandomNumber(6)
