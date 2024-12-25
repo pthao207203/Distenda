@@ -33,6 +33,7 @@ import LessonDetail from './screens/Lesson/CourseDetailspage'
 import QuestionEditorpage from './screens/Lesson/LessonEdit/QuestionEditorpage';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
+import Errorpage from './screens/Error/Errorpage';
 
 import { RoleProvider } from "./layouts/AppContext";
 
@@ -109,6 +110,7 @@ function App() {
           <Route element={<PublicRoutes />}>
             <Route element={<Main />}>
               <Route path='/login' element={<Login />} />
+              <Route path="/error" element={<Errorpage />} />
             </Route>
           </Route>
         </Route>

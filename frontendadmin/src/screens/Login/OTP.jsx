@@ -108,7 +108,7 @@ function OTP({ email }) {
             {isLoading ? "Đang xử lý..." : "Xác nhận"}
           </button>
           {error && <p className="mt-4 text-red-500">{error}</p>}
-          {success && <p className="mt-4 text-[#CFF500]">{success}</p>}
+          {success && <p className="mt-4 text-[#6C8299]">{success}</p>}
         </form>
       </div>
     );
