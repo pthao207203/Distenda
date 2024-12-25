@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 export function CourseInfo({ data, handleChange, handleToggle, category, intructor, editorRef }) {
@@ -26,22 +26,22 @@ export function CourseInfo({ data, handleChange, handleToggle, category, intruct
 
   // const [courseStats, setCourseStats] = useState(initialStats);
   const [showMore, setShowMore] = useState(false); // State để quản lý hiển thị thông tin chi tiết
-  const [details, setDetails] = useState({
-    description: `Khóa học dành cho các bạn học viên có định hướng theo phát triển website phía Backend sử dụng NodeJS và các Framework liên quan.
-    Yêu cầu chung: Khóa học sẽ dạy từ cơ bản đến nâng cao. Các bạn chỉ cần: chăm chỉ, không ngại hỏi đáp cũng như đưa ra các thắc mắc trong quá trình học tập.
-    Sau khóa học, các bạn có thể tự tin ứng tuyển vị trí Fresher tại các công ty.`,
-    overview:
-      "Khóa học dành cho các bạn sinh viên CNTT có định hướng theo phát triển website phía Backend sử dụng NodeJS và các Framework liên quan.",
-    outcomes:
-      "Các kiến thức cơ bản, nền móng của ngành IT.\nCác kiến thức nâng cao để làm dự án thực tế.",
-  });
+  // const [details, setDetails] = useState({
+  //   description: `Khóa học dành cho các bạn học viên có định hướng theo phát triển website phía Backend sử dụng NodeJS và các Framework liên quan.
+  //   Yêu cầu chung: Khóa học sẽ dạy từ cơ bản đến nâng cao. Các bạn chỉ cần: chăm chỉ, không ngại hỏi đáp cũng như đưa ra các thắc mắc trong quá trình học tập.
+  //   Sau khóa học, các bạn có thể tự tin ứng tuyển vị trí Fresher tại các công ty.`,
+  //   overview:
+  //     "Khóa học dành cho các bạn sinh viên CNTT có định hướng theo phát triển website phía Backend sử dụng NodeJS và các Framework liên quan.",
+  //   outcomes:
+  //     "Các kiến thức cơ bản, nền móng của ngành IT.\nCác kiến thức nâng cao để làm dự án thực tế.",
+  // });
 
-  const handleDetailChange = (field, value) => {
-    setDetails((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  // const handleDetailChange = (field, value) => {
+  //   setDetails((prev) => ({
+  //     ...prev,
+  //     [field]: value,
+  //   }));
+  // };
 
   return (
     <div className="flex flex-col mt-10 w-full max-md:max-w-full min-w-[240px]">
