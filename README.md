@@ -81,7 +81,9 @@ This project is an academic effort aimed at exploring software development metho
 This section highlights the frameworks and libraries used in the project.
 
 * [![React][React.js]][React-url]
+* [![Express.js][Express.js]][Express-url]
 * [![Node.js][Node.js]][Node-url]
+* [![Tailwind CSS][TailwindCSS.com]][TailwindCSS-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -177,7 +179,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 Thanks to all contributors and resources that inspired this project:
 
 * [React.js](https://reactjs.org/)
+* [Express.js](https://expressjs.org/)
 * [Node.js](https://nodejs.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
 * [Bootstrap](https://getbootstrap.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -197,5 +201,9 @@ Thanks to all contributors and resources that inspired this project:
 [React-url]: https://reactjs.org/
 [Node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
 [Node-url]: https://nodejs.org/
+[Express.js]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
+[Express-url]: https://expressjs.com/
+[TailwindCSS.com]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[TailwindCSS-url]: https://tailwindcss.com/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
