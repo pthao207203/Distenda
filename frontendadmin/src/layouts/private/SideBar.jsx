@@ -72,7 +72,7 @@ export default function SideBar({ headerHeight }) {
         }}
         onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan đến overlay
       >
-        <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
+        <div className="flex gap-2 justify-evenly items-center px-3 w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
             src={data?.setting?.user?.AdminAvatar ? data.setting.user.AdminAvatar : "/profile.svg"}
@@ -84,7 +84,7 @@ export default function SideBar({ headerHeight }) {
             <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
               {data?.setting?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
             </h4>
-            <span className="font-medium text-lg text-black">Manager</span>
+            <h4 className="font-medium text-lg text-black">{data?.role?.RoleName || "Không có vai trò"}</h4>
           </div>
         </div>
 

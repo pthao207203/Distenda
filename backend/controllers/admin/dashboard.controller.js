@@ -1,7 +1,9 @@
+const mongoose = require("mongoose");
 const Course = require("../../models/course.model");
 const Category = require("../../models/category.model");
 const Admin = require("../../models/admin.model");
 const User = require("../../models/user.model");
+const Role = require("../../models/role.model");
 const Pay = require("../../models/pay.model");
 const Setting = require("../../models/setting.model")
 
@@ -63,8 +65,21 @@ module.exports.dashboard = async (req, res) => {
 module.exports.header = async (req, res) => {
   const setting = await Setting.findOne({}).lean()
   setting.user = res.locals.user
+
+  if (mongoose.Types.ObjectId.isValid(setting.user.AdminRole_id)) {
+    const role = await Role.findOne({
+      _id: setting.user.AdminRole_id,
+      RoleDeleted: 1, // Đảm bảo chỉ lấy role chưa bị xóa
+    }).lean();
+
+    setting.role = role ? role : null;
+  } else {
+    setting.role = null;
+  }
+
   res.json({
     setting: setting,
+    role: setting.role,
   })
 };
 
