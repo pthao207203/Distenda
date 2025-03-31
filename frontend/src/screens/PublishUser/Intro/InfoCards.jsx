@@ -56,7 +56,7 @@ function InfoCards() {
     <div className="mt-[80px] flex flex-wrap text-white ">
       {/* Container không có khoảng cách bên trái */}
       <div className="relative flex flex-wrap rounded-lg w-full mx-0">
-        <div className="flex flex-wrap gap-5 w-full">
+        <div className="flex flex-wrap gap-5 w-full justify-center">
           {infoCardsData.map((card, index) => (
             <div
               key={index}

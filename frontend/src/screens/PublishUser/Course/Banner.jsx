@@ -61,11 +61,7 @@ function Banner() {
   }, [autoSlide, data, nextImage]); // Theo dõi autoSlide và data
 
   console.log(data)
-  if (loading) {
-    return (
-      <Loading />
-    );
-  } else
+  
     return (
       <div className="relative w-full h-full">
         {/* Nút mũi tên bên trái (SVG) */}
