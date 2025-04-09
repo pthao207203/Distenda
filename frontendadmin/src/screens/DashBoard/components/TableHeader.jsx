@@ -2,25 +2,37 @@ import * as React from "react";
 
 export default function TableHeader() {
   return (
-    <header className="flex overflow-hidden flex-wrap w-full rounded-3xl bg-slate-500 min-h-[70px] max-md:max-w-full">
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Mã khóa học</h2>
+    <div className="flex shrink overflow-hidden w-full rounded-t-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
+      {/* Mã khóa học */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-center">Phân loại</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Tên khóa</h2>
+
+      {/* Tên khóa */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center text-white">
+        <span className="text-center">Tên khóa</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Đã bán</h2>
+
+      {/* Đã bán */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-center">Đã bán</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full text-white whitespace-nowrap basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Giá</h2>
+
+      {/* Giá */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center text-white">
+        <span className="text-center">Giá</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Lợi nhuận</h2>
+
+      {/* Lợi nhuận */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-center">Lợi nhuận</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full bg-amber-300 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <h2 className="gap-2.5 self-stretch my-auto">Trạng thái</h2>
+
+      {/* Trạng thái */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center text-white">
+        <span className="text-center">Trạng thái</span>
       </div>
-    </header>
+    </div>
   );
 }
+

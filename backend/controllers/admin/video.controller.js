@@ -8,7 +8,7 @@ const createTreeHelper = require("../../helpers/createTree");
 module.exports.deleteItem = async (req, res) => {
   const videoID = req.params.VideoID;
 
-  await Lesson.updateOne(
+  await Video.updateOne(
     { _id: videoID },
     {
       VideoDeleted: 0,
@@ -18,9 +18,12 @@ module.exports.deleteItem = async (req, res) => {
       },
     }
   );
-
-  req.flash("success", "Xóa thành công!");
-  res.redirect("back");
+  res.json({
+    code: 200,
+    message: "Xóa thành công!"
+  })
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect("back");
 };
 
 // [GET] /admin/video/create/:LessonID
@@ -51,10 +54,13 @@ module.exports.createPost = async (req, res) => {
   const video = new Video(req.body);
 
   await video.save();
-
-  res.redirect(
-    `${systemConfig.prefixAdmin}/lesson/detail/${req.params.LessonID}`
-  );
+  res.json({
+    code: 200,
+    message: "Thêm chương học thành công!"
+  })
+  // res.redirect(
+  //   `${systemConfig.prefixAdmin}/lesson/detail/${req.params.LessonID}`
+  // );
 };
 
 // [GET] /admin/video/edit/:VideoID
@@ -135,13 +141,18 @@ module.exports.detailItem = async (req, res) => {
     //   });
     //   course.lesson = lesson;
     // }
-
-    res.render("admin/pages/video/detail", {
-      pageTitle: video.VideoName,
-      video: video,
-    });
+    res.json(video)
+    // res.render("admin/pages/video/detail", {
+    //   pageTitle: video.VideoName,
+    //   video: video,
+    // });
   } catch (error) {
-    req.flash("error", "Không tìm thấy sản phẩm!");
-    res.redirect(`${systemConfig.prefixAdmin}/courses`);
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Không tìm thấy sản phẩm!"
+    })
+    // req.flash("error", "Không tìm thấy sản phẩm!");
+    // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
 };

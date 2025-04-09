@@ -67,7 +67,34 @@ block main
           value="0"
           min="0"
         )
-
+      div(class="form-group")
+        label(for="CourseSalary") Phần trăm hoa hồng
+        input(
+          type="number"
+          class="form-control"
+          id="CourseSalary"
+          name="CourseSalary"
+          value="0"
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseRequire") Yêu cầu đầu vào
+        input(
+          type="text"
+          class="form-control"
+          id="CourseRequire"
+          name="CourseRequire"
+          required
+        )
+      div(class="form-group")
+        label(for="CourseDuration") Thời gian học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseDuration"
+          name="CourseDuration"
+          required
+        )
       div(class="form-group")
         label(for="CourseDescription") Mô tả
         textarea(

@@ -1,35 +1,100 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react';
+import { Link, useLocation } from "react-router-dom";
+import { headerController } from "../../controllers/home.controller"
 
 
-
-export default function Header() {
+export default function Header({ setHeight }) {
   const [activeLink, setActiveLink] = useState('');
+  const location = useLocation(); // Lấy URL hiện tại
 
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-  };
-  return (
-    <header className="flex relative flex-wrap gap-2.5 items-center px-[60px] w-full leading-none text-white bg-white/10 max-sm:px-5 max-md:max-w-full">
+  const [loading, setLoading] = useState(false);
+  let [data, setData] = useState(
+    {
+      category: [],
+      setting: [],
+    }
+  );
 
-      <div className="flex gap-3 items-center self-stretch p-3 my-auto text-6xl uppercase font-['Squada One'] whitespace-nowrap">
-        <h1 className="gap-2.5 self-stretch my-auto max-md:text-4xl" >Distenda</h1>
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      console.log("result", result)
+      setData(result);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Cập nhật activeLink dựa trên URL hiện tại
+    const currentPath = location.pathname;
+    const pathToLink = {
+      '/': 'home',
+      '/login': 'login',
+      '/register': 'register',
+      '/help': 'help',
+    };
+    setActiveLink(pathToLink[currentPath] || '');
+  }, [location]); // Gọi lại mỗi khi URL thay đổi
+
+  const headerRefPublic = useRef(null);
+  useEffect(() => {
+    if (headerRefPublic.current) {
+      setHeight(headerRefPublic.current.offsetHeight); // Truyền chiều cao của header qua props
+    }
+  }, [headerRefPublic, setHeight]);
+
+  if (loading) {
+    return (
+      <div>
+        Đang tải...
       </div>
+    )
+  }
+  console.log("category ", data.category)
+  console.log("setting ", data.setting)
 
-      <nav className="flex flex-wrap flex-1 shrink gap-[30px] justify-end self-stretch items-center my-auto text-xl max-md:text-lg font-semibold text-center max-md:max-w-full ">
-        <Link to='/' className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
-          Về chúng tôi
-        </Link>
-        <Link to="/login" className="flex gap-3 justify-center items-center self-stretch px-3 py-3.5 my-auto text-black bg-[#CFF500]">
-          Đăng nhập
-        </Link>
-        <Link to="/register" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
-          Đăng ký
-        </Link>
-        <Link href="/help" className="flex gap-3 items-center self-stretch px-3 py-5 my-auto">
-          Trợ giúp
-        </Link>
-      </nav>
+  return (
+    <header
+      ref={headerRefPublic}
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
+    >
+      <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
+        <div className="text-6xl uppercase font-['Squada One']">
+          <img src={data?.setting?.WebsiteLogoUser} alt={data?.setting?.WebsiteName} />
+        </div>
+
+        <nav className="flex gap-[30px] items-center text-xl font-semibold text-center max-md:text-lg overflow-x-auto scrollbar-hide" style={{ whiteSpace: "nowrap" }}>
+          <Link
+            to="/"
+            className={`px-3 py-3 ${activeLink === 'home' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => setActiveLink('home')}
+          >
+            Về chúng tôi
+          </Link>
+          <Link
+            to="/login"
+            className={`px-3 py-3 ${activeLink === 'login' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => setActiveLink('login')}
+          >
+            Đăng nhập
+          </Link>
+          <Link
+            to="/register"
+            className={`px-3 py-3 ${activeLink === 'register' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => setActiveLink('register')}
+          >
+            Đăng ký
+          </Link>
+          <Link
+            to="/help"
+            className={`px-3 py-3 ${activeLink === 'help' ? 'bg-[#CFF500] text-black' : ''}`}
+            onClick={() => setActiveLink('help')}
+          >
+            Trợ giúp
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 }

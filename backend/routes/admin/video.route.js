@@ -8,7 +8,7 @@ const controller = require("../../controllers/admin/video.controller");
 const validate = require("../../validates/admin/course.validate");
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
-router.delete("/delete/:LessonID", controller.deleteItem);
+router.delete("/delete/:VideoID", controller.deleteItem);
 
 router.get("/create/:LessonID", controller.createItem);
 

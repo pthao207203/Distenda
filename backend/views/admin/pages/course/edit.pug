@@ -10,7 +10,7 @@ block main
     h1 #{pageTitle}
 
     form(
-      action=`${prefixAdmin}/courses/edit/${course.id}?_method=PATCH`
+      action=`${prefixAdmin}/courses/edit/${course._id}?_method=PATCH`
       method="POST"
       enctype="multipart/form-data"
     )
@@ -68,7 +68,36 @@ block main
           value=course.CourseDiscount
           min="0"
         )
-
+      div(class="form-group")
+        label(for="CourseSalary") Phần trăm hoa hồng
+        input(
+          type="number"
+          class="form-control"
+          id="CourseSalary"
+          name="CourseSalary"
+          value="0"
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseRequire") Yêu cầu đầu vào
+        input(
+          type="text"
+          class="form-control"
+          id="CourseRequire"
+          name="CourseRequire"
+          value=course.CourseRequire
+          required
+        )
+      div(class="form-group")
+        label(for="CourseDuration") Thời gian học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseDuration"
+          name="CourseDuration"
+          value=course.CourseDuration
+          required
+        )
       div(class="form-group")
         label(for="CourseDescription") Mô tả
         textarea(

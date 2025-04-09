@@ -1,26 +1,47 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CourseTableRow({ courseId, name, sold, price, profit }) {
+export default function CourseTableRow(course) {
+  const navigate = useNavigate()
+  const onClick = () => {
+    navigate(`/courses/detail/${course._id}`)
+  }
   return (
-    <div className="flex flex-wrap w-full bg-white min-h-[70px]">
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <div className="gap-2.5 self-stretch my-auto">{courseId}</div>
+    <div onClick={onClick} className="flex shrink overflow-hidden mt-3 bg-white cursor-pointer min-h-[70px] w-full">
+      {/* Mã khóa học */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CategoryName}</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <div className="gap-2.5 self-stretch my-auto">{name}</div>
+
+      {/* Tên sản phẩm */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+        <span className="text-[#131313] text-center text-xl px-3 font-medium truncate">{course.CourseName}</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <div className="gap-2.5 self-stretch my-auto">{sold}</div>
+
+      {/* Số lượng đã bán */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CourseBought}</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <div className="gap-2.5 self-stretch my-auto">{price}</div>
+
+      {/* Giá */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CoursePrice * ((100 - course.CourseDiscount) / 100)}</span>
       </div>
-      <div className="flex flex-1 shrink gap-3 justify-center items-center px-3 py-5 h-full whitespace-nowrap bg-indigo-50 basis-0 shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-        <div className="gap-2.5 self-stretch my-auto">{profit}</div>
+
+      {/* Lợi nhuận */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
+        <span className="text-[#131313] text-center text-xl font-medium truncate">{course.CourseProfit ? course.CourseProfit : 0}</span>
       </div>
-      <div className="flex flex-col flex-1 shrink justify-center p-3 basis-0">
-        <div className="flex gap-3 justify-center items-center px-3 py-2.5 w-full bg-lime-300 min-h-[40px] rounded-[99px] shadow-[-6px_6px_0px_rgba(255,255,255,1)]">
-          <div className="gap-2.5 self-stretch my-auto">Hoạt động</div>
+
+      {/* Trạng thái */}
+      <div className="flex basis-1/6 min-w-0 justify-center items-center">
+        <div
+          className={`self-center shrink w-[90%] max-w-full px-4 py-2 rounded-[99px] justify-center items-center inline-flex ${course.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]"
+            }`}
+        >
+          <span className="text-[#131313] text-center text-xl font-medium truncate">
+            {course.CourseStatus === 1 ? "Hoạt động" : "Tạm dừng"}
+          </span>
         </div>
       </div>
     </div>

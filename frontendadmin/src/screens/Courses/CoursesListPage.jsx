@@ -1,47 +1,61 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import CourseTableHeader from "./components/CourseTableHeader";
 import CourseTableRow from "./components/CourseTableRow";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "../../layouts/private/SearchBar";
 import ActionButton from "./components/ActionButton";
-import SideBar from "../../layouts/private/SideBar";
-
-const courseData = [
-  {
-    id: "HTML2025",
-    name: "HTML cơ bản",
-    sold: "23",
-    price: "1.000.000",
-    profit: "23.000.000",
-    status: "active"
-  },
-  {
-    id: "HTML2024",
-    name: "HTML cơ bản",
-    sold: "23",
-    price: "23.000.000", 
-    profit: "1.000.000",
-    status: "active"
-  }
-];
+import { coursesController } from "../../controllers/course.controller";
+import { useRole } from "../../layouts/AppContext"
+import Loading from "../../components/Loading";
 
 function CourseList() {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const { role } = useRole();
+
+  useEffect(() => {
+    async function fetchData() {
+      // console.log("vaof")
+      const result = await coursesController(setLoading);
+      // console.log(result)
+      if (result) {
+        setData(result); // Lưu dữ liệu nếu hợp lệ
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+  console.log("Courses => ", data)
+  const totalCourses = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
   return (
+    <>
+      <Helmet>
+        <title>Khóa học</title>
+      </Helmet>
     <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <SearchBar />
-      
-      <section className="flex flex-wrap gap-6 items-start self-end mt-6 text-3xl text-white max-md:max-w-full">
-        <ActionButton text="Thêm phân loại" />
-        <ActionButton text="Thêm khóa học" />
-      </section>
+      {role?.role?.RolePermissions?.includes("course_view") && (
+        <section className="flex flex-wrap gap-3 items-start self-end mt-3 text-2xl text-white max-md:max-w-full">
+          <ActionButton text="Danh mục" />
+          <ActionButton text="Thêm khóa học" />
+        </section>
+      )}
 
-      <section className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
+
+      <section className="flex flex-col pb-16 mt-3 w-full text-neutral-900 max-md:max-w-full">
+        <div className="self-stretch text-right text-[#131313] text-xl font-medium leading-tight">Tổng số khóa học: {totalCourses}</div>
         <CourseTableHeader />
-        
-        {Array(8).fill(courseData).flat().map((course, index) => (
+
+        {data && data.length > 0 && data.map((course, index) => (
           <CourseTableRow key={index} {...course} />
         ))}
       </section>
     </main>
+  </>
   );
 }
 

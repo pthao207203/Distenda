@@ -8,6 +8,10 @@ const categoryRoutes = require("./category.route");
 const searchRoutes = require("./search.route");
 const authRoutes = require("./auth.route");
 const userRoutes = require("./user.route");
+const payRoutes = require("./pay.route");
+const videoRoutes = require("./video.route");
+const exerciseRoutes = require("./exercise.route");
+const bannerRoutes = require("./banner.route");
 
 module.exports = (app) => {
   app.use(categoryHeader.CateHeader);
@@ -16,8 +20,12 @@ module.exports = (app) => {
 
   app.use('/', homeRoutes);
   app.use('/courses', courseRoutes);
+  app.use('/banner', bannerRoutes);
   app.use('/category', categoryRoutes);
   app.use('/search', searchRoutes);
   app.use('/auth', authRoutes);
   app.use('/user', authMiddleware.requireAuth, userRoutes)
+  app.use('/video', authMiddleware.requireAuth, videoRoutes)
+  app.use('/exercise', authMiddleware.requireAuth, exerciseRoutes)
+  app.use('/pay', authMiddleware.requireAuth, payRoutes)
 }

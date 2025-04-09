@@ -2,7 +2,7 @@ import * as React from "react";
 
 function NavigationBar() {
   return (
-    <nav className="flex flex-wrap items-center px-5 mt-1.5 w-full text-lg font-semibold leading-none bg-white text-blue-950 max-md:max-w-full">
+    <nav className="flex flex-wrap items-center px-5 mt-1.5 w-full text-lg font-semibold leading-none bg-white text-[#14375F] max-md:max-w-full">
       <div className="flex gap-3 items-center self-stretch px-3 py-1.5 my-auto">
         <span className="gap-2.5 self-stretch my-auto">Khóa học</span>
         <img

@@ -11,10 +11,10 @@ router.get("/", controller.index);
 
 router.get("/edit", controller.editItem);
 
-router.patch("/edit", 
-  upload.single('AdminAvatar'), 
-  uploadCloud.upload, 
-  controller.editPatch
+router.post("/edit",
+  // upload.single('AdminAvatar'), 
+  // uploadCloud.upload, 
+  controller.editPost
 );
 
 // router.delete("/delete/:LessonID", controller.deleteItem);

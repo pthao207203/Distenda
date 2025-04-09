@@ -1,6 +1,8 @@
+const mongoose = require("mongoose");
 const md5 = require("md5");
 const Admin = require("../../models/admin.model");
 const Role = require("../../models/role.model");
+const Course = require("../../models/course.model");
 const systemConfig = require("../../config/system");
 const generateHelper = require("../../helpers/generate");
 
@@ -10,35 +12,91 @@ module.exports.index = async (req, res) => {
     AdminDeleted: 1,
   };
 
-  const admin = await Admin.find(find).select("-AdminPassword -AdminToken");
+  const admin = await Admin.find(find).select("-AdminPassword -AdminToken").lean();
 
   for (const item of admin) {
-    const role = await Role.findOne({
-      _id: item.AdminRole_id,
-      RoleDeleted: 1,
-    });
-    item.role = role;
+    if (mongoose.Types.ObjectId.isValid(item.AdminRole_id)) {
+      const role = await Role.findOne({
+        _id: item.AdminRole_id,
+        RoleDeleted: 1,
+      });
+      item.role = role;
+    } else {
+      item.role = null; // Hoặc xử lý lỗi phù hợp
+    }
   }
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: admin,
+  // });
+};
 
-  res.render("admin/pages/admin/index", {
-    pageTitle: "Danh sách tài khoản",
-    admin: admin,
+// [GET] /admin/admin/detail/:AdminID
+module.exports.detail = async (req, res) => {
+  const find = {
+    AdminDeleted: 1,
+    AdminStatus: 1,
+    _id: req.params.AdminID,
+  };
+
+  const admin = await Admin.findOne(find).lean();
+  if (!admin) {
+    res.json({
+      code: 400,
+      message: "Không tìm thấy người dùng!"
+    })
+    return;
+  }
+  const course = await Course.find({
+    CourseIntructor: admin._id
+  })
+  admin.course = course
+
+  const role = await Role.findOne({
+    _id: admin.AdminRole_id,
+    RoleDeleted: 1,
   });
+  admin.role = role ? role : null;
+  const roles = await Role.find({
+    RoleDeleted: 1,
+  })
+  console.log("roles", roles)
+  admin.roles = roles ? roles : null;
+  // console.log(admin)
+  res.json(admin)
+  // res.render("admin/pages/admin/index", {
+  //   pageTitle: "Danh sách tài khoản",
+  //   admin: user,
+  // });
 };
 
 // [GET] /admin/admin/create
 module.exports.createItem = async (req, res) => {
   const role = await Role.find({ RoleDeleted: 1 });
 
-  res.render("admin/pages/admin/create", {
-    pageTitle: "Thêm tài khoản",
-    roles: role,
-  });
+  // res.render("admin/pages/admin/create", {
+  //   pageTitle: "Thêm tài khoản",
+  //   roles: role,
+  // });
+  res.json(role)
 };
 
 // [POST] /admin/admin/create
 module.exports.createPost = async (req, res) => {
-  req.body.AdminStatus = req.body.AdminStatus == "active" ? 1 : 0;
+  // console.log(req.body)
+  const test = await Admin.findOne({
+    AdminEmail: req.body.AdminEmail
+  })
+  if (test) {
+    res.json({
+      code: 400,
+      message: "Email đã tồn tại!"
+    })
+    return;
+  }
+  req.body.AdminStatus = 1;
+  req.body.AdminDeleted = 1;
   req.body.AdminPassword = md5(req.body.AdminPassword);
   req.body.AdminToken = generateHelper.generateRandomString(30);
   req.body.createdBy = {
@@ -47,8 +105,12 @@ module.exports.createPost = async (req, res) => {
 
   const admin = new Admin(req.body);
   await admin.save();
-  req.flash("success", "Thêm tài khoản admin thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  res.json({
+    code: 200,
+    message: "Tạo tài khoản thành công!"
+  })
+  // req.flash("success", "Thêm tài khoản admin thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };
 
 // // [PATCH] /admin/admin/change-status/:status/:AdminID
@@ -77,9 +139,12 @@ module.exports.deleteItem = async (req, res) => {
       },
     }
   );
-
-  req.flash("success", "Xóa thành công!");
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  res.json({
+    code: 200,
+    message: "Xoá thành công!"
+  })
+  // req.flash("success", "Xóa thành công!");
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };
 
 // [GET] /admin/admin/edit/:AdminID
@@ -107,29 +172,39 @@ module.exports.editItem = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/admin/edit/:AdminID
-module.exports.editPatch = async (req, res) => {
-  req.body.AdminStatus = req.body.AdminStatus == "active" ? 1 : 0;
+// [POST] /admin/admin/edit/:AdminID
+module.exports.editPost = async (req, res) => {
+  const { editedBy, ...updateFields } = req.body;
 
   try {
-    const editedBy = {
+    const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
+
     await Admin.updateOne(
       {
         _id: req.params.AdminID,
       },
       {
-        ...req.body,
-        $push: { editedBy: editedBy },
+        ...updateFields, // Cập nhật các trường khác
+        $push: { editedBy: newEditedBy },
       }
     );
 
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    // req.flash("error", "Cập nhật thất bại!");
+    console.log(error)
+    res.json({
+      code: 400,
+      message: "Cập nhật thất bại!"
+    })
   }
 
-  res.redirect(`${systemConfig.prefixAdmin}/admin`);
+  // res.redirect(`${systemConfig.prefixAdmin}/admin`);
 };

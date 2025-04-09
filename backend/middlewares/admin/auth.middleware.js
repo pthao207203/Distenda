@@ -3,6 +3,7 @@ const Admin = require("../../models/admin.model");
 const Role = require("../../models/role.model");
 
 module.exports.requireAuth = async (req, res, next) => {
+  // console.log("cookies ", req.cookies.token)
   if (!req.cookies.token) {
     res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
     return;

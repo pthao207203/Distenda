@@ -15,11 +15,16 @@ const courseSchema = new mongoose.Schema({
     default: "",
   },
   CourseDescription: String,
+  CourseOverview: String,
+  CourseLearning: String,
+  CourseRequire: String,
   CourseDuration: {
     type: Number,
     default: 0,
   },
   CoursePrice: Number,
+  CourseSalary: Number,
+  CourseProfit: Number,
   CourseDiscount: Number,
   CoursePicture: String,
   CourseBought: {
@@ -31,11 +36,11 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
-  CourseReview: {
+  CourseReview: [{
     UserId: String,
     Rate: Number,
     Comment: String,
-  },
+  }],
   createdBy: {
     UserId: String,
     createdAt: {

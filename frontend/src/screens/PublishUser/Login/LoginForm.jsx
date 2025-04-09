@@ -4,7 +4,7 @@ import LoginButton from './LoginButton';
 
 import { loginController } from '../../../controllers/auth.controller.js';
 
-function LoginForm() {
+function LoginForm({ onForgotPassword }) {
   const [formData, setFormData] = useState({
     UserEmail: '',
     UserPassword: '',
@@ -38,7 +38,7 @@ function LoginForm() {
             <p className="flex gap-3 items-center font-normal self-stretch py-1  my-auto">
               Bạn chưa có tài khoản?&nbsp;
             </p>
-            <a href="#signup" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
+            <a href="/register" className="flex gap-3 items-center font-semibold self-stretch my-auto ">
               Đăng ký ngay
             </a>
           </div>
@@ -94,6 +94,11 @@ function LoginForm() {
               onChange={handleChange}
             />
           </div>
+        </div>
+        <div className="flex mt-2 items-center justify-end text-right w-full text-lg max-md:text-[16px]">
+            <button type="button" onClick={onForgotPassword} className="flex text-right text-white text-base font-normal hover:font-medium hover:underline self-end my-auto ">
+              Quên mật khẩu
+            </button>
         </div>
         {error && <p className="mt-4 text-red-500">{error}</p>}
         {success && <p className="mt-4 text-[#CFF500]">{success}</p>}

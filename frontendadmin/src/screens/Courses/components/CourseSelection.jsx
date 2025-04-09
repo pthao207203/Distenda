@@ -32,12 +32,12 @@ function CourseSelection({ onClose }) {
       {/* Các nút chọn */}
       <section className="flex z-0 gap-10 items-center self-center mt-16 text-3xl text-white max-md:mt-10 max-md:max-w-full">
         <button
-          className="px-10 py-4 bg-slate-500 rounded-lg text-white"
+          className="px-10 py-4 bg-[#6C8299] rounded-lg text-white"
           onClick={handleLongTermClick}
         > Dài hạn
         </button>
         <button
-          className="px-10 py-4 bg-slate-500 rounded-lg text-white"
+          className="px-10 py-4 bg-[#6C8299] rounded-lg text-white"
           onClick={handleShortTermClick}
         > Ngắn hạn
         </button>

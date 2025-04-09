@@ -2,6 +2,7 @@ const Category = require("../../models/category.model")
 const Course = require("../../models/course.model")
 const Admin = require("../../models/admin.model")
 const Role = require("../../models/role.model")
+const Setting = require("../../models/setting.model")
 const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] /
@@ -12,15 +13,16 @@ module.exports.index = async (req, res) => {
   const allCategory = createTreeHelper.tree(category);
 
   const courses = await Course.find({
-    CourseDeleted: 1
+    CourseDeleted: 1,
+    CourseStatus: 1
   }).sort({ _id: -1 }).limit(6);
   const role = await Role.findOne({
-    RoleName: "Giảng viên"
+    RoleName: "Quản trị viên"
   })
   const intructor = await Admin.find({
     AdminDeleted: 1,
     AdminRole_id: role.id
-  }).sort({ _id: -1 }).limit(4);
+  }).sort({ _id: -1 }).limit(6);
   res.json({
     courses: courses,
     intructor: intructor,
@@ -32,3 +34,16 @@ module.exports.index = async (req, res) => {
   //   intructor: intructor
   // });
 }
+
+// [GET] /header
+module.exports.header = async (req, res) => {
+  const category = await Category.find({
+    CategoryDeleted: 1,
+  })
+  const setting = await Setting.findOne({}).lean()
+  setting.user = res.locals.user
+  res.json({
+    category: category,
+    setting: setting,
+  })
+};
