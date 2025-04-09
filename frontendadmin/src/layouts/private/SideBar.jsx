@@ -43,17 +43,6 @@ export default function SideBar({ headerHeight }) {
   }, [isDesktop]);
   
   const menuItems = [
-<<<<<<< HEAD
-    { link: "/", icon: "./icons/home.svg", label: "Trang chủ", isActive: false },
-    { link: "/courses", icon: "./icons/document.svg", label: "Khóa học", isActive: false },
-    { link: "/user", icon: "./icons/2user.svg", label: "Người dùng", isActive: false },
-    { link: "/lecturer", icon: "./icons/work.svg", label: "Giảng viên", isActive: false },
-    { link: "/", icon: "./icons/paper.svg", label: "Hóa đơn", isActive: false },
-    { link: "/", icon: "./icons/setting.svg", label: "Phân quyền", isActive: false },
-    { link: "/", icon: "./icons/notification.svg", label: "Thông báo", isActive: false },
-    { link: "/setting", icon: "./icons/category.svg", label: "Thông tin web", isActive: false },
-  ];
-=======
     (role?.role?.RolePermissions?.includes("dashboard_view") && { link: "/", icon: "/icons/home.svg", label: "Trang chủ" }),
     (role?.role?.RolePermissions?.includes("course_view") && { link: "/courses", icon: "/icons/document.svg", label: "Khóa học" }),
     (role?.role?.RolePermissions?.includes("user_view") && { link: "/user", icon: "/icons/2user.svg", label: "Người dùng" }),
@@ -65,7 +54,6 @@ export default function SideBar({ headerHeight }) {
   ].filter(item => item);;
   
   const adminAvatar = data?.setting?.user?.AdminAvatar || "/profile.svg";
->>>>>>> 0334ef35d2670e87a54dfc56ee5c5e71becc239e
 
   console.log("SideBar => ", data)
   return (

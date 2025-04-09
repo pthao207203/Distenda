@@ -14,14 +14,10 @@ import AddBanner from './screens/Banner/AddBanner/AddBannerpage';
 import UpdateBanner from './screens/Banner/UpdateBanner/UpdateBannerpage';
 import Dashboard from './screens/DashBoard/DashBoardPage';
 import Courses from './screens/Courses/CoursesListPage';
-<<<<<<< HEAD
-import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
-import UserTable from './screens/UserTable/UserTablePage';
-=======
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import Chapter from './screens/Chapter/ChapterDetailspage';
-// import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
+import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import Admin from './screens/Admin/AdminPage';
@@ -41,7 +37,6 @@ import Errorpage from './screens/Error/Errorpage';
 
 import { RoleProvider } from "./layouts/AppContext";
 
->>>>>>> 0334ef35d2670e87a54dfc56ee5c5e71becc239e
 
 function App() {
   const updateFavicon = (faviconURL) => {
@@ -86,11 +81,6 @@ function App() {
             }
           >
             <Route path='/' element={<Dashboard />} />
-<<<<<<< HEAD
-            <Route path='/courses' element={<Courses/>}/>
-                <Route path="/long-term-course" element={<LongTermCoursePage />} />
-            <Route path='/user' element={<UserTable/>} />
-=======
             <Route path='/admin-account' element={<AdminAccount />} />
             <Route path='/banner' element={<Banner />} />
             <Route path='/banner/create' element={<AddBanner />} />
@@ -114,7 +104,6 @@ function App() {
             <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
->>>>>>> 0334ef35d2670e87a54dfc56ee5c5e71becc239e
           </Route>
           {/* </Route> */}
 
