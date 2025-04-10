@@ -56,12 +56,26 @@ export default function CourseDetailPage() {
     setIsBankVisible(false);
     setIsThankVisible(true)
     document.body.style.overflow = "hidden";
+    const token = Cookies.get('user_token');  // Hoặc lấy user_id từ API hoặc cookie
+    const userNotificationsKey = `user_notifications_${token}`; // Key duy nhất cho mỗi user
+
+    const courseLink = `/courses/${data?.CourseSlug}`;
+    const newNotification = {
+      title: `Bạn đã đăng ký thành công ${data?.CourseName}! Mong bạn sớm vào học với chúng tôi!`,
+      date: new Date().toLocaleDateString('vi-VN'),
+      time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+      link: courseLink
+    };
+    const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
+    localStorage.setItem("user_notifications", JSON.stringify([newNotification, ...existing]));
   };
 
   const handleCloseThank = () => {
     setIsThankVisible(false);
     document.body.style.overflow = "auto";
   };
+  
+
 
   const token = Cookies.get('user_token'); // Lấy token từ cookie
   const isAuthenticated = token !== undefined; // Kiểm tra xem token có tồn tại không

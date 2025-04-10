@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
+import Cookies from "js-cookie";
 
 const SideBar = ({ headerHeight }) => {
   let [data, setData] = useState(
@@ -10,21 +11,10 @@ const SideBar = ({ headerHeight }) => {
     }
   );
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      // console.log("result", result)
-      setData(result);
-    }
-
-    fetchData();
-  }, []);
-
+  const [member, setMember] = useState("");
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng của Sidebar
   const [isDesktop, setIsDesktop] = useState(false); // Xác định xem có phải màn hình lớn hay không
   const location = useLocation(); // Lấy thông tin URL hiện tại
-
   const menuItems = [
     { name: "Khóa học của tôi", link: "/courses/CoursePurchased" },
     { name: "Đang học", link: "/courses/CourseStudying" },
@@ -43,6 +33,7 @@ const SideBar = ({ headerHeight }) => {
     return () => window.removeEventListener("resize", handleResize); // Cleanup
   }, []);
 
+
   // Đóng Sidebar khi chuyển từ màn hình nhỏ sang lớn
   useEffect(() => {
     if (isDesktop) {
@@ -50,6 +41,57 @@ const SideBar = ({ headerHeight }) => {
     }
   }, [isDesktop]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      // console.log("result", result)
+      setData(result);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data?.setting?.user?.UserMoney) {
+      let newMember;
+      switch (true) {
+        case data.setting.user.UserMoney > 10000000:
+          newMember = "Thành viên Vip";
+          break;
+        case data.setting.user.UserMoney >= 1000000 && data.setting.user.UserMoney < 5000000:
+          newMember = "Thành viên bạc";
+          break;
+        case data.setting.user.UserMoney >= 5000000 && data.setting.user.UserMoney < 10000000:
+          newMember = "Thành viên vàng";
+          break;
+        default:
+          newMember = "Thành viên đồng";
+      }
+
+      // Kiểm tra nếu hạng thành viên thay đổi và chưa thông báo
+      const token = Cookies.get("user_token");
+      const userNotificationsKey = `user_notifications_${token}`;
+      const hasNotified = localStorage.getItem(`${userNotificationsKey}_${newMember}`);
+
+      // Nếu chưa gửi thông báo cho hạng thành viên này
+      if (newMember !== member && !hasNotified) {
+        setMember(newMember); // Cập nhật hạng thành viên mới
+
+        // Lưu thông báo vào localStorage
+        const newNotification = {
+          title: `Chúc mừng bạn hiện tại đang là ${newMember}!`,
+          date: new Date().toLocaleDateString('vi-VN'),
+          time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+        };
+
+        const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
+        localStorage.setItem(userNotificationsKey, JSON.stringify([newNotification, ...existing]));
+
+        // Đánh dấu là đã gửi thông báo cho hạng thành viên này
+        localStorage.setItem(`${userNotificationsKey}_${newMember}`, true);
+      }
+    }
+  }, [data?.setting?.user?.UserMoney, member]);
   if (loading) {
     return (
       <div>
@@ -59,24 +101,6 @@ const SideBar = ({ headerHeight }) => {
   }
   // console.log("category ", data.category)
   // console.log("setting ", data.setting)
-
-
-  let member;
-
-  switch (true) {
-    case (data?.setting?.user?.UserMoney > 10000000):
-      member = "Thành viên Vip";
-      break;
-    case (data?.setting?.user?.UserMoney >= 1000000 && data?.setting?.user?.UserMoney < 5000000):
-      member = "Thành viên bạc";
-      break;
-    case (data?.setting?.user?.UserMoney >= 5000000 && data?.setting?.user?.UserMoney < 10000000):
-      member = "Thành viên vàng";
-      break;
-    default:
-      member = "Thành viên đồng";
-  }
-
   return (
     <>
       {/* Lớp phủ toàn màn hình khi Sidebar mở */}

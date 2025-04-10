@@ -2,44 +2,41 @@ import React, { useState, useEffect } from "react";
 import NotificationCard from "./NotificationCard";
 import FilterCheckbox from "./FilterCheckbox";
 
-const notifications = [
-  {
-    title: "Chúc mừng bạn đã hoàn thành khóa học HTML cơ bản!",
-    date: "29/10/2024",
-    time: "21:30"
-  },
-  {
-    title: "Bạn ơi! Ưu đãi của bạn sắp hết hạn!",
-    date: "29/10/2024",
-    time: "12:30"
-  },
-  {
-    title: "Bạn đã thanh toán thành công cho khóa học HTML cơ bản!",
-    date: "29/10/2024",
-    time: "20:23"
-  },
-  {
-    title: "Thời gian thanh toán của bạn sắp hết, hãy mau chóng thanh toán để bắt đầu học tập ngay nhé!",
-    date: "29/10/2024",
-    time: "12:10"
-  },
-  {
-    title: "Cảm ơn bạn đã đánh giá khóa học, chúng tôi xin gửi tặng bạn mã giảm giá cho khóa học tiếp theo!",
-    date: "29/10/2024",
-    time: "15:13"
-  },
-  {
-    title: "Chứng chỉ cho khóa học HTML của bạn đã được cấp!",
-    date: "29/10/2024",
-    time: "20:23"
-  }
-];
+// const defaultNotifications = [
+//   {
+//     title: "Chúc mừng bạn đã hoàn thành khóa học!",
+//     date: "29/10/2024",
+//     time: "21:30",
+//     type: "course_completed"
+//   },
+//   {
+//     title: "Chúc mừng! Bạn đã thăng hạng thành viên!",
+//     date: "29/10/2024",
+//     time: "20:23",
+//     type: "membership_upgraded"
+//   },
+//   {
+//     title: "Chúc mừng bạn đăng ký khóa học thành công!",
+//     date: "29/10/2024",
+//     time: "12:10",
+//     type: "success_register"
+//   },
+//   {
+//     title: "Khóa học của bạn sắp hết hạn, hãy nhanh chóng hoàn thành khóa học của bạn nhé!",
+//     date: "29/10/2024",
+//     time: "20:23",
+//     type: "course_expiring"
+//   }
+// ];
+const defaultNotifications = [];
+
 
 const filters = ["Mới nhất", "Cũ nhất", "Đã đọc", "Chưa đọc"];
 
 function NotificationsPage() {
   const [isDesktop, setIsDesktop] = useState(false);
-
+  const [dynamicNotifications, setDynamicNotifications] = useState([]);
+  
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1024); // Kiểm tra nếu là màn hình lớn
@@ -50,6 +47,13 @@ function NotificationsPage() {
 
     return () => window.removeEventListener("resize", handleResize); // Cleanup
   }, []);
+
+  useEffect(() => {
+    const savedNotis = JSON.parse(localStorage.getItem("user_notifications") || "[]");
+    setDynamicNotifications(savedNotis);
+  }, []);
+  
+  const allNotifications = [...dynamicNotifications, ...defaultNotifications];
 
   return (
       <main className="flex relative max-md:flex-col bg-white bg-opacity-10 backdrop-blur-[10px] pb-[129px] px-[33px] max-md:pb-24 max-md:max-w-full">
@@ -81,7 +85,7 @@ function NotificationsPage() {
 
         <div className="flex flex-col md:order-1 w-[78%] max-md:w-full pr-[69px] max-md:pr-0 pt-[34px] max-md:ml-0">
             <div className="flex relative flex-col items-center w-full leading-none max-md:max-w-full">
-              {notifications.map((notification, index) => (
+              {allNotifications.map((notification, index) => (
                 <div key={index} className="mb-[18px] w-full">
                   <NotificationCard {...notification} />
                 </div>
