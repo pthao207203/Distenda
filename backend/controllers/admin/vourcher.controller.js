@@ -4,103 +4,137 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/voucher
 module.exports.index = async (req, res) => {
-    let find = {
-        VoucherDeleted: 1,
-    };
+    try {
+        const vouchers = await Voucher.find({
+            VoucherDeleted: 1
+        }).lean();
 
-    const vouchers = await Voucher.find(find).lean();
-
-    for (const item of vouchers) {
-        const course = await Course.findOne({
-            _id: item.VoucherCourse,
-            CourseDeleted: 1,
+        // Sử dụng populate để lấy thông tin course mà không cần vòng lặp
+        const vouchersWithCourse = await Voucher.populate(vouchers, {
+            path: 'VoucherCourse', // Tên trường liên kết với course
+            match: {
+                CourseDeleted: 1
+            }, // Điều kiện lọc đối với course
         });
-        item.course = course;
-    }
 
-    console.log(vouchers);
-    res.json(vouchers);
+        res.json(vouchersWithCourse);
+    } catch (err) {
+        console.error('Error fetching vouchers:', err);
+        res.status(500).json({
+            message: "Lỗi khi lấy danh sách voucher",
+            error: err
+        });
+    }
 };
 
 // [GET] /admin/voucher/detail/:VoucherID
 module.exports.detail = async (req, res) => {
-    const find = {
-        VoucherDeleted: 1,
-        _id: req.params.VoucherID,
-    };
+    try {
+        const voucher = await Voucher.findOne({
+            VoucherDeleted: 1,
+            _id: req.params.VoucherID,
+        }).lean();
 
-    const voucher = await Voucher.findOne(find).lean();
-    const course = await Course.findOne({
-        _id: voucher.VoucherCourse,
-    });
-    voucher.course = course;
-    console.log(voucher);
-    res.json(voucher);
-};
+        if (!voucher) {
+            return res.status(404).json({
+                message: "Voucher không tồn tại"
+            });
+        }
 
-// [GET] /admin/voucher/create
-module.exports.createItem = async (req, res) => {
-    const course = await Course.find({
-        CourseDeleted: 1
-    });
+        const course = await Course.findOne({
+            _id: voucher.VoucherCourse
+        }).lean();
+        voucher.course = course;
 
-    res.json(course);
+        res.json(voucher);
+    } catch (err) {
+        console.error('Error fetching voucher details:', err);
+        res.status(500).json({
+            message: "Lỗi khi lấy chi tiết voucher",
+            error: err
+        });
+    }
 };
 
 // [POST] /admin/voucher/create
 module.exports.createPost = async (req, res) => {
-    req.body.createdBy = {
-        UserId: res.locals.user.id,
-    };
+    try {
+        req.body.createdBy = {
+            UserId: res.locals.user.id,
+        };
 
-    const voucher = new Voucher(req.body);
-    await voucher.save();
-    res.json({
-        code: 200,
-        message: "Tạo voucher thành công!",
-    });
+        const voucher = new Voucher(req.body);
+        await voucher.save();
+        res.json({
+            code: 200,
+            message: "Tạo voucher thành công!",
+        });
+    } catch (err) {
+        console.error('Error creating voucher:', err);
+        res.status(500).json({
+            message: "Lỗi khi tạo voucher",
+            error: err
+        });
+    }
 };
 
 // [DELETE] /admin/voucher/delete/:VoucherID
 module.exports.deleteItem = async (req, res) => {
-    const VoucherID = req.params.VoucherID;
+    try {
+        const updatedVoucher = await Voucher.updateOne({
+            _id: req.params.VoucherID
+        }, {
+            VoucherDeleted: 0,
+            deletedBy: {
+                UserId: res.locals.user.id,
+                deletedAt: new Date(),
+            },
+        });
 
-    await Voucher.updateOne({
-        _id: VoucherID
-    }, {
-        VoucherDeleted: 0,
-        deletedBy: {
-            UserId: res.locals.user.id,
-            deletedAt: new Date(),
-        },
-    });
+        if (updatedVoucher.nModified === 0) {
+            return res.status(404).json({
+                message: "Voucher không tồn tại"
+            });
+        }
 
-    res.json({
-        code: 200,
-        message: "Xoá voucher thành công!",
-    });
+        res.json({
+            code: 200,
+            message: "Xoá voucher thành công!",
+        });
+    } catch (err) {
+        console.error('Error deleting voucher:', err);
+        res.status(500).json({
+            message: "Lỗi khi xóa voucher",
+            error: err
+        });
+    }
 };
 
 // [GET] /admin/voucher/edit/:VoucherID
 module.exports.editItem = async (req, res) => {
     try {
-        const find = {
+        const voucher = await Voucher.findOne({
             VoucherDeleted: 1,
             _id: req.params.VoucherID,
-        };
+        }).lean();
 
-        const voucher = await Voucher.findOne(find).lean();
+        if (!voucher) {
+            return res.status(404).json({
+                message: "Voucher không tồn tại"
+            });
+        }
+
         const course = await Course.find({
             CourseDeleted: 1
-        });
+        }).lean();
         voucher.course = course;
 
         res.json(voucher);
-    } catch (error) {
-        console.log(error);
-        res.json({
-            code: 400,
-            message: "Không tìm thấy voucher!",
+    } catch (err) {
+        console.error('Error fetching voucher for edit:', err);
+        res.status(500).json({
+            message: "Lỗi khi lấy voucher để chỉnh sửa",
+            error: err
         });
     }
 };
@@ -108,7 +142,6 @@ module.exports.editItem = async (req, res) => {
 // [POST] /admin/voucher/edit/:VoucherID
 module.exports.editPost = async (req, res) => {
     try {
-        console.log(req.body);
         const {
             editedBy,
             ...updateFields
@@ -118,24 +151,30 @@ module.exports.editPost = async (req, res) => {
             editedAt: new Date(),
         };
 
-        await Voucher.updateOne({
+        const updatedVoucher = await Voucher.updateOne({
             _id: req.params.VoucherID
         }, {
-            ...updateFields, // Cập nhật các trường khác
+            ...updateFields,
             $push: {
                 editedBy: newEditedBy
             }, // Thêm đối tượng vào mảng editedBy
         });
 
+        if (updatedVoucher.nModified === 0) {
+            return res.status(404).json({
+                message: "Voucher không tồn tại"
+            });
+        }
+
         res.json({
             code: 200,
             message: "Cập nhật voucher thành công!",
         });
-    } catch (error) {
-        console.log(error);
-        res.json({
-            code: 400,
-            message: "Cập nhật voucher thất bại!",
+    } catch (err) {
+        console.error('Error updating voucher:', err);
+        res.status(500).json({
+            message: "Lỗi khi cập nhật voucher",
+            error: err
         });
     }
 };

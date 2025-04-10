@@ -36,6 +36,7 @@ import Setting from './screens/Setting/Settingpage';
 import Errorpage from './screens/Error/Errorpage';
 
 import { RoleProvider } from "./layouts/AppContext";
+import VoucherList from './screens/Voucher/Voucherpage';
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
             <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/voucher" element={<VoucherList />} />
           </Route>
           {/* </Route> */}
 
