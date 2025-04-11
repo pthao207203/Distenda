@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import NotificationCard from "./NotificationCard";
 import FilterCheckbox from "./FilterCheckbox";
+import Cookies from "js-cookie";  // Import Cookies để xử lý cookies
 
 // const defaultNotifications = [
 //   {
@@ -49,11 +51,26 @@ function NotificationsPage() {
   }, []);
 
   useEffect(() => {
-    const savedNotis = JSON.parse(localStorage.getItem("user_notifications") || "[]");
-    setDynamicNotifications(savedNotis);
-  }, []);
-  
+    const token = Cookies.get('user_token');  // Lấy token từ cookie
+
+    // Kiểm tra xem người dùng đã đăng nhập và có thông báo không
+    if (token) {
+      const savedNotis = JSON.parse(localStorage.getItem(`user_notifications_${token}`) || "[]");
+      setDynamicNotifications(savedNotis);  // Nếu có thông báo, set vào state
+    } else {
+      // Nếu chưa có thông báo, giữ mảng thông báo trống
+      setDynamicNotifications([]);
+    }
+  }, []);  // Chỉ gọi 1 lần khi component mount
+
+  // Cộng dồn các thông báo động và mặc định (nếu có)
   const allNotifications = [...dynamicNotifications, ...defaultNotifications];
+  const sortedNotifications = allNotifications.sort((a, b) => {
+    const dateA = new Date(`${a.date} ${a.time}`);
+    const dateB = new Date(`${b.date} ${b.time}`);
+    return dateB - dateA;  // Thứ tự giảm dần (mới nhất lên trên)
+  });
+
 
   return (
       <main className="flex relative max-md:flex-col bg-white bg-opacity-10 backdrop-blur-[10px] pb-[129px] px-[33px] max-md:pb-24 max-md:max-w-full">
@@ -85,7 +102,7 @@ function NotificationsPage() {
 
         <div className="flex flex-col md:order-1 w-[78%] max-md:w-full pr-[69px] max-md:pr-0 pt-[34px] max-md:ml-0">
             <div className="flex relative flex-col items-center w-full leading-none max-md:max-w-full">
-              {allNotifications.map((notification, index) => (
+            {sortedNotifications.map((notification, index) => (
                 <div key={index} className="mb-[18px] w-full">
                   <NotificationCard {...notification} />
                 </div>

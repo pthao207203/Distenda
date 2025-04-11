@@ -50,35 +50,36 @@ export default function CourseDetailPage() {
     document.body.style.overflow = "auto";
   };
   const [isThankVisible, setIsThankVisible] = useState(false);
+  
+  // Logic khác như fetch dữ liệu khóa học, thông báo, etc.
 
   const handleOpenThank = () => {
     setIsPaymentVisible(false);
     setIsBankVisible(false);
     setIsThankVisible(true);
     document.body.style.overflow = "hidden";
-  
-    const token = Cookies.get('user_token');  // Lấy user_token từ cookie
+
+    const token = Cookies.get('user_token');
     const userNotificationsKey = `user_notifications_${token}`; // Key duy nhất cho mỗi user
-  
-    // Tạo thông báo cho khóa học đăng ký thành công
+
     const courseLink = `/courses/${data?.CourseSlug}`;
     const newNotification = {
       title: `Bạn đã đăng ký thành công ${data?.CourseName}! Mong bạn sớm vào học với chúng tôi!`,
-      date: new Date().toLocaleDateString('vi-VN'),
-      time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+      date: new Date().toLocaleDateString('vi-VN'),  // Lưu ngày hiện tại
+      time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),  // Lưu giờ và phút
       link: courseLink
     };
-  
+
     // Lấy thông báo cũ từ localStorage, nếu có
-    const existingNotifications = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
-  
+    const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
+
     // Kiểm tra xem thông báo này đã có trong mảng thông báo cũ chưa
-    const isNotificationExists = existingNotifications.some(notification => notification.title === newNotification.title);
-  
+    const isNotificationExists = existing.some(notification => notification.title === newNotification.title);
+
     // Nếu chưa có thông báo, thêm vào mảng thông báo cũ
     if (!isNotificationExists) {
-      existingNotifications.push(newNotification); // Thêm thông báo mới vào danh sách
-      localStorage.setItem(userNotificationsKey, JSON.stringify(existingNotifications)); // Lưu lại danh sách thông báo
+      existing.push(newNotification); // Thêm thông báo mới vào danh sách
+      localStorage.setItem(userNotificationsKey, JSON.stringify(existing)); // Lưu lại danh sách thông báo
     }
   };
 

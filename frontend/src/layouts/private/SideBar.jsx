@@ -67,34 +67,35 @@ const SideBar = ({ headerHeight }) => {
         default:
           newMember = "Thành viên đồng";
       }
-  
-      // Kiểm tra nếu hạng thành viên thay đổi và chưa thông báo
+
+      // Kiểm tra nếu hạng thành viên thay đổi và chưa thông báo cho hạng đó
       const token = Cookies.get("user_token");
       const userNotificationsKey = `user_notifications_${token}`;
-      const newMemberNotificationKey = `${userNotificationsKey}_new_member_notification`;
-      
-      // Kiểm tra nếu đã gửi thông báo thăng hạng cho hạng thành viên này
+      const newMemberNotificationKey = `${userNotificationsKey}_${newMember.replace(" ", "_")}_notification`;
+
       const hasNotifiedForMember = localStorage.getItem(newMemberNotificationKey);
-  
+
       if (newMember !== member && !hasNotifiedForMember) {
         setMember(newMember); // Cập nhật hạng thành viên mới
-  
+
         // Lưu thông báo thăng hạng vào localStorage
         const newNotification = {
           title: `Chúc mừng bạn hiện tại là ${newMember}!`,
           date: new Date().toLocaleDateString('vi-VN'),
           time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
         };
-  
+
         const existingNotifications = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
         localStorage.setItem(userNotificationsKey, JSON.stringify([newNotification, ...existingNotifications]));
-  
-        // Đánh dấu là đã gửi thông báo thăng hạng
+
+        // Đánh dấu là đã gửi thông báo cho hạng này
         localStorage.setItem(newMemberNotificationKey, true);
       }
     }
-  }, [data?.setting?.user?.UserMoney, member]);
-  if (loading) {
+  }, [data?.setting?.user?.UserMoney, member]); // Đảm bảo lắng nghe thay đổi hạng thành viên
+
+  
+   if (loading) {
     return (
       <div>
         Đang tải...
