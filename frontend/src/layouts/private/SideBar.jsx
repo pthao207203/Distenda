@@ -67,28 +67,30 @@ const SideBar = ({ headerHeight }) => {
         default:
           newMember = "Thành viên đồng";
       }
-
+  
       // Kiểm tra nếu hạng thành viên thay đổi và chưa thông báo
       const token = Cookies.get("user_token");
       const userNotificationsKey = `user_notifications_${token}`;
-      const hasNotified = localStorage.getItem(`${userNotificationsKey}_${newMember}`);
-
-      // Nếu chưa gửi thông báo cho hạng thành viên này
-      if (newMember !== member && !hasNotified) {
+      const newMemberNotificationKey = `${userNotificationsKey}_new_member_notification`;
+      
+      // Kiểm tra nếu đã gửi thông báo thăng hạng cho hạng thành viên này
+      const hasNotifiedForMember = localStorage.getItem(newMemberNotificationKey);
+  
+      if (newMember !== member && !hasNotifiedForMember) {
         setMember(newMember); // Cập nhật hạng thành viên mới
-
-        // Lưu thông báo vào localStorage
+  
+        // Lưu thông báo thăng hạng vào localStorage
         const newNotification = {
-          title: `Chúc mừng bạn hiện tại đang là ${newMember}!`,
+          title: `Chúc mừng bạn hiện tại là ${newMember}!`,
           date: new Date().toLocaleDateString('vi-VN'),
           time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
         };
-
-        const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
-        localStorage.setItem(userNotificationsKey, JSON.stringify([newNotification, ...existing]));
-
-        // Đánh dấu là đã gửi thông báo cho hạng thành viên này
-        localStorage.setItem(`${userNotificationsKey}_${newMember}`, true);
+  
+        const existingNotifications = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
+        localStorage.setItem(userNotificationsKey, JSON.stringify([newNotification, ...existingNotifications]));
+  
+        // Đánh dấu là đã gửi thông báo thăng hạng
+        localStorage.setItem(newMemberNotificationKey, true);
       }
     }
   }, [data?.setting?.user?.UserMoney, member]);

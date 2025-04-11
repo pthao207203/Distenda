@@ -54,11 +54,13 @@ export default function CourseDetailPage() {
   const handleOpenThank = () => {
     setIsPaymentVisible(false);
     setIsBankVisible(false);
-    setIsThankVisible(true)
+    setIsThankVisible(true);
     document.body.style.overflow = "hidden";
-    const token = Cookies.get('user_token');  // Hoặc lấy user_id từ API hoặc cookie
+  
+    const token = Cookies.get('user_token');  // Lấy user_token từ cookie
     const userNotificationsKey = `user_notifications_${token}`; // Key duy nhất cho mỗi user
-
+  
+    // Tạo thông báo cho khóa học đăng ký thành công
     const courseLink = `/courses/${data?.CourseSlug}`;
     const newNotification = {
       title: `Bạn đã đăng ký thành công ${data?.CourseName}! Mong bạn sớm vào học với chúng tôi!`,
@@ -66,8 +68,18 @@ export default function CourseDetailPage() {
       time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
       link: courseLink
     };
-    const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
-    localStorage.setItem("user_notifications", JSON.stringify([newNotification, ...existing]));
+  
+    // Lấy thông báo cũ từ localStorage, nếu có
+    const existingNotifications = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
+  
+    // Kiểm tra xem thông báo này đã có trong mảng thông báo cũ chưa
+    const isNotificationExists = existingNotifications.some(notification => notification.title === newNotification.title);
+  
+    // Nếu chưa có thông báo, thêm vào mảng thông báo cũ
+    if (!isNotificationExists) {
+      existingNotifications.push(newNotification); // Thêm thông báo mới vào danh sách
+      localStorage.setItem(userNotificationsKey, JSON.stringify(existingNotifications)); // Lưu lại danh sách thông báo
+    }
   };
 
   const handleCloseThank = () => {
