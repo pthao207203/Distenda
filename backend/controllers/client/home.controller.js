@@ -41,7 +41,9 @@ module.exports.header = async (req, res) => {
     CategoryDeleted: 1,
   })
   const setting = await Setting.findOne({}).lean()
-  setting.user = res.locals.user
+  if (res.locals.user) {
+    setting.user = res.locals.user
+  }
   res.json({
     category: category,
     setting: setting,
