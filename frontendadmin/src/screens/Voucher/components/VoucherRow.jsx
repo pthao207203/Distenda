@@ -27,9 +27,9 @@ function VoucherRow({ id, index, name, linkedCourse }) {
                 <div className="text-[#131313] text-center text-xl font-medium truncate">{name}</div>
             </div>
 
-            {/* Column: Linked Course */}
+            {/* Column:  */}
             <div className="flex basis-1/4 min-w-0 min-h-[70px] shrink gap-3 justify-center items-center px-3 bg-[#EBF1F9] max-md:max-w-full">
-                <div className="text-[#131313] text-center text-xl font-medium truncate">{linkedCourse}</div>
+                <div className="text-[#131313] text-center text-xl font-medium truncate">{}</div>
             </div>
 
             {/* Column: Actions */}

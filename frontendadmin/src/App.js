@@ -34,9 +34,10 @@ import QuestionEditorpage from './screens/Lesson/LessonEdit/QuestionEditorpage';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 import Errorpage from './screens/Error/Errorpage';
+import VoucherList from './screens/Voucher/Voucherpage';
+import VoucherDetail from './screens/Voucher/VoucherDetail/VoucherDetail';
 
 import { RoleProvider } from "./layouts/AppContext";
-import VoucherList from './screens/Voucher/Voucherpage';
 
 
 function App() {
@@ -106,7 +107,8 @@ function App() {
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/voucher" element={<VoucherList />} />
-          </Route>
+            <Route path="/voucher/detail/:VoucherID" element={<VoucherDetail />} />
+            </Route>
           {/* </Route> */}
 
           <Route element={<PublicRoutes />}>
