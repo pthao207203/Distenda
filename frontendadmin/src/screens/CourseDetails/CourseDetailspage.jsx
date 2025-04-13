@@ -5,11 +5,11 @@ import { CourseHeader } from "./components/CourseHeader";
 import { CourseImage } from "./components/CourseImage";
 import { CourseInfo } from "./components/CourseInfo";
 import { ChapterList } from "./components/ChapterList";
-import uploadImage from "../../components/UploadImage"
+import uploadImage from "../../components/UploadImage";
 import { courseDetailController } from "../../controllers/course.controller";
+import CourseDetailHistory from "./components/CourseDetailHistory";
 
 import Loading from "../../components/Loading";
-
 
 function CourseDetails() {
   const [data, setData] = useState({});
@@ -20,13 +20,12 @@ function CourseDetails() {
 
   const editorRef = useRef(null);
 
-
   const [imageUrl, setImageUrl] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
 
   const uploadImageInputRef = useRef(null);
   const uploadImagePreviewRef = useRef(null);
-
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -45,9 +44,9 @@ function CourseDetails() {
   useEffect(() => {
     async function fetchData() {
       // console.log("vaof")
-      setLoading(true)
+      setLoading(true);
       const result = await courseDetailController(setLoading, CourseID);
-      setLoading(false)
+      setLoading(false);
       // console.log(result)
       if (result) {
         setCategory((prevRoles) => [
@@ -58,9 +57,9 @@ function CourseDetails() {
           { _id: "", AdminFullName: "Chọn giảng viên", disabled: true },
           ...result.intructors,
         ]);
-        setSelectedFileName(result.CoursePicture)
-        setImageUrl(result.CoursePicture)
-        setData(result)
+        setSelectedFileName(result.CoursePicture);
+        setImageUrl(result.CoursePicture);
+        setData(result);
       }
     }
 
@@ -72,7 +71,7 @@ function CourseDetails() {
     let uploadedImageUrl = data.BannerPicture;
     // Upload ảnh nếu người dùng đã chọn
     if (selectedFileName) {
-      uploadedImageUrl = await uploadImage(selectedFileName);;
+      uploadedImageUrl = await uploadImage(selectedFileName);
       console.log("Uploaded Image URL:", uploadedImageUrl);
     }
     const updatedData = {
@@ -81,16 +80,16 @@ function CourseDetails() {
     };
 
     console.log("Data sent to ActionButton:", updatedData);
-    setData(updatedData)
+    setData(updatedData);
     return updatedData;
   };
 
   if (loading) {
     return <Loading />;
   }
-  console.log("coursedetail => ", data)
-  console.log("categories => ", category)
-  console.log("intructors => ", intructor)
+  console.log("coursedetail => ", data);
+  console.log("categories => ", category);
+  console.log("intructors => ", intructor);
 
   // Hàm cập nhật dữ liệu khi người dùng nhập vào
   const handleChange = (e) => {
@@ -113,8 +112,7 @@ function CourseDetails() {
   const handleToggle = () => {
     setData((prevData) => ({
       ...prevData,
-      CourseStatus:
-        prevData.CourseStatus === 1 ? 0 : 1,
+      CourseStatus: prevData.CourseStatus === 1 ? 0 : 1,
     }));
   };
 
@@ -130,13 +128,41 @@ function CourseDetails() {
     });
   };
 
+  const handleHistoryRequest = () => {
+    setIsHistoryVisible(true);
+  };
+
+  const handleCloseHistoryRequest = () => {
+    setIsHistoryVisible(false);
+  };
   return (
+    <>
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       <CourseHeader data={data} handleSubmit={handleSubmit} />
-      <CourseImage data={data} uploadImageInputRef={uploadImageInputRef} uploadImagePreviewRef={uploadImagePreviewRef} handleImageChange={handleImageChange} imageUrl={imageUrl} />
-      <CourseInfo data={data} category={category} intructor={intructor} handleChange={handleChange} handleToggle={handleToggle} editorRef={editorRef} />
+      <CourseImage
+        data={data}
+        uploadImageInputRef={uploadImageInputRef}
+        uploadImagePreviewRef={uploadImagePreviewRef}
+        handleImageChange={handleImageChange}
+        imageUrl={imageUrl}
+        handleHistoryRequest={handleHistoryRequest}
+      />
+      <CourseInfo
+        data={data}
+        category={category}
+        intructor={intructor}
+        handleChange={handleChange}
+        handleToggle={handleToggle}
+        editorRef={editorRef}
+      />
       <ChapterList data={data} lessonChange={lessonChange} />
     </div>
+     {isHistoryVisible && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
+              <CourseDetailHistory onClose={handleCloseHistoryRequest} />
+            </div>
+          )}
+    </>
   );
 }
 

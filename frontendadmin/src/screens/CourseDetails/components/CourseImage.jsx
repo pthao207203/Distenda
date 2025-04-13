@@ -7,6 +7,7 @@ export function CourseImage({
   uploadImageInputRef,
   uploadImagePreviewRef,
   handleImageChange,
+  handleHistoryRequest,
 }) {
   // console.log("data", data)
   return (
@@ -29,7 +30,7 @@ export function CourseImage({
               <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
                 Lần cuối cập nhật
               </div>
-              <button className="flex gap-3 justify-center items-center">
+              <button className="flex gap-3 justify-center items-center" onClick ={handleHistoryRequest}>
                 <img
                   loading="lazy"
                   src="/icons/Show.svg"

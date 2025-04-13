@@ -2,7 +2,6 @@ const Course = require("../../models/course.model");
 const Category = require("../../models/category.model");
 const Admin = require("../../models/admin.model");
 const Lesson = require("../../models/lesson.model");
-const CourseHistory = require("../../models/courseHistory.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
@@ -82,23 +81,6 @@ module.exports.changeStatus = async (req, res) => {
       }
     );
 
-    // Ghi lịch sử thay đổi trạng thái
-    await CourseHistory.create({
-      CourseId: courseID,
-      action: "change-status",
-      user: { UserId: res.locals.user.id },
-      userName: admin?.AdminFullName,
-      userAvatar: admin?.AdminAvatar,
-      timestamp: new Date(),
-      dataSnapshot: {
-        before: oldCourse,
-        after: {
-          ...oldCourse,
-          CourseStatus: status == "active" ? 1 : 0,
-        },
-      },
-    });
-
     res.json({
       code: 200,
       message: "Cập nhật trạng thái thành công",
@@ -131,17 +113,6 @@ module.exports.deleteItem = async (req, res) => {
       },
     }
   );
-
-  // Ghi lịch sử xóa
-  await CourseHistory.create({
-    CourseId: courseID,
-    action: "delete",
-    user: { UserId: res.locals.user.id },
-    userName: admin?.AdminFullName,
-    userAvatar: admin?.AdminAvatar,
-    timestamp: new Date(),
-    dataSnapshot: deletedCourse?.toObject() || {},
-  });
 
   req.flash("success", "Xóa thành công!");
   res.redirect(`${systemConfig.prefixAdmin}/courses`);
@@ -179,18 +150,8 @@ module.exports.createPost = async (req, res) => {
     UserId: res.locals.user.id,
   };
   const course = new Course(req.body);
-  const admin = await Admin.findById(res.locals.user.id);
   await course.save();
-  // Lưu lịch sử tạo
-  await CourseHistory.create({
-    CourseId: course._id,
-    action: "create",
-    user: { UserId: res.locals.user.id },
-    userName: admin?.AdminFullName,
-    userAvatar: admin?.AdminAvatar,
-    timestamp: new Date(),
-    dataSnapshot: course.toObject(),
-  });
+
   res.json({
     code: 200,
     message: "Tạo khoá học thành công!",
@@ -326,20 +287,6 @@ module.exports.editPost = async (req, res) => {
         }
       }
     }
-    const admin = await Admin.findById(res.locals.user.id);
-    // Ghi lại lịch sử chỉnh sửa
-    await CourseHistory.create({
-      CourseId: req.params.CourseID,
-      action: "edit",
-      user: { UserId: res.locals.user.id },
-      userName: admin?.AdminFullName,
-      userAvatar: admin?.AdminAvatar,
-      timestamp: new Date(),
-      dataSnapshot: {
-        before: oldCourse,
-        after: { ...oldCourse, ...updateFields },
-      },
-    });
 
     res.json({
       code: 200,

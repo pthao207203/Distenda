@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
-import { courseHistoryController } from "../../../controllers/history.controller";
+import { lessonHistoryController } from "../../../controllers/history.controller";
+import { useParams } from "react-router-dom";
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);
@@ -26,31 +26,31 @@ const getActionStyle = (action) => {
   }
 };
 
-export default function CourseHistory({ onClose }) {
-  const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
-  const [histories, setHistories] = React.useState([]);
-  const navigate = useNavigate();
-
+export default function CourseDetailHistory({ onClose }) {
+  const [isOpen, setIsOpen] = useState(true); // Trạng thái popup
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-
+  const { CourseID } = useParams();
   useEffect(() => {
     async function fetchData() {
-      // console.log("vao")
-      const result = await courseHistoryController(setLoading);
+        try {
+            setLoading(true);
+      const result = await lessonHistoryController(setLoading, CourseID);
       // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
+    } catch (error) {
+        console.error("Error fetching lesson history:", error);
+    } finally {
+        setLoading(false);
+      }
     }
 
     fetchData();
-  }, []);
+  }, [CourseID]);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-  console.log("Course History => ", data);
+  console.log("Lesson History => ", data);
 
   // Hàm đóng popup
   const handleClose = () => {
@@ -71,8 +71,7 @@ export default function CourseHistory({ onClose }) {
         alt="Close icon"
         onClick={handleClose}
       />
-
-      <div className="flex flex-wrap gap-3 items-center px-3 py-2 mt-2 w-full text-[1.25rem] leading-none text-[#6C8299] bg-white backdrop-blur-[100px] min-h-[50px] rounded-[100px] border border-solid border-[#6C8299] max-md:max-w-full">
+      <div className="flex gap-3 items-center md:px-3 md:py-2 mt-2 w-full text-[1.25rem] leading-none text-[#6C8299] bg-white backdrop-blur-[100px] min-h-[50px] rounded-[100px] border border-solid border-[#6C8299] max-md:max-w-full">
         <img
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/669888cc237b300e928dbfd847b76e4236ef4b5a?placeholderIfAbsent=true&apiKey=d911d70ad43c41e78d81b9650623c816"
           alt="Search icon"
@@ -85,12 +84,13 @@ export default function CourseHistory({ onClose }) {
           className="flex-1 md:text-[1.25rem] bg-transparent border-none outline-none placeholder-[#6C8299] text-[#6C8299] focus:ring-2 focus:ring-red-dark focus:ring-opacity-50"
         />
       </div>
-        {data && data.length > 0 ? (
+      {(!data) && <p className="text-black text-base">Không có dữ liệu lịch sử.</p>}
+        {data && data.length > 0 && (
           <div className="flex flex-col gap-3 justify-start self-start w-full mt-4 max-h-[70vh] overflow-y-auto">
           {data.map((history, index) => {
             const name = history.userName;
             const avatar = history.userAvatar;
-            const courseName = history.CourseName;
+            const lessonName = history.LessonName;
             const time = formatDate(history.timestamp);
             const { text, color } = getActionStyle(history.action);
             return (
@@ -105,16 +105,14 @@ export default function CourseHistory({ onClose }) {
                   className="rounded-full object-cover"
                   style={{ width: "34px", height: "34px" }}
                 />
-                <h4 className="font-medium text-lg text-black">
-                  {name}, {courseName} ({time})
+                <h4 className="font-medium text-[1.125rem] text-black">
+                  {name}, {lessonName} ({time})
                 </h4>
-                <span className={`${color} font-medium text-lg`}>{text}</span>
+                <span className={`${color} font-medium text-[1.125rem]`}>{text}</span>
               </div>
             );
           })}
           </div>
-        ) : (
-          <p className="text-black text-base">Không có dữ liệu lịch sử.</p>
         )}
     </main>
   );

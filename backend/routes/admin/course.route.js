@@ -37,4 +37,5 @@ router.post(
   controller.editPost
 );
 router.get("/history", historyController.getCourseHistory);
+router.get("/detail/:CourseID/history", historyController.getLessonHistoryByCourseID);
 module.exports = router;

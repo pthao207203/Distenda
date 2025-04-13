@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import ActionButton from "./components/ActionButton";
 import FormField from "./components/FormField";
-import uploadImage from "../../../components/UploadImage"
+import uploadImage from "../../../components/UploadImage";
 import { bannerUpdateController } from "../../../controllers/banner.controller";
-import { Editor } from '@tinymce/tinymce-react';
+import { Editor } from "@tinymce/tinymce-react";
 
 import Loading from "../../../components/Loading";
 
@@ -25,7 +25,6 @@ function BannerForm() {
   const [loading, setLoading] = useState(false);
 
   const editorRef = useRef(null);
-
 
   // const [imageSrc, setImageSrc] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -51,16 +50,16 @@ function BannerForm() {
   useEffect(() => {
     async function fetchData() {
       // console.log("vaof")
-      setLoading(true)
+      setLoading(true);
       const result = await bannerUpdateController(setLoading, BannerID);
-      setLoading(false)
+      setLoading(false);
       // console.log(result)
       if (result) {
         setCourse((prevRoles) => [
           { _id: "", CourseName: "Chọn khoá học", disabled: true },
           ...result.course, // Dữ liệu fetch được sẽ thêm vào sau "Chọn chức vụ"
         ]); // Lưu dữ liệu nếu hợp lệ
-        setData(result)
+        setData(result);
       }
     }
 
@@ -72,7 +71,7 @@ function BannerForm() {
     let uploadedImageUrl = data.BannerPicture;
     // Upload ảnh nếu người dùng đã chọn
     if (selectedFileName) {
-      uploadedImageUrl = await uploadImage(selectedFileName);;
+      uploadedImageUrl = await uploadImage(selectedFileName);
       console.log("Uploaded Image URL:", uploadedImageUrl);
     }
     const updatedData = {
@@ -81,7 +80,7 @@ function BannerForm() {
     };
 
     console.log("Data sent to ActionButton:", updatedData);
-    setData(updatedData)
+    setData(updatedData);
     return updatedData;
   };
 
@@ -110,25 +109,45 @@ function BannerForm() {
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
       {/* Form banner */}
-      < form className="flex flex-col px-16 pt-16 pb-60 mx-auto w-full text-xl font-medium leading-none bg-white min-h-[983px] max-md:px-5 max-md:pb-24 max-md:mt-1.5 max-md:max-w-full" >
-        {/* Nút hành động */}
-        <div div className="flex gap-2.5 items-start self-end text-white" >
-          <ActionButton
-            icon="https://cdn.builder.io/api/v1/image/assets/TEMP/8a519aeacd2020baeb94ebfcc67db11646f466943744fdfc76c6c8f7eb3fe974?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-            text="Cập nhật"
-            variant="gray"
-            handleSubmit={handleSubmit}
-          />
-          <ActionButton
-            icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
-            text="Xóa"
-            variant="red"
-            handleSubmit={handleSubmit}
-          />
+      <form className="flex flex-col px-16 pt-16 pb-60 mx-auto w-full text-xl font-medium leading-none bg-white min-h-[983px] max-md:px-5 max-md:pb-24 max-md:mt-1.5 max-md:max-w-full">
+        <div className="flex justify-between items-center max-md:max-w-full">
+          <div className="flex flex-col justify-center max-md:max-w-full min-w-[240px] w-[400px]">
+            <div className="flex gap-3 items-center">
+              <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
+                Lần cuối cập nhật
+              </div>
+              <button className="flex gap-3 justify-center items-center">
+                <img
+                  loading="lazy"
+                  src="/icons/Show.svg"
+                  className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
+                  alt="Icon"
+                />
+              </button>
+            </div>
+            <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
+              20/10/2023
+            </span>
+          </div>
+          {/* Nút hành động */}
+          <div div className="flex gap-2.5 items-start self-start text-white">
+            <ActionButton
+              icon="https://cdn.builder.io/api/v1/image/assets/TEMP/8a519aeacd2020baeb94ebfcc67db11646f466943744fdfc76c6c8f7eb3fe974?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+              text="Cập nhật"
+              variant="gray"
+              handleSubmit={handleSubmit}
+            />
+            <ActionButton
+              icon="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=bb36f631e8e54463aa9d0d8a1339282b"
+              text="Xóa"
+              variant="red"
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </div>
 
         {/* Trường nhập liệu */}
-        < FormField
+        <FormField
           label="Tên banner"
           value={data.BannerName}
           id="BannerName"
@@ -137,7 +156,10 @@ function BannerForm() {
 
         {/* Trường chọn khóa học */}
         <div className="flex flex-col justify-center mt-10 w-full max-md:max-w-full">
-          <label htmlFor="BannerCourse" className="text-neutral-900 text-opacity-50 max-md:max-w-full">
+          <label
+            htmlFor="BannerCourse"
+            className="text-neutral-900 text-opacity-50 max-md:max-w-full"
+          >
             Chọn khoá học
           </label>
           <div className="flex relative gap-2.5 items-start px-2.5 py-6 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
@@ -147,16 +169,25 @@ function BannerForm() {
               onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
               className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
             >
-              {course && course.length > 0 && course.map((option, index) => (
-                <option key={index} value={option._id} disabled={option.disabled}>
-                  {option.CourseName}
-                </option>
-              ))}
+              {course &&
+                course.length > 0 &&
+                course.map((option, index) => (
+                  <option
+                    key={index}
+                    value={option._id}
+                    disabled={option.disabled}
+                  >
+                    {option.CourseName}
+                  </option>
+                ))}
             </select>
           </div>
 
           <div className="flex flex-col justify-center mt-10 w-full max-md:max-w-full">
-            <label htmlFor="BannerDescription" className="text-neutral-900 text-opacity-50 max-md:max-w-full pb-2">
+            <label
+              htmlFor="BannerDescription"
+              className="text-neutral-900 text-opacity-50 max-md:max-w-full pb-2"
+            >
               Mô tả banner
             </label>
             <Editor
@@ -185,7 +216,7 @@ function BannerForm() {
                   "media",
                   "table",
                   "help",
-                  "wordcount"
+                  "wordcount",
                 ],
                 toolbar:
                   "undo redo | blocks | " +
@@ -236,12 +267,14 @@ function BannerForm() {
                   onChange={handleImageChange}
                 />
               </button>
-              <div className="mt-2 text-slate-500">Không có tệp nào được chọn.</div>
+              <div className="mt-2 text-slate-500">
+                Không có tệp nào được chọn.
+              </div>
             </div>
           </div>
         </div>
-      </form >
-    </div >
+      </form>
+    </div>
   );
 }
 

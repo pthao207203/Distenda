@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom";
 import LessonRow from "./components/LessonRow";
 import TableHeader from "./components/TableHeader";
 import StatusBadge from "./components/StatusBadge";
 import EditButton from "./components/EditButton";
 import DeleteButton from "./components/DeleteButton";
 import uploadImage from "../../components/UploadImage";
-import { lessonDetailController } from "../../controllers/lesson.controller"
+import { lessonDetailController } from "../../controllers/lesson.controller";
 
 import Loading from "../../components/Loading";
 
@@ -21,25 +21,25 @@ function CourseLesson() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const { LessonID } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onClickExercise = () => {
-    navigate(`/courses/lesson/exercise/create/${data._id}`)
-  }
+    navigate(`/courses/lesson/exercise/create/${data._id}`);
+  };
 
   const onClickVideo = () => {
-    navigate(`/courses/lesson/video/create/${data._id}`)
-  }
+    navigate(`/courses/lesson/video/create/${data._id}`);
+  };
 
   useEffect(() => {
     async function fetchData() {
       // console.log("vaof")
-      setLoading(true)
+      setLoading(true);
       const result = await lessonDetailController(setLoading, LessonID);
-      setLoading(false)
+      setLoading(false);
       // console.log(result)
       if (result) {
-        setData(result)
+        setData(result);
       }
     }
 
@@ -50,7 +50,7 @@ function CourseLesson() {
   if (loading) {
     return <Loading />;
   }
-  console.log("coursedetail => ", data)
+  console.log("coursedetail => ", data);
 
   // Hàm cập nhật dữ liệu khi người dùng nhập vào
   const handleChange = (e) => {
@@ -84,7 +84,6 @@ function CourseLesson() {
 
   return (
     <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-
       <DeleteButton data={data} />
       <div className="flex z-0 flex-col w-full max-md:max-w-full">
         <div className="text-xl font-semibold text-neutral-900 max-md:max-w-full">
@@ -93,7 +92,10 @@ function CourseLesson() {
         <div className="flex flex-wrap gap-10 items-start mt-6 w-full max-md:max-w-full">
           <div className="flex flex-wrap gap-10 font-semibold min-w-[240px] w-full">
             <div className="flex flex-col justify-center max-md:max-w-full min-w-[240px] w-[400px]">
-              <label htmlFor="LessonName" className="text-neutral-900 text-opacity-50 max-md:max-w-full">
+              <label
+                htmlFor="LessonName"
+                className="text-neutral-900 text-opacity-50 max-md:max-w-full"
+              >
                 Tên chương học
               </label>
               <div className="flex relative gap-2.5 items-start px-2.5 py-3 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
@@ -107,22 +109,22 @@ function CourseLesson() {
               </div>
             </div>
             <div className="flex flex-col justify-center max-md:max-w-full min-w-[240px] w-[400px]">
-            <div className="flex gap-3 items-center">
-              <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
-                Lần cuối cập nhật
+              <div className="flex gap-3 items-center">
+                <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
+                  Lần cuối cập nhật
+                </div>
+                <button className="flex gap-3 justify-center items-center">
+                  <img
+                    loading="lazy"
+                    src="/icons/Show.svg"
+                    className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
+                    alt="Icon"
+                  />
+                </button>
               </div>
-              <button className="flex gap-3 justify-center items-center">
-                <img
-                  loading="lazy"
-                  src="/icons/Show.svg"
-                  className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
-                  alt="Icon"
-                />
-              </button>
-            </div>
-            <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
-              20/10/2023
-            </span>
+              <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
+                20/10/2023
+              </span>
             </div>
           </div>
           {/* <StatusBadge /> */}
@@ -143,14 +145,15 @@ function CourseLesson() {
         </div>
         <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
           <TableHeader onClickVideo={onClickVideo} />
-          {data?.video?.length > 0 && data.video.map((video, index) => (
-            <LessonRow
-              setLoading={setLoading}
-              key={index}
-              video={video}
-              lessonChange={lessonChange}
-            />
-          ))}
+          {data?.video?.length > 0 &&
+            data.video.map((video, index) => (
+              <LessonRow
+                setLoading={setLoading}
+                key={index}
+                video={video}
+                lessonChange={lessonChange}
+              />
+            ))}
         </div>
       </div>
     </div>
