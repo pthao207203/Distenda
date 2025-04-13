@@ -106,6 +106,24 @@ function CourseLesson() {
                 />
               </div>
             </div>
+            <div className="flex flex-col justify-center max-md:max-w-full min-w-[240px] w-[400px]">
+            <div className="flex gap-3 items-center">
+              <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
+                Lần cuối cập nhật
+              </div>
+              <button className="flex gap-3 justify-center items-center">
+                <img
+                  loading="lazy"
+                  src="/icons/Show.svg"
+                  className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
+                  alt="Icon"
+                />
+              </button>
+            </div>
+            <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
+              20/10/2023
+            </span>
+            </div>
           </div>
           {/* <StatusBadge /> */}
         </div>
