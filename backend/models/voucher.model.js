@@ -21,10 +21,14 @@ const voucherSchema = new mongoose.Schema({
     validityPeriod: {
         type: Number, // Representing validity in currency or days
         required: true,
+        default: 30, // Default validity period in days
+    },
+    VoucherDeleted: {
+    type: Number,
+    default: 1, // 1: chưa bị xóa, 0: đã bị xóa
     },
     status: {
-        type: String,
-        enum: ['active', 'inactive'],
+        type: Number,
         default: 1,
     },
     createdBy: {

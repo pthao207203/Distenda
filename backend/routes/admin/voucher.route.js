@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
-// Đảm bảo đúng tên file controller
-const controller = require("../../controllers/admin/voucher.controller");
+const controller = require("../../controllers/admin/vourcher.controller");
 
 // Route để lấy tất cả voucher
 router.get('/', controller.index);
@@ -11,7 +9,7 @@ router.get('/', controller.index);
 router.get('/detail/:VoucherID', controller.detail);
 
 // Route để hiển thị form tạo voucher (GET)
-router.get('/create', controller.createItem);
+// router.get('/create', controller.createItem);
 
 // Route để tạo mới voucher (POST)
 router.post('/create', controller.createPost);
