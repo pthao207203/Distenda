@@ -1,8 +1,7 @@
 const Admin = require("../../models/admin.model");
 const Course = require("../../models/course.model");
 const Lesson = require("../../models/lesson.model");
-// const LessonHistory = require("../../models/lessonHistory.model");
-// const ExerciseHistory = require("../../models/exerciseHistory.model");
+const Video = require("../../models/video.model");
 
 // [GET] /admin/courses/history
 module.exports.getCourseHistory = async (req, res) => {
@@ -82,7 +81,7 @@ module.exports.getLessonHistoryByCourseID = async (req, res) => {
     const lessons = await Lesson.find({ CourseId: CourseID }).lean(); // Lấy tất cả bài học của khóa học
 
     if (!lessons || lessons.length === 0) {
-      return res.status(404).json({ message: "Không tìm thấy bài học trong khóa học này" });
+      return res.status(404).json({ message: "Không tìm thấy lịch sử chương trong khóa học này" });
     }
 
     const logs = [];
@@ -153,19 +152,80 @@ module.exports.getLessonHistoryByCourseID = async (req, res) => {
   }
 };
 
-// // [GET] /admin/exercises/history/:ExerciseID
-// module.exports.getExerciseHistory = async (req, res) => {
-//   try {
-//     const histories = await ExerciseHistory.find({ ExerciseId: req.params.ExerciseID })
-//       .sort({ timestamp: -1 })
-//       .lean();
-//     res.json(histories);
-//   } catch (error) {
-//     console.error("Lỗi lấy lịch sử bài tập:", error);
-//     res.status(500).json({
-//       code: 500,
-//       message: "Lỗi khi lấy lịch sử bài tập",
-//       error: error.message,
-//     });
-//   }
-// };
+// [GET] /admin/courses/lesson/detail/:LessonID/history
+module.exports.getVideoHistoryByCourseID = async (req, res) => {
+  try {
+    const { LessonID } = req.params;  // Lấy CourseID từ tham số URL
+    const videos = await Video.find({ LessonId: LessonID }).lean(); // Lấy tất cả bài học của khóa học
+
+    if (!videos || videos.length === 0) {
+      return res.status(404).json({ message: "Không tìm thấy lịch sử video trong chương này" });
+    }
+
+    const logs = [];
+
+    // Lấy lịch sử của mỗi bài học
+    for (const video of videos) {
+      const videoName = video.VideoName;
+      const videoId = video._id;
+
+      // THÊM
+      if (video.createdBy?.UserId) {
+        logs.push({
+          action: "create",
+          VideoId: videoId,
+          VideoName: videoName,
+          userId: video.createdBy.UserId,
+          timestamp: video.createdBy.createdAt,
+        });
+      }
+
+      // SỬA
+      if (Array.isArray(video.editedBy)) {
+        for (const edit of video.editedBy) {
+          logs.push({
+            action: "edit",
+            VideoId: videoId,
+            VideoName: videoName,
+            userId: edit.UserId,
+            timestamp: edit.editedAt,
+          });
+        }
+      }
+
+      // XÓA
+      if (video.deletedBy?.UserId) {
+        logs.push({
+          action: "delete",
+          VideoId: videoId,
+          VideoName: videoName,
+          userId: video.deletedBy.UserId,
+          timestamp: video.deletedBy.deletedAt,
+        });
+      }
+    }
+
+    // Lấy thông tin người dùng
+    const userIds = [...new Set(logs.map(log => log.userId))];
+    const users = await Admin.find({ _id: { $in: userIds } }).lean();
+    const userMap = Object.fromEntries(users.map(u => [u._id.toString(), {
+      name: u.AdminFullName,
+      avatar: u.AdminAvatar,
+    }]));
+
+    // Gắn userName, userAvatar vào logs
+    const result = logs.map(log => ({
+      ...log,
+      userName: userMap[log.userId]?.name || "Không xác định",
+      userAvatar: userMap[log.userId]?.avatar || "/profile.svg",
+    }));
+
+    // Sắp xếp lịch sử từ mới nhất đến cũ nhất
+    result.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    res.json(result);
+  } catch (err) {
+    console.error("Lỗi getVideoHistoryByCourseID:", err);
+    res.status(500).json({ message: "Lỗi server", error: err.message });
+  }
+};
