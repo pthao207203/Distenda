@@ -92,6 +92,40 @@ function QuestionEditor() {
     // window.location.reload();
   };
 
+  const handleTestCaseChange = (e, index, type) => {
+    const updatedTestCases = [...data.exercise.ExerciseTestcase]; // Sao chép mảng test case hiện tại
+    updatedTestCases[index][type] = e.target.value; // Cập nhật giá trị của input hoặc output
+    setData((prevData) => ({
+      ...prevData,
+      exercise: {
+        ...prevData.exercise,
+        ExerciseTestcase: updatedTestCases, // Cập nhật lại ExerciseTestcase trong dữ liệu
+      },
+    }));
+  };
+  const addTestCase = () => {
+    setData((prevData) => ({
+      ...prevData,
+      exercise: {
+        ...prevData.exercise,
+        ExerciseTestcase: [
+          ...prevData.exercise.ExerciseTestcase,
+          { Input: '', Output: '' }, // Thêm một test case mới với input và output rỗng
+        ],
+      },
+    }));
+  };
+
+  const handleCodeChange = (editor, data, value) => {
+    setData((prevData) => ({
+      ...prevData,
+      exercise: {
+        ...prevData.exercise,
+        ExerciseSample: value, // Cập nhật phần code
+      },
+    }));
+  };
+
   const handleChange = (e) => {
     // Kiểm tra nếu e.target tồn tại (dành cho input và select)
     if (e.target) {
@@ -150,6 +184,9 @@ function QuestionEditor() {
               exercise={data?.exercise}
               handleChange={handleChange}
               handleEditorChange={handleEditorChange}
+              handleCodeChange={handleCodeChange}
+              handleTestCaseChange={handleTestCaseChange}
+              addTestCase={addTestCase}
               editorRef={editorRef}
             />
           </div>
