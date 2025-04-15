@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
 import { useOutletContext } from "react-router-dom";
 import Loading from "../../../components/Loading";
+import { addNotification } from "../../../services/notification.service";
+
 
 export default function CourseDetailPage() {
   const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
@@ -53,35 +55,38 @@ export default function CourseDetailPage() {
   
   // Logic khác như fetch dữ liệu khóa học, thông báo, etc.
 
-  const handleOpenThank = () => {
+  const handleOpenThank = async () => {
     setIsPaymentVisible(false);
     setIsBankVisible(false);
     setIsThankVisible(true);
     document.body.style.overflow = "hidden";
-
-    const token = Cookies.get('user_token');
-    const userNotificationsKey = `user_notifications_${token}`; // Key duy nhất cho mỗi user
-
-    const courseLink = `/courses/${data?.CourseSlug}`;
-    const newNotification = {
-      title: `Bạn đã đăng ký thành công ${data?.CourseName}! Mong bạn sớm vào học với chúng tôi!`,
-      date: new Date().toLocaleDateString('vi-VN'),  // Lưu ngày hiện tại
-      time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),  // Lưu giờ và phút
-      link: courseLink
-    };
-
-    // Lấy thông báo cũ từ localStorage, nếu có
-    const existing = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
-
-    // Kiểm tra xem thông báo này đã có trong mảng thông báo cũ chưa
-    const isNotificationExists = existing.some(notification => notification.title === newNotification.title);
-
-    // Nếu chưa có thông báo, thêm vào mảng thông báo cũ
-    if (!isNotificationExists) {
-      existing.push(newNotification); // Thêm thông báo mới vào danh sách
-      localStorage.setItem(userNotificationsKey, JSON.stringify(existing)); // Lưu lại danh sách thông báo
+  
+    try {
+      let token = Cookies.get('user_token');
+  
+      if (token && data?.CourseName && data?.CourseSlug) {
+        const message = `Bạn đã đăng ký thành công ${data.CourseName}! Mong bạn sớm vào học với chúng tôi!`;
+  
+        const result = await addNotification({
+          message,
+          type: "success",
+          userToken: token,
+        });
+  
+        if (result.success) {
+          console.log("Thông báo đã được gửi thành công");
+        } else {
+          console.error("Không thể gửi thông báo");
+        }
+      } else {
+        console.error("Dữ liệu khóa học không hợp lệ.");
+      }
+    } catch (err) {
+      console.error("Không thể gửi thông báo:", err);
+      alert("Có lỗi xảy ra khi gửi thông báo. Vui lòng thử lại.");
     }
   };
+  
 
   const handleCloseThank = () => {
     setIsThankVisible(false);

@@ -1,14 +1,10 @@
 const mongoose = require("mongoose");
-const generateHelper = require("../helpers/generate")
 
 const userSchema = new mongoose.Schema({
   UserFullName: String,
   UserEmail: String,
   UserPassword: String,
-  UserToken: {
-    type: String,
-    default: generateHelper.generateRandomString(30)
-  },
+  UserToken: String,
   UserPhone: String,
   UserAvatar: String,
   UserStatus: {

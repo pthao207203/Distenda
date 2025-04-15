@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import NotificationCard from "./NotificationCard";
 import FilterCheckbox from "./FilterCheckbox";
 import Cookies from "js-cookie";  // Import Cookies để xử lý cookies
+import { addNotification, getNotificationsByUser } from '../../../services/notification.service';
+
+
+
 
 // const defaultNotifications = [
 //   {
@@ -30,47 +34,41 @@ import Cookies from "js-cookie";  // Import Cookies để xử lý cookies
 //     type: "course_expiring"
 //   }
 // ];
-const defaultNotifications = [];
-
+let defaultNotifications = [];
 
 const filters = ["Mới nhất", "Cũ nhất", "Đã đọc", "Chưa đọc"];
 
 function NotificationsPage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [dynamicNotifications, setDynamicNotifications] = useState([]);
+
   
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024); // Kiểm tra nếu là màn hình lớn
+    const fetchNotifications = async () => {
+      const token = Cookies.get('user_token');
+  
+      if (token) {
+        const backendNotis = await getNotificationsByUser(token);
+        setDynamicNotifications(backendNotis.map(noti => ({
+          title: noti.NotificationMessage,
+          date: new Date(noti.createdBy?.createdAt).toLocaleDateString("vi-VN"),
+          time: new Date(noti.createdBy?.createdAt).toLocaleTimeString("vi-VN"),
+          link: "/user/notification", // Tùy loại có thể link khác
+        })));
+      } else {
+        setDynamicNotifications([]);
+      }
     };
+  
+    fetchNotifications();
+  }, []); // Chỉ gọi lần đầu tiên
 
-    handleResize(); // Gọi ngay khi component mount
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize); // Cleanup
-  }, []);
-
-  useEffect(() => {
-    const token = Cookies.get('user_token');  // Lấy token từ cookie
-
-    // Kiểm tra xem người dùng đã đăng nhập và có thông báo không
-    if (token) {
-      const savedNotis = JSON.parse(localStorage.getItem(`user_notifications_${token}`) || "[]");
-      setDynamicNotifications(savedNotis);  // Nếu có thông báo, set vào state
-    } else {
-      // Nếu chưa có thông báo, giữ mảng thông báo trống
-      setDynamicNotifications([]);
-    }
-  }, []);  // Chỉ gọi 1 lần khi component mount
-
-  // Cộng dồn các thông báo động và mặc định (nếu có)
-  const allNotifications = [...dynamicNotifications, ...defaultNotifications];
-  const sortedNotifications = allNotifications.sort((a, b) => {
+   // Sắp xếp thông báo theo ngày
+  const sortedNotifications = dynamicNotifications.sort((a, b) => {
     const dateA = new Date(`${a.date} ${a.time}`);
     const dateB = new Date(`${b.date} ${b.time}`);
     return dateB - dateA;  // Thứ tự giảm dần (mới nhất lên trên)
   });
-
 
   return (
       <main className="flex relative max-md:flex-col bg-white bg-opacity-10 backdrop-blur-[10px] pb-[129px] px-[33px] max-md:pb-24 max-md:max-w-full">
@@ -100,16 +98,21 @@ function NotificationsPage() {
           </div>
         </aside>
 
-        <div className="flex flex-col md:order-1 w-[78%] max-md:w-full pr-[69px] max-md:pr-0 pt-[34px] max-md:ml-0">
-            <div className="flex relative flex-col items-center w-full leading-none max-md:max-w-full">
-            {sortedNotifications.map((notification, index) => (
-                <div key={index} className="mb-[18px] w-full">
-                  <NotificationCard {...notification} />
-                </div>
-              ))}
-            </div>
+        {/* Content Area */}
+      <div className="flex flex-col md:order-1 w-[78%] max-md:w-full pr-[69px] max-md:pr-0 pt-[34px] max-md:ml-0">
+        <div className="flex relative flex-col items-center w-full leading-none max-md:max-w-full">
+          {sortedNotifications.length > 0 ? (
+            sortedNotifications.map((notification, index) => (
+              <div key={index} className="mb-[18px] w-full">
+                <NotificationCard {...notification} />
+              </div>
+            ))
+          ) : (
+            <div>Không có thông báo nào.</div>
+          )}
         </div>
-      </main>
+      </div>
+    </main>
   );
 }
 

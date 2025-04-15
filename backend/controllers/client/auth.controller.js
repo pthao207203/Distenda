@@ -125,6 +125,7 @@ module.exports.registerPost = async (req, res) => {
     return;
   }
   req.body.UserPassword = md5(req.body.UserPassword)
+  req.body.UserToken = generateHelper.generateRandomString(30)
   const user = new User(req.body)
   await user.save();
 
@@ -233,8 +234,9 @@ module.exports.passwordNew = async (req, res) => {
   })
 };
 
-// [GET] /admin/auth/setting
+// [GET] /auth/setting
 module.exports.setting = async (req, res) => {
-  const setting = await Setting.findOne({}).lean()
+  let setting = await Setting.findOne({}).lean()
+  // console.log(setting);
   res.json(setting)
 };

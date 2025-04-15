@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
-import Cookies from "js-cookie";
+import { addNotification, getNotificationsByUser } from '../../services/notification.service';
+import Cookies from 'js-cookie';
+
 
 const SideBar = ({ headerHeight }) => {
   let [data, setData] = useState(
@@ -50,49 +52,61 @@ const SideBar = ({ headerHeight }) => {
 
     fetchData();
   }, []);
-
+  const userToken = Cookies.get('user_token');
   useEffect(() => {
-    if (data?.setting?.user?.UserMoney) {
-      let newMember;
-      switch (true) {
-        case data.setting.user.UserMoney > 10000000:
-          newMember = "Thành viên Vip";
-          break;
-        case data.setting.user.UserMoney >= 1000000 && data.setting.user.UserMoney < 5000000:
-          newMember = "Thành viên bạc";
-          break;
-        case data.setting.user.UserMoney >= 5000000 && data.setting.user.UserMoney < 10000000:
-          newMember = "Thành viên vàng";
-          break;
-        default:
-          newMember = "Thành viên đồng";
+    const checkAndSendRankNotification = async () => {
+      // Kiểm tra xem có userToken và UserMoney
+      if (data?.setting?.user?.UserMoney && userToken) {
+        let newMember;
+        const money = data.setting.user.UserMoney;
+  
+        switch (true) {
+          case money > 10000000:
+            newMember = "Thành viên Vip";
+            break;
+          case money >= 5000000:
+            newMember = "Thành viên vàng";
+            break;
+          case money >= 1000000:
+            newMember = "Thành viên bạc";
+            break;
+          default:
+            newMember = "Thành viên đồng";
+        }
+  
+        if (newMember !== member) {
+          setMember(newMember); // Cập nhật trạng thái thành viên mới
+  
+          try {
+            // Gọi API để lấy thông báo của user thông qua userToken
+            const notifications = await getNotificationsByUser(userToken);
+            console.log("notifications", notifications);
+  
+            // Kiểm tra xem thông báo này đã được gửi chưa
+            const hasAlreadySent = notifications.some(noti =>
+              noti.NotificationMessage === `Chúc mừng bạn hiện tại là ${newMember}!`
+            );
+  
+            // Nếu chưa gửi thông báo này, thêm vào
+            if (!hasAlreadySent) {
+              const message = `Chúc mừng bạn hiện tại là ${newMember}!`;
+              await addNotification({
+                message,
+                type: "rank_up", // Có thể dùng riêng để phân loại
+                userToken, // Gửi userToken thay vì _id
+              });
+            }
+          } catch (error) {
+            console.error("Không thể kiểm tra/gửi thông báo thăng hạng:", error);
+          }
+        }
       }
-
-      // Kiểm tra nếu hạng thành viên thay đổi và chưa thông báo cho hạng đó
-      const token = Cookies.get("user_token");
-      const userNotificationsKey = `user_notifications_${token}`;
-      const newMemberNotificationKey = `${userNotificationsKey}_${newMember.replace(" ", "_")}_notification`;
-
-      const hasNotifiedForMember = localStorage.getItem(newMemberNotificationKey);
-
-      if (newMember !== member && !hasNotifiedForMember) {
-        setMember(newMember); // Cập nhật hạng thành viên mới
-
-        // Lưu thông báo thăng hạng vào localStorage
-        const newNotification = {
-          title: `Chúc mừng bạn hiện tại là ${newMember}!`,
-          date: new Date().toLocaleDateString('vi-VN'),
-          time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
-        };
-
-        const existingNotifications = JSON.parse(localStorage.getItem(userNotificationsKey) || "[]");
-        localStorage.setItem(userNotificationsKey, JSON.stringify([newNotification, ...existingNotifications]));
-
-        // Đánh dấu là đã gửi thông báo cho hạng này
-        localStorage.setItem(newMemberNotificationKey, true);
-      }
-    }
-  }, [data?.setting?.user?.UserMoney, member]); // Đảm bảo lắng nghe thay đổi hạng thành viên
+    };
+  
+    checkAndSendRankNotification();
+  }, [data?.setting?.user?.UserMoney, member, userToken]); // Thêm userToken vào dependency array
+  
+  
 
   
    if (loading) {
