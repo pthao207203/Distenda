@@ -38,6 +38,7 @@ import VoucherList from './screens/Voucher/Voucherpage';
 import VoucherDetail from './screens/Voucher/VoucherDetail/VoucherDetail';
 
 import { RoleProvider } from "./layouts/AppContext";
+import VoucherNew from './screens/Voucher/VoucherNew/VoucherNew';
 
 
 function App() {
@@ -108,6 +109,7 @@ function App() {
             <Route path="/setting" element={<Setting />} />
             <Route path="/voucher" element={<VoucherList />} />
             <Route path="/voucher/detail/:VoucherID" element={<VoucherDetail />} />
+            <Route path="/voucher/create" element={<VoucherNew />} />
             </Route>
           {/* </Route> */}
 

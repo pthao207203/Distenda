@@ -7,9 +7,9 @@ const CourseRow = ({ id, index, course }) => {
 
     const { category, name, sold, price, profit, status } = course;
 
-    const handleEdit = () => {
-        navigate(`/course/edit/${id}`);
-    };
+    // const handleEdit = () => {
+    //     navigate(`/course/edit/${id}`);
+    // };
 
     const toggleVisibility = () => {
         setIsHidden(!isHidden);
@@ -37,9 +37,8 @@ const CourseRow = ({ id, index, course }) => {
 
     return (
         <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] max-md:max-w-full">
-            
             {/* Column: Index */}
-            <div className="flex basis-1/8 min-w-0 min-h-[70px] justify-center items-center bg-[#EBF1F9]">
+            <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center bg-[#EBF1F9]">
                 <div className="text-[#131313] text-center text-xl font-medium truncate">{index}</div>
             </div>
 
@@ -63,10 +62,10 @@ const CourseRow = ({ id, index, course }) => {
                 <div className="text-[#131313] text-center text-xl font-medium truncate">{price}</div>
             </div>
 
-            {/* Column: Profit */}
+            {/* Column: Profit
             <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center px-3 bg-indigo-50">
-                <div className="text-[#131313] text-center text-xl font-medium truncate">{profit}</div>
-            </div>
+                <div className="text-[#131313] text-center text-xl font-medium truncate">{profit || 'Chưa có lợi nhuận'}</div>
+            </div> */}
 
             {/* Column: Actions */}
             <div className="flex basis-1/6 min-w-0 shrink justify-center items-center px-3 min-h-[70px] max-md:max-w-full">

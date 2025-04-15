@@ -26,6 +26,7 @@ export async function lessonHistoryController(setLoading, CourseId) {
     console.error(err); // Ghi log lỗi
     setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
   }
+
 }
 
 // [GET] /admin/courses/lesson/detail/:LessonId/history
