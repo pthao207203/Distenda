@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { headerController } from "../../controllers/home.controller"
+import { addNotification, getNotificationsByUser } from '../../services/notification.service';
+import Cookies from 'js-cookie';
+
 
 const SideBar = ({ headerHeight }) => {
   let [data, setData] = useState(
@@ -10,21 +13,10 @@ const SideBar = ({ headerHeight }) => {
     }
   );
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await headerController(setLoading);
-      // console.log("result", result)
-      setData(result);
-    }
-
-    fetchData();
-  }, []);
-
+  const [member, setMember] = useState("");
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng của Sidebar
   const [isDesktop, setIsDesktop] = useState(false); // Xác định xem có phải màn hình lớn hay không
   const location = useLocation(); // Lấy thông tin URL hiện tại
-
   const menuItems = [
     { name: "Khóa học của tôi", link: "/courses/CoursePurchased" },
     { name: "Đang học", link: "/courses/CourseStudying" },
@@ -43,6 +35,7 @@ const SideBar = ({ headerHeight }) => {
     return () => window.removeEventListener("resize", handleResize); // Cleanup
   }, []);
 
+
   // Đóng Sidebar khi chuyển từ màn hình nhỏ sang lớn
   useEffect(() => {
     if (isDesktop) {
@@ -50,7 +43,73 @@ const SideBar = ({ headerHeight }) => {
     }
   }, [isDesktop]);
 
-  if (loading) {
+  useEffect(() => {
+    async function fetchData() {
+      const result = await headerController(setLoading);
+      // console.log("result", result)
+      setData(result);
+    }
+
+    fetchData();
+  }, []);
+  const userToken = Cookies.get('user_token');
+  useEffect(() => {
+    const checkAndSendRankNotification = async () => {
+      // Kiểm tra xem có userToken và UserMoney
+      if (data?.setting?.user?.UserMoney && userToken) {
+        let newMember;
+        const money = data.setting.user.UserMoney;
+  
+        switch (true) {
+          case money > 10000000:
+            newMember = "Thành viên Vip";
+            break;
+          case money >= 5000000:
+            newMember = "Thành viên vàng";
+            break;
+          case money >= 1000000:
+            newMember = "Thành viên bạc";
+            break;
+          default:
+            newMember = "Thành viên đồng";
+        }
+  
+        if (newMember !== member) {
+          setMember(newMember); // Cập nhật trạng thái thành viên mới
+  
+          try {
+            // Gọi API để lấy thông báo của user thông qua userToken
+            const notifications = await getNotificationsByUser(userToken);
+            console.log("notifications", notifications);
+  
+            // Kiểm tra xem thông báo này đã được gửi chưa
+            const hasAlreadySent = notifications.some(noti =>
+              noti.NotificationMessage === `Chúc mừng bạn hiện tại là ${newMember}!`
+            );
+  
+            // Nếu chưa gửi thông báo này, thêm vào
+            if (!hasAlreadySent) {
+              const message = `Chúc mừng bạn hiện tại là ${newMember}!`;
+              await addNotification({
+                message,
+                type: "rank_up", // Có thể dùng riêng để phân loại
+                userToken, // Gửi userToken thay vì _id
+              });
+            }
+          } catch (error) {
+            console.error("Không thể kiểm tra/gửi thông báo thăng hạng:", error);
+          }
+        }
+      }
+    };
+  
+    checkAndSendRankNotification();
+  }, [data?.setting?.user?.UserMoney, member, userToken]); // Thêm userToken vào dependency array
+  
+  
+
+  
+   if (loading) {
     return (
       <div>
         Đang tải...
@@ -59,24 +118,6 @@ const SideBar = ({ headerHeight }) => {
   }
   // console.log("category ", data.category)
   // console.log("setting ", data.setting)
-
-
-  let member;
-
-  switch (true) {
-    case (data?.setting?.user?.UserMoney > 10000000):
-      member = "Thành viên Vip";
-      break;
-    case (data?.setting?.user?.UserMoney >= 1000000 && data?.setting?.user?.UserMoney < 5000000):
-      member = "Thành viên bạc";
-      break;
-    case (data?.setting?.user?.UserMoney >= 5000000 && data?.setting?.user?.UserMoney < 10000000):
-      member = "Thành viên vàng";
-      break;
-    default:
-      member = "Thành viên đồng";
-  }
-
   return (
     <>
       {/* Lớp phủ toàn màn hình khi Sidebar mở */}

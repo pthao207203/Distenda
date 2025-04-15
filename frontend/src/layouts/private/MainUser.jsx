@@ -31,7 +31,7 @@ const Main = () => {
     }
   }, [headerRef.current]);
   return (
-    <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] min-h-screen">
+    <div className="bg-[url('../Image/BG.png')] bg-cover bg-center bg-fixed flex flex-col justify-center pb-0 bg-[#131313] ">
       <Header setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} />
       <SideBar headerHeight={headerHeight} />
       <div

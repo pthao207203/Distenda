@@ -198,7 +198,7 @@ function BannerForm() {
             ref={uploadImagePreviewRef}
             loading="lazy"
             src={data?.UserAvatar ? data.UserAvatar : ""}
-            alt="Profile avatar"
+            alt="Banner image"
             className="flex mt-2 w-full bg-[#EBF1F9] max-h-[300px] min-h-[200px] max-md:max-w-full object-contain"
           />
           <div className="flex flex-col mt-2 max-w-full w-[569px]">

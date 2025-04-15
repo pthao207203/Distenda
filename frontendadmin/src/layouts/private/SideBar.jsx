@@ -72,7 +72,7 @@ export default function SideBar({ headerHeight }) {
         }}
         onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan đến overlay
       >
-        <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
+        <div className="flex gap-2 justify-evenly items-center px-3 w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
             src={data?.setting?.user?.AdminAvatar ? data.setting.user.AdminAvatar : "/profile.svg"}
@@ -84,7 +84,7 @@ export default function SideBar({ headerHeight }) {
             <h4 className="mb-1 font-semibold shrink" style={{ fontSize: "28px", color: "black" }}>
               {data?.setting?.user?.AdminFullName?.split(" ").slice(-2).join(" ")}
             </h4>
-            <span className="font-medium text-lg text-black">Manager</span>
+            <h4 className="font-medium text-lg text-black">{data?.role?.RoleName || "Không có vai trò"}</h4>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export default function SideBar({ headerHeight }) {
           {menuItems.map((item, index) => (
             <Link to={item.link} key={index}>
               <div
-                className={`flex items-center text-xl gap-4 px-2 py-4 ${location.pathname === item.link ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
+                className={`flex items-center text-xl gap-4 px-2 py-4 ${(location.pathname.includes(item.link) && item.link !== "/") || (item.link === "/" && location.pathname === "/") ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
                   }`}
                 style={{ fontSize: "20px", color: "black" }}
               >

@@ -17,7 +17,7 @@ import Courses from './screens/Courses/CoursesListPage';
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import Chapter from './screens/Chapter/ChapterDetailspage';
-// import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
+import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import Admin from './screens/Admin/AdminPage';
@@ -34,8 +34,11 @@ import QuestionEditorpage from './screens/Lesson/LessonEdit/QuestionEditorpage';
 import Permission from './screens/Permission/PermissionPage';
 import Setting from './screens/Setting/Settingpage';
 import Errorpage from './screens/Error/Errorpage';
+import VoucherList from './screens/Voucher/Voucherpage';
+import VoucherDetail from './screens/Voucher/VoucherDetail/VoucherDetail';
 
 import { RoleProvider } from "./layouts/AppContext";
+import VoucherNew from './screens/Voucher/VoucherNew/VoucherNew';
 
 
 function App() {
@@ -104,7 +107,10 @@ function App() {
             <Route path="/payment/detail/:PayID" element={<InvoiceDetails />} />
             <Route path="/authorities" element={<Permission />} />
             <Route path="/setting" element={<Setting />} />
-          </Route>
+            <Route path="/voucher" element={<VoucherList />} />
+            <Route path="/voucher/detail/:VoucherID" element={<VoucherDetail />} />
+            <Route path="/voucher/create" element={<VoucherNew />} />
+            </Route>
           {/* </Route> */}
 
           <Route element={<PublicRoutes />}>

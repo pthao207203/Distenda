@@ -40,7 +40,8 @@ module.exports.index = async (req, res) => {
 
   const courses = await Course.find(find)
     .limit(objectPagination.limitItems)
-    .skip(objectPagination.skip).lean();
+    .skip(objectPagination.skip)
+    .lean();
 
   for (const course of courses) {
     const intructor = await Admin.findOne({
@@ -52,7 +53,7 @@ module.exports.index = async (req, res) => {
     }
   }
 
-  res.json(courses)
+  res.json(courses);
   // res.render("admin/pages/course/index", {
   //   pageTitle: "Trang khoá học",
   //   courses: courses,
@@ -65,7 +66,8 @@ module.exports.index = async (req, res) => {
 module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const courseID = req.params.CourseID;
-
+  const oldCourse = await Course.findOne({ _id: courseID }).lean();
+  const admin = await Admin.findById(res.locals.user.id);
   const editedBy = {
     UserId: res.locals.user.id,
     editedAt: new Date(),
@@ -78,15 +80,16 @@ module.exports.changeStatus = async (req, res) => {
         $push: { editedBy: editedBy },
       }
     );
+
     res.json({
       code: 200,
       message: "Cập nhật trạng thái thành công",
-    })
+    });
   } catch {
     res.json({
       code: 400,
       message: "Cập nhật trạng thái không thành công",
-    })
+    });
   }
 
   // req.flash("success", "Cập nhật trạng thái thành công");
@@ -97,8 +100,9 @@ module.exports.changeStatus = async (req, res) => {
 // [DELETE] /admin/courses/delete/:CourseID
 module.exports.deleteItem = async (req, res) => {
   const courseID = req.params.CourseID;
+  const admin = await Admin.findById(res.locals.user.id);
   console.log(res.locals.user.id);
-
+  const deletedCourse = await Course.findOne({ _id: courseID });
   await Course.updateOne(
     { _id: courseID },
     {
@@ -126,8 +130,8 @@ module.exports.createItem = async (req, res) => {
   });
   res.json({
     categories: listCategory,
-    intructors: intructor
-  })
+    intructors: intructor,
+  });
   // res.render("admin/pages/course/create", {
   //   pageTitle: "Thêm khoá học",
   //   listCategory: newList,
@@ -147,10 +151,11 @@ module.exports.createPost = async (req, res) => {
   };
   const course = new Course(req.body);
   await course.save();
+
   res.json({
     code: 200,
-    message: "Tạo khoá học thành công!"
-  })
+    message: "Tạo khoá học thành công!",
+  });
   // res.redirect(`${systemConfig.prefixAdmin}/courses`);
 };
 
@@ -164,9 +169,9 @@ module.exports.detailItem = async (req, res) => {
 
     const course = await Course.findOne(find).lean();
     const categories = await Category.find().lean();
-    course.categories = categories
+    course.categories = categories;
     const intructors = await Admin.find().lean();
-    course.intructors = intructors
+    course.intructors = intructors;
 
     if (course.CourseCatogory && course.CourseCatogory != "") {
       const category = await Category.findOne({
@@ -194,13 +199,13 @@ module.exports.detailItem = async (req, res) => {
       });
       course.lesson = lesson;
     }
-    res.json(course)
+    res.json(course);
     // res.render("admin/pages/course/detail", {
     //   pageTitle: course.CourseName,
     //   course: course,
     // });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     // req.flash("error", "Không tìm thấy sản phẩm!");
     // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
@@ -224,7 +229,7 @@ module.exports.editItem = async (req, res) => {
       AdminDeleted: 1,
     });
     // console.log(course)
-    res.json(course)
+    res.json(course);
     // res.render("admin/pages/course/edit", {
     //   pageTitle: "Chỉnh sửa khoá học",
     //   course: course,
@@ -234,8 +239,8 @@ module.exports.editItem = async (req, res) => {
   } catch (error) {
     res.json({
       code: 200,
-      message: error
-    })
+      message: error,
+    });
     // req.flash("error", "Không tìm thấy khoá học!");
     // res.redirect(`${systemConfig.prefixAdmin}/courses`);
   }
@@ -243,7 +248,7 @@ module.exports.editItem = async (req, res) => {
 
 // [POST] /admin/courses/edit/:CourseID
 module.exports.editPost = async (req, res) => {
-  console.log(req.body.lesson)
+  console.log(req.body.lesson);
   const { editedBy, ...updateFields } = req.body;
   updateFields.CoursePrice = parseInt(updateFields.CoursePrice);
   updateFields.CourseDuration = parseInt(updateFields.CourseDuration);
@@ -253,7 +258,8 @@ module.exports.editPost = async (req, res) => {
   if (req.file) {
     updateFields.CoursePicture = `/uploads/${req.file.filename}`;
   }
-  console.log(updateFields)
+  console.log(updateFields);
+  const oldCourse = await Course.findOne({ _id: req.params.CourseID }).lean();
   try {
     const newEditedBy = {
       UserId: res.locals.user.id,
@@ -279,21 +285,20 @@ module.exports.editPost = async (req, res) => {
             }
           );
         }
-
       }
     }
 
     res.json({
       code: 200,
-      message: "Cập nhật thành công!"
-    })
+      message: "Cập nhật thành công!",
+    });
     // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.json({
       code: 400,
-      message: "Cập nhật thất bại!"
-    })
+      message: "Cập nhật thất bại!",
+    });
     // req.flash("error", "Cập nhật thất bại!");
   }
 
