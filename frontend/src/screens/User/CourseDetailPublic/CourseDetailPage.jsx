@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
 import { useOutletContext } from "react-router-dom";
 import Loading from "../../../components/Loading";
+import { addNotification } from "../../../services/notification.service";
+
 
 export default function CourseDetailPage() {
   const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
@@ -50,18 +52,48 @@ export default function CourseDetailPage() {
     document.body.style.overflow = "auto";
   };
   const [isThankVisible, setIsThankVisible] = useState(false);
+  
+  // Logic khác như fetch dữ liệu khóa học, thông báo, etc.
 
-  const handleOpenThank = () => {
+  const handleOpenThank = async () => {
     setIsPaymentVisible(false);
     setIsBankVisible(false);
-    setIsThankVisible(true)
+    setIsThankVisible(true);
     document.body.style.overflow = "hidden";
+  
+    try {
+      let token = Cookies.get('user_token');
+  
+      if (token && data?.CourseName && data?.CourseSlug) {
+        const message = `Bạn đã đăng ký thành công ${data.CourseName}! Mong bạn sớm vào học với chúng tôi!`;
+  
+        const result = await addNotification({
+          message,
+          type: "success",
+          userToken: token,
+        });
+  
+        if (result.success) {
+          console.log("Thông báo đã được gửi thành công");
+        } else {
+          console.error("Không thể gửi thông báo");
+        }
+      } else {
+        console.error("Dữ liệu khóa học không hợp lệ.");
+      }
+    } catch (err) {
+      console.error("Không thể gửi thông báo:", err);
+      alert("Có lỗi xảy ra khi gửi thông báo. Vui lòng thử lại.");
+    }
   };
+  
 
   const handleCloseThank = () => {
     setIsThankVisible(false);
     document.body.style.overflow = "auto";
   };
+  
+
 
   const token = Cookies.get('user_token'); // Lấy token từ cookie
   const isAuthenticated = token !== undefined; // Kiểm tra xem token có tồn tại không
