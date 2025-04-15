@@ -5,6 +5,7 @@ import TableHeader from "./components/TableHeader";
 import BannerRow from "./components/BannerRow";
 import { bannersController } from "../../controllers/banner.controller";
 import Loading from "../../components/Loading";
+import HistoryButton from "../../components/HistoryButton";
 
 function BannerList() {
   const [data, setData] = useState();
@@ -24,9 +25,7 @@ function BannerList() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   } else
     return (
       <>
@@ -36,19 +35,24 @@ function BannerList() {
         <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
           <SearchBar />
           <div className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
-            <div className="text-right max-md:max-w-full">
-              Tổng số banner: {data?.length}
+            <div className="flex justify-between items-center mb-3">
+              <HistoryButton onClick={() => {}} />
+              <div className="text-right max-md:max-w-full">
+                Tổng số banner: {data?.length}
+              </div>
             </div>
             <TableHeader />
-            {data && data.length > 0 && data.map((banner, index) => (
-              <BannerRow
-                key={index}
-                id={banner._id}
-                index={index + 1}
-                name={banner.BannerName}
-                linkedCourse={banner.course.CourseName}
-              />
-            ))}
+            {data &&
+              data.length > 0 &&
+              data.map((banner, index) => (
+                <BannerRow
+                  key={index}
+                  id={banner._id}
+                  index={index + 1}
+                  name={banner.BannerName}
+                  linkedCourse={banner.course.CourseName}
+                />
+              ))}
           </div>
         </div>
       </>

@@ -93,7 +93,7 @@ export default function SideBar({ headerHeight }) {
           {menuItems.map((item, index) => (
             <Link to={item.link} key={index}>
               <div
-                className={`flex items-center text-xl gap-4 px-2 py-4 ${location.pathname === item.link ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
+                className={`flex items-center text-xl gap-4 px-2 py-4 ${(location.pathname.includes(item.link) && item.link !== "/") || (item.link === "/" && location.pathname === "/") ? "bg-[#EBF1F9] font-medium p-1 rounded-xl" : ""
                   }`}
                 style={{ fontSize: "20px", color: "black" }}
               >
