@@ -1,21 +1,8 @@
-import java.util.Scanner;
+# Nhập giá trị của a và b từ người dùng
+a, b = map(int, input().split())
 
-public class SumCalculator {
-    public static void main(String[] args) {
-        // Tạo đối tượng Scanner để nhập giá trị từ bàn phím
-        Scanner scanner = new Scanner(System.in);
+# Tính tổng của a và b
+total = a + b
 
-        // Nhập giá trị của a và b từ người dùng
-        int a = scanner.nextInt();
-        int b = scanner.nextInt();
-
-        // Tính tổng của a và b
-        int total = a + b;
-
-        // In kết quả
-        System.out.println(total);
-        
-        // Đóng Scanner
-        scanner.close();
-    }
-}
+# In kết quả
+print(total)

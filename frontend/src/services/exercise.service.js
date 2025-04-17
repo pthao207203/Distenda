@@ -1,5 +1,6 @@
 export const exerciseCheckService = async (code, ExerSlug, language) => {
   try {
+    console.log("code", code);
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exercise/check/${ExerSlug}`, {
       method: 'POST',
       headers: {

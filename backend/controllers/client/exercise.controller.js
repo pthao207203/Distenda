@@ -96,9 +96,10 @@ module.exports.detailItem = async (req, res) => {
 
 // [POST] /exercise/check/:ExerciseSlug
 module.exports.check = async (req, res) => {
+  console.log(req.body);
   const ExerciseSlug = req.params.ExerciseSlug;
   const code = req.body.code;
-  const language = req.body.language; // Nhận ngôn ngữ từ client
+  const language = req.body.language;
 
   try {
     const exercise = await Exercise.findOne({ ExerciseSlug });
@@ -111,7 +112,6 @@ module.exports.check = async (req, res) => {
       fs.mkdirSync(tempDir, { recursive: true });
     }
 
-    // Tạo file phù hợp với từng ngôn ngữ
     const extMap = {
       python3: '.py',
       java: '.java',
@@ -119,25 +119,42 @@ module.exports.check = async (req, res) => {
       php: '.php',
       javascript: '.js'
     };
+
+    // Đảm bảo rằng bạn đã nhận được ngôn ngữ và mã nguồn từ client
     const ext = extMap[language];
     if (!ext) return res.status(400).json({ message: 'Unsupported language' });
 
-    const fileName = 'studentCode' + ext;
-    const filePath = path.join(tempDir, fileName);
-    fs.writeFileSync(filePath, code);
+    // Phân tích mã nguồn Java để lấy tên lớp
+    let className = 'studentCode'; // Giá trị mặc định
+    if (language === 'java') {
+      const classRegex = /public\s+class\s+([A-Za-z0-9_]+)/;
+      const match = code.match(classRegex);
+      if (match && match[1]) {
+        className = match[1]; // Lấy tên lớp
+      }
+    }
 
+    const fileName = className + ext; // Tạo tên file với tên lớp
+    const filePath = path.join(tempDir, fileName);
+    fs.writeFileSync(filePath, code); // Lưu mã nguồn vào file với tên lớp đúng
+    console.log("filePath", filePath)
+    console.log('✅ Wrote code to:', filePath);
+    console.log('📄 Content:\n' + code);
     let testResults = [];
     let passedTests = 0;
     for (const testCase of exercise.ExerciseTestcase) {
+      console.log("testCase")
       if (!testCase.Input || !testCase.Output) {
         return res.status(400).json({ message: 'Test case is missing input or expected values' });
       }
       try {
-        const result = await runTestCase(filePath, testCase, language);
+        const result = await runTestCase(filePath, testCase, language, className);
+        console.log(result)
         if (result.passed) passedTests++;
         testResults.push(result);
       } catch (err) {
         testResults.push({ testCase, passed: false, error: err });
+        console.log(err)
       }
     }
 
@@ -153,12 +170,7 @@ module.exports.check = async (req, res) => {
   }
 };
 
-async function runTestCase(filePath, testCase, language) {
-  console.log('Running test case with input:', testCase.Input);
-  console.log('Expected output:', testCase.Output);
-
-  const ext = path.extname(filePath);
-  const baseName = path.basename(filePath, ext);
+async function runTestCase(filePath, testCase, language, baseName) {
   const dir = path.dirname(filePath);
   let command, args;
 
@@ -167,6 +179,13 @@ async function runTestCase(filePath, testCase, language) {
     await new Promise((res, rej) => {
       compile.on('close', (code) => code === 0 ? res() : rej('Java compile error'));
     });
+
+    // Kiểm tra file .class tồn tại
+    const classPath = path.join(dir, baseName + '.class');
+    if (!fs.existsSync(classPath)) {
+      throw new Error(`Compiled class not found: ${classPath}`);
+    }
+
     command = 'java';
     args = ['-cp', dir, baseName];
   } else if (language === 'cpp') {
@@ -191,30 +210,49 @@ async function runTestCase(filePath, testCase, language) {
   }
 
   return new Promise((resolve, reject) => {
-    const proc = spawn(command, args);
+    const proc = spawn(command, args, {
+      cwd: dir
+    });
 
     let stdout = '';
     let stderr = '';
+
+    const timeout = setTimeout(() => {
+      proc.kill('SIGKILL');
+      reject('Test case timed out');
+    }, 5000);
 
     proc.stdin.write(testCase.Input + '\n');
     proc.stdin.end();
 
     proc.stdout.on('data', (data) => {
       stdout += data.toString();
+      console.log("stdout data:", data.toString());
+      fs.writeFileSync(path.join(dir, 'output.log'), stdout); // Debug log
     });
 
-    proc.stderr.on('data', (data) => {
-      stderr += data.toString();
-    });
+    proc.on('close', () => {
+      clearTimeout(timeout);
+      console.log('Raw stdout:', stdout);
+      const result = stdout.replace(/\r?\n|\r/g, '').trim();
+      const expected = testCase.Output.replace(/\r?\n|\r/g, '').trim();
 
-    proc.on('close', (code) => {
-      const result = stdout.trim();
-      const expected = testCase.Output.trim();
-      const passed = result === expected;
-      resolve({ testCase, result, passed, stderr });
+      console.log('Processed result:', JSON.stringify(result));
+      console.log('Processed expected:', JSON.stringify(expected));
+      // Thêm kiểm tra stderr nếu có lỗi
+      if (stderr) {
+        console.log('Error output:', stderr);
+      }
+      resolve({
+        testCase,
+        result,
+        passed: result === expected,
+        stderr
+      });
     });
 
     proc.on('error', (err) => {
+      clearTimeout(timeout);
       reject(err.message);
     });
   });
