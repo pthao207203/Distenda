@@ -5,7 +5,7 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/theme/monokai.css";
 
-function CodeEditor({ code, handleCodeChange, handleButton }) {
+function CodeEditor({ code, handleCodeChange, handleButton, submit }) {
   // const [exerciseSample, setExerciseSample] = useState(exercise.ExerciseSample);
   return (
     <section
@@ -55,12 +55,14 @@ function CodeEditor({ code, handleCodeChange, handleButton }) {
         </button>
 
         {/* Nút 'Nộp bài' */}
-        <button
-          className="flex justify-center items-center px-3 py-3 bg-[#CFF500] text-neutral-900 min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          onClick={() => handleButton("submit")}
-        >
-          <div className="gap-2 self-stretch my-auto">Nộp bài</div>
-        </button>
+        {submit && (
+          <button
+            className="flex justify-center items-center px-3 py-3 bg-[#CFF500] text-neutral-900 min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            onClick={() => handleButton("submit")}
+          >
+            <div className="gap-2 self-stretch my-auto">Nộp bài</div>
+          </button>
+        )}
       </div>
     </section>
   );

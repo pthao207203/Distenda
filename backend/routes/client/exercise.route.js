@@ -10,5 +10,6 @@ const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
 router.get("/detail/:ExerciseSlug", controller.detailItem);
 router.post("/check/:ExerciseSlug", controller.check);
+router.post("/submit/:ExerciseSlug", controller.submit);
 
 module.exports = router;
