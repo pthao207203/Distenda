@@ -3,15 +3,22 @@ import BreadcrumbNav from "./Nav";
 import TaskContent from "./Content";
 import CodeEditor from "./Editor";
 import { useParams } from "react-router-dom";
-import { exerciseController } from "../../../controllers/video.controller";
+import {
+  exerciseCheckController,
+  exerciseSubmitController,
+} from "../../../controllers/exercise.controller";
 import Loading from "../../../components/Loading";
+import ThankYouPage from "../../User/Payment/ThankYouPage";
+import { exerciseController } from "../../../controllers/video.controller";
 
 function CourseLayout() {
   const [data, setData] = useState();
+  const [code, setCode] = useState();
   const [loading, setLoading] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   const { ExerciseSlug } = useParams();
-  console.log(ExerciseSlug)
+  console.log(ExerciseSlug);
 
   useEffect(() => {
     async function fetchData(exerciseSlug) {
@@ -20,6 +27,7 @@ function CourseLayout() {
       // console.log(result);
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
+        setCode(result.ExerciseSample);
       }
     }
 
@@ -29,23 +37,42 @@ function CourseLayout() {
   }, [ExerciseSlug]);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
-  // console.log("exer => ", data)
+  console.log("exer => ", data);
 
-  return (
-    <div className="flex flex-col">
-      <div className="flex relative flex-col py-0.5 w-full max-md:max-w-full">
-        <BreadcrumbNav {...data} />
-        <div className="flex overflow-hidden relative flex-wrap items-start mt-1 h-full">
-          <TaskContent {...data} />
-          <CodeEditor {...data} />
-        </div>
-      </div>
-    </div>
-  );
-}
+  const handleCodeChange = (editor, data, value) => {
+    setCode(value);
+  };
+  let contents = "";
+  const handleButton = async (actionType) => {
+    if (actionType === "check") {
+      console.log("code", code);
+      const result = await exerciseCheckController(
+        code,
+        ExerciseSlug,
+        data.course.CourseLanguage
+      );
+      console.log("result", result);
+      if (result.code === 200) {
+        console.log(result.passedTests);
+      } else {
+        console.log(result.error);
+      }
+      contents = `Bạn làm đúng ${
+        result?.passedTests ? result.passedTests : 0
+      }/${result?.totalTests}`;
+      console.log(contents);
+      setPopupVisible(true);
+    } else if (actionType === "submit") {
+      const result = await exerciseSubmitController(code, ExerciseSlug);
+      if (result.code === 200) {
+        console.log(result.testcase);
+      } else {
+        console.log(result.error);
+      }
+      setPopupVisible(true);
+    }
+  };
 
-export default CourseLayout;
+  const handleCloseTha

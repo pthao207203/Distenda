@@ -9,5 +9,6 @@ const validate = require("../../validates/admin/course.validate");
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
 router.get("/detail/:ExerciseSlug", controller.detailItem);
+router.post("/check/:ExerciseSlug", controller.check);
 
 module.exports = router;

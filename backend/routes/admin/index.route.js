@@ -85,8 +85,8 @@ module.exports = (app) => {
     bannerRoute
   );
   app.use(
-    systemConfig.prefixAdmin + `/voucher`, 
-    authMiddleware.requireAuth, 
+    systemConfig.prefixAdmin + `/voucher`,
+    authMiddleware.requireAuth,
     voucherRoute
   );
 
