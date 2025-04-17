@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Loading from "../../../components/Loading";
-import { courseHistoryController } from "../../../controllers/history.controller";
+import { videoDetailHistoryController } from "../../controllers/history.controller";
+import { useParams } from "react-router-dom";
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);
@@ -26,32 +25,32 @@ const getActionStyle = (action) => {
   }
 };
 
-export default function CourseHistory({ onClose }) {
-  const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
-  const [histories, setHistories] = React.useState([]);
-  const navigate = useNavigate();
-
+export default function VideoDetailHistory({ onClose }) {
+  const [isOpen, setIsOpen] = useState(true); // Trạng thái popup
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const { VideoID } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
-
   useEffect(() => {
     async function fetchData() {
-      // console.log("vao")
-      const result = await courseHistoryController(setLoading);
-      // console.log(result)
-      if (result) {
-        setData(result); // Lưu dữ liệu nếu hợp lệ
+      try {
+        setLoading(true);
+        const result = await videoDetailHistoryController(setLoading, VideoID);
+        // console.log(result)
+        if (result) {
+          setData(result); // Lưu dữ liệu nếu hợp lệ
+        }
+      } catch (error) {
+        console.error("Error fetching video detail history:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchData();
-  }, []);
+  }, [VideoID]);
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-  console.log("Course History => ", data);
+  console.log("Video Detail History => ", data);
 
   // Hàm đóng popup
   const handleClose = () => {
@@ -68,7 +67,6 @@ export default function CourseHistory({ onClose }) {
     const actionText = getActionStyle(item.action).text.toLowerCase();
     return (
       item.userName?.toLowerCase().includes(keyword) ||
-      item.CourseName?.toLowerCase().includes(keyword) ||
       formatted.includes(keyword) ||
       actionText.includes(keyword)
     );
@@ -84,8 +82,7 @@ export default function CourseHistory({ onClose }) {
         alt="Close icon"
         onClick={handleClose}
       />
-
-      <div className="flex flex-wrap gap-3 items-center px-3 py-2 mt-2 w-full text-[1.25rem] leading-none text-[#6C8299] bg-white backdrop-blur-[100px] min-h-[50px] rounded-[100px] border border-solid border-[#6C8299] max-md:max-w-full">
+      <div className="flex gap-3 items-center md:px-3 md:py-2 mt-2 w-full text-[1.25rem] leading-none text-[#6C8299] bg-white backdrop-blur-[100px] min-h-[50px] rounded-[100px] border border-solid border-[#6C8299] max-md:max-w-full">
         <img
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/669888cc237b300e928dbfd847b76e4236ef4b5a?placeholderIfAbsent=true&apiKey=d911d70ad43c41e78d81b9650623c816"
           alt="Search icon"
@@ -105,7 +102,6 @@ export default function CourseHistory({ onClose }) {
           {filteredData.map((history, index) => {
             const name = history.userName;
             const avatar = history.userAvatar;
-            const courseName = history.CourseName;
             const time = formatDate(history.timestamp);
             const { text, color } = getActionStyle(history.action);
             return (
@@ -120,10 +116,12 @@ export default function CourseHistory({ onClose }) {
                   className="rounded-full object-cover"
                   style={{ width: "34px", height: "34px" }}
                 />
-                <h4 className="font-medium text-lg text-black">
-                  {name}, {courseName} ({time})
+                <h4 className="font-medium text-[1.125rem] text-black">
+                  {name}, ({time})
                 </h4>
-                <span className={`${color} font-medium text-lg`}>{text}</span>
+                <span className={`${color} font-medium text-[1.125rem]`}>
+                  {text}
+                </span>
               </div>
             );
           })}

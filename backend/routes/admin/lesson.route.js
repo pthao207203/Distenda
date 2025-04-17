@@ -21,6 +21,6 @@ router.post("/edit/:LessonID", controller.editPost);
 
 router.get("/detail/:LessonID", controller.detailItem);
 
-router.get("/detail/:LessonID/history", historyController.getVideoHistoryByCourseID);
+router.get("/detail/:LessonID/history", historyController.getVideoHistoryByLessonID);
 
 module.exports = router;

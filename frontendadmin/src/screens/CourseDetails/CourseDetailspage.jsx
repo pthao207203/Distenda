@@ -137,31 +137,31 @@ function CourseDetails() {
   };
   return (
     <>
-    <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-      <CourseHeader data={data} handleSubmit={handleSubmit} />
-      <CourseImage
-        data={data}
-        uploadImageInputRef={uploadImageInputRef}
-        uploadImagePreviewRef={uploadImagePreviewRef}
-        handleImageChange={handleImageChange}
-        imageUrl={imageUrl}
-        handleHistoryRequest={handleHistoryRequest}
-      />
-      <CourseInfo
-        data={data}
-        category={category}
-        intructor={intructor}
-        handleChange={handleChange}
-        handleToggle={handleToggle}
-        editorRef={editorRef}
-      />
-      <ChapterList data={data} lessonChange={lessonChange} />
-    </div>
-     {isHistoryVisible && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-              <CourseDetailHistory onClose={handleCloseHistoryRequest} />
-            </div>
-          )}
+      <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+        <CourseHeader data={data} handleSubmit={handleSubmit} />
+        <CourseImage
+          data={data}
+          uploadImageInputRef={uploadImageInputRef}
+          uploadImagePreviewRef={uploadImagePreviewRef}
+          handleImageChange={handleImageChange}
+          imageUrl={imageUrl}
+          handleHistoryRequest={handleHistoryRequest}
+        />
+        <CourseInfo
+          data={data}
+          category={category}
+          intructor={intructor}
+          handleChange={handleChange}
+          handleToggle={handleToggle}
+          editorRef={editorRef}
+        />
+        <ChapterList data={data} lessonChange={lessonChange} />
+      </div>
+      {isHistoryVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
+          <CourseDetailHistory onClose={handleCloseHistoryRequest} />
+        </div>
+      )}
     </>
   );
 }

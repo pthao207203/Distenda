@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
-import { courseHistoryController } from "../../../controllers/history.controller";
+import { bannerHistoryController } from "../../../controllers/history.controller";
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);
@@ -26,7 +26,7 @@ const getActionStyle = (action) => {
   }
 };
 
-export default function CourseHistory({ onClose }) {
+export default function BannerHistory({ onClose }) {
   const [isOpen, setIsOpen] = React.useState(true); // Trạng thái popup
   const [histories, setHistories] = React.useState([]);
   const navigate = useNavigate();
@@ -34,11 +34,10 @@ export default function CourseHistory({ onClose }) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
   useEffect(() => {
     async function fetchData() {
       // console.log("vao")
-      const result = await courseHistoryController(setLoading);
+      const result = await bannerHistoryController(setLoading);
       // console.log(result)
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
@@ -68,7 +67,7 @@ export default function CourseHistory({ onClose }) {
     const actionText = getActionStyle(item.action).text.toLowerCase();
     return (
       item.userName?.toLowerCase().includes(keyword) ||
-      item.CourseName?.toLowerCase().includes(keyword) ||
+      item.BannerName?.toLowerCase().includes(keyword) ||
       formatted.includes(keyword) ||
       actionText.includes(keyword)
     );
@@ -105,7 +104,7 @@ export default function CourseHistory({ onClose }) {
           {filteredData.map((history, index) => {
             const name = history.userName;
             const avatar = history.userAvatar;
-            const courseName = history.CourseName;
+            const bannerName = history.BannerName;
             const time = formatDate(history.timestamp);
             const { text, color } = getActionStyle(history.action);
             return (
@@ -121,7 +120,7 @@ export default function CourseHistory({ onClose }) {
                   style={{ width: "34px", height: "34px" }}
                 />
                 <h4 className="font-medium text-lg text-black">
-                  {name}, {courseName} ({time})
+                  {name}, {bannerName} ({time})
                 </h4>
                 <span className={`${color} font-medium text-lg`}>{text}</span>
               </div>
