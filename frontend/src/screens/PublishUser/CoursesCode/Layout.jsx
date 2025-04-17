@@ -47,7 +47,6 @@ function CourseLayout() {
   let contents = "";
   const handleButton = async (actionType) => {
     if (actionType === "check") {
-      console.log("code", code);
       const result = await exerciseCheckController(
         code,
         ExerciseSlug,
