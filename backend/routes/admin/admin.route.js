@@ -7,10 +7,14 @@ const upload = multer()
 const controller = require("../../controllers/admin/admin.controller")
 const validate = require("../../validates/admin/category.validate")
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware")
+const historyController = require("../../controllers/admin/history.controller");
 
 router.get('/', controller.index)
 
+router.get('/history', historyController.getAdminHistory)
+
 router.get('/detail/:AdminID', controller.detail)
+router.get('/detail/:AdminID/history', historyController.getAdminHistoryByAdminID)
 
 router.get('/create', controller.createItem)
 
