@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BreadcrumbNav from "./Nav";
 import TaskContent from "./Content";
 import CodeEditor from "./Editor";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   exerciseCheckController,
   exerciseSubmitController,
@@ -14,8 +14,11 @@ import { exerciseController } from "../../../controllers/video.controller";
 function CourseLayout() {
   const [data, setData] = useState();
   const [code, setCode] = useState();
+  const [content, setContent] = useState();
+  const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [popupVisible, setPopupVisible] = useState(false);
+  const navigate = useNavigate();
 
   const { ExerciseSlug } = useParams();
   console.log(ExerciseSlug);
@@ -44,7 +47,7 @@ function CourseLayout() {
   const handleCodeChange = (editor, data, value) => {
     setCode(value);
   };
-  let contents = "";
+
   const handleButton = async (actionType) => {
     if (actionType === "check") {
       const result = await exerciseCheckController(
@@ -58,19 +61,25 @@ function CourseLayout() {
       } else {
         console.log(result.error);
       }
-      contents = `Bạn làm đúng ${
-        result?.passedTests ? result.passedTests : 0
-      }/${result?.totalTests}`;
-      console.log(contents);
+      setContent(
+        `Bạn làm đúng ${result?.passedTests ? result.passedTests : 0}/${
+          result?.totalTests
+        }`
+      );
+      setSubmit(true);
       setPopupVisible(true);
     } else if (actionType === "submit") {
-      const result = await exerciseSubmitController(code, ExerciseSlug);
+      const result = await exerciseSubmitController(ExerciseSlug);
       if (result.code === 200) {
         console.log(result.testcase);
       } else {
         console.log(result.error);
       }
+      setContent(`Nộp bài thành công!`);
       setPopupVisible(true);
+      setTimeout(() => {
+        navigate(`/courses/CoursePurchased/${data.course.CourseSlug}`);
+      }, 2000);
     }
   };
 
@@ -89,11 +98,12 @@ function CourseLayout() {
             code={code}
             handleCodeChange={handleCodeChange}
             handleButton={handleButton}
+            submit={submit}
           />
         </div>
         {popupVisible && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-            <ThankYouPage onClose={handleCloseThank} content={contents} />
+            <ThankYouPage onClose={handleCloseThank} content={content} />
           </div>
         )}
       </div>

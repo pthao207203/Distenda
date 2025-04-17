@@ -27,14 +27,14 @@ export const exerciseCheckService = async (code, ExerSlug, language) => {
   }
 };
 
-export const exerciseSubmitService = async (data) => {
+export const exerciseSubmitService = async (ExerciseSlug) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exercise/submit`, {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/exercise/submit/${ExerciseSlug}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(),
       credentials: "include",
     });
 

@@ -2,6 +2,7 @@ const Exercise = require("../../models/exercise.model");
 const Video = require("../../models/video.model");
 const Lesson = require("../../models/lesson.model");
 const Course = require("../../models/course.model");
+const User = require("../../models/user.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
@@ -256,4 +257,57 @@ async function runTestCase(filePath, testCase, language, baseName) {
       reject(err.message);
     });
   });
+}
+
+// [POST] /exercise/submit/:ExerciseSlug
+module.exports.submit = async (req, res) => {
+  const exercise = await Exercise.findOne({ ExerciseSlug: req.params.ExerciseSlug })
+  const test = await User.findOne({
+    "UserCourse.CourseProcess.LessonId": exercise.LessonId,
+    _id: res.locals.user._id,
+  });
+  // console.log(test);
+  if (test) {
+    await User.updateOne(
+      {
+        _id: res.locals.user._id,
+        "UserCourse.CourseId": exercise.CourseId,
+      },
+      {
+        $addToSet: {
+          "UserCourse.$.CourseProcess.$[lesson].LessonProcess": exercise._id,
+        },
+      },
+      {
+        arrayFilters: [
+          {
+            "lesson.LessonId": exercise.LessonId,  // Điều kiện để cập nhật đúng Lesson trong CourseProcess
+          },
+        ],
+      }
+    );
+  } else {
+    const lesson = await Lesson.findOne({ _id: exercise.LessonId });
+    // console.log(lesson)
+    await User.updateOne(
+      {
+        _id: res.locals.user._id,
+        "UserCourse.CourseId": lesson.CourseId
+      },
+      {
+        $push: {
+          "UserCourse.$.CourseProcess": {
+            LessonId: exercise.LessonId,
+            LessonStatus: 0,
+            LessonProcess: [exercise._id],
+          },
+        },
+      }
+    );
+  }
+  // console.log("nop bai")
+  res.json({
+    code: 200,
+    messenger: "Nộp bài thành công!"
+  })
 }
