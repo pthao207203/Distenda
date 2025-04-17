@@ -75,4 +75,31 @@ function CourseLayout() {
     }
   };
 
-  const handleCloseTha
+  const handleCloseThank = () => {
+    setPopupVisible(false);
+    document.body.style.overflow = "auto";
+  };
+
+  return (
+    <div className="flex flex-col self-start">
+      <div className="flex relative flex-col py-0.5 w-full max-md:max-w-full self-start">
+        <BreadcrumbNav {...data} />
+        <div className="flex overflow-hidden relative flex-wrap items-start mt-1 h-full">
+          <TaskContent exercise={data} />
+          <CodeEditor
+            code={code}
+            handleCodeChange={handleCodeChange}
+            handleButton={handleButton}
+          />
+        </div>
+        {popupVisible && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
+            <ThankYouPage onClose={handleCloseThank} content={contents} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default CourseLayout;

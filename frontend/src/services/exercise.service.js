@@ -47,4 +47,6 @@ export const exerciseSubmitService = async (data) => {
 
     return responseData; // Trả về kết quả nếu thành công
   } catch (error) {
-    throw error.message; // Quăng 
+    throw error.message; // Quăng lỗi để controller xử lý
+  }
+};

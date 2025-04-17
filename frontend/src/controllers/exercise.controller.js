@@ -16,4 +16,6 @@ export const exerciseSubmitController = async (data) => {
     const result = await exerciseSubmitService(data); // Gọi service để xử lý API
     return result;
   } catch (err) {
-    console.log(err); // Cập nhật lỗi n
+    console.log(err); // Cập nhật lỗi nếu xảy ra
+  }
+};
