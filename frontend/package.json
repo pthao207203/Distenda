@@ -22,6 +22,8 @@
     "react-scripts": "^5.0.1",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.6",
+    "react-facebook":"^9.0.12",
+    "react-facebook-login": "^4.1.1",
     "redux": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
