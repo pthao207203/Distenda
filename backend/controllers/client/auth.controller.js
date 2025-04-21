@@ -8,51 +8,51 @@ const sendMailHelper = require("../../helpers/sendMail")
 
 const systemConfig = require("../../config/system");
 
-const Facebook = require('fb'); // Bạn cần cài thư viện fb
+// const Facebook = require('fb'); // Bạn cần cài thư viện fb
 
-// Xử lý đăng nhập với Facebook
-module.exports.loginFacebook = async (req, res) => {
-  const { accessToken } = req.body; // Nhận accessToken từ frontend
+// // Xử lý đăng nhập với Facebook
+// module.exports.loginFacebook = async (req, res) => {
+//   const { accessToken } = req.body; // Nhận accessToken từ frontend
   
-  if (!accessToken) {
-    return res.json({
-      code: 400,
-      message: "Không có accessToken!"
-    });
-  }
+//   if (!accessToken) {
+//     return res.json({
+//       code: 400,
+//       message: "Không có accessToken!"
+//     });
+//   }
 
-  // Dùng FB SDK để xác minh accessToken
-  Facebook.api('me', { fields: 'id,name,email', access_token: accessToken }, async function(response) {
-    if (response.error) {
-      return res.json({
-        code: 400,
-        message: "Lỗi xác minh token từ Facebook"
-      });
-    }
+//   // Dùng FB SDK để xác minh accessToken
+//   Facebook.api('me', { fields: 'id,name,email', access_token: accessToken }, async function(response) {
+//     if (response.error) {
+//       return res.json({
+//         code: 400,
+//         message: "Lỗi xác minh token từ Facebook"
+//       });
+//     }
     
-    // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
-    let user = await User.findOne({ UserEmail: response.email });
+//     // Kiểm tra xem người dùng đã tồn tại trong hệ thống chưa
+//     let user = await User.findOne({ UserEmail: response.email });
     
-    if (!user) {
-      // Nếu không tồn tại, tạo mới người dùng
-      user = new User({
-        UserFullName: response.name,
-        UserEmail: response.email,
-        UserPassword: md5(Math.random().toString(36).slice(-8)), // Tạo mật khẩu ngẫu nhiên
-        UserToken: generateHelper.generateRandomString(30)
-      });
-      await user.save();
-    }
+//     if (!user) {
+//       // Nếu không tồn tại, tạo mới người dùng
+//       user = new User({
+//         UserFullName: response.name,
+//         UserEmail: response.email,
+//         UserPassword: md5(Math.random().toString(36).slice(-8)), // Tạo mật khẩu ngẫu nhiên
+//         UserToken: generateHelper.generateRandomString(30)
+//       });
+//       await user.save();
+//     }
 
-    // Gửi token cho người dùng và thông báo đăng nhập thành công
-    res.cookie("user_token", user.UserToken, { maxAge: 24 * 60 * 60 * 1000 });
-    res.json({
-      code: 200,
-      message: "Đăng nhập Facebook thành công!",
-      user: user
-    });
-  });
-};
+//     // Gửi token cho người dùng và thông báo đăng nhập thành công
+//     res.cookie("user_token", user.UserToken, { maxAge: 24 * 60 * 60 * 1000 });
+//     res.json({
+//       code: 200,
+//       message: "Đăng nhập Facebook thành công!",
+//       user: user
+//     });
+//   });
+// };
 
 
 

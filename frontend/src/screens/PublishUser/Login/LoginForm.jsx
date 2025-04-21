@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 import LoginButton from './LoginButton';
 
 import { loginController } from '../../../controllers/auth.controller.js';
@@ -29,28 +29,28 @@ function LoginForm({ onForgotPassword }) {
     loginController(formData, setSuccess, setError, navigate);
   };
 
-  // Xử lý đăng nhập với Facebook
-  const responseFacebook = (response) => {
-    console.log(response);
-    if (response.accessToken) {
-      fetch('/auth/login/facebook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accessToken: response.accessToken })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.code === 200) {
-            console.log('Đăng nhập Facebook thành công!');
-            // Cập nhật role vào context hoặc state nếu bạn có
-            localStorage.setItem("user_role", "user"); // ví dụ đơn giản
-            navigate('/'); // Chuyển về Home
-          } else {
-            console.error(data.message);
-          }
-        });
-    }
-  };  
+  // // Xử lý đăng nhập với Facebook
+  // const responseFacebook = (response) => {
+  //   console.log(response);
+  //   if (response.accessToken) {
+  //     fetch('/auth/login/facebook', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ accessToken: response.accessToken })
+  //     })
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         if (data.code === 200) {
+  //           console.log('Đăng nhập Facebook thành công!');
+  //           // Cập nhật role vào context hoặc state nếu bạn có
+  //           localStorage.setItem("user_role", "user"); // ví dụ đơn giản
+  //           navigate('/'); // Chuyển về Home
+  //         } else {
+  //           console.error(data.message);
+  //         }
+  //       });
+  //   }
+  // };  
   
   return (
     <div className="flex z-0 flex-col w-full max-md:max-w-full">
@@ -69,7 +69,7 @@ function LoginForm({ onForgotPassword }) {
           </div>
         </div>
         <div className="flex flex-col mt-2 w-full text-xl max-md:text-lg max-md:max-w-full">
-        <FacebookLogin
+        {/* <FacebookLogin
             appId={process.env.REACT_APP_FB_CLIENT_ID} // ID ứng dụng Facebook
             autoLoad={false}
             fields="name,email,picture"
@@ -77,7 +77,7 @@ function LoginForm({ onForgotPassword }) {
             icon="fa-facebook"
             textButton="Tiếp tục với Facebook" // Tùy chỉnh văn bản nút
             cssClass="flex flex-wrap gap-1 justify-center items-center p-3 w-full bg-white/15 max-md:max-w-full mt-4"
-          />
+          /> */}
           <LoginButton
             provider="Google"
             iconSrc="Icon/GGicon.svg"
