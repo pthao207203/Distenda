@@ -29,10 +29,10 @@ function Footer() {
         <div className="flex gap-5 max-lg:flex-col">
           <div className="flex flex-col w-6/12 max-lg:ml-0 max-lg:w-full">
             <div className="flex flex-col w-full text-white max-lg:mt-10 max-lg:max-w-full">
-              <h2 className="flex flex-wrap gap-1.5 justify-center items-center self-start text-[3.75rem] uppercase whitespace-nowrap max-lg:text-[36px]">
+              <h2 className="flex flex-wrap gap-1.5 justify-center items-center self-start text-[3.75rem] uppercase whitespace-nowrap max-lg:text-[30px]">
                 {data?.setting?.WebsiteName}
               </h2>
-              <address className="flex flex-col mt-8 self-stretch space-y-5 text-[1.125rem] max-lg:text-[18px] max-lg:max-w-full font-normal not-italic ">
+              <address className="flex flex-col mt-8 self-stretch space-y-5 text-[1.125rem] max-lg:text-[14px] max-lg:max-w-full font-normal not-italic ">
                 <p>Điện thoại: {data?.setting?.WebsitePhone}</p>
                 <p>Email: {data?.setting?.WebsiteEmail}</p>
                 <p>
@@ -44,9 +44,9 @@ function Footer() {
           </div>
 
           <div className="flex flex-col ml-5 w-6/12 max-lg:ml-0 max-lg:w-full">
-            <div className="flex flex-wrap justify-around mt-10 text-[1.125rem] max-lg:text-[18px] leading-loose text-center text-white max-lg:mt-0 max-lg:justify-center max-lg:self-center">
+            <div className="flex flex-wrap justify-around mt-10 text-[1.125rem] max-lg:text-[14px] leading-loose text-center text-white max-lg:mt-0 max-lg:justify-center max-lg:self-center">
               <nav className="flex self-center overflow-hidden flex-col py-auto my-auto">
-                <h3 className=" font-semibold tracking-tight leading-tight text-white uppercase text-[1.5rem] max-lg:text-[24px]">
+                <h3 className=" font-semibold tracking-tight leading-tight text-white uppercase text-[1.5rem] max-lg:text-[18px]">
                   VỀ CHÚNG TÔI
                 </h3>
                 <a
@@ -63,7 +63,7 @@ function Footer() {
                 </a>
               </nav>
               <nav className="flex self-center items-center overflow-hidden flex-col py-auto my-auto ">
-                <h3 className="font-semibold tracking-tight leading-tight text-white uppercase text-[1.5rem] max-lg:text-[24px]">
+                <h3 className="font-semibold tracking-tight leading-tight text-white uppercase text-[1.5rem] max-lg:text-[18px]">
                   RESOURCE
                 </h3>
                 <a
@@ -83,8 +83,8 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-5 self-stretch justify-between mt-2 w-full text-[0.875rem] max-lg:text-[14px] leading-none text-[#cff500] text-[0.875rem] max-w-[1476px] max-lg:max-w-full">
-          <p className="gap-2.5 self-start">
+        <div className="flex flex-wrap gap-5 self-stretch justify-between mt-[8px] w-full text-[0.875rem] max-lg:text-[12px] leading-none text-[#cff500] text-[0.875rem] max-w-[1476px] max-lg:max-w-full">
+          <p className="gap-2.5 self-center">
             {data?.setting?.WebsiteCopyright}
           </p>
           <img

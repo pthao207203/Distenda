@@ -52,7 +52,7 @@ export default function CourseCard({ onRegister, ...course }) {
   };
 
   return (
-    <article className="inline-flex relative flex-col self-center px-[1.3rem] justify-start items-center gap-6 pb-20 mt-24 max-w-full bg-white max-lg:w-full max-lg:px-[15px] max-lg:py-[20px] max-lg:mt-10 max-lg:mr-0">
+    <article className="inline-flex relative flex-col self-center px-[1.3rem] justify-start items-center gap-6 pb-20 mt-24 max-w-full bg-white max-lg:w-full max-lg:px-[20px] max-lg:py-[20px] max-lg:mt-10 max-lg:mr-0">
       <img
         loading="lazy"
         src={course.CoursePicture}
@@ -61,7 +61,7 @@ export default function CourseCard({ onRegister, ...course }) {
       />
       <div className="inline-flex flex-wrap items-center justify-between px-[0.8rem] py-2 w-full font-medium leading-none">
         {/* Giá hiện tại */}
-        <div className="flex gap-3 items-center max-lg:text-[24px] text-[1.875rem] text-[#df322b]">
+        <div className="flex gap-3 items-center max-lg:text-[20px] text-[1.875rem] text-[#df322b]">
           <span>
             {course.CoursePrice === 0
               ? "Miễn phí"
@@ -73,7 +73,7 @@ export default function CourseCard({ onRegister, ...course }) {
         </div>
 
         {/* Giá gạch bỏ */}
-        <div className="flex gap-3 items-center text-[1.25rem] max-lg:text-[18px] text-[#e24943] line-through">
+        <div className="flex gap-3 items-center text-[1.25rem] max-lg:text-[16px] text-[#e24943] line-through">
           <span>
             {course.CoursePrice &&
               !isNaN(course.CoursePrice) &&
@@ -85,7 +85,7 @@ export default function CourseCard({ onRegister, ...course }) {
       {!course.has ? (
         <button
           onClick={onRegister} // Gọi hàm được truyền từ parent
-          className="flex justify-center items-center px-3 w-full text-[1.25rem] max-lg:text-[20px] font-medium leading-none bg-[#CFF500] min-h-[3.75rem] max-lg:h-[40px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
+          className="flex justify-center items-center px-3 w-full text-[1.25rem] max-lg:text-[16px] font-medium leading-none bg-[#CFF500] min-h-[3.75rem] max-lg:h-[40px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
           tabIndex={0}
         >
           Đăng ký ngay
@@ -93,13 +93,13 @@ export default function CourseCard({ onRegister, ...course }) {
       ) : (
         <button
           onClick={onChange} // Gọi hàm được truyền từ parent
-          className="flex justify-center items-center px-3 py-2 w-full text-[1.25rem] max-lg:text-[20px] font-medium leading-none bg-[#CFF500] min-h-[3.75rem] max-lg:h-[40px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
+          className="flex justify-center items-center px-3 py-2 w-full text-[1.25rem] max-lg:text-[16px] font-medium leading-none bg-[#CFF500] min-h-[3.75rem] max-lg:h-[40px] shadow-[-10px_10px_0px_rgba(255,255,255,1)] text-neutral-900"
           tabIndex={0}
         >
           Vào học ngay
         </button>
       )}
-      <section className="flex flex-col px-[0.8rem] w-full text-[1.125rem] max-lg:text-[18px] justify-start gap-4 items-start">
+      <section className="flex flex-col px-[0.8rem] w-full text-[1.125rem] max-lg:text-[14px] justify-start gap-4 items-start">
         {courseDetails.map((detail, index) => (
           <div
             key={index}

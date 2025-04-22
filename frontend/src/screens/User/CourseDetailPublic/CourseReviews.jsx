@@ -34,14 +34,14 @@ export default function CourseReviews(reviews) {
           <span className="text-center max-w-full w-full">{voteAve}</span>
           <StarRating className="w-full" rating={voteAve} />
         </div>
-        <div className="flex flex-col justify-center text-[1.875rem] max-lg:text-[28px] font-medium w-full">
+        <div className="flex flex-col justify-center text-[1.875rem] max-lg:text-[20px] font-medium w-full">
           {ratings.map((rating) => (
             <div
               key={rating}
               className="flex flex-wrap gap-3 items-center mt-3 first:mt-0"
             >
               <span className="self-stretch my-auto">{rating}</span>
-              <div className="flex-grow h-[21px] bg-gray-200 rounded-[99px] overflow-hidden max-w-[800px]">
+              <div className="flex-grow h-[15px] bg-gray-200 rounded-[99px] overflow-hidden max-w-[800px]">
                 <div
                   className={`h-full bg-[#CFF500] rounded-[99px] transition-all duration-300`}
                   style={{

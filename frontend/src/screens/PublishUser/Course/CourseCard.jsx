@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 
 function CourseCard(course) {
   return (
-    <article className="flex flex-col grow shrink-0 p-[1.25rem] bg-white bg-opacity-10 backdrop-blur-[10px] overflow-hidden">
+    <article className="flex flex-col grow shrink-0 p-[12px] bg-white bg-opacity-10 backdrop-blur-[10px] overflow-hidden">
       <img
         loading="lazy"
         src={course.CoursePicture}
         alt={`${course.CourseName}`}
         className="object-cover aspect-[1.42] w-full"
       />
-      <div className="flex flex-col px-[0.75rem] py-0 my-[1.25rem] w-full text-[1.125rem] text-white">
-        <div className="flex items-start py-[0.75rem] w-full text-[1.75rem] font-semibold leading-7 min-h-[5rem]">
+      <div className="flex flex-col py-0 my-[1.25rem] w-full text-[1.125rem] max-lg:text-[12px] text-white">
+        <div className="flex items-start py-[8px] w-full text-[1.75rem] max-lg:text-[16px] font-semibold leading-7 min-h-[5rem]">
           <h2
             className="flex-1 shrink gap-2.5 self-stretch w-full"
             style={{
@@ -48,7 +48,7 @@ function CourseCard(course) {
       </div>
       {/* Nút Xem chi tiết */}
       <div className="mt-auto">
-        <button className="flex justify-center items-center w-full px-[12px] text-[1.25rem] font-medium leading-none bg-[#CFF500] min-h-[3.75rem] text-neutral-900">
+        <button className="flex justify-center items-center w-full px-[12px] text-[1.25rem] max-lg:text-[16px] font-medium leading-none bg-[#CFF500] min-h-[40px] text-neutral-900">
           <Link
             to={`/courses/${course.CourseSlug}`}
             className="self-stretch my-auto"
