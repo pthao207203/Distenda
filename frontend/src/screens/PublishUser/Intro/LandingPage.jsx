@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 //import Navigation from './Navigation';
-import HeroSection from './HeroSection';
-import CourseSection from './CourseSection';
-import TestimonialSection from './TestimonialSection';
-import TeacherSection from './TeacherSection';
+import HeroSection from "./HeroSection";
+import CourseSection from "./CourseSection";
+import TestimonialSection from "./TestimonialSection";
+import TeacherSection from "./TeacherSection";
 //import Footer from './Footer';
-import { Container, Row, Col } from 'react-bootstrap';
-import { homeController } from '../../../controllers/home.controller';
-import Loading from '../../../components/Loading';
+import { Container, Row, Col } from "react-bootstrap";
+import { homeController } from "../../../controllers/home.controller";
+import Loading from "../../../components/Loading";
 
 function LandingPage() {
-  const [data, setData] = useState(
-    {
-      courses: [],
-      intructor: [],
-    }
-  );
+  const [data, setData] = useState({
+    courses: [],
+    intructor: [],
+  });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -30,12 +28,10 @@ function LandingPage() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
-  console.log("intructor ", data.intructor)
-  console.log("courses ", data.courses)
+  console.log("intructor ", data.intructor);
+  console.log("courses ", data.courses);
   return (
     <>
       {/* Hero Section */}
@@ -51,10 +47,12 @@ function LandingPage() {
 
       {/* Course Section */}
       <section className="backdrop-blur-[10px] relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0">
-        <Container fluid className="px-0">
-          <Row className="gap-4">
-            <Col lg={12} md={12} className="flex justify-center items-center">
-              {data.courses.length > 0 && <CourseSection courseData={data.courses} />}
+        <Container className="py-0">
+          <Row className="justify-center items-center gap-4">
+            <Col lg={10} md={12} className="flex self-center">
+              {data.courses.length > 0 && (
+                <CourseSection courseData={data.courses} />
+              )}
             </Col>
           </Row>
         </Container>
@@ -73,7 +71,7 @@ function LandingPage() {
 
       {/* Teacher Section */}
       <section className="relative flex overflow-hidden justify-self-center flex-col w-full bg-white bg-opacity-10 max-md:max-w-full py-0 backdrop-blur-[10px]">
-        <Container fluid className="px-0">
+        <Container className="px-0">
           <Row className="gap-4">
             <Col lg={12} md={12} className="flex justify-center items-center">
               <TeacherSection teacherData={data.intructor} />

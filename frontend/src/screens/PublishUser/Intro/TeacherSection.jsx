@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
 
 // const teacherData = [
 //   { name: "Phạm Hồng Ánh" },
@@ -15,9 +15,11 @@ function TeacherCard(teacher) {
         src={teacher.AdminAvatar ? teacher.AdminAvatar : "/Icon/image.svg"}
         alt={teacher.AdminFullName}
         className="rounded-circle object-cover"
-        style={{ width: '104px', height: '104px' }}
+        style={{ width: "104px", height: "104px" }}
       />
-      <h3 className="text-white px-[20px] py-[20px] font-medium text-[20px]">{teacher.AdminFullName}</h3>
+      <h3 className="text-white px-[20px] py-[20px] font-medium text-[1.25rem]">
+        {teacher.AdminFullName}
+      </h3>
     </div>
   );
 }
@@ -30,8 +32,9 @@ function TeacherSection(teacherData) {
     <section className="flex-col w-screen bg-none max-md:max-w-full  ">
       <Container>
         <div className="text-center mb-[16px]">
-          <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
-            Nhà sáng lập</h2>
+          <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[1.25rem] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+            Nhà sáng lập
+          </h2>
         </div>
         <Row className="g-[40px] mt-[20px] mb-[50px]">
           {teachers.length > 0 ? (
@@ -39,7 +42,8 @@ function TeacherSection(teacherData) {
               <Col key={index} lg={2} md={3} sm={4} xs={6}>
                 <TeacherCard {...teacher} />
               </Col>
-            ))) : (
+            ))
+          ) : (
             <div>Không có giảng viên nào để hiển thị.</div>
           )}
         </Row>
