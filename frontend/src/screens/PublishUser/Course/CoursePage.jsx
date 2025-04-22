@@ -54,7 +54,7 @@ function CoursePage() {
               </div>
             )}
             {(!data || data.length === 0) && (
-              <div className="flex text-white/30 text-[2.25rem] justify-self-center items-center min-h-[800px]">
+              <div className="flex text-white/30 text-[2.25rem] max-lg:text-[30px] justify-self-center items-center min-h-[800px]">
                 Không có khoá học nào
               </div>
             )}

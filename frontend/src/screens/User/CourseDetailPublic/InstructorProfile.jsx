@@ -21,10 +21,10 @@ export default function InstructorProfile(intructor) {
 
       {/* Phần text */}
       <article className="flex flex-col flex-1 w-full max-lg:max-w-full">
-        <h3 className="text-[1.875rem] max-lg:text-[24px] font-bold max-lg:max-w-full">
+        <h3 className="text-[1.875rem] max-lg:text-[20px] font-bold max-lg:max-w-full">
           {intructor.AdminFullName}
         </h3>
-        <div className="flex flex-col mt-1 leading-[20px] text-[1.125rem] max-lg:text-[16px] w-full max-lg:max-w-full">
+        <div className="flex flex-col mt-1 leading-[20px] text-[1.125rem] max-lg:text-[14px] w-full max-lg:max-w-full">
           {[
             { label: "Ngày sinh:", value: "01/09/1998" },
             { label: "SĐT:", value: `${intructor.AdminPhone}` },

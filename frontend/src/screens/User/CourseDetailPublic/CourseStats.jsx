@@ -39,7 +39,7 @@ export default function CourseStats(course) {
   ];
 
   return (
-    <div className="flex flex-col w-full text-[1.25rem] max-lg:text-[18px] font-bold max-lg:max-w-full">
+    <div className="flex flex-col w-full text-[1.25rem] max-lg:text-[14px] font-bold max-lg:max-w-full">
       {stats.map((stat, index) => (
         <div key={index} className="mt-4 max-lg:max-w-full">
           <span className="font-bold">{stat.label} : </span>

@@ -43,7 +43,7 @@ export default function CourseLessons(lessonsData) {
             className="mt-2 first:mt-0"
             onToggle={() => toggleDetails(index)}
           >
-            <summary className="flex flex-wrap gap-1 justify-start items-center px-2.5 w-full text-[1.5rem] max-lg:text-[22px] font-semibold tracking-normal leading-none min-h-[70px] cursor-pointer">
+            <summary className="flex flex-wrap gap-1 justify-start items-center px-2.5 w-full text-[1.5rem] max-lg:text-[16px] font-semibold tracking-normal leading-none min-h-[40px] cursor-pointer">
               <img
                 loading="lazy"
                 src="/Icon/play-circle.svg"
@@ -60,7 +60,7 @@ export default function CourseLessons(lessonsData) {
                 className="object-contain shrink-0 self-stretch my-auto aspect-[1.7] w-[34px]"
               />
             </summary>
-            <div className="gap-2.5 p-2.5 w-full text-[1.25rem] max-lg:text-[18px] font-medium border-2 border-dashed border-white border-opacity-60">
+            <div className="gap-2.5 p-2.5 w-full text-[1.25rem] max-lg:text-[14px] font-medium border-2 border-dashed border-white border-opacity-60">
               {lesson.video &&
                 lesson.video.length > 0 &&
                 lesson.video.map((video, index) => (

@@ -33,7 +33,7 @@ function TestimonialCard(review) {
             }
             alt={review.user?.UserFullName}
             className="rounded-circle me-3"
-            style={{ width: "50px", height: "50px" }}
+            style={{ width: "30px", height: "30px" }}
           />
           <h5 className="mb-0 text-white font-semibold">
             {review.user?.UserFullName}
@@ -65,7 +65,7 @@ function TestimonialSection(reviewData) {
             lg={6}
             md={6}
             sm={12}
-            className="mb-[8px] text-[1.25rem] max-lg:text-[18px]"
+            className="mb-[8px] text-[1.25rem] max-lg:text-[14px]"
           >
             <TestimonialCard {...testimonial} />
           </Col>
