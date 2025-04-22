@@ -188,12 +188,11 @@ const SideBar = ({ headerHeight }) => {
       </aside>
 
       {/* Nút mở Sidebar */}
-      {!isDesktop && !isOpen && (
+      {/* {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           className="fixed top-7 left-2 z-50 p-2 bg-black text-white rounded-md max-md:top-5 max-md:left-5"
         >
-          {/* Biểu tượng SVG */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="38"
@@ -222,7 +221,7 @@ const SideBar = ({ headerHeight }) => {
             />
           </svg>
         </button>
-      )}
+      )} */}
     </>
   );
 };

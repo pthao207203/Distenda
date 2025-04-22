@@ -61,19 +61,22 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
       ref={headerRef}
       className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
     >
-      <div className="flex items-center justify-between px-[60px] py-3 text-white lg:gap-5 max-md:pr-[20px] ">
+      <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
         {/* Logo */}
-        <div style={{ flexBasis: "auto", textAlign: "center" }}>
+        <div
+          style={{ flexBasis: "auto", textAlign: "center" }}
+          className="flex self-center max-lg:pr-[10px]"
+        >
           <img
             src={data?.setting?.WebsiteLogoUser}
             alt={data?.setting?.WebsiteName}
-            className="w-auto h-auto "
+            className="w-[10rem] max-lg:w-[75px]"
           />
         </div>
 
         {/* Navigation */}
         <nav
-          className="flex items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
+          className="flex items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
           style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
           <Link
@@ -89,7 +92,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             <Link
               key={cate.CategorySlug}
               to={`/category/${cate.CategorySlug}`}
-              className={`flex-1 px-3 py-3 ${
+              className={`flex-1 px-3 py-3 mx-[8px] ${
                 activeLink === `/category/${cate.CategorySlug}`
                   ? "bg-[#CFF500] text-black"
                   : ""
@@ -102,7 +105,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
         </nav>
 
         {/* Button */}
-        <div
+        {/* <div
           className="flex grow flex-row items-center"
           style={{ flexBasis: "auto", justifyContent: "flex-end" }}
         >
@@ -127,7 +130,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
               className="object-center shrink-0 w-[15px] aspect-[2.14]"
             />
           </button>
-        </div>
+        </div> */}
       </div>
     </header>
   );
