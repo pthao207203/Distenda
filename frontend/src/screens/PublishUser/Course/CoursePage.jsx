@@ -26,17 +26,15 @@ function CoursePage() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
-  console.log("courses => ", data)
+  console.log("courses => ", data);
 
   return (
-    <> 
-      <Helmet>    
+    <>
+      <Helmet>
         <title>Khóa học</title>
-      </Helmet> 
+      </Helmet>
       <div className="flex flex-col w-full min-h-screen">
         {/* Sidebar */}
         {/*<SideBar />*/}
@@ -49,14 +47,16 @@ function CoursePage() {
             <Banner />
             {/* Khu vực chứa các thẻ */}
             {data && data.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  justify-between gap-[60px] mt-10 w-full">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-[40px] max-sm:gap-[10px] max-md:gap-[20px] mt-10 w-full">
                 {data.map((course, index) => (
                   <CourseCard key={index} {...course} className="" />
                 ))}
               </div>
             )}
             {(!data || data.length === 0) && (
-              <div className="flex text-white/30 text-4xl justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
+              <div className="flex text-white/30 text-[2.25rem] justify-self-center items-center min-h-[800px]">
+                Không có khoá học nào
+              </div>
             )}
             {/* Thêm TestimonialSection và TeacherSection 
             <TestimonialSection />
@@ -64,7 +64,7 @@ function CoursePage() {
           </div>
         </main>
       </div>
-  </>
+    </>
   );
 }
 

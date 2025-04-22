@@ -39,7 +39,7 @@ const Main = () => {
       <SideBar headerHeight={headerHeight} />
       <div
         className={`transition-all duration-300 ${
-          isDesktop ? "ml-[292px]" : "ml-0"
+          isDesktop ? "ml-[220px]" : "ml-0"
         }`}
         style={{
           paddingTop: `${headerHeight}px`,

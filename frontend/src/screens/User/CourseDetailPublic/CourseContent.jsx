@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 import CourseSection from "./CourseSection";
 import CourseNavigation from "./CourseNavigation";
@@ -11,7 +11,7 @@ import CourseReviews from "./CourseReviews";
 import CourseCard from "./CourseCard";
 import CourseOverview from "./CourseOverview";
 
-export default function CourseContent({ onRegister,headerHeight, ...course }) {
+export default function CourseContent({ onRegister, headerHeight, ...course }) {
   // console.log("course ", course)
   const refs = {
     overview: useRef(null),
@@ -23,7 +23,8 @@ export default function CourseContent({ onRegister,headerHeight, ...course }) {
   const scrollToSection = (section) => {
     const ref = refs[section];
     if (ref?.current) {
-      const elementTop = ref.current.getBoundingClientRect().top + window.pageYOffset;
+      const elementTop =
+        ref.current.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: elementTop - headerHeight, // Use headerHeight prop directly
         behavior: "smooth", // Smooth scrolling
@@ -46,7 +47,11 @@ export default function CourseContent({ onRegister,headerHeight, ...course }) {
               return child; // Nếu là chuỗi, trả về trực tiếp
             } else if (child?.name === "strong") {
               // Giữ nguyên thẻ <strong>
-              return <strong key={index}>{child.children?.map(c => c.data).join("")}</strong>;
+              return (
+                <strong key={index}>
+                  {child.children?.map((c) => c.data).join("")}
+                </strong>
+              );
             } else if (child && typeof child.data === "string") {
               return child.data; // Nếu có thuộc tính `data`, trả về chuỗi
             } else {
@@ -55,9 +60,7 @@ export default function CourseContent({ onRegister,headerHeight, ...course }) {
           });
 
           return (
-            <p style={{ marginTop: "1em", lineHeight: "1.8" }}>
-              {children}
-            </p>
+            <p style={{ marginTop: "1em", lineHeight: "1.8" }}>{children}</p>
           );
         }
 
@@ -66,19 +69,20 @@ export default function CourseContent({ onRegister,headerHeight, ...course }) {
     });
   };
 
-
-
   return (
-    <main className="flex flex-col shrink relative text-white items-start w-full bg-white/15 backdrop-blur-[30px] max-md:px-4 max-md:max-w-full overflow-x-hidden">
-      <CourseOverview {...course} />
+    <main className="flex flex-col shrink relative text-white items-start w-full bg-white/15 backdrop-blur-[30px] max-ms:px-4 max-ms:max-w-full overflow-x-hidden">
+      <div className="hidden lg:block">
+        <CourseOverview {...course} />
+      </div>
 
-      <aside className="absolute flex flex-col z-10 ml-5 justify-end w-1/4 max-md:w-full max-md:relative max-md:ml-0 md:right-0 max-md:mb-10">
-        <CourseCard {...course} onRegister={onRegister} /> {/* Truyền hàm mở Payment */}
+      <aside className="absolute flex flex-col z-10 ml-5 items-center justify-end w-1/4 max-lg:w-full max-lg:relative max-lg:ml-0 lg:right-0 max-lg:mb-10">
+        <CourseCard {...course} onRegister={onRegister} />{" "}
+        {/* Truyền hàm mở Payment */}
       </aside>
 
       {/* Main Content Section */}
-      <div className="flex gap-5 px-[73px] max-md:flex-col w-full max-md:w-full max-md:px-0">
-        <section className="flex flex-col flex-shrink md:w-[65%] max-md:w-full">
+      <div className="flex gap-5 px-[73px] max-lg:flex-col w-full max-lg:w-full max-lg:px-[20px]">
+        <section className="flex flex-col flex-shrink lg:w-[65%] max-lg:w-full">
           {/* Navigation */}
           <CourseNavigation onNavigate={scrollToSection} />
 

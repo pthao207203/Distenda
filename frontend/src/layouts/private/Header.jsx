@@ -73,7 +73,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
 
         {/* Navigation */}
         <nav
-          className="flex items-center text-[1.25rem] font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
+          className="flex items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
           style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
           <Link
