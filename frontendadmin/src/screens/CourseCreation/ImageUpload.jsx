@@ -13,7 +13,7 @@ function ImageUpload({ uploadImageInputRef, uploadImagePreviewRef, handleImageCh
             loading="lazy"
             src={imageUrl}
             alt=""
-            className="object-contain shrink-0 self-end aspect-[1.61] mt-2 w-full h-full rounded-lg border border-solid border-slate-500 border-opacity-80 border-none"
+            className="object-cover shrink-0 self-end aspect-[1.61] mt-2 w-full h-full rounded-lg border border-solid border-slate-500 border-opacity-80 border-none"
           />
 
           {/* Button chọn tệp nằm trên ảnh và ở giữa */}

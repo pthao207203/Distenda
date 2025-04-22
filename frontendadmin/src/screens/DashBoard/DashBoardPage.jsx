@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import StatCard from "./components/StatCard";
 import CourseTableRow from "./components/CourseTableRow";
 import TableHeader from "./components/TableHeader";
 import SideBar from "../../layouts/private/SideBar";
 import { dashboardController } from "../../controllers/home.controller";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
+import { Chart as ChartJS, registerables } from 'chart.js';
 
 function DashboardPage() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const chartRef = useRef(null);  // Chart for profit
+  const chartRefDoughnut = useRef(null);  // Chart for conversion rate (added this ref)
+
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +29,90 @@ function DashboardPage() {
     fetchData();
   }, []);
 
+  const totalPayment = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
+
+  ChartJS.register(...registerables);
+
+  useEffect(() => {
+    // Biểu đồ lợi nhuận (Line chart with multi-axis)
+    if (data && chartRef.current) {
+      const ctx = chartRef.current.getContext('2d');
+      const config = {
+        type: 'line',
+        data: {
+          labels: data?.monthLabels,  // Nhãn tháng từ backend
+          datasets: [
+            {
+              label: 'Doanh Thu',  // Dataset cho 'Doanh thu'
+              data: data?.profitData,
+              borderColor: '#36a2eb',  // Màu đường biều đồ
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',  // Màu nền đường biểu đồ
+              fill: true,  // Điền vùng bên dưới đường
+              borderWidth: 2,  // Độ dày đường
+            },
+            {
+              label: 'Lợi Nhuận',  // Dataset cho 'Lợi nhuận'
+              data: data?.incomeData,
+              borderColor: '#FF6384',  // Màu đường biểu đồ lợi nhuận
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Màu nền đường biểu đồ lợi nhuận
+              fill: true,  // Điền vùng bên dưới đường
+              borderWidth: 2,  // Độ dày đường
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',  // Đặt vị trí của legend
+            },
+            title: {
+              display: true,
+              text: 'Biểu đồ lợi nhuận và doanh thu',  // Tiêu đề biểu đồ
+            }
+          },
+          scales: {
+            y: {
+              type: 'linear',  // Trục y kiểu tuyến tính
+              display: true,
+              position: 'left',  // Đặt trục y bên trái
+            }
+          }
+        }
+      }
+
+      const chart = new ChartJS(ctx, config); 
+
+    }
+
+    // Biểu đồ Tỉ lệ chuyển đổi (Polar Area Chart) - Dữ liệu tĩnh
+    if (chartRefDoughnut.current) { 
+      console.log('dooo');
+      const ctx = chartRefDoughnut.current.getContext('2d');
+      const config = {
+        type: 'polarArea',
+        data: {
+          labels: data?.labels,  // Nhãn từ backend
+          datasets: [{
+            data: data?.data,  // Dữ liệu từ backend
+            backgroundColor: ['#CDD5DF', '#97D0F7', '#FFB74D', '#FF6384'],
+            hoverOffset: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Tỉ lệ đơn hàng theo mức giá khóa học' }
+          }
+        }
+      };
+      const polarAreaChart = new ChartJS(ctx, config);  // Tạo biểu đồ Polar Area
+
+    }
+  }, 
+  [data]);  // Chạy lại khi dữ liệu thay đổi
+
   if (loading) {
     return (
       <Loading />
@@ -35,26 +123,30 @@ function DashboardPage() {
   const stats = [
     {
       title: "Doanh thu",
-      value: data?.totalIncome,
-      percentage: data?.totalIncome !== 0 ? (data?.totalIncome - data?.totalIncomeAgo) / data?.totalIncome * 100 : 200,
-      iconSrc: "./icons/chart.svg",
-    },
-    {
-      title: "Lợi nhuận",
-      value: data?.totalProfit,
+      value: new Intl.NumberFormat('vi-VN').format(data?.totalProfit),
       percentage: data?.totalProfit !== 0 ? (data?.totalProfit - data?.totalProfitAgo) / data?.totalProfit * 100 : 200,
       iconSrc: "./icons/dollar.svg",
     },
     {
-      title: "Chi phí quảng cáo",
-      value: "36852",
-      percentage: 160,
+      title: "Lợi nhuận",
+      value: new Intl.NumberFormat('vi-VN').format(data?.totalIncome), 
+      percentage: data?.totalIncome !== 0 ? (data?.totalIncome - data?.totalIncomeAgo) / data?.totalIncome * 100 : 200,
+      iconSrc: "./icons/chart.svg",
+    },
+    {
+      title: "Đơn hàng",
+      value: data?.totalOrders,
+      percentage:  data?.totalOrdersAgo > 0
+      ? ((data?.totalOrders - data?.totalOrdersAgo) / data?.totalOrders)* 100 
+      : (data?.totalOrders > 0 ? 100 : 0),
       iconSrc: "./icons/bag.svg",
     },
     {
-      title: "Đánh giá",
-      value: "3.9",
-      percentage: 160,
+      title: "Học viên",
+      value: data?.totalStudents,
+      percentage: data?.totalStudentsAgo > 0 
+      ? ((data?.totalStudents - data?.totalStudentsAgo) / data?.totalStudents)* 100 
+      : (data?.totalStudents > 0 ? 100 : 0),
       iconSrc: "./icons/star.svg"
     }
   ];
@@ -62,6 +154,8 @@ function DashboardPage() {
   // console.log("totalProfit", stats[1].percentage)
   // console.log("data?.totalIncome", data?.totalIncome)
   // console.log("data?.totalIncomeAgo", data?.totalIncomeAgo)
+  console.log(chartRefDoughnut.current);  // Kiểm tra xem chartRefDoughnut có giá trị hợp lệ không
+
 
   return (
     <>
@@ -79,53 +173,18 @@ function DashboardPage() {
             </div>
 
             {/* Chart Section */}
-            <section className="py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section className="py-8 grid grid-cols-1 lg:grid-cols-8 gap-8 w-full">  {/* Thay đổi số cột trong grid */}
               {/* Biểu đồ Lợi nhuận */}
-              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de]">
-                <h3 className="text-lg font-semibold mb-4">Lợi nhuận</h3>
-                <div className="relative flex flex-col items-start rounded-3xl overflow-hidden">
-                  <img
-                    loading="lazy"
-                    src="./ProfitChart.png"
-                    alt="Profit chart"
-                    className="w-full h-[350px] object-fill"
-                  />
-                  {/* <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-80"></div>
-                  <div className="relative z-10 flex gap-3 items-center px-4 py-2">
-                    <h4 className="text-xl font-medium">Lợi nhuận</h4>
-                  </div> */}
-                </div>
+              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de] col-span-5"> {/* col-span-5 để chiếm 5 cột */}
+                <h3 className="text-lg font-semibold mb-4">Lợi nhuận và Doanh Thu</h3>
+                <canvas ref={chartRef} width="100%" height="50%"></canvas>
+
               </div>
 
               {/* Biểu đồ Tỉ lệ chuyển đổi */}
-              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de] ">
-                <h3 className="text-lg font-semibold mb-4">Tỉ lệ chuyển đổi</h3>
-                <div className="relative">
-                  <div className="flex flex-wrap gap-3.5 items-center text-sm">
-                    <div className="flex items-center">
-                      <div className="w-[30px] h-[30px] bg-[#CDD5DF] rounded-full"></div>
-                      <span className="ml-3">Thoát trang</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-[30px] h-[30px] bg-[#6C8299] rounded-full"></div>
-                      <span className="ml-3">Xem chi tiết</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-[30px] h-[30px] bg-[#6C8299] rounded-full"></div>
-                      <span className="ml-3">Thêm vào giỏ</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-[30px] h-[30px] bg-amber-300 rounded-full"></div>
-                      <span className="ml-3">Thanh toán</span>
-                    </div>
-                  </div>
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/ce9d43b270ae41158192dec03af70a1a/5cdf6608090b1674cecf2987b505f0c0b8e003b2f0fe6439247be1b280280be3?apiKey=ce9d43b270ae41158192dec03af70a1a&"
-                    alt="Conversion rate chart"
-                    className="mt-6 w-full h-[400px] object-contain"
-                  />
-                </div>
+              <div className="bg-white p-6 rounded-[20px] border border-[#cdd5de] col-span-3">
+                <h3 className="text-lg font-semibold mb-4">Tỉ lệ phân bổ học viên theo danh mục khóa học</h3>
+                <canvas ref={chartRefDoughnut} width="10%" height="10%"></canvas>
               </div>
             </section>
             <section className="flex flex-col mt-1 w-full text-xl text-neutral-900 max-md:max-w-full">

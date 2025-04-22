@@ -49,7 +49,7 @@ export default function CourseCard({ onRegister, ...course }) {
         loading="lazy"
         src={course.CoursePicture}
         alt="Course thumbnail"
-        className="object-contain w-full aspect-[1.64]"
+        className="object-cover w-full aspect-[1.64]"
       />
       <div className="inline-flex flex-wrap items-center justify-between px-[0.8rem] py-2 w-full font-medium leading-none">
         {/* Giá hiện tại */}
