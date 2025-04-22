@@ -149,7 +149,7 @@ const SideBar = ({ headerHeight }) => {
             className="object-cover shrink-0 self-stretch my-auto w-[64px] h-[62px] max-lg:w-[25px] max-lg:h-[25px] rounded-full aspect-[1.03] mr-[8px]"
           />
           <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
-            <div className="flex items-center text-[1.75rem] max-lg:text-[24px] font-semibold ">
+            <div className="flex items-center text-[1.75rem] max-lg:text-[18px] font-semibold ">
               <div
                 className="flex-1"
                 style={{
@@ -172,7 +172,7 @@ const SideBar = ({ headerHeight }) => {
         </div>
 
         {/* Menu */}
-        <nav className="flex flex-col w-full text-[1.75rem] max-lg:text-[24px] font-light mx-[8px]">
+        <nav className="flex flex-col w-full text-[1.75rem] max-lg:text-[18px] font-light mx-[8px]">
           {menuItems.map((item, index) => (
             <Link
               to={item.link}
@@ -188,10 +188,10 @@ const SideBar = ({ headerHeight }) => {
       </aside>
 
       {/* Nút mở Sidebar */}
-      {/* {!isDesktop && !isOpen && (
+      {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-7 left-2 z-50 p-2 bg-black text-white rounded-md max-md:top-5 max-md:left-5"
+          className="fixed top-5 left-2 z-50 p-2 bg-black text-white rounded-md max-md:top-5 max-md:left-5"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@ const SideBar = ({ headerHeight }) => {
             height="20"
             viewBox="0 0 38 20"
             fill="none"
-            className="max-md:w-[20px] max-md:h-10"
+            className="max-lg:w-[30px] "
           >
             <path
               d="M1 1H37"
@@ -221,7 +221,7 @@ const SideBar = ({ headerHeight }) => {
             />
           </svg>
         </button>
-      )} */}
+      )}
     </>
   );
 };
