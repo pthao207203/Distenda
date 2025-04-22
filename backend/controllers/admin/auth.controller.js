@@ -124,6 +124,6 @@ module.exports.logout = (req, res) => {
 
 // [GET] /admin/auth/setting
 module.exports.setting = async (req, res) => {
-  const setting = await Setting.findOne({}).lean()
+  const setting = await Setting.findOne().lean()
   res.json(setting)
 };

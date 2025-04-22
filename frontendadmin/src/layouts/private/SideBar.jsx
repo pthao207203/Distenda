@@ -70,7 +70,7 @@ export default function SideBar({ headerHeight }) {
     },
     role?.role?.RolePermissions?.includes("voucher_view") && {
       link: "/voucher",
-      icon: "/icons/voucher.svg",
+      icon: "/icons/discount.svg",
       label: "Voucher",
     },
     role?.role?.RolePermissions?.includes("banner_view") && {
