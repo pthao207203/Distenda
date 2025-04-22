@@ -22,9 +22,7 @@ function CoursePage() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
   // console.log("courses => ", data)
 
@@ -48,7 +46,9 @@ function CoursePage() {
               </div>
             )}
             {(!data || data.length === 0) && (
-              <div className="flex text-white/30 text-4xl justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
+              <div className="flex text-white/30 text-[2.25rem] justify-self-center items-center min-h-[800px]">
+                Không có khoá học nào
+              </div>
             )}
           </div>
         </main>

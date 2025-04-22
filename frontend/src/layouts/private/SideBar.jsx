@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { headerController } from "../../controllers/home.controller"
-import { addNotification, getNotificationsByUser } from '../../services/notification.service';
-import Cookies from 'js-cookie';
-
+import { headerController } from "../../controllers/home.controller";
+import {
+  addNotification,
+  getNotificationsByUser,
+} from "../../services/notification.service";
+import Cookies from "js-cookie";
 
 const SideBar = ({ headerHeight }) => {
-  let [data, setData] = useState(
-    {
-      category: [],
-      setting: [],
-    }
-  );
+  let [data, setData] = useState({
+    category: [],
+    setting: [],
+  });
   const [loading, setLoading] = useState(false);
   const [member, setMember] = useState("");
   const [isOpen, setIsOpen] = useState(false); // Quản lý trạng thái mở/đóng của Sidebar
@@ -35,7 +35,6 @@ const SideBar = ({ headerHeight }) => {
     return () => window.removeEventListener("resize", handleResize); // Cleanup
   }, []);
 
-
   // Đóng Sidebar khi chuyển từ màn hình nhỏ sang lớn
   useEffect(() => {
     if (isDesktop) {
@@ -52,14 +51,14 @@ const SideBar = ({ headerHeight }) => {
 
     fetchData();
   }, []);
-  const userToken = Cookies.get('user_token');
+  const userToken = Cookies.get("user_token");
   useEffect(() => {
     const checkAndSendRankNotification = async () => {
       // Kiểm tra xem có userToken và UserMoney
       if (data?.setting?.user?.UserMoney && userToken) {
         let newMember;
         const money = data.setting.user.UserMoney;
-  
+
         switch (true) {
           case money > 10000000:
             newMember = "Thành viên Vip";
@@ -73,20 +72,22 @@ const SideBar = ({ headerHeight }) => {
           default:
             newMember = "Thành viên đồng";
         }
-  
+
         if (newMember !== member) {
           setMember(newMember); // Cập nhật trạng thái thành viên mới
-  
+
           try {
             // Gọi API để lấy thông báo của user thông qua userToken
             const notifications = await getNotificationsByUser(userToken);
             console.log("notifications", notifications);
-  
+
             // Kiểm tra xem thông báo này đã được gửi chưa
-            const hasAlreadySent = notifications.some(noti =>
-              noti.NotificationMessage === `Chúc mừng bạn hiện tại là ${newMember}!`
+            const hasAlreadySent = notifications.some(
+              (noti) =>
+                noti.NotificationMessage ===
+                `Chúc mừng bạn hiện tại là ${newMember}!`
             );
-  
+
             // Nếu chưa gửi thông báo này, thêm vào
             if (!hasAlreadySent) {
               const message = `Chúc mừng bạn hiện tại là ${newMember}!`;
@@ -97,24 +98,20 @@ const SideBar = ({ headerHeight }) => {
               });
             }
           } catch (error) {
-            console.error("Không thể kiểm tra/gửi thông báo thăng hạng:", error);
+            console.error(
+              "Không thể kiểm tra/gửi thông báo thăng hạng:",
+              error
+            );
           }
         }
       }
     };
-  
+
     checkAndSendRankNotification();
   }, [data?.setting?.user?.UserMoney, member, userToken]); // Thêm userToken vào dependency array
-  
-  
 
-  
-   if (loading) {
-    return (
-      <div>
-        Đang tải...
-      </div>
-    )
+  if (loading) {
+    return <div>Đang tải...</div>;
   }
   // console.log("category ", data.category)
   // console.log("setting ", data.setting)
@@ -130,8 +127,9 @@ const SideBar = ({ headerHeight }) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full z-40 text-white transition-all duration-300 ${isDesktop || isOpen ? `w-[292px] mt-[${headerHeight}px]` : "w-0 "
-          } overflow-hidden`}
+        className={`fixed top-0 left-0 h-full z-40 text-white transition-all duration-300 ${
+          isDesktop || isOpen ? `w-[292px] mt-[${headerHeight}px]` : "w-0 "
+        } overflow-hidden`}
         style={{
           backgroundColor: "rgba(255, 255, 255, 0.03)", // Nền trắng mờ
           backdropFilter: "blur(30px)", // Làm mờ nền
@@ -142,7 +140,11 @@ const SideBar = ({ headerHeight }) => {
         <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[27px]">
           <img
             loading="lazy"
-            src={data.setting.user?.UserAvatar ? data.setting.user.UserAvatar : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"}
+            src={
+              data.setting.user?.UserAvatar
+                ? data.setting.user.UserAvatar
+                : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
+            }
             alt="User profile"
             className="object-cover shrink-0 self-stretch my-auto w-[64px] h-[62px] rounded-full aspect-[1.03] mr-[8px]"
           />
@@ -160,7 +162,6 @@ const SideBar = ({ headerHeight }) => {
                 {data?.setting?.user?.UserFullName
                   ? data.setting.user.UserFullName.split(" ").slice(-1)[0]
                   : ""}
-
               </div>
             </div>
             <div className="flex items-center text-[18px] font-medium">
@@ -176,8 +177,9 @@ const SideBar = ({ headerHeight }) => {
             <Link
               to={item.link}
               key={index}
-              className={`flex gap-3 items-center py-[20px] pl-[24px] w-[95%] transition ${location.pathname === item.link ? "bg-black" : "bg-transparent"
-                }`}
+              className={`flex gap-3 items-center py-[20px] pl-[24px] w-[95%] transition ${
+                location.pathname === item.link ? "bg-black" : "bg-transparent"
+              }`}
             >
               <div className="flex-1">{item.name}</div>
             </Link>
