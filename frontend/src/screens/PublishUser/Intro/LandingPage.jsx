@@ -35,7 +35,7 @@ function LandingPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-5 w-full text-white px-1">
+      <section className="py-5 w-full text-white px-1 hidden lg:block">
         <Container fluid className="px-0">
           <Row className="relative flex overflow-hidden justify-self-left flex-col max-w-full py-0">
             <Col lg={12} md={12} className="relative z-index-1">
@@ -59,7 +59,7 @@ function LandingPage() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-5">
+      <section className="py-5 hidden lg:block">
         <Container>
           <Row className="gap-4">
             <Col lg={12} md={12} className="flex justify-center items-center">

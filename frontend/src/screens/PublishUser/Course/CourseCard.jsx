@@ -8,7 +8,7 @@ function CourseCard(course) {
         loading="lazy"
         src={course.CoursePicture}
         alt={`${course.CourseName}`}
-        className="object-cover aspect-[1.42] h-[15.125rem]"
+        className="object-cover aspect-[1.42] w-full"
       />
       <div className="flex flex-col px-[0.75rem] py-0 my-[1.25rem] w-full text-[1.125rem] text-white">
         <div className="flex items-start py-[0.75rem] w-full text-[1.75rem] font-semibold leading-7 min-h-[5rem]">

@@ -17,7 +17,7 @@ function TeacherCard(teacher) {
         className="rounded-circle object-cover"
         style={{ width: "104px", height: "104px" }}
       />
-      <h3 className="text-white px-[20px] py-[20px] font-medium text-[1.25rem]">
+      <h3 className="text-white px-[20px] py-[20px] font-medium text-[1.25rem] max-lg:text-[18px]">
         {teacher.AdminFullName}
       </h3>
     </div>
@@ -29,10 +29,10 @@ function TeacherSection(teacherData) {
   const teachers = teacherData ? teacherData.teacherData : []; // Lấy danh sách các khóa học (mảng)
   // console.log("Object.values(teacherData):", teachers);
   return (
-    <section className="flex-col w-screen bg-none max-md:max-w-full  ">
+    <section className="flex-col w-screen bg-none max-lg:max-w-full  ">
       <Container>
         <div className="text-center mb-[16px]">
-          <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[1.25rem] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+          <h2 className=" flex items-left px-[12px] py-[20px] mb-[24px] text-[1.25rem] max-lg:text-[18px] font-medium leading-none text-white max-w-[1333px] max-lg:max-w-full">
             Nhà sáng lập
           </h2>
         </div>

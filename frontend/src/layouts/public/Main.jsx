@@ -55,7 +55,7 @@ const Main = () => {
 
       <div
         className={`transition-all duration-300 ${
-          isDesktop && token ? "ml-[292px]" : "ml-0"
+          isDesktop && token ? "ml-[220px]" : "ml-0"
         }`}
         style={{
           paddingTop: token ? `${headerHeight}px` : `${headerHeightPublic}px`,
