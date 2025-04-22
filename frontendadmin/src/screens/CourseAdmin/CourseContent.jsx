@@ -77,7 +77,7 @@ export default function CourseContent() {
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9c84cc0d21b5241ee40d83334bf9289f4fc6a242a7bb8a736e90effdbd86720?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"
                     alt=""
-                    className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                    className="object-cover shrink-0 self-stretch my-auto w-6 aspect-square"
                   />
                   <span className="gap-2.5 self-stretch my-auto">Cập nhật</span>
                 </button>
@@ -86,7 +86,7 @@ export default function CourseContent() {
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/42648122efa6f387983f11efeb38ca614809d3a449f7a41f54d965ae2b480b89?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"
                     alt=""
-                    className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                    className="object-cover shrink-0 self-stretch my-auto w-6 aspect-square"
                   />
                   <span className="gap-2.5 self-stretch my-auto">Xóa</span>
                 </button>
