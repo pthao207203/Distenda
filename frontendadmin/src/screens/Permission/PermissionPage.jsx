@@ -10,31 +10,58 @@ export default function PermissionTable() {
   const permissionGroups = [
     {
       title: "Tổng quan",
-      permissions: ["dashboard_view", "", "", ""]
+      permissions: ["dashboard_view", "", "", ""],
     },
     {
       title: "Khóa học",
-      permissions: ["course_view", "course_create", "course_edit", "course_delete"]
+      permissions: [
+        "course_view",
+        "course_create",
+        "course_edit",
+        "course_delete",
+      ],
     },
     {
       title: "Người dùng",
-      permissions: ["user_view", "user_create", "user_edit", "user_delete"]
+      permissions: ["user_view", "user_create", "user_edit", "user_delete"],
     },
     {
       title: "Quản trị viên",
-      permissions: ["admin_view", "admin_create", "admin_edit", "admin_delete"]
+      permissions: ["admin_view", "admin_create", "admin_edit", "admin_delete"],
     },
     {
       title: "Hoá đơn",
-      permissions: ["payment_view", "payment_create", "", "payment_delete"]
+      permissions: ["payment_view", "payment_create", "", "payment_delete"],
+    },
+    {
+      title: "Voucher",
+      permissions: [
+        "voucher_view",
+        "voucher_create",
+        "voucher_edit",
+        "voucher_delete",
+      ],
+    },
+    {
+      title: "Banner",
+      permissions: [
+        "banner_view",
+        "banner_create",
+        "banner_edit",
+        "banner_delete",
+      ],
     },
     {
       title: "Nhóm quyền",
-      permissions: ["role_view", "role_create", "role_edit", "role_delete"]
+      permissions: ["role_view", "role_create", "role_edit", "role_delete"],
+    },
+    {
+      title: "Thông báo",
+      permissions: ["noti_view", "noti_create", "noti_edit", "noti_delete"],
     },
     {
       title: "Thông tin web",
-      permissions: ["setting_view", "", "setting_edit", ""]
+      permissions: ["setting_view", "", "setting_edit", ""],
     },
   ];
 
@@ -74,9 +101,9 @@ export default function PermissionTable() {
 
     fetchData();
   }, []);
-  console.log(permissions)
+  console.log(permissions);
   const handlePermissionChange = (roleId, permissionName, checked) => {
-    console.log(permissions)
+    console.log(permissions);
     setPermissions((prevPermissions) => {
       const updatedPermissions = { ...prevPermissions };
       if (!updatedPermissions[roleId]) {
@@ -96,24 +123,32 @@ export default function PermissionTable() {
   }
   // console.log("roles => ", Array.isArray(Object.values(roles)))
 
-  const formattedPermissions = Object.entries(permissions).map(([roleId, perms]) => ({
-    id: roleId,
-    permissions: Array.from(perms), // Chuyển từ Set về Array để truyền JSON
-  }));
+  const formattedPermissions = Object.entries(permissions).map(
+    ([roleId, perms]) => ({
+      id: roleId,
+      permissions: Array.from(perms), // Chuyển từ Set về Array để truyền JSON
+    })
+  );
 
   return (
     <>
       <Helmet>
-        <title>Phân quyền</title> 
+        <title>Phân quyền</title>
       </Helmet>
       <div className="flex flex-col flex-1 px-16 py-5 bg-white basis-0 max-md:px-[5px]  w-full max-md:min-w-[600px]">
-        <ActionButtons selectedRoles={selectedRoles} permissions={formattedPermissions} />
+        <ActionButtons
+          selectedRoles={selectedRoles}
+          permissions={formattedPermissions}
+        />
 
         <div className="mt-6">
           <PermissionHeader roles={roles} setSelectedRoles={setSelectedRoles} />
 
           {permissionGroups.map((group, index) => (
-            <div key={index} className="mt-4 justify-between w-full items-center ">
+            <div
+              key={index}
+              className="mt-4 justify-between w-full items-center "
+            >
               <div className="text-xl font-semibold leading-none text-[#14375F]">
                 {group.title}
               </div>

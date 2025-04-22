@@ -65,8 +65,17 @@ app.locals.moment = moment;
 
 app.use(express.static("public"));
 
-routeAdmin(app);
-routeClient(app);
+try {
+  routeAdmin(app);
+} catch (err) {
+  console.error("Lỗi khi khởi tạo routeAdmin:", err);
+}
+try {
+  routeClient(app);
+} catch (err) {
+  console.error("Lỗi khi khởi tạo routeClient:", err);
+}
+
 app.get("*", (req, res) => {
   res.render("client/pages/error/404", {
     pageTitle: "404 not found",
