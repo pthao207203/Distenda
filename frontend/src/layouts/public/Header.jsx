@@ -52,11 +52,16 @@ export default function Header({ setHeight }) {
       ref={headerRefPublic}
       className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
     >
-      <div className="flex gap-3 items-center justify-between px-[60px] py-3 text-white">
-        <div className="uppercase font-['Squada One']">
+      <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
+        {/* Logo */}
+        <div
+          style={{ flexBasis: "auto", textAlign: "center" }}
+          className="flex self-center max-lg:pr-[40px]"
+        >
           <img
             src={data?.setting?.WebsiteLogoUser}
             alt={data?.setting?.WebsiteName}
+            className="w-[10rem] max-lg:w-[100px]"
           />
         </div>
 

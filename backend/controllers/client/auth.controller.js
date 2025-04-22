@@ -66,10 +66,10 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
-  res.cookie("user_token", user.UserToken, {
-    secure: false,
-    maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
-  });
+  // res.cookie("user_token", user.UserToken, {
+  //   secure: false,
+  //   maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+  // });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
   res.json({
