@@ -74,7 +74,8 @@ module.exports.loginPost = async (req, res) => {
   // res.redirect(`/`);
   res.json({
     code: 200,
-    message: "Đăng nhập thành công!"
+    message: "Đăng nhập thành công!",
+    token: user.UserToken
   })
 };
 
@@ -137,7 +138,8 @@ module.exports.registerPost = async (req, res) => {
   // res.redirect(`/`);
   res.json({
     code: 200,
-    message: "Đăng ký thành công!"
+    message: "Đăng ký thành công!",
+    token: user.UserToken
   })
 };
 
