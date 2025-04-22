@@ -48,7 +48,7 @@ const Main = () => {
         {/* Hiển thị TaskBar dưới dạng overlay nếu trạng thái isTaskBarVisible là true */}
         {isTaskBarVisible && (
           <div
-            className="fixed inset-0 z-50 flex items-start justify-start right-[18px]"
+            className="fixed inset-0 z-50 flex items-start justify-start lg:right-[18px] max-lg:right-[0px]"
             style={{
               marginTop: `${headerHeight}px`,
             }}
