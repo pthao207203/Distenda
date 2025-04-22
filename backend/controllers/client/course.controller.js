@@ -130,25 +130,31 @@ module.exports.detail = async (req, res) => {
 
 // [GET] /courses/completed
 module.exports.indexCompleted = async (req, res) => {
-  console.log(res.locals.user.UserCourse)
-  const listSubId = res.locals.user.UserCourse
-    .filter(item => item.CourseStatus == 1)
-    .map(item => item.CourseId);
-  // console.log(listSubId)
-  const courses = await Course.find({
-    _id: { $in: [...listSubId] },
-    CourseStatus: 1,
-    CourseDeleted: 1
-  }).lean();
-  // console.log(courses)
+  // console.log(res.locals.user.UserCourse)
+  if (res.locals.user) {
+    const listSubId = res.locals.user.UserCourse
+      .filter(item => item.CourseStatus == 1)
+      .map(item => item.CourseId);
+    // console.log(listSubId)
+    const courses = await Course.find({
+      _id: { $in: [...listSubId] },
+      CourseStatus: 1,
+      CourseDeleted: 1
+    }).lean();
+    // console.log(courses)
 
-  for (const course of courses) {
-    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    // console.log(intructor)
-    course.intructor = intructor
+    for (const course of courses) {
+      const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+      // console.log(intructor)
+      course.intructor = intructor
+    }
+
+    res.json(courses)
+  } else {
+    const courses = null
+    res.json(courses)
   }
 
-  res.json(courses)
   // res.render('client/pages/courses/index', {
   //   pageTitle: "Danh sách khoá học",
   //   courses: courses,
@@ -158,24 +164,29 @@ module.exports.indexCompleted = async (req, res) => {
 
 // [GET] /courses/purchased
 module.exports.indexPurchased = async (req, res) => {
-  console.log(res.locals.user.UserCourse)
-  const listSubId = res.locals.user.UserCourse
-    .map(item => item.CourseId);
-  // console.log(listSubId)
-  const courses = await Course.find({
-    _id: { $in: [...listSubId] },
-    CourseStatus: 1,
-    CourseDeleted: 1
-  }).lean();
-  // console.log(courses)
+  if (res.locals.user) {
+    // console.log(res.locals.user.UserCourse)
+    const listSubId = res.locals.user?.UserCourse
+      .map(item => item.CourseId);
+    // console.log(listSubId)
+    const courses = await Course.find({
+      _id: { $in: [...listSubId] },
+      CourseStatus: 1,
+      CourseDeleted: 1
+    }).lean();
+    // console.log(courses)
 
-  for (const course of courses) {
-    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    // console.log(intructor)
-    course.intructor = intructor
+    for (const course of courses) {
+      const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+      // console.log(intructor)
+      course.intructor = intructor
+    }
+
+    res.json(courses)
+  } else {
+    const courses = null
+    res.json(courses)
   }
-
-  res.json(courses)
   // res.render('client/pages/courses/index', {
   //   pageTitle: "Danh sách khoá học",
   //   courses: courses,
@@ -185,25 +196,30 @@ module.exports.indexPurchased = async (req, res) => {
 
 // [GET] /courses/studying
 module.exports.indexStudying = async (req, res) => {
-  console.log(res.locals.user.UserCourse)
-  const listSubId = res.locals.user.UserCourse
-    .filter(item => item.CourseStatus == 0)
-    .map(item => item.CourseId);
-  // console.log(listSubId)
-  const courses = await Course.find({
-    _id: { $in: [...listSubId] },
-    CourseStatus: 1,
-    CourseDeleted: 1
-  }).lean();
-  // console.log(courses)
+  if (res.locals.user) {
+    console.log(res.locals.user.UserCourse)
+    const listSubId = res.locals.user.UserCourse
+      .filter(item => item.CourseStatus == 0)
+      .map(item => item.CourseId);
+    // console.log(listSubId)
+    const courses = await Course.find({
+      _id: { $in: [...listSubId] },
+      CourseStatus: 1,
+      CourseDeleted: 1
+    }).lean();
+    // console.log(courses)
 
-  for (const course of courses) {
-    const intructor = await Admin.findOne({ _id: course.CourseIntructor });
-    // console.log(intructor)
-    course.intructor = intructor
+    for (const course of courses) {
+      const intructor = await Admin.findOne({ _id: course.CourseIntructor });
+      // console.log(intructor)
+      course.intructor = intructor
+    }
+
+    res.json(courses)
+  } else {
+    const courses = null
+    res.json(courses)
   }
-
-  res.json(courses)
   // res.render('client/pages/courses/index', {
   //   pageTitle: "Danh sách khoá học",
   //   courses: courses,
