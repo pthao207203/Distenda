@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 // const courseData = [
 //   {
@@ -42,20 +42,25 @@ import { Link } from 'react-router-dom';
 
 function CourseCard(course) {
   return (
-    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] min-w-[320px] max-lg: max-w-[550px] max-md:max-w-full  backdrop-blur-[10px]">
-      <img loading="lazy" src={course.CoursePicture} alt={course.CourseName} className="object-contain shrink-0  self-stretch my-auto aspect-[1.14] w-[195px] h-[171px]" />
+    <div className="flex shrink flex-wrap grow gap-[24px] justify-center items-center self-stretch px-[16px] py-[16px] bg-white bg-opacity-10 h-full-[203px] backdrop-blur-[10px]">
+      <img
+        loading="lazy"
+        src={course.CoursePicture}
+        alt={course.CourseName}
+        className="object-cover shrink-0  self-stretch my-auto aspect-[1.14] w-[12rem] h-[8rem]"
+      />
       <div className="flex flex-col flex-1 shrink self-stretch my-auto basis-0  min-w-[240px] w-[348px] h-full-[183px]">
-        <h3 className="flex items-start text-[28px] font-semibold leading-7 text-white h-[100px]">
-          <div className="line-clamp-2">
-            {course.CourseName}
-          </div>
+        <h3 className="flex items-start text-[1.75rem] font-semibold leading-8 text-white h-[6.25rem]">
+          <div className="line-clamp-2">{course.CourseName}</div>
         </h3>
         <div className="flex flex-col items-start w-full font-medium leading-none">
-          <p className="flex mb-[12px] items-center max-w-full text-[20px] font-medium text-white w-[351px] ">
+          <p className="flex mb-[12px] items-center max-w-full text-[1.25rem] font-medium text-white w-[351px] ">
             Thời gian: {course.CourseDuration} tiếng
           </p>
-          <p className="flex items-center max-w-full h-5 text-[32px] text-[#CFF500] whitespace-nowrap w-[351px]">
-            {course.CoursePrice === 0 ? "Miễn phí" : course.CoursePrice.toLocaleString('vi-VN')}
+          <p className="flex items-center max-w-full h-5 text-[2rem] text-[#CFF500] whitespace-nowrap w-[351px]">
+            {course.CoursePrice === 0
+              ? "Miễn phí"
+              : course.CoursePrice.toLocaleString("vi-VN")}
           </p>
         </div>
       </div>
@@ -63,36 +68,33 @@ function CourseCard(course) {
   );
 }
 
-
 function CourseSection(courseData) {
-  const courses = courseData ? Object.values(courseData.courseData) : []
+  const courses = courseData ? Object.values(courseData.courseData) : [];
   return (
-
     <section className="max-md:max-w-full justify-center ovef">
       <div className="text-left mb-[16px]">
-    <h2 className="text-left px-[12px] py-[20px] mb-[24px] text-[20px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
-      Đề xuất
-    </h2>
-  </div>
-            <div className="container">
-                <div className="row justify-content-center gap-[50px] mb-[55px] mx-[50px]">
-                  {courses.map((course, index) => (
-                  <CourseCard key={index} {...course}  /> 
-                  ))}
-                </div>  </div>
+        <h2 className="text-left px-[12px] py-[20px] mb-[24px] text-[1.25rem] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+          Đề xuất
+        </h2>
+      </div>
+      <div className="container">
+        <div className="row justify-content-center gap-[50px] mb-[55px] mx-[50px] grid grid-cols-2">
+          {courses.map((course, index) => (
+            <CourseCard key={index} {...course} />
+          ))}
+        </div>{" "}
+      </div>
       {/* Nút Xem tất cả nằm ở giữa */}
-  <div className="flex justify-center">
-    <Link
-      to="/courses"
-      className="flex justify-center items-center w-[331px] h-[60px] px-[20px] py-[20px] mb-[16px] text-[20px] font-semibold leading-none text-black bg-[#CFF500]"
-    >
-      Xem tất cả
-    </Link>
-  </div>
+      <div className="flex justify-center">
+        <Link
+          to="/courses"
+          className="flex justify-center items-center w-[20.625rem] h-[3.75rem] mb-[16px] text-[1.25rem] font-semibold leading-none text-black bg-[#CFF500]"
+        >
+          Xem tất cả
+        </Link>
+      </div>
     </section>
   );
 }
-
-
 
 export default CourseSection;

@@ -1,60 +1,7 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.course-section {
-  width: 100%; /* Chiều rộng đầy đủ mặc định */
-  /* max-width: 1333px;      /* Giới hạn chiều rộng tối đa */
-  margin: 0 auto; /* Căn giữa section */
-  padding: 0 16px; /* Thêm khoảng cách bên trong để tránh sát mép */
-  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
-}
-
-/* File globals.css hoặc styles.css */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.table-container table th,
-.table-container table td {
-  border: 1px solid white; /* Thêm đường viền trắng */
-  padding: 8px;
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.25;
+  font-size: calc(100vw / 1920 * 16);
 }
