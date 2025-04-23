@@ -36,8 +36,10 @@ module.exports.loginGoogle = async (req, res) => {
 
     // Lưu token vào cookie
     res.cookie("user_token", user.UserToken, {
-      secure: false,
-      maxAge: 24 * 60 * 60 * 1000, // Cookie tồn tại trong 1 ngày
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     // Trả về phản hồi thành công
@@ -80,8 +82,10 @@ module.exports.loginFacebook = async (req, res) => {
     }
 
     res.cookie("user_token", user.UserToken, {
-      secure: false,
-      maxAge: 24 * 60 * 60 * 1000,
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.json({
@@ -155,9 +159,9 @@ module.exports.loginPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
@@ -222,9 +226,9 @@ module.exports.registerPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng ký thành công!");
   // res.redirect(`/`);
@@ -304,7 +308,12 @@ module.exports.passwordOTP = async (req, res) => {
   const user = await User.findOne({
     UserEmail: UserEmail
   })
-  res.cookie("user_token", user.UserToken)
+  res.cookie("user_token", user.UserToken, {
+    secure: true,
+    httpOnly: false,
+    sameSite: 'None',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
 
   res.json({
     code: 200,
