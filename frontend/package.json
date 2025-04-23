@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@google/genai": "^0.9.0",
+    "@google/generative-ai": "^0.24.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -12,6 +13,7 @@
     "codemirror": "^5.65.19",
     "dotenv": "^16.4.5",
     "fast-json-stable-stringify": "^2.1.0",
+    "google-auth-library": "^9.15.1",
     "he": "^1.2.0",
     "html-react-parser": "^5.2.0",
     "js-cookie": "^3.0.5",
