@@ -299,12 +299,18 @@ module.exports.passwordOTP = async (req, res) => {
       code: 400,
       message: "OTP không hợp lệ!",
     });
+    return;
   }
 
   const user = await User.findOne({
     UserEmail: UserEmail,
   });
-  res.cookie("user_token", user.UserToken);
+  res.cookie("user_token", user.UserToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'None',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
 
   res.json({
     code: 200,
