@@ -17,8 +17,9 @@ const VoucherRow = ({ id, index, voucher }) => {
     status = -1,
   } = voucher;
 
+  // Xử lý sự kiện nhấn vào row để chuyển đến chi tiết voucher
   const handleEdit = () => {
-    navigate(`/voucher/detail/${id}`);
+    navigate(`/voucher/detail/${id}`); // Chuyển hướng tới URL chi tiết voucher với ID
   };
 
   const toggleVisibility = () => {
@@ -47,7 +48,7 @@ const VoucherRow = ({ id, index, voucher }) => {
   const statusInfo = getStatusStyles(status);
 
   return (
-    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] max-md:max-w-full">
+    <div className="flex overflow-hidden flex-wrap mt-3 w-full bg-white min-h-[70px] max-md:max-w-full" onClick={handleEdit}>
       {/* STT */}
       <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center bg-[#EBF1F9]">
         <div className="text-[#131313] text-center text-xl font-medium truncate">{index + 1}</div>
@@ -72,11 +73,6 @@ const VoucherRow = ({ id, index, voucher }) => {
       <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center px-3 bg-[#EBF1F9]">
         <div className="text-[#131313] text-center text-xl font-medium truncate">{discountAmount}</div>
       </div>
-
-      {/* Thời gian hết hạn */}
-      {/* <div className="flex basis-1/6 min-w-0 min-h-[70px] justify-center items-center px-3">
-        <div className="text-[#131313] text-center text-xl font-medium truncate">{validityPeriod} ngày</div>
-      </div> */}
 
       {/* Trạng thái */}
       <div className="flex basis-1/6 min-w-0 shrink justify-center items-center px-3 min-h-[70px] max-md:max-w-full">

@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Layout from './layouts/Layout';
 import UserRoutes from './layouts/UserRoutes';
@@ -23,6 +24,7 @@ import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
 import UserProfile from './screens/User/ProfileUser/ProfilePage';
 import UserNotification from './screens/User/Notification/NotificationsPage';
+import AIChating from './screens/User/ChatBoxAI/AIChating';
 
 import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
 import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
@@ -66,6 +68,7 @@ function App() {
             <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
               <Route path='/user/notification' element={<UserNotification />} />
+              <Route path='/user/aichating' element={<AIChating />} />
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
             </Route>
             <Route element={<MainPublic />} >

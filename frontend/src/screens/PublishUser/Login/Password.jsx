@@ -57,7 +57,7 @@ function Password() {
             </label>
             <input
               className={
-                "mt-[10px] w-full px-[16px] py-[5px] bg-white/0 text-white border border-solid  border-[#d0d7df]"
+                "mt-[10px] w-full px-[8px] py-[4px] bg-white/0 text-white border border-solid min-w-[250px] border-[#d0d7df]"
               }
               type="password"
               id="password"

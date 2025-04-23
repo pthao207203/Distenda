@@ -8,7 +8,7 @@ function PasswordReset({ onNext, onSetEmail }) {
   const [formData, setFormData] = useState({
     UserEmail: "",
   });
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); //Xử lý loading button
@@ -28,10 +28,6 @@ function PasswordReset({ onNext, onSetEmail }) {
     try {
       console.log(formData);
       const result = await loginResetController(formData);
-      // if (result.code === 200) {
-      //   setError(result.message);
-      // }
-      console.log("Check ", result.code === 200);
       if (result.code === 200) {
         if (onNext) {
           console.log("Gui thanh cong");
@@ -84,8 +80,16 @@ function PasswordReset({ onNext, onSetEmail }) {
         >
           {isLoading ? "Đang xử lý..." : "Nhận mã"}
         </button>
-        {/* {error && <p className="mt-4 text-red-500">{error}</p>} */}
-        {success && <p className="mt-4 text-[#CFF500]">{success}</p>}
+        {error && (
+          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-red-500">
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-[#CFF500]">
+            {success}
+          </p>
+        )}
       </form>
     </div>
   );

@@ -1,0 +1,9 @@
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.25;
+  font-size: calc(100vw / 1920 * 16);
+}
+

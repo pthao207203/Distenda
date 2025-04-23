@@ -2,11 +2,98 @@ const User = require("../../models/user.model");
 const Setting = require("../../models/setting.model");
 const ForgotPassword = require("../../models/forgotpw.model");
 const md5 = require("md5");
-const generateHelper = require("../../helpers/generate")
-const sendMailHelper = require("../../helpers/sendMail")
-
+const generateHelper = require("../../helpers/generate");
+const sendMailHelper = require("../../helpers/sendMail");
 
 const systemConfig = require("../../config/system");
+
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+
+module.exports.loginGoogle = async (req, res) => {
+  const { token } = req.body; // Nhận token từ phía client
+
+  try {
+    // Xác thực token Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.REACT_APP_GOOGLE_CLIENT_ID, // Kiểm tra ID client
+    });
+
+    const payload = ticket.getPayload(); // Lấy payload từ token
+    let user = await User.findOne({ UserEmail: payload.email }); // Dùng email để tìm người dùng
+
+    if (!user) {
+      // Nếu người dùng chưa tồn tại, tạo mới
+      user = new User({
+        UserFullName: payload.name, // Lưu tên người dùng
+        UserEmail: payload.email, // Lưu email người dùng
+        UserAvatar: payload.picture, // Lưu avatar người dùng
+        UserToken: generateHelper.generateRandomString(30), // Tạo token ngẫu nhiên
+      });
+      await user.save(); // Lưu người dùng mới vào cơ sở dữ liệu
+    }
+
+    // Lưu token vào cookie
+    res.cookie("user_token", user.UserToken, {
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000, // Cookie tồn tại trong 1 ngày
+    });
+
+    // Trả về phản hồi thành công
+    res.json({
+      code: 200,
+      message: "Đăng nhập thành công!",
+      user: user.UserToken,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Token không hợp lệ" }); // Token không hợp lệ
+  }
+};
+
+//Xử lý đăng nhập Google
+const axios = require("axios");
+
+module.exports.loginFacebook = async (req, res) => {
+  const { accessToken, userID } = req.body;
+  try {
+    // Gọi API Facebook để lấy thông tin user
+    const fbRes = await axios.get(`https://graph.facebook.com/${userID}`, {
+      params: {
+        fields: "id,name,email,picture",
+        access_token: accessToken,
+      },
+    });
+
+    const fbData = fbRes.data;
+    let user = await User.findOne({ UserEmail: fbData.email });
+
+    if (!user) {
+      user = new User({
+        UserFullName: fbData.name,
+        UserEmail: fbData.email,
+        UserAvatar: fbData.picture.data.url,
+        UserToken: generateHelper.generateRandomString(30),
+      });
+      await user.save();
+    }
+
+    res.cookie("user_token", user.UserToken, {
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.json({
+      code: 200,
+      message: "Đăng nhập Facebook thành công!",
+      user: user.UserToken,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Đăng nhập Facebook thất bại" });
+  }
+};
 
 // // [GET] /auth/login
 module.exports.login = (req, res) => {
@@ -41,8 +128,8 @@ module.exports.loginPost = async (req, res) => {
     // res.redirect("back");
     res.json({
       code: 400,
-      message: "Email không tồn tại!"
-    })
+      message: "Email không tồn tại!",
+    });
     return;
   }
 
@@ -51,8 +138,8 @@ module.exports.loginPost = async (req, res) => {
     // res.redirect("back");
     res.json({
       code: 400,
-      message: "Sai mật khẩu!"
-    })
+      message: "Sai mật khẩu!",
+    });
     return;
   }
 
@@ -61,8 +148,8 @@ module.exports.loginPost = async (req, res) => {
     // res.redirect("back");
     res.json({
       code: 400,
-      message: "Tài khoản đang bị khóa!"
-    })
+      message: "Tài khoản đang bị khóa!",
+    });
     return;
   }
 
@@ -74,11 +161,12 @@ module.exports.loginPost = async (req, res) => {
   });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
+
   res.json({
     code: 200,
     message: "Đăng nhập thành công!",
-    token: user.UserToken
-  })
+    token: user.UserToken,
+  });
 };
 
 // [GET] /auth/logout
@@ -87,8 +175,8 @@ module.exports.logout = (req, res) => {
   // res.redirect(`/auth/login`);
   res.json({
     code: 200,
-    message: "Đăng xuất thành công!"
-  })
+    message: "Đăng xuất thành công!",
+  });
 };
 
 // [GET] /auth/register
@@ -98,16 +186,16 @@ module.exports.register = (req, res) => {
     // res.redirect(`/`);
     res.json({
       code: 406,
-      message: "Người dùng đã đăng nhập"
-    })
+      message: "Người dùng đã đăng nhập",
+    });
   } else {
     // res.render("client/pages/auth/register", {
     //   pageTitle: "Đăng nhập",
     // });
     res.json({
       code: 200,
-      message: "Kết nối máy chủ thành công"
-    })
+      message: "Kết nối máy chủ thành công",
+    });
   }
 };
 
@@ -115,21 +203,21 @@ module.exports.register = (req, res) => {
 module.exports.registerPost = async (req, res) => {
   const exitEmail = await User.findOne({
     UserDeleted: 1,
-    UserEmail: req.body.UserEmail
-  })
+    UserEmail: req.body.UserEmail,
+  });
 
   if (exitEmail) {
     // req.flash("error", "Email đã tồn tại!")
     // res.redirect("back")
     res.json({
       code: 400,
-      message: "Email đã tồn tại!"
-    })
+      message: "Email đã tồn tại!",
+    });
     return;
   }
-  req.body.UserPassword = md5(req.body.UserPassword)
-  req.body.UserToken = generateHelper.generateRandomString(30)
-  const user = new User(req.body)
+  req.body.UserPassword = md5(req.body.UserPassword);
+  req.body.UserToken = generateHelper.generateRandomString(30);
+  const user = new User(req.body);
   await user.save();
 
   res.cookie("user_token", user.UserToken, {
@@ -143,40 +231,40 @@ module.exports.registerPost = async (req, res) => {
   res.json({
     code: 200,
     message: "Đăng ký thành công!",
-    token: user.UserToken
-  })
+    token: user.UserToken,
+  });
 };
 
 // [POST] /auth/password/forgot
 module.exports.passwordForgot = async (req, res) => {
-  const UserEmail = req.body.UserEmail
+  const UserEmail = req.body.UserEmail;
 
   const user = await User.findOne({
     UserEmail: UserEmail,
     UserDeleted: 1,
     UserStatus: 1,
-  })
+  });
 
   if (!user) {
     res.json({
       code: 400,
-      message: "Email không tồn tại!!!"
-    })
+      message: "Email không tồn tại!!!",
+    });
     return;
   }
   //
-  const otp = generateHelper.generateRandomNumber(6)
+  const otp = generateHelper.generateRandomNumber(6);
   const objectForgotPw = {
     FPUserEmail: UserEmail,
     FPOTP: otp,
     expireAt: Date.now(),
-  }
-  console.log(objectForgotPw)
-  const forgotPw = new ForgotPassword(objectForgotPw)
-  await forgotPw.save()
+  };
+  console.log(objectForgotPw);
+  const forgotPw = new ForgotPassword(objectForgotPw);
+  await forgotPw.save();
 
   //Tồn tại nên gửi Email
-  const Subject = "DISCENDA_Mã OTP xác minh lấy lại mật khẩu"
+  const Subject = "DISCENDA_Mã OTP xác minh lấy lại mật khẩu";
   const html = `
     <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin ch&agrave;o <strong>${user.UserFullName ? user.UserFullName : user.UserEmail}</strong>,</span></div>
     <div>&nbsp;</div>
@@ -187,13 +275,13 @@ module.exports.passwordForgot = async (req, res) => {
     <p>&nbsp;</p>
     <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin cảm ơn,</span></div>
     <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;"><strong>DISCENDA.</strong></span></div>
-  `
-  sendMailHelper.sendMail(UserEmail, Subject, html)
+  `;
+  sendMailHelper.sendMail(UserEmail, Subject, html);
 
   res.json({
     code: 200,
-    message: "Gửi thành công!"
-  })
+    message: "Gửi thành công!",
+  });
 };
 
 // [POST] /auth/password/otp
@@ -232,23 +320,26 @@ module.exports.passwordOTP = async (req, res) => {
 
 // [POST] /auth/password/new
 module.exports.passwordNew = async (req, res) => {
-  const UserPassword = req.body.UserPassword
-  const UserToken = req.cookies.user_token
-  await User.updateOne({
-    UserToken: UserToken
-  }, {
-    UserPassword: md5(UserPassword)
-  })
+  const UserPassword = req.body.UserPassword;
+  const UserToken = req.cookies.user_token;
+  await User.updateOne(
+    {
+      UserToken: UserToken,
+    },
+    {
+      UserPassword: md5(UserPassword),
+    }
+  );
 
   res.json({
     code: 200,
-    message: "Đổi mật khẩu thành công!"
-  })
+    message: "Đổi mật khẩu thành công!",
+  });
 };
 
 // [GET] /auth/setting
 module.exports.setting = async (req, res) => {
-  let setting = await Setting.findOne({}).lean()
+  let setting = await Setting.findOne({}).lean();
   // console.log(setting);
-  res.json(setting)
+  res.json(setting);
 };

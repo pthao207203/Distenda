@@ -74,7 +74,7 @@ function OTP({ onNext, email }) {
             <input
               type="email"
               id="email"
-              className="mt-[10px] w-full px-[16px] py-[5px] bg-white/0 text-white border border-solid border-[#d0d7df]"
+              className="mt-[10px] w-full px-[8px] py-[4px] bg-white/0 text-white border border-solid border-[#d0d7df]"
               aria-label="Email"
               name="UserEmail"
               value={email}
