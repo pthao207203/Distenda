@@ -32,7 +32,7 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
   try {
     const voucher = await Voucher.findOne({
-      VoucherDeleted: 1,
+      // VoucherDeleted: 1,
       _id: req.params.VoucherID,
     }).lean();
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const VoucherInfo = () => {
+const VoucherInfo = ({ voucher }) => { // Nhận voucher từ prop
   return (
     <section>
       <div className="flex flex-wrap gap-2.5 items-center w-full max-md:max-w-full">
@@ -10,7 +10,7 @@ const VoucherInfo = () => {
             <span className="flex shrink-0 w-6 h-6" />
           </div>
           <p className="mt-4 text-xl font-medium text-neutral-900 max-md:max-w-full">
-            20/10/2023
+            {voucher.lastUpdated} {/* Hiển thị thời gian cập nhật cuối cùng */}
           </p>
         </div>
 
@@ -18,11 +18,12 @@ const VoucherInfo = () => {
         <ActionButton label="Xóa" bgColor="bg-[#DF322B]" />
       </div>
 
-      <VoucherDetails />
+      <VoucherDetails voucher={voucher} /> {/* Truyền voucher cho component VoucherDetails */}
     </section>
   );
 };
 
+// Component Button hành động (Cập nhật, Xóa)
 const ActionButton = ({ label, bgColor }) => {
   return (
     <button
@@ -34,7 +35,8 @@ const ActionButton = ({ label, bgColor }) => {
   );
 };
 
-const VoucherDetails = () => {
+// Component hiển thị thông tin voucher
+const VoucherDetails = ({ voucher }) => {
   return (
     <div className="mt-10 w-full text-xl max-md:max-w-full">
       <h3 className="font-semibold text-neutral-900 max-md:max-w-full">
@@ -43,24 +45,25 @@ const VoucherDetails = () => {
 
       <div className="mt-8 w-full font-medium leading-none max-md:max-w-full">
         <div className="flex flex-wrap gap-10 items-start w-full max-md:max-w-full">
-          <FormField label="Mã Voucher" value="DISTENDA200" />
-          <FormField label="Giảm giá (%)" value="30" />
+          <FormField label="Mã Voucher" value={voucher.voucherCode} /> {/* Hiển thị mã voucher */}
+          <FormField label="Giảm giá (%)" value={voucher.discountPercentage} /> {/* Hiển thị % giảm giá */}
         </div>
 
         <div className="flex flex-wrap gap-10 items-start mt-8 w-full max-md:max-w-full">
-          <FormField label="Tối thiểu" value="2 000 000" />
-          <FormField label="Giới hạn" value="200 000" />
+          <FormField label="Tối thiểu" value={voucher.minAmount} /> {/* Hiển thị giá trị tối thiểu */}
+          <FormField label="Giới hạn" value={voucher.discountAmount} /> {/* Hiển thị số tiền giảm */}
         </div>
       </div>
     </div>
   );
 };
 
+// Component hiển thị mỗi trường thông tin
 const FormField = ({ label, value }) => {
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value); // Khởi tạo giá trị input
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value); // Cập nhật giá trị khi người dùng thay đổi
   };
 
   return (
