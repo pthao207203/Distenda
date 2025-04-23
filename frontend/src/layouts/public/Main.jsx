@@ -9,6 +9,7 @@ import TaskBar from "../private/TaskBar";
 
 const Main = () => {
   let token = Cookies.get("user_token");
+  console.log("user_token ", token);
   const [isDesktop, setIsDesktop] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [headerHeightPublic, setHeight] = useState(0);
