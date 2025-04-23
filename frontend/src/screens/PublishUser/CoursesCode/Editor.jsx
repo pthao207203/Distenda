@@ -9,11 +9,11 @@ function CodeEditor({ code, handleCodeChange, handleButton, submit }) {
   // const [exerciseSample, setExerciseSample] = useState(exercise.ExerciseSample);
   return (
     <section
-      className="flex flex-col flex-1 shrink py-5 text-xl basis-[60px] bg-neutral-900 bg-opacity-30 h-full min-w-[240px] max-md:max-w-full"
+      className="flex flex-col flex-1 shrink lg:py-5 max-lg:py-[8px] text-xl max-lg:text-[14px] basis-[60px] bg-neutral-900 bg-opacity-30 h-full min-w-[240px] max-md:max-w-full"
       role="complementary"
       aria-label="Code Editor"
     >
-      <h2 className="shrink gap-2.5 self-stretch px-4 w-full mb-2 font-semibold text-white whitespace-nowrap max-md:max-w-full">
+      <h2 className="shrink gap-2.5 self-stretch w-full mb-2 font-semibold text-white whitespace-nowrap max-md:max-w-full">
         Code
       </h2>
 
@@ -48,7 +48,7 @@ function CodeEditor({ code, handleCodeChange, handleButton, submit }) {
         </button> */}
         {/* Nút 'Check code' */}
         <button
-          className="flex justify-center items-center px-3 py-3 bg-black min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="flex justify-center items-center px-3 py-3 bg-black min-h-[40px] w-[120px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
           onClick={() => handleButton("check")}
         >
           <div className="gap-2 self-stretch my-auto">Check code</div>
@@ -57,7 +57,7 @@ function CodeEditor({ code, handleCodeChange, handleButton, submit }) {
         {/* Nút 'Nộp bài' */}
         {submit && (
           <button
-            className="flex justify-center items-center px-3 py-3 bg-[#CFF500] text-neutral-900 min-h-[60px] w-[200px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="flex justify-center items-center px-3 py-2 bg-[#CFF500] text-neutral-900 min-h-[40px] w-[120px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
             onClick={() => handleButton("submit")}
           >
             <div className="gap-2 self-stretch my-auto">Nộp bài</div>

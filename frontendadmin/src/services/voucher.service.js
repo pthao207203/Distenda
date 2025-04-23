@@ -12,13 +12,37 @@ export const vouchersService = async () => {
         console.error(error);
     }
   };
-  
 
+  export const voucherDetailService = async (VoucherID) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/voucher/detail/${VoucherID}`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+  
+      // Kiểm tra mã trạng thái của response
+      if (!response.ok) {
+        throw new Error(`Lỗi ${response.status}: Không thể lấy dữ liệu voucher.`);
+      }
+  
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Phản hồi không phải dạng JSON");
+      }
+  
+      const responseData = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error("Lỗi khi gọi API voucherDetailService:", error);
+      return null;
+    }
+  };
+  
 // Tạo mới voucher (sử dụng POST)
 export const voucherCreateService = async () => {
     try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/voucher/create`, {
-            method: 'GET',  // Nếu chỉ lấy form tạo, để GET cũng ổn
+            method: 'GET',  
             credentials: 'include',
         });
 
