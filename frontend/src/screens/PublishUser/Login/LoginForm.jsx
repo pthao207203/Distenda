@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginButton from "./LoginButton";
+import axios from "axios";
+import LoginButton from "./LoginButton.jsx";
+import FacebookLoginButton from "./FacebookLoginButton.jsx";
 
 import { loginController } from "../../../controllers/auth.controller.js";
 
@@ -13,6 +16,54 @@ function LoginForm({ onForgotPassword }) {
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
+  //Xử lý login with Google
+  const handleGoogleLoginSuccess = async (response) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/google`,
+        { token: response.credential },
+        { withCredentials: true }
+      );
+      if (res.data.code === 200) {
+        localStorage.setItem("user_token", res.data.user.UserToken);
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi đăng nhập với Google");
+    }
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+    console.error(error);
+    setError("Đăng nhập Google thất bại");
+  };
+
+  //Xử lý đăng nhập Facebook
+  const handleFacebookLoginSuccess = async (fbResponse) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/facebook`,
+        { accessToken: fbResponse.accessToken, userID: fbResponse.userID },
+        { withCredentials: true }
+      );
+      if (res.data.code === 200) {
+        localStorage.setItem("user_token", res.data.user);
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi đăng nhập với Facebook");
+    }
+  };
+
+  const handleFacebookLoginFailure = (error) => {
+    console.error(error);
+    setError("Đăng nhập Facebook thất bại");
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,10 +74,25 @@ function LoginForm({ onForgotPassword }) {
     console.log("Form data:", formData);
     setError(null);
     setSuccess(null);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
+        formData
+      );
+      if (res.data.code === 200) {
+        localStorage.setItem("user_role", "user");
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi kết nối máy chủ");
+    }
 
     // Gửi dữ liệu tới server
     loginController(formData, setSuccess, setError, navigate);
   };
+
   return (
     <div className="flex z-0 flex-col w-full max-lg:max-w-full max-lg:p-[20px]">
       <div className="flex flex-col w-full leading-none text-white max-lg:max-w-full">
@@ -34,7 +100,7 @@ function LoginForm({ onForgotPassword }) {
           <h2 className="flex gap-3 items-end self-center px-3 max-w-full text-[1.875rem] max-lg:text-[20px] font-semibold text-center text-white font-['Montserrat'] leading-loose">
             ĐĂNG NHẬP
           </h2>
-          <div className="flex gap-1 items-center w-full text-[1.125rem] max-lg:text-[12px]">
+          <div className="flex gap-1 items-center w-full text-[1.125rem] max-lg:text-[12px] py-2">
             <p className="flex gap-3 items-center font-normal self-stretch py-[4px]  my-auto">
               Bạn chưa có tài khoản?&nbsp;
             </p>
@@ -46,9 +112,18 @@ function LoginForm({ onForgotPassword }) {
             </a>
           </div>
         </div>
-        <div className="flex flex-col mt-[4px] w-full max-lg:text-lg max-lg:max-w-full">
-          <LoginButton provider="Facebook" iconSrc="Icon/FBicon.svg" />
-          <LoginButton provider="Google" iconSrc="Icon/GGicon.svg" />
+        <div className="flex flex-col gap-3 mt-[4px] w-full max-lg:text-lg max-lg:max-w-full">
+          {/* <LoginButton provider="Facebook" iconSrc="Icon/FBicon.svg" />
+          <LoginButton provider="Google" iconSrc="Icon/GGicon.svg" /> */}
+          <FacebookLoginButton
+            onSuccess={handleFacebookLoginSuccess}
+            onFailure={handleFacebookLoginFailure}
+          />
+          <LoginButton
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+          />
+          {error && <p>{error}</p>}
         </div>
       </div>
 
