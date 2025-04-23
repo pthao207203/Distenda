@@ -6,11 +6,19 @@ import SearchBar from "../../layouts/private/SearchBar";
 import { adminController } from "../../controllers/admin.controller";
 
 import Loading from "../../components/Loading";
-import HistoryButton from "../../components/HistoryButton";
 
-function AdminLayout() {
+function AdminPage() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
+
+  const handleHistoryRequest = () => {
+    setIsHistoryVisible(true);
+  };
+
+  const handleCloseHistoryRequest = () => {
+    setIsHistoryVisible(false);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -35,27 +43,24 @@ function AdminLayout() {
       <Helmet>
         <title>Quản trị viên</title>
       </Helmet>
-      <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-        <section className="flex gap-3">
-          <AddAccountButton />
-          <HistoryButton />
-        </section>
-        <section className="flex flex-wrap gap-3 mt-3 max-md:max-w-full">
-          <SearchBar />
-        </section>
-        <div className="flex flex-col mt-6 w-full text-neutral-900 max-md:max-w-full">
-          <div className="text-right max-md:max-w-full">
-            Tổng số quản trị viên: {totalAdmin}
-          </div>
+    <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
+      <AddAccountButton />
+      <section className="flex flex-wrap gap-3 mt-3 max-md:max-w-full">
+        <SearchBar />
+      </section>
+      <div className="flex flex-col mt-6 w-full text-neutral-900 max-md:max-w-full">
+        <div className="text-right max-md:max-w-full">
+          Tổng số quản trị viên: {totalAdmin}
         </div>
-        {/* Bảng quản lý admin */}
-        <section className="flex flex-col mt-3 w-full text-[#131313] max-md:max-w-full">
-          {/* Header của bảng */}
-          <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
-            {/* Cột ID */}
-            <div className="flex basis-1/5 min-w-0 justify-center items-center text-white">
-              <span className="text-center">Ảnh đại diện</span>
-            </div>
+      </div>
+      {/* Bảng quản lý admin */}
+      <section className="flex flex-col mt-3 w-full text-[#131313] max-md:max-w-full">
+        {/* Header của bảng */}
+        <div className="flex overflow-hidden w-full rounded-t-3xl bg-[#6C8299] min-h-[70px] max-md:max-w-full">
+          {/* Cột ID */}
+          <div className="flex basis-1/5 min-w-0 justify-center items-center text-white">
+            <span className="text-center">Ảnh đại diện</span>
+          </div>
 
             {/* Cột Tên người dùng */}
             <div className="flex basis-1/5 min-w-0 justify-center items-center bg-[#EBF1F9]">
@@ -78,14 +83,17 @@ function AdminLayout() {
             </div>
           </div>
 
-          {/* Nội dung bảng */}
-          {data &&
-            data.length > 0 &&
-            data.map((admin, index) => <AdminTable key={index} {...admin} />)}
-        </section>
-      </main>
-    </>
+        {/* Nội dung bảng */}
+        {data && data.length > 0 && data.map((admin, index) => (
+          <AdminTable
+            key={index}
+            {...admin}
+          />
+        ))}
+      </section>
+    </main>
+  </>
   );
 }
 
-export default AdminLayout;
+export default AdminPage;

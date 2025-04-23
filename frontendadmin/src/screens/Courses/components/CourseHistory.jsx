@@ -33,6 +33,7 @@ export default function CourseHistory({ onClose }) {
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -61,6 +62,18 @@ export default function CourseHistory({ onClose }) {
   // Nếu popup bị đóng, không render nữa
   if (!isOpen) return null;
 
+  const filteredData = data?.filter((item) => {
+    const keyword = searchTerm.toLowerCase();
+    const formatted = formatDate(item.timestamp).toLowerCase();
+    const actionText = getActionStyle(item.action).text.toLowerCase();
+    return (
+      item.userName?.toLowerCase().includes(keyword) ||
+      item.CourseName?.toLowerCase().includes(keyword) ||
+      formatted.includes(keyword) ||
+      actionText.includes(keyword)
+    );
+  });
+
   return (
     <main className="relative flex overflow-hidden flex-col justify-start items-center p-10 text-2xl font-medium leading-6 text-white rounded-[1.125rem] bg-white max-md:max-w-[90%] max-w-[60%] w-full min-h-[347px] max-md:p-5">
       {/* Nút đóng popup */}
@@ -82,12 +95,14 @@ export default function CourseHistory({ onClose }) {
           type="search"
           id="search-input"
           placeholder="Tìm kiếm"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 md:text-[1.25rem] bg-transparent border-none outline-none placeholder-[#6C8299] text-[#6C8299] focus:ring-2 focus:ring-red-dark focus:ring-opacity-50"
         />
       </div>
-        {data && data.length > 0 ? (
-          <div className="flex flex-col gap-3 justify-start self-start w-full mt-4 max-h-[70vh] overflow-y-auto">
-          {data.map((history, index) => {
+      {filteredData && filteredData.length > 0 ? (
+        <div className="flex flex-col gap-3 justify-start self-start w-full mt-4 max-h-[70vh] overflow-y-auto">
+          {filteredData.map((history, index) => {
             const name = history.userName;
             const avatar = history.userAvatar;
             const courseName = history.CourseName;
@@ -112,10 +127,10 @@ export default function CourseHistory({ onClose }) {
               </div>
             );
           })}
-          </div>
-        ) : (
-          <p className="text-black text-base">Không có dữ liệu lịch sử.</p>
-        )}
+        </div>
+      ) : (
+        <p className="text-black text-base">Không có dữ liệu lịch sử.</p>
+      )}
     </main>
   );
 }

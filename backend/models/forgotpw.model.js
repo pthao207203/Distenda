@@ -5,7 +5,7 @@ const forgotSchema = new mongoose.Schema({
   FPOTP: String,
   expireAt: {
     type: Date,
-    expires: 100000
+    expires: 1000000
   },
 }, {
   timestamps: true,

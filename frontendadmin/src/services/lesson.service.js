@@ -51,7 +51,6 @@ export const lessonDeleteService = async (LessonID) => {
       method: 'DELETE',
       credentials: 'include',
     });
-    // console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/courses`)
 
     if (!response.ok) {
       throw new Error('Lỗi!!!');

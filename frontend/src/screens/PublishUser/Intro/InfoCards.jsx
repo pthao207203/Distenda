@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Hàm rút gọn nội dung tự động
 function truncateText(text, maxWords) {
@@ -40,11 +40,16 @@ const infoCardsData = [
 // Component hiển thị từng thẻ thông tin
 function InfoCard({ icon, title, content }) {
   return (
-    <div className="card border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
-      <div className="card-body mx-[20px] my-[20px] ">
-        <img src={icon} alt={title} className="mb-[32px]" style={{ width: "30px", height: "30px" }} />
-        <h5 className="card-title fw-bold text-white text-[32px] ">{title}</h5>
-        <p className="text-white text-[20px] my-[20px] ">{content}</p>
+    <div className="p-[1.5rem] border-0 bg-white bg-opacity-10 backdrop-blur-[10px]">
+      <div className="card-body m-[0.5rem]">
+        <img
+          src={icon}
+          alt={title}
+          className="mb-[20px]"
+          style={{ width: "30px", height: "30px" }}
+        />
+        <h5 className="card-title fw-bold text-white text-[2rem] ">{title}</h5>
+        <p className="text-white mt-[10px] text-[1.25rem] ">{content}</p>
       </div>
     </div>
   );
@@ -56,12 +61,9 @@ function InfoCards() {
     <div className="mt-[80px] flex flex-wrap text-white ">
       {/* Container không có khoảng cách bên trái */}
       <div className="relative flex flex-wrap rounded-lg w-full mx-0">
-        <div className="flex flex-wrap gap-5 w-full">
+        <div className="grid grid-cols-3 gap-5 w-full justify-center">
           {infoCardsData.map((card, index) => (
-            <div
-              key={index}
-              className="flex-1 min-w-[320px] max-w-[33.33%] sm:max-w-[50%] md:max-w-[33.33%] lg:max-w-[33.33%] flex-shrink-0"
-            >
+            <div key={index} className="flex-1 w-full">
               <InfoCard {...card} />
             </div>
           ))}
@@ -70,6 +72,5 @@ function InfoCards() {
     </div>
   );
 }
-
 
 export default InfoCards;

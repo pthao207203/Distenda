@@ -2,9 +2,14 @@ const Exercise = require("../../models/exercise.model");
 const Video = require("../../models/video.model");
 const Lesson = require("../../models/lesson.model");
 const Course = require("../../models/course.model");
+const User = require("../../models/user.model");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helpers/createTree");
+
+const { spawn } = require('child_process');
+const path = require('path')
+const fs = require('fs')
 
 // [GET] /exercise/detail/:ExerciseSlug
 module.exports.detailItem = async (req, res) => {
@@ -16,7 +21,7 @@ module.exports.detailItem = async (req, res) => {
     };
 
     const exer = await Exercise.findOne(find).lean();
-    console.log(exer)
+    // console.log(exer)
 
     const lesson = await Lesson.findOne({
       _id: exer.LessonId,
@@ -89,3 +94,220 @@ module.exports.detailItem = async (req, res) => {
     })
   }
 };
+
+// [POST] /exercise/check/:ExerciseSlug
+module.exports.check = async (req, res) => {
+  console.log(req.body);
+  const ExerciseSlug = req.params.ExerciseSlug;
+  const code = req.body.code;
+  const language = req.body.language;
+
+  try {
+    const exercise = await Exercise.findOne({ ExerciseSlug });
+    if (!exercise) {
+      return res.status(404).json({ code: 200, message: 'Assignment not found' });
+    }
+
+    const tempDir = path.join(__dirname, '../../temp');
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+
+    const extMap = {
+      python3: '.py',
+      java: '.java',
+      cpp: '.cpp',
+      php: '.php',
+      javascript: '.js'
+    };
+
+    // Đảm bảo rằng bạn đã nhận được ngôn ngữ và mã nguồn từ client
+    const ext = extMap[language];
+    if (!ext) return res.status(400).json({ message: 'Unsupported language' });
+
+    // Phân tích mã nguồn Java để lấy tên lớp
+    let className = 'studentCode'; // Giá trị mặc định
+    if (language === 'java') {
+      const classRegex = /public\s+class\s+([A-Za-z0-9_]+)/;
+      const match = code.match(classRegex);
+      if (match && match[1]) {
+        className = match[1]; // Lấy tên lớp
+      }
+    }
+
+    const fileName = className + ext; // Tạo tên file với tên lớp
+    const filePath = path.join(tempDir, fileName);
+    fs.writeFileSync(filePath, code); // Lưu mã nguồn vào file với tên lớp đúng
+    console.log("filePath", filePath)
+    console.log('✅ Wrote code to:', filePath);
+    console.log('📄 Content:\n' + code);
+    let testResults = [];
+    let passedTests = 0;
+    for (const testCase of exercise.ExerciseTestcase) {
+      console.log("testCase")
+      if (!testCase.Input || !testCase.Output) {
+        return res.status(400).json({ message: 'Test case is missing input or expected values' });
+      }
+      try {
+        const result = await runTestCase(filePath, testCase, language, className);
+        console.log(result)
+        if (result.passed) passedTests++;
+        testResults.push(result);
+      } catch (err) {
+        testResults.push({ testCase, passed: false, error: err });
+        console.log(err)
+      }
+    }
+
+    res.json({
+      code: 200,
+      passedTests,
+      totalTests: exercise.ExerciseTestcase.length,
+      testResults
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+async function runTestCase(filePath, testCase, language, baseName) {
+  const dir = path.dirname(filePath);
+  let command, args;
+
+  if (language === 'java') {
+    const compile = spawn('javac', [filePath]);
+    await new Promise((res, rej) => {
+      compile.on('close', (code) => code === 0 ? res() : rej('Java compile error'));
+    });
+
+    // Kiểm tra file .class tồn tại
+    const classPath = path.join(dir, baseName + '.class');
+    if (!fs.existsSync(classPath)) {
+      throw new Error(`Compiled class not found: ${classPath}`);
+    }
+
+    command = 'java';
+    args = ['-cp', dir, baseName];
+  } else if (language === 'cpp') {
+    const outPath = path.join(dir, baseName + '.out');
+    const compile = spawn('g++', [filePath, '-o', outPath]);
+    await new Promise((res, rej) => {
+      compile.on('close', (code) => code === 0 ? res() : rej('C++ compile error'));
+    });
+    command = outPath;
+    args = [];
+  } else if (language === 'python3') {
+    command = 'python3';
+    args = [filePath];
+  } else if (language === 'php') {
+    command = 'php';
+    args = [filePath];
+  } else if (language === 'javascript') {
+    command = 'node';
+    args = [filePath];
+  } else {
+    throw new Error('Unsupported language');
+  }
+
+  return new Promise((resolve, reject) => {
+    const proc = spawn(command, args, {
+      cwd: dir
+    });
+
+    let stdout = '';
+    let stderr = '';
+
+    const timeout = setTimeout(() => {
+      proc.kill('SIGKILL');
+      reject('Test case timed out');
+    }, 5000);
+
+    proc.stdin.write(testCase.Input + '\n');
+    proc.stdin.end();
+
+    proc.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log("stdout data:", data.toString());
+      fs.writeFileSync(path.join(dir, 'output.log'), stdout); // Debug log
+    });
+
+    proc.on('close', () => {
+      clearTimeout(timeout);
+      console.log('Raw stdout:', stdout);
+      const result = stdout.replace(/\r?\n|\r/g, '').trim();
+      const expected = testCase.Output.replace(/\r?\n|\r/g, '').trim();
+
+      console.log('Processed result:', JSON.stringify(result));
+      console.log('Processed expected:', JSON.stringify(expected));
+      // Thêm kiểm tra stderr nếu có lỗi
+      if (stderr) {
+        console.log('Error output:', stderr);
+      }
+      resolve({
+        testCase,
+        result,
+        passed: result === expected,
+        stderr
+      });
+    });
+
+    proc.on('error', (err) => {
+      clearTimeout(timeout);
+      reject(err.message);
+    });
+  });
+}
+
+// [POST] /exercise/submit/:ExerciseSlug
+module.exports.submit = async (req, res) => {
+  const exercise = await Exercise.findOne({ ExerciseSlug: req.params.ExerciseSlug })
+  const test = await User.findOne({
+    "UserCourse.CourseProcess.LessonId": exercise.LessonId,
+    _id: res.locals.user._id,
+  });
+  // console.log(test);
+  if (test) {
+    await User.updateOne(
+      {
+        _id: res.locals.user._id,
+        "UserCourse.CourseId": exercise.CourseId,
+      },
+      {
+        $addToSet: {
+          "UserCourse.$.CourseProcess.$[lesson].LessonProcess": exercise._id,
+        },
+      },
+      {
+        arrayFilters: [
+          {
+            "lesson.LessonId": exercise.LessonId,  // Điều kiện để cập nhật đúng Lesson trong CourseProcess
+          },
+        ],
+      }
+    );
+  } else {
+    const lesson = await Lesson.findOne({ _id: exercise.LessonId });
+    // console.log(lesson)
+    await User.updateOne(
+      {
+        _id: res.locals.user._id,
+        "UserCourse.CourseId": lesson.CourseId
+      },
+      {
+        $push: {
+          "UserCourse.$.CourseProcess": {
+            LessonId: exercise.LessonId,
+            LessonStatus: 0,
+            LessonProcess: [exercise._id],
+          },
+        },
+      }
+    );
+  }
+  // console.log("nop bai")
+  res.json({
+    code: 200,
+    messenger: "Nộp bài thành công!"
+  })
+}

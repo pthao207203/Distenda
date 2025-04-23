@@ -6,7 +6,7 @@ const Category = require("../../models/category.model");
 
 // // [GET] /admin/pay/
 module.exports.pay = async (req, res) => {
-  const pays = await Pay.find().lean()
+  const pays = await Pay.find().lean().sort({ "createdBy.createdAt": -1 })
   for (const pay of pays) {
     const user = await User.findOne({
       _id: pay.UserId,

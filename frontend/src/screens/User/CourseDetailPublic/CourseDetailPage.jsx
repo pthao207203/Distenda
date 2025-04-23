@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CourseContent from "./CourseContent";
-import PageNav from "./PageNav"
+import PageNav from "./PageNav";
 import LoginRequest from "../CourseDetailPublic/LoginRequest";
 import CheckoutPage from "../Payment/CheckoutPage";
 import Bank from "../Payment/Bank";
 import ThankYouPage from "../Payment/ThankYouPage";
-import Cookies from 'js-cookie';
-import { courseDetailController, coursePayController } from "../../../controllers/course.controller";
+import Cookies from "js-cookie";
+import {
+  courseDetailController,
+  coursePayController,
+} from "../../../controllers/course.controller";
 import { useOutletContext } from "react-router-dom";
 import Loading from "../../../components/Loading";
+import { addNotification } from "../../../services/notification.service";
 
 export default function CourseDetailPage() {
   const { headerHeight } = useOutletContext(); // Nhận giá trị từ context
@@ -19,7 +23,7 @@ export default function CourseDetailPage() {
   const [isLoginRequestVisible, setIsLoginRequestVisible] = useState(false);
 
   const handleOpenLoginRequest = () => {
-    setIsLoginRequestVisible(true)
+    setIsLoginRequestVisible(true);
   };
 
   const handleCloseLoginRequest = () => {
@@ -51,11 +55,38 @@ export default function CourseDetailPage() {
   };
   const [isThankVisible, setIsThankVisible] = useState(false);
 
-  const handleOpenThank = () => {
+  // Logic khác như fetch dữ liệu khóa học, thông báo, etc.
+
+  const handleOpenThank = async () => {
     setIsPaymentVisible(false);
     setIsBankVisible(false);
-    setIsThankVisible(true)
+    setIsThankVisible(true);
     document.body.style.overflow = "hidden";
+
+    try {
+      let token = Cookies.get("user_token");
+
+      if (token && data?.CourseName && data?.CourseSlug) {
+        const message = `Bạn đã đăng ký thành công ${data.CourseName}! Mong bạn sớm vào học với chúng tôi!`;
+
+        const result = await addNotification({
+          message,
+          type: "success",
+          userToken: token,
+        });
+
+        if (result.success) {
+          console.log("Thông báo đã được gửi thành công");
+        } else {
+          console.error("Không thể gửi thông báo");
+        }
+      } else {
+        console.error("Dữ liệu khóa học không hợp lệ.");
+      }
+    } catch (err) {
+      console.error("Không thể gửi thông báo:", err);
+      alert("Có lỗi xảy ra khi gửi thông báo. Vui lòng thử lại.");
+    }
   };
 
   const handleCloseThank = () => {
@@ -63,7 +94,7 @@ export default function CourseDetailPage() {
     document.body.style.overflow = "auto";
   };
 
-  const token = Cookies.get('user_token'); // Lấy token từ cookie
+  const token = Cookies.get("user_token"); // Lấy token từ cookie
   const isAuthenticated = token !== undefined; // Kiểm tra xem token có tồn tại không
 
   const [data, setData] = useState();
@@ -107,24 +138,31 @@ export default function CourseDetailPage() {
     }
   }, [CourseSlug]);
 
-
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
-  console.log("course => ", data)
+  console.log("course => ", data);
 
   return (
     <div className="flex flex-col relative w-full h-full overflow-y-auto">
-      <PageNav {...data} />
+      {/* <PageNav {...data} /> */}
       {/* CourseContent nhận hàm handleOpenPayment */}
-      <CourseContent {...data} headerHeight={headerHeight} onRegister={isAuthenticated ? handleOpenPayment : handleOpenLoginRequest} />
+      <CourseContent
+        {...data}
+        headerHeight={headerHeight}
+        onRegister={
+          isAuthenticated ? handleOpenPayment : handleOpenLoginRequest
+        }
+      />
 
       {/* Nếu đã đăng nhập, hiển thị Payment overlay */}
       {isAuthenticated && isPaymentVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-          <CheckoutPage {...data} handleOpenBank={handleOpenBank} onClose={handleClosePayment} />
+          <CheckoutPage
+            {...data}
+            handleOpenBank={handleOpenBank}
+            onClose={handleClosePayment}
+          />
         </div>
       )}
 
@@ -138,7 +176,10 @@ export default function CourseDetailPage() {
       {/* Nếu có ThankYou overlay */}
       {isThankVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
-          <ThankYouPage onClose={handleCloseThank} content="Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!" />
+          <ThankYouPage
+            onClose={handleCloseThank}
+            content="Cảm ơn bạn! Thông tin thanh toán sẽ được kiểm tra và thông báo trong vòng 24h tới!"
+          />
         </div>
       )}
 

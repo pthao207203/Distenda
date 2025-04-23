@@ -1,33 +1,28 @@
-import React, { useEffect } from 'react';
+import React from "react";
 
-function FacebookLoginButton({ onLoginSuccess, onLoginFailure }) {
-  useEffect(() => {
-    window.fbAsyncInit = function() {
-      window.FB.init({
-        appId      : process.env.REACT_APP_FB_CLIENT_ID,
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v18.0'
-      });
-    };
-  }, []);
-
+function FacebookLoginButton({ onSuccess, onFailure }) {
   const handleFBLogin = () => {
-    window.FB.login(function(response) {
-      if (response.authResponse) {
-        onLoginSuccess(response.authResponse);  // Gửi accessToken lên backend
+    window.FB.login((response) => {
+      if (response.status === 'connected') {
+        onSuccess(response.authResponse);
       } else {
-        onLoginFailure("Người dùng từ chối đăng nhập");
+        onFailure("Người dùng chưa cấp quyền hoặc có lỗi.");
       }
     }, {scope: 'public_profile,email'});
   };
 
   return (
-    <button 
+    <button
       onClick={handleFBLogin}
-      className="flex p-3 w-full bg-blue-600 text-white justify-center mt-4"
+      className="flex text-[1.185rem] items-center justify-center gap-2 px-[0.5rem] py-[0.8rem] bg-white text-black border border-gray-300 rounded hover:bg-gray-100"
+      style={{ fontWeight: '450' }}
     >
-      <i className="fab fa-facebook mr-2"></i> Tiếp tục với Facebook
+        <img
+        src="/Icon/FBicon.svg"   
+        alt="Facebook"
+        className="w-7 h-7"
+      />
+      Sign in with Facebook
     </button>
   );
 }

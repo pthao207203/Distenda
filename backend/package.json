@@ -12,6 +12,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "body-parser": "^1.20.3",
+    "child_process": "^1.0.2",
     "chokidar": "^4.0.1",
     "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.7",
@@ -32,8 +33,21 @@
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
     "openai": "^4.94.0",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "pug": "^3.0.3",
     "streamifier": "^0.1.1",
     "tinymce": "^7.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "submissions/*",
+      "testcases/*",
+      "*.class",
+      "*.out"
+    ]
   }
 }

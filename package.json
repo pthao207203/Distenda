@@ -23,6 +23,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "reactjs-social-login": "^2.6.3"
+    "reactjs-social-login": "^2.6.3",
+    "react-codemirror2": "^8.0.1"
   }
 }

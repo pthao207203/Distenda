@@ -6,10 +6,20 @@ import BannerRow from "./components/BannerRow";
 import { bannersController } from "../../controllers/banner.controller";
 import Loading from "../../components/Loading";
 import HistoryButton from "../../components/HistoryButton";
+import BannerHistory from "./components/BannerHistory";
 
 function BannerList() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
+
+  const handleHistoryRequest = () => {
+    setIsHistoryVisible(true);
+  };
+
+  const handleCloseHistoryRequest = () => {
+    setIsHistoryVisible(false);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -36,7 +46,7 @@ function BannerList() {
           <SearchBar />
           <div className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
             <div className="flex justify-between items-center mb-3">
-              <HistoryButton onClick={() => {}} />
+              <HistoryButton onClick={handleHistoryRequest} />
               <div className="text-right max-md:max-w-full">
                 Tổng số banner: {data?.length}
               </div>
@@ -55,6 +65,11 @@ function BannerList() {
               ))}
           </div>
         </div>
+        {isHistoryVisible && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
+            <BannerHistory onClose={handleCloseHistoryRequest} />
+          </div>
+        )}
       </>
     );
 }

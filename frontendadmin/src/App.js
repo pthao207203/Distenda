@@ -17,7 +17,6 @@ import Courses from './screens/Courses/CoursesListPage';
 import CourseCategory from './screens/CourseCategory/CourseCategorypage';
 import CourseDetails from './screens/CourseDetails/CourseDetailspage';
 import Chapter from './screens/Chapter/ChapterDetailspage';
-import LongTermCoursePage from './screens/LongTermCourse/LongTermCousePage';
 import UserTable from './screens/UserTable/UserTablePage';
 import UserProfile from './screens/UserDetail/UserProfilePage';
 import Admin from './screens/Admin/AdminPage';

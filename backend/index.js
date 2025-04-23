@@ -27,19 +27,10 @@ app.use(
   express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
-    credentials: true, // Cho phép gửi cookies
-  })
-);
-
-app.use((req, res, next) => {
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-  next();
-});
-
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3002'],
+  credentials: true // Cho phép gửi cookies
+}));
 app.use(methodOverride("_method"));
 
 app.set("views", path.join(__dirname, "views"));
@@ -71,10 +62,8 @@ app.locals.moment = moment;
 
 app.use(express.static("public"));
 
-// Định tuyến Admin và Client
 routeAdmin(app);
 routeClient(app);
-
 app.get("*", (req, res) => {
   res.render("client/pages/error/404", {
     pageTitle: "404 not found",
