@@ -59,7 +59,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   return (
     <header
       ref={headerRef}
-      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] max-lg:ml-[20px]"
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] max-lg:pl-[20px]"
     >
       <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
         {/* Logo */}
@@ -73,10 +73,13 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             className="w-[10rem] max-lg:w-[75px]"
           />
         </div>
+        {/* <h2 className="flex flex-wrap gap-1.5 justify-center items-center self-start text-[3.75rem] uppercase whitespace-nowrap max-lg:text-[30px]">
+          {data?.setting?.WebsiteName}
+        </h2> */}
 
         {/* Navigation */}
         <nav
-          className="flex items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
+          className="flex items-center mt-[3px] text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
           style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
           <Link

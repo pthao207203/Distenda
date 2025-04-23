@@ -90,9 +90,9 @@ function CourseLayout() {
 
   return (
     <div className="flex flex-col self-start">
-      <div className="flex relative flex-col py-0.5 w-full max-md:max-w-full self-start">
+      <div className="flex relative flex-col lg:py-0.5 w-full max-md:max-w-full self-start">
         <BreadcrumbNav {...data} />
-        <div className="flex overflow-hidden relative flex-wrap items-start mt-1 h-full">
+        <div className="flex overflow-hidden px-[20px] relative flex-wrap items-start mt-1 h-full">
           <TaskContent exercise={data} />
           <CodeEditor
             code={code}

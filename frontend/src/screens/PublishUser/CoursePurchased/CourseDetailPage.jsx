@@ -6,7 +6,6 @@ import Loading from "../../../components/Loading";
 import { useParams } from "react-router-dom";
 import Rating from "./Rating";
 
-
 export default function CourseDetailPage() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
@@ -28,18 +27,21 @@ export default function CourseDetailPage() {
     }
   }, [CourseSlug]);
 
-  console.log("course => ", data)
+  console.log("course => ", data);
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   } else
     return (
       <div className="flex overflow-hidden flex-col">
         <CourseHeader {...data} />
-        <div className="flex z-10 flex-col mt-0 w-full bg-white bg-opacity-10 min-h-screen max-md:mt-0 max-md:max-w-full">
+        <div className="flex z-10 flex-col lg:px-[6rem] mt-0 w-full bg-white bg-opacity-10 min-h-screen max-lg:mt-0 max-lg:px-[20px] max-lg:max-w-full">
           <CourseContent {...data} />
-          <Rating setLoading={setLoading} courseID={data?._id} courseReview={data?.CourseReview} has={data?.review} />
+          <Rating
+            setLoading={setLoading}
+            courseID={data?._id}
+            courseReview={data?.CourseReview}
+            has={data?.review}
+          />
         </div>
       </div>
     );
