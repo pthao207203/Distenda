@@ -5,6 +5,7 @@ import {
   addNotification,
   getNotificationsByUser,
 } from "../../services/notification.service";
+import LessonList from "../../screens/PublishUser/CoursePractice/LessonList";
 import Cookies from "js-cookie";
 
 const SideBar = ({ headerHeight }) => {
@@ -136,55 +137,9 @@ const SideBar = ({ headerHeight }) => {
           top: `${headerHeight}px`,
         }} // Thay thế giá trị top bằng chiều cao header
       >
-        {/* Thông tin người dùng */}
-        <div className="flex gap-2 justify-center items-center px-[16px] w-full pt-[20px] pb-[20px]">
-          <img
-            loading="lazy"
-            src={
-              data.setting.user?.UserAvatar
-                ? data.setting.user.UserAvatar
-                : "https://cdn.builder.io/api/v1/image/assets/TEMP/bbae0514e8058efa2ff3c88f32951fbd7beba3099187677c6ba1c2f96547ea3f?placeholderIfAbsent=true&apiKey=e677dfd035d54dfb9bce1976069f6b0e"
-            }
-            alt="User profile"
-            className="object-cover shrink-0 self-stretch my-auto w-[64px] h-[62px] max-lg:w-[25px] max-lg:h-[25px] rounded-full aspect-[1.03] mr-[8px]"
-          />
-          <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
-            <div className="flex items-center text-[1.5rem] max-lg:text-[18px] font-semibold ">
-              <div
-                className="flex-1"
-                style={{
-                  maxWidth: "200px",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {data?.setting?.user?.UserFullName
-                  ? data.setting.user.UserFullName.split(" ").slice(-1)[0]
-                  : ""}
-              </div>
-            </div>
-            <div className="flex items-center max-lg:text-[16px] text-[1.125rem] font-medium">
-              <div className="flex-1">{member}</div>
-              {/* <div className="flex-1">{data.setting.user.createdAt}</div> */}
-            </div>
-          </div>
+        <div className="flex flex-col overflow-y-auto h-[calc(100vh-200px)] w-[220px]">
+          <LessonList {...data} />
         </div>
-
-        {/* Menu */}
-        <nav className="flex flex-col w-full text-[1.5rem] max-lg:text-[16px] font-light mx-[8px]">
-          {menuItems.map((item, index) => (
-            <Link
-              to={item.link}
-              key={index}
-              className={`flex gap-2 items-center py-[16px] pl-[16px] w-[95%] transition ${
-                location.pathname === item.link ? "bg-black" : "bg-transparent"
-              }`}
-            >
-              <div className="flex-1">{item.name}</div>
-            </Link>
-          ))}
-        </nav>
       </aside>
 
       {/* Nút mở Sidebar */}

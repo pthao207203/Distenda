@@ -54,7 +54,7 @@ function TestimonialSection(reviewData) {
       className=" bg-none text-left items-start justify-start ml-0"
     >
       <div className="items-start mb-5">
-        <h2 className="flex gap-3 items-start py-2 text-[1.25rem] max-lg:text-[18px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
+        <h2 className="flex gap-3 items-start py-2 text-[1.25rem] max-lg:text-[16px] font-medium leading-none text-white max-w-[1333px] max-md:max-w-full">
           Nhận xét của học viên
         </h2>
       </div>
