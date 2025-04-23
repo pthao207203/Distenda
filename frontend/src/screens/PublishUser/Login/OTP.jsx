@@ -13,7 +13,7 @@ function OTP({ onNext, email }) {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [clicked, setClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false); //Xử lý loading button
   const handleChange = (e) => {
@@ -82,16 +82,16 @@ function OTP({ onNext, email }) {
             />
           </div>
           <div className="flex gap-1 items-center mt-4 w-full max-lg:text-[16px]">
-            <p className="flex gap-3 items-center font-medium text-lg max-lg:text-[14px] self-stretch py-1 leading-[16px] my-auto">
+            <p className="flex gap-3 items-center font-medium text-xl max-lg:text-[14px] self-stretch py-[6px] leading-[14px] my-auto">
               Chúng tôi vừa gửi một mã OTP tới Email của bạn!
             </p>
           </div>
-          <div className="flex flex-col mt-[12px] w-full">
+          <div className="flex flex-col mt-4 w-full">
             <label htmlFor="otp" className="self-start">
               Nhập mã OTP
             </label>
             <input
-              className="mt-[10px] w-full px-[8px] py-[4px] bg-white/0 text-white border border-solid border-[#d0d7df]"
+              className="mt-[10px] w-full px-[16px] py-[5px] bg-white/0 text-white border border-solid border-[#d0d7df]"
               type="text" // Sử dụng type="text" để kiểm soát độ dài và loại ký tự
               id="otp"
               required
@@ -111,30 +111,27 @@ function OTP({ onNext, email }) {
             />
           </div>
         </div>
-        <div className="flex  max-lg:mt-[12px] items-center justify-end text-right w-full">
+        <div className="flex mt-2 items-center justify-end text-right w-full">
           <button
             type="button"
-            disabled={clicked}
+            disabled={isClicked}
             tabIndex={0}
-            className={`flex text-right text-white text-base text-lg max-lg:text-[14px] font-normal hover:font-medium hover:underline self-end my-auto ${
-              clicked && "hidden"
+            className={`flex text-right text-white text-base font-normal hover:font-medium hover:underline self-end mt-[10px] lg:text-lg max-lg:text-[14px] ${
+              isClicked && "hidden"
             }`}
             onClick={async (e) => {
-              e.preventDefault(); // Ngăn hành vi mặc định
-              console.log("Gửi lại mã OTP");
-              setClicked(true);
-              setIsLoading(true); // Bắt đầu trạng thái loading
-
-              // Gửi dữ liệu tới server
+              e.preventDefault();
+              setIsClicked(true);
+              setIsLoading(true);
               try {
-                console.log(formData);
-                const result = await loginResetController(formData);
+                console.log(email);
+                const result = await loginResetController(email);
               } catch (err) {
-                console.error(err);
+                console.log(err.message);
+                // setError(String(err));
               } finally {
                 setIsLoading(false); // Kết thúc trạng thái loading
               }
-              // Thực hiện logic gửi lại OTP tại đây
             }}
           >
             Gửi lại
@@ -143,19 +140,19 @@ function OTP({ onNext, email }) {
 
         <button
           type="submit"
-          className={`flex flex-wrap gap-5 justify-center items-center  w-full text-xl max-lg:text-[16px] font-medium bg-[#CFF500] min-h-[30px] text-neutral-900 max-lg:max-w-full ${
+          className={`flex flex-wrap gap-5 mt-[10px] justify-center items-center w-full text-xl max-lg:text-[14px] font-medium bg-[#CFF500] min-h-[40px] text-neutral-900 max-lg:max-w-full ${
             isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
           {isLoading ? "Đang xử lý..." : "Xác nhận"}
         </button>
         {error && (
-          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-red-500">
+          <p className="mt-[16px] text-lg max-lg:text-[14px] text-red-500">
             {error}
           </p>
         )}
         {success && (
-          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-[#CFF500]">
+          <p className="mt-[16px] text-lg max-lg:text-[14px] text-[#CFF500]">
             {success}
           </p>
         )}

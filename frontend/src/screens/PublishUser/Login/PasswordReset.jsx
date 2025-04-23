@@ -22,26 +22,20 @@ function PasswordReset({ onNext, onSetEmail }) {
     e.preventDefault();
     console.log("Form data:", formData);
     onSetEmail(formData.UserEmail);
-    setError(null);
+    // setError(null);
     setSuccess(null);
     setIsLoading(true); // Bắt đầu trạng thái loading
-
-    // Gửi dữ liệu tới server
     try {
       console.log(formData);
-      const result = await loginResetController(
-        formData,
-        setSuccess,
-        setError,
-        navigate
-      );
+      const result = await loginResetController(formData);
       if (result.code === 200) {
         if (onNext) {
+          console.log("Gui thanh cong");
           onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
         }
       }
     } catch (err) {
-      setError(err);
+      console.log(err.message);
     } finally {
       setIsLoading(false); // Kết thúc trạng thái loading
     }
@@ -50,7 +44,7 @@ function PasswordReset({ onNext, onSetEmail }) {
     <div className="flex z-0 flex-col w-full max-lg:max-w-full">
       <div className="flex flex-col w-full leading-none text-white max-lg:max-w-full">
         <div className="flex flex-col self-center max-w-full">
-          <h2 className="flex gap-3 items-end self-center max-w-full text-3xl max-lg:text-[16px] font-semibold text-center text-white font-['Montserrat'] leading-loose">
+          <h2 className="flex gap-3 items-end self-center px-3 max-w-full text-3xl max-lg:text-[16px] font-semibold text-center text-white font-['Montserrat'] leading-loose">
             Khôi phục mật khẩu
           </h2>
         </div>
@@ -58,7 +52,7 @@ function PasswordReset({ onNext, onSetEmail }) {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col mt-4 w-full max-lg:max-w-full"
+        className="flex flex-col mt-[10px] w-full max-lg:max-w-full"
       >
         <div className="flex flex-col w-full text-lg max-lg:text-[14px] text-white">
           <div className="flex flex-col w-full  whitespace-nowrap">
@@ -68,7 +62,7 @@ function PasswordReset({ onNext, onSetEmail }) {
             <input
               type="email"
               id="email"
-              className="mt-[12px] w-full px-[8px] py-[4px] min-w-[250px] bg-white/0 text-white border border-solid border-[#d0d7df]"
+              className="mt-[10px] w-full px-[16px] py-[5px] bg-white/0 text-white border border-solid border-[#d0d7df]"
               required
               aria-label="Email"
               name="UserEmail"
@@ -80,7 +74,7 @@ function PasswordReset({ onNext, onSetEmail }) {
 
         <button
           type="submit"
-          className={`flex flex-wrap gap-5 justify-center items-center my-[12px] w-full text-xl max-lg:text-[16px] font-medium bg-[#CFF500] min-h-[30px] text-neutral-900 max-lg:max-w-full ${
+          className={`flex flex-wrap gap-5 justify-center items-center  w-full text-xl max-lg:text-[14px] font-medium bg-[#CFF500] min-h-[30px] my-[10px] text-neutral-900 max-lg:max-w-full ${
             isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
