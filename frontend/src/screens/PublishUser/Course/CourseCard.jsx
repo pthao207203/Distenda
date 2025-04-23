@@ -11,7 +11,7 @@ function CourseCard(course) {
         className="object-cover aspect-[1.42] w-full"
       />
       <div className="flex flex-col py-0 my-[1.25rem] w-full text-[1.125rem] max-lg:text-[12px] text-white">
-        <div className="flex items-start py-[8px] w-full text-[1.75rem] max-lg:text-[16px] font-semibold leading-7 min-h-[5rem]">
+        <div className="flex items-start py-[8px] w-full text-[1.5rem] max-lg:text-[16px] font-semibold leading-7 min-h-[5rem]">
           <h2
             className="flex-1 shrink gap-2.5 self-stretch w-full"
             style={{
@@ -28,19 +28,21 @@ function CourseCard(course) {
         </div>
 
         <div className="flex gap-5 items-start mt-[0.75rem] w-full">
-          <div className="flex-1 shrink-0">Thời gian</div>
+          <div className="flex shrink-0">Thời gian</div>
           <div className="flex-1 shrink-0 text-right ">
-            {course.CourseDuration}
+            {course.CourseDuration === 0
+              ? "Không giới hạn"
+              : course.CourseDuration + " tháng"}
           </div>
         </div>
 
-        <div className="flex gap-5 items-start mt-[0.75rem] w-full">
+        {/* <div className="flex gap-5 items-start mt-[0.75rem] w-full">
           <div className="flex-1 shrink-0">Bài giảng</div>
           <div className="flex-1 shrink-0 text-right ">{}</div>
-        </div>
+        </div> */}
 
         <div className="flex items-start mt-[0.75rem] w-full">
-          <div className="flex-shrink-0 w-auto">Giảng viên</div>
+          <div className="flex shrink-0 w-auto">Giảng viên</div>
           <div className="flex-1 text-right">
             {course.intructor ? course.intructor.AdminFullName : "Không có"}
           </div>
