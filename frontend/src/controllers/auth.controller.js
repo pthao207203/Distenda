@@ -56,17 +56,13 @@ export const logoutController = async (navigate) => {
 };
 
 // [POST] /user/password/forgot
-export const loginResetController = async (data, setSuccess, setError, navigate) => {
+export const loginResetController = async (data) => {
   try {
     const result = await loginResetService(data); // Gọi service để xử lý API
-    if (result.code === 400) {
-      setError(result.message);
-    } else {
-      setSuccess(result.message || 'Gửi mail thành công!');
-    }
+    console.log("result => ", result)
     return result;
   } catch (err) {
-    setError(err); // Cập nhật lỗi nếu xảy ra
+    console.log(err); // Cập nhật lỗi nếu xảy ra
   }
 };
 

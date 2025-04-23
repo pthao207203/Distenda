@@ -178,7 +178,7 @@ module.exports.passwordForgot = async (req, res) => {
   //Tồn tại nên gửi Email
   const Subject = "DISCENDA_Mã OTP xác minh lấy lại mật khẩu"
   const html = `
-    <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin ch&agrave;o <strong>${user.UserFullName}</strong>,</span></div>
+    <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin ch&agrave;o <strong>${user.UserFullName ? user.UserFullName : user.UserEmail}</strong>,</span></div>
     <div>&nbsp;</div>
     <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Đ&acirc;y l&agrave; m&atilde; x&aacute;c nhận lấy lại mật khẩu của bạn:</span></div>
     <div><span style="font-size: 18pt; font-family: 'times new roman', times, serif; color: #000000;"><strong>${otp}</strong></span></div>
@@ -198,30 +198,36 @@ module.exports.passwordForgot = async (req, res) => {
 
 // [POST] /auth/password/otp
 module.exports.passwordOTP = async (req, res) => {
-  const UserEmail = req.body.UserEmail
-  const UserOTP = req.body.UserOTP
-  console.log(UserEmail, UserOTP)
+  try {
+    const UserEmail = req.body.UserEmail
+    const UserOTP = req.body.UserOTP
+    console.log(UserEmail, UserOTP)
 
-  const result = await ForgotPassword.findOne({
-    FPUserEmail: UserEmail,
-    FPOTP: UserOTP
-  })
-  if (!result) {
-    res.json({
-      code: 400,
-      message: "OTP không hợp lệ!"
+    const result = await ForgotPassword.findOne({
+      FPUserEmail: UserEmail,
+      FPOTP: UserOTP
     })
+    if (!result) {
+      res.json({
+        code: 400,
+        message: "OTP không hợp lệ!"
+      })
+      return;
+    }
+
+    const user = await User.findOne({
+      UserEmail: UserEmail
+    })
+    res.cookie("user_token", user.UserToken)
+
+    res.json({
+      code: 200,
+      message: "OTP hợp lệ!"
+    })
+  } catch (e) {
+    console.log(e)
   }
 
-  const user = await User.findOne({
-    UserEmail: UserEmail
-  })
-  res.cookie("user_token", user.UserToken)
-
-  res.json({
-    code: 200,
-    message: "OTP hợp lệ!"
-  })
 };
 
 // [POST] /auth/password/new
