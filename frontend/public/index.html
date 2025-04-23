@@ -31,9 +31,12 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <title>Distenda</title>
 
-<!-- Facebook SDK -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
+
+<!-- Facebook SDK -->
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+<!-- 
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -55,8 +58,11 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
-
+ -->
+ <div id="fb-root"></div>
+ <script async defer crossorigin="anonymous"
+   src="https://connect.facebook.net/vi_VN/sdk.js"></script>
+ 
 </head>
 
 <body>

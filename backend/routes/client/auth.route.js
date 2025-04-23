@@ -7,7 +7,7 @@ router.get("/login", controller.login);
 
 router.post("/login", controller.loginPost);
 
-// router.post("/login/facebook", controller.loginFacebook);
+router.post("/login/google", controller.loginGoogle);
 
 router.get("/logout", controller.logout);
 

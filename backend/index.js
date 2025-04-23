@@ -33,6 +33,13 @@ app.use(
     credentials: true, // Cho phép gửi cookies
   })
 );
+
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+  next();
+});
+
 app.use(methodOverride("_method"));
 
 app.set("views", path.join(__dirname, "views"));

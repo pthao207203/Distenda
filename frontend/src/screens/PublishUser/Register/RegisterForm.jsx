@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginButton from '../Login/LoginButton';
+import axios from "axios";
+import LoginButton from "../Login/LoginButton.jsx";
 
 import { registerController } from '../../../controllers/auth.controller.js';
 
@@ -14,6 +15,30 @@ function RegisterForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+
+   //Xử lý login with Google
+   const handleGoogleLoginSuccess = async (response) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/google`,
+        { token: response.credential },
+        { withCredentials: true }
+      );      
+      if (res.data.code === 200) {
+        localStorage.setItem("user_token", res.data.user.UserToken);
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi đăng nhập với Google");
+    }
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+    console.error(error);
+    setError("Đăng nhập Google thất bại");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,15 +76,16 @@ function RegisterForm() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col mt-2 w-full text-xl max-md:text-lg max-md:max-w-full">
+        <div className="flex flex-col mt-2 w-full justify-center items-center text-xl max-md:text-lg max-md:max-w-full">
           <LoginButton
             provider="Facebook"
             iconSrc="Icon/FBicon.svg"
           />
           <LoginButton
-            provider="Google"
-            iconSrc="Icon/GGicon.svg"
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
           />
+          {error && <p>{error}</p>}
         </div>
       </div>
 
