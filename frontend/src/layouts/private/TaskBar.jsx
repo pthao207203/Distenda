@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutController } from "../../controllers/auth.controller";
+import Cookies from "js-cookie";
 
 function TaskBarItem({ text, onClick }) {
   return (
@@ -18,6 +19,7 @@ function TaskBar() {
   // Hàm xử lý đăng xuất
   const handleLogout = () => {
     logoutController(navigate);
+    Cookies.remove("user_token");
     alert("Đã đăng xuất thành công!");
   };
   const navigate = useNavigate(); // Khởi tạo useNavigate
