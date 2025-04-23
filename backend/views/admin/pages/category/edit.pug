@@ -1,0 +1,99 @@
+extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
+include ../../mixins/alert.pug
+
+block main
+  if (role.RolePermissions.includes("category_edit"))
+    +alert-error(3000)
+    +alert-success(3000)
+    h1 #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/category/edit/${category.id}?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="CategoryName") Tên danh mục
+        input(
+          type="text"
+          class="form-control"
+          id="CategoryName"
+          name="CategoryName"
+          value=category.CategoryName
+          required
+        )
+      div(class="form-group")
+        label(for="CategoryParent_id") Danh mục cha
+        select(
+          class="form-control"
+          id="CategoryParent_id"
+          name="CategoryParent_id"
+        )
+          option(value="") -- Chọn danh mục --
+          if(listCategory)
+            +select-tree(listCategory, 1, category.CategoryParent_id)
+      div(class="form-group")
+        label(for="CategoryDescription") Mô tả
+        textarea(
+          type="text"
+          class="form-control"
+          id="CategoryDescription"
+          name="CategoryDescription"
+          rows="5"
+          textarea-mce
+        ) #{category.CategoryDescription}
+      div(
+        class="form-group"
+        upload-image
+      )
+        label(for="CategoryPicture") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="CategoryPicture"
+          name="CategoryPicture"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=category.CategoryPicture
+          class="image-preview"
+          upload-image-preview
+        )
+      div(class="form-group")
+        label(for="CategoryPosition") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="CategoryPosition"
+          name="CategoryPosition"
+          placeholder="Tự động tăng"
+          min="1"
+          value=category.CategoryPosition
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="CategoryStatus"
+          value="active"
+          checked=category.CategoryStatus
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="CategoryStatus"
+          value="inactive"
+          checked=!category.CategoryStatus
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

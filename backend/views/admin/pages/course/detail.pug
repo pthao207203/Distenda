@@ -1,0 +1,97 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  if (role.RolePermissions.includes("course_view"))
+    +alert-success(3000)
+    h1(class="mb-4") #{course.CourseName}
+
+    if (course.intructor)
+      div(class="mb-4") Giảng viên: #{course.intructor.AdminFullName}
+
+    if (course.category)
+      div(class="mb-4") Danh mục: #{course.category.CategoryName}
+
+    div(class="mb-4") Giá: <b>#{course.CoursePrice}VND</b>
+
+    div(class="mb-4") Giảm giá: <b>#{course.CourseDiscount}%</b>
+
+    if (course.CoursePicture)
+      div(class="mb-4")
+        img(
+          src=course.CoursePicture
+          style="width: 100px"
+        )
+
+    div(class="mb-4")
+      span Trạng thái: 
+      if (course.CourseStatus === "active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+
+    if (course.CourseDescription)
+      div(class="mb-4") !{course.CourseDescription}
+    if (role.RolePermissions.includes("course_edit"))
+      a(
+        class="btn btn-info btn-sm"
+        href=`${prefixAdmin}/courses/edit/${course._id}`
+      ) Chỉnh sửa
+    if (role.RolePermissions.includes("course_delete"))
+      button(
+        class="btn btn-danger btn-sm ml-1"
+        item-id=course._id
+        button-delete
+        data-path=`${prefixAdmin}/courses/delete`
+      ) Xoá
+    <hr/>
+
+    .card
+        .card-header 
+          .row 
+            .col-8 
+              h4 Danh sách chương
+            .col-4
+              if (role.RolePermissions.includes("course_create"))
+                a(
+                  class="btn btn-outline-success"
+                  href=`${prefixAdmin}/lesson/create/${course._id}`
+                ) + Thêm chương 
+        .card-body
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th STT
+                th Tên chương
+                th 
+
+            tbody
+              if(course.lesson)
+                each item, index in course.lesson
+                  tr 
+                    td #{index + 1}
+                    td #{item.LessonName}
+                    td
+                      a(
+                        class="btn btn-warning btn-sm"
+                        href=`${prefixAdmin}/lesson/detail/${item._id}`
+                      ) Xem
+                      a(
+                        class="btn btn-info btn-sm ml-1"
+                        href=`${prefixAdmin}/lesson/edit/${item._id}`
+                      ) Sửa
+                      button(
+                        class="btn btn-danger btn-sm ml-1"
+                        item-id=item._id
+                        button-delete
+                        data-path=`${prefixAdmin}/lesson/delete`
+                      ) Xoá
+
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      ) 
+
+    script(src="/admin/js/course.js") 

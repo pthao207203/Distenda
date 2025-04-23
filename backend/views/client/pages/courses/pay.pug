@@ -1,0 +1,80 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error(3000)
+  .container.my-3
+    .row
+      .col-12
+        +box-head("Đặt hàng")
+
+    .row
+      .col-12
+        table(class="table table-bordered" table-cart)
+          thead
+            tr
+              th Ảnh
+              th Tên
+              th Giá
+              th Giảm giá
+          tbody
+              tr
+                td
+                  img(src=course.CoursePicture, alt=course.CourseName width="80px")
+                td #{course.CourseName}
+                td #{course.CoursePrice}
+                td #{course.CourseDiscount}
+        
+        h3(class="text-right") Tổng đơn hàng: #{course.CoursePrice*(100-course.CourseDiscount)/100}
+
+    .row
+      .col-12
+        .card.p-4.my-4
+          form(
+            action=`/pay/${course.id}`
+            method="POST"
+          )
+            div(class="form-group")
+              label(for="PayVoucher") Mã giảm giá
+              input(
+                type="text"
+                class="form-control"
+                id="PayVoucher"
+                name="PayVoucher"
+              )
+            div(class="form-group")
+              label(for="UserFullName") Họ tên
+              input(
+                type="text"
+                class="form-control"
+                id="UserFullName"
+                name="UserFullName"
+                required
+                value=user.UserFullName
+              )
+            div(class="form-group")
+              label(for="UserEmail") Email
+              input(
+                type="text"
+                class="form-control"
+                id="UserEmail"
+                name="UserEmail"
+                required
+                value=user.UserEmail
+              )
+            div(class="form-group")
+              label(for="UserPhone") Số điện thoại
+              input(
+                type="text"
+                class="form-control"
+                id="UserPhone"
+                name="UserPhone"
+                required
+                value=user.UserPhone
+              )
+            div(class="form-group")
+              button(
+                type="submit"
+                class="btn btn-success btn-block"
+              ) THANH TOÁN
