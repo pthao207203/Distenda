@@ -90,14 +90,14 @@ module.exports.payPost = async (req, res) => {
           CourseId: CourseID,
         }, {
           PayStatus: 1,
-          PayTeacher: money * courseTest.CourseSalary / 100,
-          PayProfit: money * (100 - courseTest.CourseSalary) / 100
+          PayTeacher: req.body.PayTotal * courseTest.CourseSalary / 100,
+          PayProfit: req.body.PayTotal * (100 - courseTest.CourseSalary) / 100
         })
 
         await Admin.updateOne({
           _id: courseTest.CourseIntructor
         }, {
-          AdminSalary: money * courseTest.CourseSalary / 100
+          AdminSalary: courseTest.CoursePrice * courseTest.CourseSalary / 100
         })
 
         const bought = courseTest.CourseBought + 1;
@@ -105,7 +105,7 @@ module.exports.payPost = async (req, res) => {
           _id: CourseID
         }, {
           CourseBought: bought,
-          CourseProfit: money * (100 - courseTest.CourseSalary) / 100
+          CourseProfit: courseTest.CoursePrice * (100 - courseTest.CourseSalary) / 100
         })
 
         console.log("Thanh toán thành công")

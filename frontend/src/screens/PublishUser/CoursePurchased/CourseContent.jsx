@@ -7,7 +7,7 @@ export default function CourseContent(course) {
   // console.log(lessons)
   return (
     <div className="flex flex-col  mt-10 w-full max-md:max-w-full">
-      <div className="flex flex-col px-16 w-full text-3xl font-semibold text-white max-md:px-5 max-md:max-w-full">
+      <div className="flex flex-col px-16 w-full text-[1.5rem] lg:text-[2rem] font-semibold text-white max-md:px-5 max-md:max-w-full">
         <h2 className="max-md:max-w-full">Nội dung khóa học</h2>
         <div className="flex mt-2.5 w-full bg-slate-300 min-h-[2px] max-md:max-w-full"></div>
       </div>

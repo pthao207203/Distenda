@@ -47,7 +47,7 @@ function CourseTableRow(course) {
       {/* Lợi nhuận */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
         <span className="text-[#131313] text-center text-xl font-medium truncate">
-          {course?.CourseProfit || "0"}
+          {course?.CourseProfit * course?.CourseBought}
         </span>
       </div>
 
@@ -64,5 +64,6 @@ function CourseTableRow(course) {
     </article>
   );
 }
+
 
 export default CourseTableRow;

@@ -48,7 +48,7 @@ function CoursePage() {
               </div>
             )}
             {(!data || data.length === 0) && (
-              <div className="flex text-white/30 text-4xl justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
+              <div className="flex text-white/30 text-[1.5rem] xl:text[2rem] justify-self-center items-center min-h-[800px]">Không có khoá học nào</div>
             )}
           </div>
         </main>

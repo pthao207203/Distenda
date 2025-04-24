@@ -31,10 +31,10 @@ export default function CoursesInfo(course) {
             </div>
             <div className="flex flex-col mt-4 w-full text-white max-md:max-w-full ">
               <div className="flex flex-col w-full max-md:max-w-full">
-                <h2 className="flex-1 shrink gap-2.5 pt-3 w-full text-4xl font-bold max-md:max-w-full">
+                <h2 className="flex-1 shrink gap-2.5 pt-3 w-full text-[1.5rem] lg:text-[2.25rem] font-bold max-md:max-w-full">
                   {courseDetails.title}
                 </h2>
-                <div className="flex flex-col items-start w-full text-xl font-medium leading-[15px] max-md:max-w-full">
+                <div className="flex flex-col items-start w-full text-[1rem] lg:text-[1.25rem] font-regular leading-[15px] max-md:max-w-full">
                   <InfoItem text={`Giảng viên: ${courseDetails.instructor}`} />
                   <InfoItem text={`Nội dung: ${courseDetails.chapters}`} />
                   <InfoItem text={`Thời lượng: ${courseDetails.duration}`} />
