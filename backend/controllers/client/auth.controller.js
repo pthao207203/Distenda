@@ -68,13 +68,14 @@ module.exports.loginPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: false,
-    maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
   });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
   res.json({
     code: 200,
-    message: "Đăng nhập thành công!"
+    message: "Đăng nhập thành công!",
+    token: user.UserToken
   })
 };
 
@@ -131,13 +132,14 @@ module.exports.registerPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: false,
-    maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
   });
   // req.flash("success", "Đăng ký thành công!");
   // res.redirect(`/`);
   res.json({
     code: 200,
-    message: "Đăng ký thành công!"
+    message: "Đăng ký thành công!",
+    token: user.UserToken
   })
 };
 

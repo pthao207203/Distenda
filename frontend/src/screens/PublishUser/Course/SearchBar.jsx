@@ -9,11 +9,13 @@ function SearchBar() {
         alt=""
         className="object-contain shrink-0 self-stretch my-auto aspect-square w-[30px]"
       />
-      <label htmlFor="search" className="sr-only">Tìm kiếm</label>
+      <label htmlFor="search" className="sr-only">
+        Tìm kiếm
+      </label>
       <input
         type="search"
         id="search"
-        className="flex-1 gap-2.5 self-stretch my-auto bg-transparent text-xl font-medium text-white text-opacity-80 outline-none"
+        className="flex-1 gap-2.5 self-stretch my-auto bg-transparent text-xl max-lg:text-[16px] font-medium text-white text-opacity-80 outline-none"
         placeholder="Tìm kiếm"
       />
     </form>

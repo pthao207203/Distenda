@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { headerController } from "../../controllers/home.controller"
-import Loading from '../../components/Loading';
+import { headerController } from "../../controllers/home.controller";
+import Loading from "../../components/Loading";
 
 export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState("");
   const location = useLocation(); // Theo dõi URL hiện tại
   const [openDetails, setOpenDetails] = useState(false);
 
@@ -17,12 +17,10 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     setActiveLink(link);
   };
 
-  let [data, setData] = useState(
-    {
-      category: [],
-      setting: [],
-    }
-  );
+  let [data, setData] = useState({
+    category: [],
+    setting: [],
+  });
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function fetchData() {
@@ -52,11 +50,8 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
     }
   }, [location.pathname]);
 
-
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
   // console.log("category ", data.category)
   // console.log("setting ", data.setting)
@@ -64,29 +59,31 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   return (
     <header
       ref={headerRef}
-      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] max-lg:ml-[20px]"
     >
-      <div className="flex items-center justify-between px-[60px] py-3 text-white lg:gap-5 max-md:pr-[20px] ">
+      <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
         {/* Logo */}
         <div
           style={{ flexBasis: "auto", textAlign: "center" }}
+          className="flex self-center max-lg:pr-[10px]"
         >
           <img
             src={data?.setting?.WebsiteLogoUser}
             alt={data?.setting?.WebsiteName}
-            className="w-auto h-auto "
+            className="w-[10rem] max-lg:w-[75px]"
           />
         </div>
 
         {/* Navigation */}
         <nav
-          className="flex items-center text-2xl font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
+          className="flex items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
           style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
           <Link
             to="/courses"
-            className={`flex-1 px-3 py-3 ${activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
-              }`}
+            className={`flex-1 px-3 py-3 ${
+              activeLink === "/courses" ? "bg-[#CFF500] text-black" : ""
+            }`}
             onClick={() => handleLinkClick("/courses")}
           >
             Trang chủ
@@ -95,10 +92,11 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             <Link
               key={cate.CategorySlug}
               to={`/category/${cate.CategorySlug}`}
-              className={`flex-1 px-3 py-3 ${activeLink === `/category/${cate.CategorySlug}`
-                ? "bg-[#CFF500] text-black"
-                : ""
-                }`}
+              className={`flex-1 px-3 py-3 mx-[8px] ${
+                activeLink === `/category/${cate.CategorySlug}`
+                  ? "bg-[#CFF500] text-black"
+                  : ""
+              }`}
               onClick={() => handleLinkClick(`/category/${cate.CategorySlug}`)}
             >
               {cate.CategoryName}
@@ -111,7 +109,10 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
           className="flex grow flex-row items-center"
           style={{ flexBasis: "auto", justifyContent: "flex-end" }}
         >
-          <button onClick={toggleTaskBar} className="flex items-center shrink gap-2">
+          <button
+            onClick={toggleTaskBar}
+            className="flex items-center shrink gap-2"
+          >
             <img
               loading="lazy"
               src={
@@ -120,7 +121,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
                   : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
               }
               alt=""
-              className="object-cover shrink-0 w-14 rounded-full aspect-square"
+              className="object-cover shrink-0 w-[30px] rounded-full aspect-square"
             />
             <img
               loading="lazy"
@@ -132,6 +133,5 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
         </div>
       </div>
     </header>
-
   );
 }

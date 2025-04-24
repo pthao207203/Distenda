@@ -7,14 +7,23 @@ export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
   const productDetails = {
     title: `${course.CourseName}`,
     duration: `${course.CourseDuration} tháng`,
-    price: `${course.CoursePrice === 0 ? "Miễn phí" : (course.CoursePrice * (100 - course.CourseDiscount) / 100).toLocaleString('vi-VN')}`,
-    imageUrl: `${course.CoursePicture}`
+    price: `${
+      course.CoursePrice === 0
+        ? "Miễn phí"
+        : (
+            (course.CoursePrice * (100 - course.CourseDiscount)) /
+            100
+          ).toLocaleString("vi-VN")
+    }`,
+    imageUrl: `${course.CoursePicture}`,
   };
 
   const userDetails = {
-    fullName: `${course?.user?.UserFullName ? course.user.UserFullName : "Không có"}`,
+    fullName: `${
+      course?.user?.UserFullName ? course.user.UserFullName : "Không có"
+    }`,
     email: `${course?.user?.UserEmail ? course.user.UserEmail : ""}`,
-    phone: `${course?.user?.UserPhone ? course.user.UserPhone : ""}`
+    phone: `${course?.user?.UserPhone ? course.user.UserPhone : ""}`,
   };
 
   return (
@@ -30,26 +39,31 @@ export default function CheckoutPage({ onClose, handleOpenBank, ...course }) {
       <div className="flex flex-col px-10 mt-2 w-full max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col w-full max-md:max-w-full">
           <ProductCard {...productDetails} />
-          <p className="mt-4 text-xl font-medium leading-none text-black max-md:max-w-full">
+          <p className="mt-4 text-[1.25rem] font-medium leading-none text-black max-md:max-w-full">
             Tổng giá trị: {productDetails.price.toLocaleString()}
           </p>
-          <div className="flex flex-col mt-4 w-full text-xl font-medium text-neutral-900 max-md:max-w-full">
-            <label htmlFor="discountCode" className="max-md:max-w-full">Mã giảm giá</label>
+          <div className="flex flex-col mt-4 w-full text-[1.25rem] font-medium text-neutral-900 max-md:max-w-full">
+            <label htmlFor="discountCode" className="max-md:max-w-full">
+              Mã giảm giá
+            </label>
             <input
               type="text"
               id="discountCode"
               className="flex gap-2.5 px-2 py-2 mt-2 max-w-full bg-[#EBF1F9] min-h-[38px] w-2/3"
             />
           </div>
-          <p className="mt-4 text-xl font-medium leading-none text-black max-md:max-w-full">
+          <p className="mt-4 text-[1.25rem] font-medium leading-none text-black max-md:max-w-full">
             Thành tiền: {productDetails.price.toLocaleString()}
           </p>
           <UserForm userDetails={userDetails} />
-          <p className="mt-4 text-xl font-medium leading-none text-black max-md:max-w-full">
+          <p className="mt-4 text-[1.25rem] font-medium leading-none text-black max-md:max-w-full">
             Hình thức thanh toán: Chuyển khoản ngân hàng
           </p>
         </div>
-        <button onClick={handleOpenBank} className="flex gap-3 justify-center items-center self-center px-3 py-4 mt-9 max-w-full text-xl font-medium leading-none text-white bg-neutral-900 w-[272px]">
+        <button
+          onClick={handleOpenBank}
+          className="flex gap-3 justify-center items-center self-center px-3 py-4 mt-9 max-w-full text-[1.25rem] font-medium leading-none text-white bg-neutral-900 w-[272px]"
+        >
           <span className="gap-2.5 self-stretch my-auto">Đăng ký</span>
         </button>
       </div>
