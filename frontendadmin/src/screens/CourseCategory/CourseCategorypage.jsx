@@ -31,7 +31,7 @@ function CourseTable() {
     async function fetchData() {
       // console.log("vaof")
       const result = await categoryController(setLoading);
-      console.log(result)
+      console.log(result);
       if (result) {
         setData(result); // Lưu dữ liệu nếu hợp lệ
       }
@@ -41,18 +41,16 @@ function CourseTable() {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   } else
     return (
       <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
         <SearchBar />
         <CourseHeader />
         <div className="flex flex-col pb-16 mt-6 w-full max-md:max-w-full">
-          <div className="text-right text-neutral-900 max-md:max-w-full">
-            Tổng số danh mục: {courseData.length}
-          </div>
+          {/* <div className="text-right text-neutral-900 max-md:max-w-full">
+            Tổng số danh mục: {data.length}
+          </div> */}
 
           {/* Header Bảng */}
           <div className="flex shrink overflow-hidden w-full rounded-t-3xl mt-3 bg-[#6C8299] min-h-[70px] max-md:max-w-full">
@@ -84,7 +82,6 @@ function CourseTable() {
           {/* Nội dung bảng */}
           {courseData.length > 0 ? (
             <TableRow categories={data} />
-
           ) : (
             <div className="text-center text-gray-500 mt-5">
               Không có danh mục nào để hiển thị.
@@ -92,9 +89,7 @@ function CourseTable() {
           )}
 
           {/* Pop-up */}
-          {isPopupOpen && (
-            <PopUp onClose={handleClosePopup} />
-          )}
+          {isPopupOpen && <PopUp onClose={handleClosePopup} data={data} />}
         </div>
       </div>
     );

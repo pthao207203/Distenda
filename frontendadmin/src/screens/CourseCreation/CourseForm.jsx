@@ -145,7 +145,7 @@ function CourseForm() {
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/ebcf993eb7976cff90cc8a7bea1273b209255d5447ef5613e65401b7cede61ae?placeholderIfAbsent=true&apiKey=66913a0089c7476296e0d5e235a1975e"
                 alt=""
-                className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
+                className="object-cover shrink-0 self-stretch my-auto w-6 aspect-square"
               />
               <span className="gap-3 self-stretch my-auto text-2xl">Tạo khóa học</span>
             </button>

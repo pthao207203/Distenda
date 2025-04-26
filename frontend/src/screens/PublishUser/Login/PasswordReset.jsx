@@ -1,13 +1,13 @@
 //Fix API của email trang này: kiểm tra email không tồn tại, email không hợp lệ do sai cú pháp
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { loginResetController } from '../../../controllers/auth.controller.js';
+import { loginResetController } from "../../../controllers/auth.controller.js";
 
 function PasswordReset({ onNext, onSetEmail }) {
   const [formData, setFormData] = useState({
-    UserEmail: '',
-  })
+    UserEmail: "",
+  });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function PasswordReset({ onNext, onSetEmail }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data:', formData);
+    console.log("Form data:", formData);
     onSetEmail(formData.UserEmail);
     setError(null);
     setSuccess(null);
@@ -28,14 +28,13 @@ function PasswordReset({ onNext, onSetEmail }) {
 
     // Gửi dữ liệu tới server
     try {
-      console.log(formData)
-      const result = await loginResetController(formData, setSuccess, setError, navigate);
+      console.log(formData);
+      const result = await loginResetController(formData);
       if (result.code === 200) {
         if (onNext) {
           onNext(); // Chỉ gọi hàm onNext nếu OTP hợp lệ và xử lý thành công
         }
       }
-
     } catch (err) {
       setError(err);
     } finally {
@@ -52,10 +51,15 @@ function PasswordReset({ onNext, onSetEmail }) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col mt-4 w-full max-md:max-w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col mt-4 w-full max-md:max-w-full"
+      >
         <div className="flex flex-col w-full text-lg max-md:text-[16px] text-white">
           <div className="flex flex-col w-full  whitespace-nowrap">
-            <label htmlFor="email" className="self-start">Email</label>
+            <label htmlFor="email" className="self-start">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -69,17 +73,27 @@ function PasswordReset({ onNext, onSetEmail }) {
           </div>
         </div>
 
-        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+        <button
+          type="submit"
+          className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
           {isLoading ? "Đang xử lý..." : "Nhận mã"}
         </button>
-        {error && <p className="mt-4 text-red-500">{error}</p>}
-        {success && <p className="mt-4 text-[#CFF500]">{success}</p>}
+        {error && (
+          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-red-500">
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="mt-4 text-[1.125rem] max-lg:text-[12px] text-[#CFF500]">
+            {success}
+          </p>
+        )}
       </form>
     </div>
   );
 }
 
 export default PasswordReset;
-

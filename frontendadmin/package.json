@@ -14,6 +14,8 @@
     "axios": "^1.7.9",
     "babel-core": "7.0.0-bridge.0",
     "browserify-zlib": "^0.2.0",
+    "chart.js": "^4.4.9",
+    "cloudinary-video-player": "^2.4.1",
     "codemirror": "^5.65.19",
     "dotenv": "^16.4.7",
     "https-browserify": "^1.0.0",

@@ -36,7 +36,7 @@ function TestimonialCard({ avatar, name, content }) {
             className="rounded-circle me-[32px]"
             style={{ width: "50px", height: "50px" }}
           />
-          <h5 className="mb-0 text-[1.25rem] font-semibold text-white">
+          <h5 className="mb-0 text-[1.25rem] max-lg:text-[px] font-semibold text-white">
             {name}
           </h5>
         </div>
@@ -52,7 +52,7 @@ function TestimonialCard({ avatar, name, content }) {
             marginTop: "20px",
             marginBottom: "20px",
           }}
-          className="card-text text-white font-regular text-[1.25rem]"
+          className="card-text text-white font-regular text-[1.25rem] max-lg:text-[px]"
         >
           {content}
         </p>
@@ -63,10 +63,10 @@ function TestimonialCard({ avatar, name, content }) {
 
 function TestimonialSection() {
   return (
-    <section className=" text-left flex-col w-screen  max-md:max-w-full  ">
+    <section className=" text-left flex-col w-screen  max-lg:max-w-full  ">
       <Container>
         <div className="text-left mb-[16px]">
-          <h2 className="flex items-left py-[20px] text-[1.25rem] font-medium leading-none text-white max-md:max-w-full">
+          <h2 className="flex items-left py-[20px] text-[1.25rem] max-lg:text-[px] font-medium leading-none text-white max-lg:max-w-full">
             Nhận xét của học viên
           </h2>
         </div>

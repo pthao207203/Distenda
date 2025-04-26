@@ -1,4 +1,4 @@
-import { categoriesService } from '../services/category.service';
+import { categoriesService, categoryCreatePostService } from '../services/category.service';
 
 export async function categoryController(setLoading) {
   try {
@@ -26,15 +26,15 @@ export async function categoryController(setLoading) {
 //   }
 // }
 
-// export async function bannerCreatePostController(data) {
-//   try {
-//     const result = await bannerCreatePostService(data); // Gọi API
-//     // console.log("result admin ", result);
-//     return result;
-//   } catch (err) {
-//     console.error(err); // Ghi log lỗi
-//   }
-// }
+export async function categoryCreatePostController(categoryName, categoryParent_id) {
+  try {
+    const result = await categoryCreatePostService(categoryName, categoryParent_id); // Gọi API
+    // console.log("result admin ", result);
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+  }
+}
 // export async function bannerUpdateController(setLoading, id) {
 //   try {
 //     setLoading(true); // Đang tải

@@ -59,21 +59,27 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
   return (
     <header
       ref={headerRef}
-      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px]"
+      className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 backdrop-blur-[40px] max-lg:pl-[20px]"
     >
-      <div className="flex items-center justify-between px-[60px] py-3 text-white lg:gap-5 max-md:pr-[20px] ">
+      <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
         {/* Logo */}
-        <div style={{ flexBasis: "auto", textAlign: "center" }}>
+        <div
+          style={{ flexBasis: "auto", textAlign: "center" }}
+          className="flex self-center max-lg:pr-[10px]"
+        >
           <img
             src={data?.setting?.WebsiteLogoUser}
             alt={data?.setting?.WebsiteName}
-            className="w-auto h-auto "
+            className="w-[10rem] max-lg:w-[75px]"
           />
         </div>
+        {/* <h2 className="flex flex-wrap gap-1.5 justify-center items-center self-start text-[3.75rem] uppercase whitespace-nowrap max-lg:text-[30px]">
+          {data?.setting?.WebsiteName}
+        </h2> */}
 
         {/* Navigation */}
         <nav
-          className="flex items-center text-[1.25rem] font-semibold text-center overflow-x-auto scrollbar-hide max-md:text-[1.2rem] ml-3.5"
+          className="flex items-center mt-[3px] text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
           style={{ flexBasis: "85%", whiteSpace: "nowrap" }}
         >
           <Link
@@ -89,7 +95,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
             <Link
               key={cate.CategorySlug}
               to={`/category/${cate.CategorySlug}`}
-              className={`flex-1 px-3 py-3 ${
+              className={`flex-1 px-3 py-3 mx-[8px] ${
                 activeLink === `/category/${cate.CategorySlug}`
                   ? "bg-[#CFF500] text-black"
                   : ""
@@ -118,7 +124,7 @@ export default function Header({ setHeaderHeight, handleTaskBarToggle }) {
                   : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"
               }
               alt=""
-              className="object-cover shrink-0 w-14 rounded-full aspect-square"
+              className="object-cover shrink-0 w-[30px] rounded-full aspect-square"
             />
             <img
               loading="lazy"
