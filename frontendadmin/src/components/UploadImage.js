@@ -7,7 +7,7 @@ const uploadImage = async (selectedFileName) => {
     formData.append("upload_preset", "discenda"); // Preset từ Cloudinary
 
     const response = await axios.post(
-      process.env.REACT_APP_CLOUDINARY_URL,
+      process.env.REACT_APP_CLOUDINARY_IMAGE_URL,
       formData, {
       headers: { "Content-Type": "multipart/form-data" }
     }

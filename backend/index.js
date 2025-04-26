@@ -22,18 +22,15 @@ database.connect();
 const app = express();
 const port = process.env.PORT;
 
-// TiniMCE
 app.use(
   "/tinymce",
   express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3002", "https://distenda.vercel.app", "https://distenda-admin.vercel.app"],
-    credentials: true, // Cho phép gửi cookies
-  })
-);
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3002'],
+  credentials: true // Cho phép gửi cookies
+}));
 app.use(methodOverride("_method"));
 
 app.set("views", path.join(__dirname, "views"));
@@ -65,17 +62,8 @@ app.locals.moment = moment;
 
 app.use(express.static("public"));
 
-try {
-  routeAdmin(app);
-} catch (err) {
-  console.error("Lỗi khi khởi tạo routeAdmin:", err);
-}
-try {
-  routeClient(app);
-} catch (err) {
-  console.error("Lỗi khi khởi tạo routeClient:", err);
-}
-
+routeAdmin(app);
+routeClient(app);
 app.get("*", (req, res) => {
   res.render("client/pages/error/404", {
     pageTitle: "404 not found",

@@ -17,7 +17,7 @@ router.post("/create/:LessonID", controller.createPost);
 
 router.get("/edit/:VideoID", controller.editItem);
 
-router.patch("/edit/:VideoID", controller.editPatch);
+router.post("/edit/:VideoID", controller.editPost);
 
 router.get("/detail/:VideoID", controller.detailItem);
 

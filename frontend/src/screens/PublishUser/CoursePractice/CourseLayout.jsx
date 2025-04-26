@@ -29,20 +29,18 @@ function CourseLayout() {
   }, [VideoSlug]);
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />;
   }
   // console.log("video => ", data)
 
   return (
     <div className="flex flex-col bg-neutral-900">
       <NavigationBar {...data} />
-      <div className="flex flex-col w-full max-md:max-w-full">
+      <div className="flex flex-col w-full max-md:max-w-full h-full">
         <div className="flex overflow-hidden flex-wrap flex-1 gap-1.5 justify-center bg-white bg-opacity-10 size-full max-md:max-w-full">
           {data && data.course && (
             <>
-              <div className="flex flex-col overflow-y-auto h-[calc(100vh-200px)] w-[410px]">
+              <div className="flex flex-col overflow-y-auto h-[calc(100vh-200px)] w-[220px] hidden lg:block">
                 <LessonList {...data} />
               </div>
               <CodeEditor {...data} />

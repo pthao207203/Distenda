@@ -16,7 +16,10 @@ const categorySchema = new mongoose.Schema({
   CategoryDescription: String,
   CategoryPicture: String,
   CategoryPosition: Number,
-  CategoryStatus: Number,
+  CategoryStatus: {
+    type: Number,
+    default: 1,
+  },
   CategoryDeleted: {
     type: Number,
     default: 1,

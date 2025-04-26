@@ -149,7 +149,7 @@ const SideBar = ({ headerHeight }) => {
             className="object-cover shrink-0 self-stretch my-auto w-[64px] h-[62px] max-lg:w-[25px] max-lg:h-[25px] rounded-full aspect-[1.03] mr-[8px]"
           />
           <div className="flex flex-col flex-1 shrink self-stretch my-auto ">
-            <div className="flex items-center text-[1.75rem] max-lg:text-[18px] font-semibold ">
+            <div className="flex items-center text-[1.5rem] max-lg:text-[18px] font-semibold ">
               <div
                 className="flex-1"
                 style={{
@@ -172,12 +172,12 @@ const SideBar = ({ headerHeight }) => {
         </div>
 
         {/* Menu */}
-        <nav className="flex flex-col w-full text-[1.75rem] max-lg:text-[18px] font-light mx-[8px]">
+        <nav className="flex flex-col w-full text-[1.5rem] max-lg:text-[16px] font-light mx-[8px]">
           {menuItems.map((item, index) => (
             <Link
               to={item.link}
               key={index}
-              className={`flex gap-3 items-center py-[16px] pl-[16px] w-[95%] transition ${
+              className={`flex gap-2 items-center py-[16px] pl-[16px] w-[95%] transition ${
                 location.pathname === item.link ? "bg-black" : "bg-transparent"
               }`}
             >

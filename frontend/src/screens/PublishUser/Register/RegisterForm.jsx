@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import LoginButton from "../Login/LoginButton";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import LoginButton from "../Login/LoginButton.jsx";
+import FacebookLoginButton from "../Login/FacebookLoginButton.jsx";
 
 import { registerController } from "../../../controllers/auth.controller.js";
 
@@ -14,6 +16,54 @@ function RegisterForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+
+   //Xử lý login with Google
+   const handleGoogleLoginSuccess = async (response) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/google`,
+        { token: response.credential },
+        { withCredentials: true }
+      );      
+      if (res.data.code === 200) {
+        localStorage.setItem("user_token", res.data.user.UserToken);
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi đăng nhập với Google");
+    }
+  };
+
+  //Xử lý đăng nhập Facebook
+  const handleFacebookLoginSuccess = async (fbResponse) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/facebook`,
+        { accessToken: fbResponse.accessToken, userID: fbResponse.userID },
+        { withCredentials: true }
+      );
+      if (res.data.code === 200) {
+        localStorage.setItem("user_token", res.data.user);
+        navigate("/");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      setError("Lỗi đăng nhập với Facebook");
+    }
+  };
+
+  const handleFacebookLoginFailure = (error) => {
+    console.error(error);
+    setError("Đăng nhập Facebook thất bại");
+  };
+
+  const handleGoogleLoginFailure = (error) => {
+    console.error(error);
+    setError("Đăng nhập Google thất bại");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +92,7 @@ function RegisterForm() {
           <h2 className="flex gap-3 items-end self-center px-3 max-w-full text-[1.875rem] max-lg:text-[20px] font-semibold text-center text-white font-['Montserrat'] leading-loose">
             ĐĂNG KÝ
           </h2>
-          <div className="flex gap-1 items-center w-full text-[1.125rem] max-lg:text-[12px]">
+          <div className="flex gap-1 items-center w-full text-[1.125rem] max-lg:text-[12px] py-2">
             <p className="flex gap-3 items-center font-normal self-stretch py-1  my-auto">
               Bạn đã có tài khoản?&nbsp;
             </p>
@@ -54,16 +104,30 @@ function RegisterForm() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col mt-2 w-full text-xl max-lg:text-lg max-lg:max-w-full">
+        <div className="flex flex-col gap-3 mt-[4px] w-full max-lg:text-lg max-lg:max-w-full">
+          {/* <LoginButton
+            provider="Facebook"
+            iconSrc="Icon/FBicon.svg"
+          /> */}
+          <FacebookLoginButton
+            onSuccess={handleFacebookLoginSuccess}
+            onFailure={handleFacebookLoginFailure}
+          />
+          <LoginButton
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+          />
+          {error && <p>{error}</p>}
+        {/* <div className="flex flex-col mt-2 w-full text-xl max-lg:text-lg max-lg:max-w-full">
           <LoginButton provider="Facebook" iconSrc="Icon/FBicon.svg" />
-          <LoginButton provider="Google" iconSrc="Icon/GGicon.svg" />
+          <LoginButton provider="Google" iconSrc="Icon/GGicon.svg" /> */}
         </div>
       </div>
 
       <div className="flex flex-wrap gap-4 items-center mt-4 w-full text-[1.125rem] max-lg:text-[16px] leading-none text-white font-['Montserrat'] whitespace-nowrap max-lg:max-w-full"></div>
       <div
         data-layername="divider"
-        className="flex flex-wrap gap-3 items-center self-center mt-4 w-full text-[1.125rem] max-lg:text-[12px] leading-none text-white whitespace-nowrap  max-lg:max-w-full"
+        className="flex flex-wrap gap-3 items-center self-center w-full text-[1.125rem] max-lg:text-[12px] leading-none text-white whitespace-nowrap  max-lg:max-w-full"
       >
         <div className="flex-grow self-stretch my-auto h-px border border-white border-solid " />
         <p
