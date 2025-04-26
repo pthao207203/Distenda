@@ -96,7 +96,7 @@ function CourseLesson() {
   return (
     <>
       <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
-        <DeleteButton data={data} />
+        {/* <DeleteButton data={data} /> */}
         <div className="flex z-0 flex-col w-full max-md:max-w-full">
           <div className="text-xl font-semibold text-neutral-900 max-md:max-w-full">
             Thông tin cơ bản
@@ -110,7 +110,10 @@ function CourseLesson() {
                 >
                   Tên chương học
                 </label>
-                <div className="flex relative gap-2.5 items-start px-2.5 py-3 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
+                <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
+                  {data.LessonName}
+                </span>
+                {/* <div className="flex relative gap-2.5 items-start px-2.5 py-3 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
                   <input
                     type="text"
                     id="LessonName"
@@ -118,14 +121,17 @@ function CourseLesson() {
                     onChange={handleChange} // Thêm xử lý onChange
                     className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="flex flex-col justify-center max-md:max-w-full min-w-[240px] w-[400px]">
                 <div className="flex gap-3 items-center">
                   <div className="text-lg font-semibold text-neutral-900 text-opacity-50">
                     Lần cuối cập nhật
                   </div>
-                  <button className="flex gap-3 justify-center items-center" onClick ={handleHistoryRequest}>
+                  <button
+                    className="flex gap-3 justify-center items-center"
+                    onClick={handleHistoryRequest}
+                  >
                     <img
                       loading="lazy"
                       src="/icons/Show.svg"

@@ -1,15 +1,26 @@
 import * as React from "react";
+import cloudinary from "cloudinary-video-player";
+import { useRef, useEffect } from "react";
 
 export function VideoSection({ video }) {
   return (
     <div className="flex flex-col mt-11 w-full max-md:mt-10 max-md:max-w-full h-[1000px]">
       <label className="text-xl font-medium leading-none text-neutral-900 pb-3 text-opacity-50 max-md:max-w-full">
-        Video
+        Video <span className="text-red-600">*</span>
       </label>
-      <div
+
+      {video?.VideoUrl && (
+        <video
+          controls
+          width="100%"
+          src={video.VideoUrl}
+          className="rounded-xl"
+        />
+      )}
+      {/* <div
         className="w-full h-full"
         dangerouslySetInnerHTML={{ __html: video?.VideoUrl }}
-      ></div>
+      ></div> */}
       {/* <div className="flex flex-col mt-2 w-full bg-[#EBF1F9] max-md:max-w-full">
         <img
           loading="lazy"
