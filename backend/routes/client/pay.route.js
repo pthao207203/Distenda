@@ -5,7 +5,7 @@ const controller = require("../../controllers/client/pay.controller");
 
 // router.get("/:CourseSlug", controller.pay);
 
-// router.post("/:CourseSlug", controller.payPost);
+router.post("/:CourseSlug", controller.payPost);
 
 router.post("/:CourseSlug/momo", controller.payMoMo);
 

@@ -21,7 +21,7 @@ module.exports.payMoMo = async (req, res) => {
   const orderId = momoConfig.partnerCode + new Date().getTime();
   const requestId = orderId;
 
-  const rawSignature = 
+  const rawSignature =
     `accessKey=${momoConfig.accessKey}&amount=${amount}&extraData=${momoConfig.extraData}&ipnUrl=${momoConfig.ipnUrl}&orderId=${orderId}&orderInfo=Thanh toán khoá học ${course.CourseName}&partnerCode=${momoConfig.partnerCode}&redirectUrl=${momoConfig.redirectUrl}&requestId=${requestId}&requestType=${momoConfig.requestType}`;
 
   const signature = crypto.createHmac('sha256', momoConfig.secretKey).update(rawSignature).digest('hex');
@@ -114,7 +114,7 @@ module.exports.payMoMo = async (req, res) => {
     // console.log("Thanh toán thành công và dữ liệu đã được cập nhật");
 
     // res.status(200).send('IPN Received and processed successfully');
-    
+
 
     return res.json({ code: 200, payUrl: response.data.payUrl });
   } catch (err) {
