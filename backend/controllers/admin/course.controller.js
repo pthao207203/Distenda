@@ -278,6 +278,21 @@ module.exports.editPost = async (req, res) => {
       }
     );
 
+    if (updateFields.lesson) {
+      for (const item of updateFields.lesson) {
+        if (item.change == 1) {
+          const { editedBy, ...updateFields } = item;
+          await Lesson.updateOne(
+            { _id: item._id },
+            {
+              ...updateFields,
+              $push: { editedBy: newEditedBy },
+            }
+          );
+        }
+      }
+    }
+    
     res.json({
       code: 200,
       message: "Cập nhật thành công!",
