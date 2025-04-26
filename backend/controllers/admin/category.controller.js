@@ -48,9 +48,9 @@ module.exports.createItem = async (req, res) => {
 // [POST] /admin/category/create
 module.exports.createPost = async (req, res) => {
   console.log(req.body);
-  req.body.CategoryStatus = req.body.CategoryStatus == "active" ? 1 : 0;
+  // req.body.CategoryStatus = req.body.CategoryStatus == "active" ? 1 : 0;
 
-  if (req.body.CategoryPosition == "") {
+  if (!req.body.CategoryPosition) {
     const count = await Category.countDocuments();
     req.body.CategoryPosition = count + 1;
   } else {
@@ -62,8 +62,11 @@ module.exports.createPost = async (req, res) => {
 
   const category = new Category(req.body);
   await category.save();
-
-  res.redirect(`${systemConfig.prefixAdmin}/category`);
+  res.json({
+    code: 200,
+    message: "Thêm phân loại thành công!"
+  })
+  // res.redirect(`${systemConfig.prefixAdmin}/category`);
 };
 
 // [PATCH] /admin/category/change-status/:status/:CategoryID
