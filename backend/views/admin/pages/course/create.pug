@@ -1,0 +1,145 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+  if (role.RolePermissions.includes("course_create"))
+    +alert-error(3000)
+
+    h1 #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/courses/create`
+      method="POST"
+      id="form-create-course"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="CourseName") Tên khoá học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseName"
+          name="CourseName"
+          required
+        )
+      div(class="form-group")
+        label(for="CourseIntructor") Giảng viên
+        select(
+          class="form-control"
+          id="CourseIntructor"
+          name="CourseIntructor"
+        )
+          option(value="" disable) -- Chọn danh mục --
+          if(intructor)
+            each item in intructor
+              option(
+                value=item.id
+                ) #{item.AdminFullName}
+      div(class="form-group")
+        label(for="CourseCatogory") Danh mục 
+        select(
+          class="form-control"
+          id="CourseCatogory"
+          name="CourseCatogory"
+        )
+          option(value="") -- Chọn danh mục --
+          if(listCategory)
+            +select-tree(listCategory)
+      div(class="form-group")
+        label(for="CoursePrice") Học phí
+        input(
+          type="number"
+          class="form-control"
+          id="CoursePrice"
+          name="CoursePrice"
+          value="0"
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseDiscount") % Giảm giá
+        input(
+          type="number"
+          class="form-control"
+          id="CourseDiscount"
+          name="CourseDiscount"
+          value="0"
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseSalary") Phần trăm hoa hồng
+        input(
+          type="number"
+          class="form-control"
+          id="CourseSalary"
+          name="CourseSalary"
+          value="0"
+          min="0"
+        )
+      div(class="form-group")
+        label(for="CourseRequire") Yêu cầu đầu vào
+        input(
+          type="text"
+          class="form-control"
+          id="CourseRequire"
+          name="CourseRequire"
+          required
+        )
+      div(class="form-group")
+        label(for="CourseDuration") Thời gian học
+        input(
+          type="text"
+          class="form-control"
+          id="CourseDuration"
+          name="CourseDuration"
+          required
+        )
+      div(class="form-group")
+        label(for="CourseDescription") Mô tả
+        textarea(
+          class="form-control tiny-mce"
+          id="CourseDescription"
+          name="CourseDescription"
+          rows="5"
+          textarea-mce
+        )
+      div(class="form-group" upload-image)
+        label(for="CoursePicture") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="CoursePicture"
+          name="CoursePicture"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=""
+          class="image-preview"
+          upload-image-preview
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="CourseStatus"
+          value="active"
+          checked
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="CourseStatus"
+          value="inactive"
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Tạo mới

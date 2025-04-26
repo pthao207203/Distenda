@@ -161,7 +161,7 @@ module.exports.loginPost = async (req, res) => {
     secure: true,
     httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
@@ -228,7 +228,7 @@ module.exports.registerPost = async (req, res) => {
     secure: true,
     httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng ký thành công!");
   // res.redirect(`/`);
@@ -270,7 +270,7 @@ module.exports.passwordForgot = async (req, res) => {
   //Tồn tại nên gửi Email
   const Subject = "DISCENDA_Mã OTP xác minh lấy lại mật khẩu";
   const html = `
-    <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin ch&agrave;o <strong>${user.UserFullName ? user.UserFullName : user.UserEmail}</strong>,</span></div>
+    <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Xin ch&agrave;o <strong>${user.UserFullName}</strong>,</span></div>
     <div>&nbsp;</div>
     <div><span style="font-family: 'times new roman', times, serif; font-size: 14pt; color: #000000;">Đ&acirc;y l&agrave; m&atilde; x&aacute;c nhận lấy lại mật khẩu của bạn:</span></div>
     <div><span style="font-size: 18pt; font-family: 'times new roman', times, serif; color: #000000;"><strong>${otp}</strong></span></div>

@@ -1,0 +1,67 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/alert.pug
+
+block main
+  //- if (role.RolePermissions.includes("course_create"))
+  +alert-error(3000)
+
+  h1 #{pageTitle}
+
+  form(
+    action=`${prefixAdmin}/exercise/edit/${exer._id}?_method=PATCH`
+    method="POST"
+    id="form-create-course"
+  )
+    div(class="form-group")
+      label(for="LessonName") Tên chương học
+      input(
+        type="text"
+        class="form-control"
+        id="LessonName"
+        name="LessonName"
+        disabled
+        value=exer.lesson.LessonName
+      )
+    div(class="form-group")
+      label(for="ExerciseName") Tên bài tập
+      input(
+        type="text"
+        class="form-control"
+        id="ExerciseName"
+        name="ExerciseName"
+        required
+        value=exer.ExerciseName
+      )
+    div(class="form-group")
+      label(for="ExerciseQuestion") Đề bài
+      textarea(
+        class="form-control tiny-mce"
+        id="ExerciseQuestion"
+        name="ExerciseQuestion"
+        rows="5"
+        textarea-mce
+      ) !{exer.ExerciseQuestion}
+    div(class="form-group")
+      label(for="ExerciseSample") Code mẫu
+      textarea(
+        class="form-control"
+        id="ExerciseSample"
+        name="ExerciseSample"
+        rows="5"
+        textarea-mce
+      ) !{exer.ExerciseSample}
+    div(class="form-group")
+      label(for="ExerciseAnswer") Đáp án
+      textarea(
+        class="form-control"
+        id="ExerciseAnswer"
+        name="ExerciseAnswer"
+        rows="5"
+        textarea-mce
+      ) !{exer.ExerciseAnswer}
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật

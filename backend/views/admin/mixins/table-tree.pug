@@ -1,0 +1,56 @@
+mixin table-tree(items, level = 1)
+  each item in items
+    - const prefix = Array(level+1).join("-- ")
+    //- option(value=item.id) #{prefix}#{item.CategoryName}
+    tr
+      td
+        input(
+          type="checkbox"
+          input-change=item.id
+        )
+      td #{item.index}
+      td #{prefix}#{item.CategoryName}
+      td #{item.CategoryPosition}
+      //-   if(role.permissions.includes("products_edit"))
+      //-     input(
+      //-       type="number"
+      //-       value=item.position
+      //-       item-id=item.id
+      //-       data-path=`/${prefixAdmin}/products/change-position`
+      //-       input-position
+      //-       style="width: 60px;"
+      //-     )
+      //-   else
+      //-     span #{item.position}
+      td
+        if(item.CategoryStatus == 1)
+          a( 
+            href="javascript:;"
+            data-status="active"
+            data-id=item.id
+            button-change-status
+            class="badge badge-success"
+          ) Hoạt động
+        else if (item.CategoryStatus == 0)
+          a(
+            href="javascript:;"
+            data-status="inactive"
+            data-id=item.id
+            button-change-status
+            class="badge badge-danger"
+          ) Dừng hoạt động
+      td
+        if (role.RolePermissions.includes("category_edit"))
+          a(
+            class="btn btn-warning btn-sm ml-1"
+            href=`${prefixAdmin}/category/edit/${item.id}`
+          ) Chỉnh sửa
+        if (role.RolePermissions.includes("category_delete"))
+          button(
+            class="btn btn-danger btn-sm ml-1"
+            item-id=item.id
+            button-delete
+            data-path=`${prefixAdmin}/category/delete`
+          ) Xoá
+    if item.children && item.children.length > 0
+      +table-tree(item.children, level + 1)

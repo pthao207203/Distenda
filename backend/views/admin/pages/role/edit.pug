@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug
+include ../../mixins/select-tree.pug
+include ../../mixins/alert.pug
+
+block main
+  if (role.RolePermissions.includes("role_edit"))
+    +alert-error(3000)
+    +alert-success(3000)
+    h1 #{pageTitle}
+
+    form(
+      action=`${prefixAdmin}/role/edit/${role._id}?_method=PATCH`
+      method="POST"
+    )
+      div(class="form-group")
+        label(for="RoleName") Tên danh mục
+        input(
+          type="text"
+          class="form-control"
+          id="RoleName"
+          name="RoleName"
+          value=role.RoleName
+          required
+        )
+      div(class="form-group")
+        label(for="RoleDescription") Mô tả
+        textarea(
+          type="text"
+          class="form-control tiny-mce"
+          id="RoleDescription"
+          name="RoleDescription"
+          rows="5"
+          textarea-mce
+        ) #{role.RoleDescription}
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

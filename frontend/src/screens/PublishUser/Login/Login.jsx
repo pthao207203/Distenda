@@ -40,7 +40,7 @@ function Login() {
           <button
             type="button"
             aria-label="Close"
-            className="absolute top-6 right-6 z-10 h-[20px] w-[20px] flex items-center justify-center"
+            className="absolute top-6 right-6 z-10 h-8 w-8 flex items-center justify-center"
             onClick={() => (window.location.href = "/")}
           >
             <img

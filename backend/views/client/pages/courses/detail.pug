@@ -1,0 +1,127 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error(3000)
+  .product-detail
+    .container.my-5
+      .row
+        .col-6
+          .inner-image
+            img(src=course.CoursePicture, alt=course.CourseName)
+        .col-6
+          h1(class="inner-title") #{course.CourseName}
+
+          if (course.priceNew)
+            div(class="inner-price-new") #{course.priceNew}$
+
+          if (course.CoursePrice)
+            div(class="inner-price-old") #{course.CoursePrice}$
+
+          if (course.CourseDiscount)
+            div(class="inner-percent") Giảm tới <span>#{course.CourseDiscount}%</span>
+          div(class="inner-percent") Chương: #{course.lesson? course.lesson.length:0}
+          div(class="inner-percent") Bài giảng: 
+          
+          if (user && user.UserLikes.includes(course.id)) 
+            form(
+              action=`/user/like/cancel/${course.id}`
+              method="GET"
+            )
+              button(
+                type="submit"
+                class="btn btn-danger btn-block mb-2"
+              ) Bỏ yêu thích
+          else 
+            form(
+              action=`/user/like/add/${course._id}`
+              method="GET"
+            )
+              button(
+                type="submit"
+                class="btn btn-danger btn-block mb-2"
+              ) Yêu thích
+          if (!course.has)
+            form(
+              action=`/pay/${course._id}`
+              method="GET"
+            )
+              button(
+                type="submit"
+                class="btn btn-success btn-block"
+              ) Đăng ký ngay
+
+    hr
+
+    .container.my-5
+      .row
+        .col-12
+          +box-head("Mô tả sản phẩm")
+          .inner-desc !{course.CourseDescription}
+    
+    hr
+    .container.my-5
+      .row
+        .col-12
+          h2 Danh sách chương
+    .card
+        .card-body
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th Tên chương
+                th Mô tả
+
+            tbody
+              if(course.lesson)
+                each item in course.lesson
+                  tr 
+                    td #{item.LessonName}
+                    td #{item.LessonDescription}
+                  
+                  if(item.video)
+                    each video in item.video
+                      tr
+                        td -- #{video.VideoName}
+                        td
+    if (course.review==0)
+      form(
+        action=`/user/comment/add/${course._id}`
+        method="POST"
+        id="form-create-course"
+      )
+        div(class="form-group")
+          label(for="Rate") Số sao
+          input(
+            type="text"
+            class="form-control"
+            id="Rate"
+            name="Rate"
+            required
+          )
+        div(class="form-group")
+          label(for="Comment") Đánh giá
+          textarea(
+            class="form-control"
+            id="Comment"
+            name="Comment"
+            rows="5"
+            textarea-mce
+          )
+        div(class="form-group")
+          button(
+            type="submit"
+            class="btn btn-primary"
+          ) Đánh giá
+
+
+    hr
+    .container.my-5
+      .row
+        .col-12
+          h2 Giảng viên
+          .inner-desc #{course.intructor.AdminFullName}
+          .inner-desc  Số điện thoại: #{course.intructor.AdminPhone}
+          .inner-desc  Email: #{course.intructor.AdminEmail}
+    
