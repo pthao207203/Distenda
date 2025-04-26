@@ -38,4 +38,6 @@ router.post(
 );
 router.get("/history", historyController.getCourseHistory);
 router.get("/detail/:CourseID/history", historyController.getLessonHistoryByCourseID);
+// router.get("/update-all-course-profit", controller.updateAllCourseProfit);
+
 module.exports = router;

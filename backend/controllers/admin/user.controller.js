@@ -11,7 +11,7 @@ module.exports.index = async (req, res) => {
     UserDeleted: 1,
   };
 
-  const users = await User.find(find).select("-UserPassword -UserToken");
+  const users = await User.find(find).select("-UserPassword -UserToken").sort({ createdAt: -1 });;
 
   res.json(users)
   // res.render("admin/pages/admin/index", {

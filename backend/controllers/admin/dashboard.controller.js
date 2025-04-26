@@ -20,40 +20,6 @@ module.exports.dashboard = async (req, res) => {
     }
   }
 
-  // Tính thời gian 24 giờ trước
-  const twentyFourHoursAgo = new Date();
-  twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 168);
-  const pay = await Pay.find({
-    "createdBy.createdAt": { $gte: twentyFourHoursAgo }
-  })
-  console.log(pay)
-  const totalIncome = pay.reduce((total, item) => {
-    return total + item.PayTotal;
-  }, 0);
-  const totalProfit = pay.reduce((total, item) => {
-    // Nếu có giá trị PayProfit, cộng vào, nếu không thì tính lợi nhuận = Doanh thu - Chi phí (PayCost)
-    return total + (item.PayProfit ? item.PayProfit : (item.PayTotal - item.PayCost || 0));
-  }, 0);
-
-
-  console.log("Total Income: ", totalIncome);
-  console.log("Total Profit: ", totalProfit);
-
-  // Tính thời gian 48 giờ trước
-  const fortyEightHoursAgo = new Date();
-  fortyEightHoursAgo.setHours(fortyEightHoursAgo.getHours() - 336);
-  const payMonthAgo = await Pay.find({
-    "createdBy.createdAt": { $gte: fortyEightHoursAgo, $lte: twentyFourHoursAgo }
-  })
-  console.log(payMonthAgo)
-  const totalIncomeAgo = payMonthAgo.reduce((total, item) => {
-    return total + item.PayTotal;
-  }, 0);
-  const totalProfitAgo = payMonthAgo.reduce((total, item) => {
-    return total + (item.PayProfit ? item.PayProfit : 0);
-  }, 0);
-
-
   const now = new Date();
 
   // Tạo ngày bắt đầu là 12 tháng trước và tháng kết thúc là tháng hiện tại
@@ -75,15 +41,16 @@ module.exports.dashboard = async (req, res) => {
   const result = await Pay.aggregate([
     {
       $match: {
-        "createdBy.createdAt": { $gte: startOfLastYear, $lt: now }  // Lọc theo khoảng thời gian từ 12 tháng trước đến tháng hiện tại
+        "createdBy.createdAt": { $gte: startOfLastYear, $lt: now },  // Lọc theo khoảng thời gian từ 12 tháng trước đến tháng hiện tại
+         PayStatus: { $ne: 0 },  // Chỉ lấy các hóa đơn chưa bị hủy (PayStatus != 1)
       }
     },
     {
       $project: {
         month: { $month: "$createdBy.createdAt" },  // Lấy tháng từ createdAt
         year: { $year: "$createdBy.createdAt" },   // Lấy năm từ createdAt
-        PayProfit: 1,
-        PayTotal: 1,  // Chỉ lấy trường PayProfit
+        PayTotal: 1,  
+        PayProfit: 1,  // Lấy các trường cần thiết
       },
     },
     {
@@ -172,14 +139,85 @@ module.exports.dashboard = async (req, res) => {
     "createdAt": { $gte: startOfCurrentMonth, $lt: startOfNextMonth }  // Lọc theo tháng hiện tại
   });
 
+  // Tính tổng doanh thu tháng hiện tại
+  const totalIncome = await Pay.aggregate([
+    {
+      $match: {
+        PayStatus: 1, // Chỉ tính các hóa đơn đã thanh toán
+        "createdBy.createdAt": { $gte: startOfCurrentMonth, $lt: startOfNextMonth }, // Lọc theo tháng hiện tại
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalIncome: { $sum: "$PayTotal" }, // Tính tổng doanh thu
+      },
+    },
+  ]);
+
+  const currentTotalIncome = totalIncome[0]?.totalIncome || 0; // Nếu không có dữ liệu thì gán là 0
+
+  // Tính tổng doanh thu tháng trước
+  const totalIncomeAgo = await Pay.aggregate([
+    {
+      $match: {
+        PayStatus: 1, // Chỉ tính các hóa đơn đã thanh toán
+        "createdBy.createdAt": { $gte: startOfLastMonth, $lt: startOfCurrentMonthPrev }, // Lọc theo tháng trước
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalIncome: { $sum: "$PayTotal" }, // Tính tổng doanh thu
+      },
+    },
+  ]);
+
+  const previousTotalIncome = totalIncomeAgo[0]?.totalIncome || 0; // Nếu không có dữ liệu thì gán là 0
+
+  // Tính tổng lợi nhuận tháng hiện tại
+  const totalProfit = await Pay.aggregate([
+    {
+      $match: {
+        PayStatus: 1, // Chỉ tính các hóa đơn đã thanh toán
+        "createdBy.createdAt": { $gte: startOfCurrentMonth, $lt: startOfNextMonth }, // Lọc theo tháng hiện tại
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalProfit: { $sum: "$PayProfit" }, // Tính tổng lợi nhuận
+      },
+    },
+  ]);
+
+  const currentTotalProfit = totalProfit[0]?.totalProfit || 0; // Nếu không có dữ liệu thì gán là 0
+
+  // Tính tổng lợi nhuận tháng trước
+  const totalProfitAgo = await Pay.aggregate([
+    {
+      $match: {
+        PayStatus: 1, // Chỉ tính các hóa đơn đã thanh toán
+        "createdBy.createdAt": { $gte: startOfLastMonth, $lt: startOfCurrentMonthPrev }, // Lọc theo tháng trước
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalProfit: { $sum: "$PayProfit" }, // Tính tổng lợi nhuận
+      },
+    },
+  ]);
+
+  const previousTotalProfit = totalProfitAgo[0]?.totalProfit || 0; // Nếu không có dữ liệu thì gán là 0
 
 
   const dashboard = {}
   dashboard.courses = courses
-  dashboard.totalIncome = totalIncome
-  dashboard.totalProfit = totalProfit
-  dashboard.totalIncomeAgo = totalIncomeAgo
-  dashboard.totalProfitAgo = totalProfitAgo
+  dashboard.totalIncome = currentTotalIncome
+  dashboard.totalProfit = currentTotalProfit
+  dashboard.totalIncomeAgo = previousTotalIncome
+  dashboard.totalProfitAgo = previousTotalProfit
   dashboard.profitData = profitData
   dashboard.incomeData = incomeData
   dashboard.monthLabels = months
