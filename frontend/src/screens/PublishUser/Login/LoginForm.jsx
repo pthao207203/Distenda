@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginButton from "./LoginButton.jsx";
 import FacebookLoginButton from "./FacebookLoginButton.jsx";
+import Cookies from 'js-cookie';
 
 import { loginController } from "../../../controllers/auth.controller.js";
 
@@ -25,7 +26,11 @@ function LoginForm({ onForgotPassword }) {
         { withCredentials: true }
       );
       if (res.data.code === 200) {
-        localStorage.setItem("user_token", res.data.user.UserToken);
+        Cookies.set('user_token', res.data.user.UserToken, {
+          expires: 7, // số ngày hết hạn (ở đây là 7 ngày)
+          path: '/',  // cookie có hiệu lực toàn site
+          sameSite: 'Lax' // tăng bảo mật, tránh CSRF
+        });
         navigate("/");
       } else {
         setError(res.data.message);
@@ -49,7 +54,11 @@ function LoginForm({ onForgotPassword }) {
         { withCredentials: true }
       );
       if (res.data.code === 200) {
-        localStorage.setItem("user_token", res.data.user);
+        Cookies.set('user_token', res.data.user, {
+          expires: 7, // số ngày hết hạn (ở đây là 7 ngày)
+          path: '/',  // cookie có hiệu lực toàn site
+          sameSite: 'Lax' // tăng bảo mật, tránh CSRF
+        });
         navigate("/");
       } else {
         setError(res.data.message);
@@ -74,21 +83,6 @@ function LoginForm({ onForgotPassword }) {
     console.log("Form data:", formData);
     setError(null);
     setSuccess(null);
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
-        formData
-      );
-      if (res.data.code === 200) {
-        localStorage.setItem("user_token", res.data.token);  // Thêm dòng này
-        navigate("/");
-        window.location.reload();  // Reload để cập nhật trạng thái
-     } else {
-        setError(res.data.message);
-     }
-    } catch (err) {
-      setError("Lỗi kết nối máy chủ");
-    }
 
     // Gửi dữ liệu tới server
     loginController(formData, setSuccess, setError, navigate);
