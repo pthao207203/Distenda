@@ -80,11 +80,12 @@ function LoginForm({ onForgotPassword }) {
         formData
       );
       if (res.data.code === 200) {
-        localStorage.setItem("user_role", "user");
+        localStorage.setItem("user_token", res.data.token);  // Thêm dòng này
         navigate("/");
-      } else {
+        window.location.reload();  // Reload để cập nhật trạng thái
+     } else {
         setError(res.data.message);
-      }
+     }
     } catch (err) {
       setError("Lỗi kết nối máy chủ");
     }
