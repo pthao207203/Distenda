@@ -1,6 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { marked } from "marked";  
+// import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { marked } from "marked";
+
 import ChatArea from "./ChatArea";  
 import ChatArea2 from "./ChatArea2"; 
 import ChatingInput from "./ChatingInput"; 
@@ -9,6 +12,33 @@ import { getGeminiReply } from "./gemini";
 function AIChating() {
   const [hasStartedChat, setHasStartedChat] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // // Lấy thông tin người dùng từ backend
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3001/user/me", { withCredentials: true });
+  //       setCurrentUser(res.data);
+  //     } catch (err) {
+  //       console.error("Không thể lấy thông tin người dùng:", err);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
+
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/user/me`, { withCredentials: true });
+        setCurrentUser(res.data);
+      } catch (err) {
+        console.error("Không thể lấy thông tin người dùng:", err);
+      }
+    };
+    fetchUser();
+  }, []);
 
   // Gửi tin nhắn khi người dùng gửi câu hỏi
   const handleSendMessage = async (newMessage) => {
@@ -20,7 +50,8 @@ function AIChating() {
     }
 
     // Gọi Gemini API để lấy phản hồi
-    const aiReply = await getGeminiReply(newMessage.message);
+    // const aiReply = await getGeminiReply(newMessage.message);
+    const aiReply = await getGeminiReply(newMessage.message, currentUser);
 
     // Chuyển đổi nội dung trả về từ Markdown thành HTML bằng marked
     const formattedReply = marked(aiReply);  

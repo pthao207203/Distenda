@@ -2,15 +2,32 @@ const User = require("../../models/user.model");
 const Course = require("../../models/course.model");
 const md5 = require("md5");
 
+module.exports.getCurrentUser = async (req, res) => {
+  const token = req.cookies.user_token;
+  if (!token) {
+    return res.status(401).json({ message: "Chưa đăng nhập" });
+  }
+
+  const user = await User.findOne({ UserToken: token }).lean();
+  if (!user) {
+    return res.status(404).json({ message: "Không tìm thấy người dùng" });
+  }
+
+  res.json(user);
+};
+
 // // [GET] /user/like/add/:CourseID
 module.exports.addLike = async (req, res) => {
   if (req.cookies.user_token) {
-    await User.updateOne({
-      _id: res.locals.user.id
-    }, {
-      $push: { UserLikes: req.params.CourseID }
-    })
-    req.flash("success", "Thêm khoá học yêu thích thành công!")
+    await User.updateOne(
+      {
+        _id: res.locals.user.id,
+      },
+      {
+        $push: { UserLikes: req.params.CourseID },
+      }
+    );
+    req.flash("success", "Thêm khoá học yêu thích thành công!");
     res.redirect("back");
   } else {
     res.render("client/pages/auth/login", {
@@ -22,12 +39,15 @@ module.exports.addLike = async (req, res) => {
 // // [GET] /user/like/cancel/:CourseID
 module.exports.cancelLike = async (req, res) => {
   if (req.cookies.user_token) {
-    await User.updateOne({
-      _id: res.locals.user.id
-    }, {
-      $pull: { UserLikes: req.params.CourseID }
-    })
-    req.flash("success", "Xoá khoá học yêu thích thành công!")
+    await User.updateOne(
+      {
+        _id: res.locals.user.id,
+      },
+      {
+        $pull: { UserLikes: req.params.CourseID },
+      }
+    );
+    req.flash("success", "Xoá khoá học yêu thích thành công!");
     res.redirect("back");
   } else {
     res.render("client/pages/auth/login", {
@@ -41,22 +61,22 @@ module.exports.pay = async (req, res) => {
   if (req.cookies.user_token) {
     const test = await User.findOne({
       _id: res.locals.user.id,
-      "UserCourse.CourseId": req.params.CourseID
-    })
-    console.log("test ", test)
+      "UserCourse.CourseId": req.params.CourseID,
+    });
+    console.log("test ", test);
     if (test) {
-      const course = await Course.findOne({ _id: req.params.CourseID })
-      req.flash("error", "Bạn đã mua khoá học!")
-      res.redirect(`/courses/${course.CourseSlug}`)
+      const course = await Course.findOne({ _id: req.params.CourseID });
+      req.flash("error", "Bạn đã mua khoá học!");
+      res.redirect(`/courses/${course.CourseSlug}`);
       return;
     }
     const course = await Course.findOne({
-      _id: req.params.CourseID
-    })
-    console.log(course)
+      _id: req.params.CourseID,
+    });
+    console.log(course);
     res.render("client/pages/courses/pay", {
       pageTitle: "Thanh toán",
-      course: course
+      course: course,
     });
   } else {
     res.render("client/pages/auth/login", {
@@ -70,12 +90,12 @@ module.exports.payPost = async (req, res) => {
   if (req.cookies.user_token) {
     const test = await User.findOne({
       _id: res.locals.user.id,
-      "UserCourse.CourseId": req.params.CourseID
-    })
+      "UserCourse.CourseId": req.params.CourseID,
+    });
     if (test) {
-      const course = await Course.findOne({ _id: req.params.CourseID })
-      req.flash("error", "Bạn đã mua khoá học!")
-      res.redirect(`/courses/${course.CourseSlug}`)
+      const course = await Course.findOne({ _id: req.params.CourseID });
+      req.flash("error", "Bạn đã mua khoá học!");
+      res.redirect(`/courses/${course.CourseSlug}`);
       return;
     }
     const newCourse = {
@@ -85,16 +105,18 @@ module.exports.payPost = async (req, res) => {
     };
 
     // Cập nhật thông tin người dùng
-    await User.updateOne({
-      _id: res.locals.user.id
-    }, {
-      $push: { UserCourse: newCourse }
-    }
+    await User.updateOne(
+      {
+        _id: res.locals.user.id,
+      },
+      {
+        $push: { UserCourse: newCourse },
+      }
     );
-    console.log(res.locals.user)
+    console.log(res.locals.user);
 
-    const course = await Course.findOne({ _id: req.params.CourseID })
-    req.flash("success", "Thanh toán thành công")
+    const course = await Course.findOne({ _id: req.params.CourseID });
+    req.flash("success", "Thanh toán thành công");
     res.redirect(`/courses/detail/${course.CourseSlug}`);
   } else {
     res.render("client/pages/auth/login", {
@@ -109,14 +131,14 @@ module.exports.profile = async (req, res) => {
   //   pageTitle: "Trang cá nhân",
   //   user: res.locals.user
   // });
-  res.json(res.locals.user)
+  res.json(res.locals.user);
 };
 
 // // [GET] /user/profile/edit
 module.exports.profileEdit = async (req, res) => {
   res.render("client/pages/user/edit", {
     pageTitle: "Trang cá nhân",
-    user: res.locals.user
+    user: res.locals.user,
   });
 };
 
@@ -128,16 +150,16 @@ module.exports.profilePost = async (req, res) => {
     if (req.body.currentPassword) {
       const user = await User.findOne({
         _id: req.body._id,
-        UserPassword: req.body.currentPassword
-      })
+        UserPassword: req.body.currentPassword,
+      });
       if (user) {
         res.json({
           code: 400,
-          message: "Sai mật khẩu!!!"
-        })
+          message: "Sai mật khẩu!!!",
+        });
         return;
       }
-      req.body.UserPassword = md5(req.body.newPassword)
+      req.body.UserPassword = md5(req.body.newPassword);
     }
     const editedBy = {
       UserId: res.locals.user.id,
@@ -156,15 +178,15 @@ module.exports.profilePost = async (req, res) => {
     // req.flash("success", "Cập nhật thành công!");
     res.json({
       code: 200,
-      message: "Cập nhật thành công"
-    })
+      message: "Cập nhật thành công",
+    });
   } catch (error) {
     // req.flash("error", "Cập nhật thất bại!");
-    console.log(error)
+    console.log(error);
     res.json({
       code: 400,
-      message: "Cập nhật thất bại!"
-    })
+      message: "Cập nhật thất bại!",
+    });
   }
   // res.redirect(`${systemConfig.prefixAdmin}/user`);
 };
@@ -172,42 +194,46 @@ module.exports.profilePost = async (req, res) => {
 // [POST] /user/comment/add/:CourseID
 module.exports.addComment = async (req, res) => {
   if (req.cookies.user_token) {
-    console.log(req.body)
+    console.log(req.body);
     req.body.Rate = parseInt(req.body.Rate);
     const test = await User.findOne({
       "UserCourse.CourseId": req.params.CourseID,
       _id: res.locals.user._id,
-    })
+    });
     if (!test) {
       res.json({
         code: 400,
-        message: "Bạn chưa mua khoá học!"
-      })
+        message: "Bạn chưa mua khoá học!",
+      });
       return;
     }
 
-    await User.updateOne({
-      "UserCourse.CourseId": req.params.CourseID,
-      _id: res.locals.user._id,
-    }, {
-      'UserCourse.$.CourseReview': 1
-    }
-    );
-    console.log(res.locals.user)
-
-    await Course.updateOne({ _id: req.params.CourseID }, {
-      $push: {
-        CourseReview: {
-          UserId: res.locals.user._id,
-          Rate: req.body.Rate,
-          Comment: req.body.Comment,
-        }
-
+    await User.updateOne(
+      {
+        "UserCourse.CourseId": req.params.CourseID,
+        _id: res.locals.user._id,
       },
-    })
+      {
+        "UserCourse.$.CourseReview": 1,
+      }
+    );
+    console.log(res.locals.user);
 
-    const course = await Course.findOne({ _id: req.params.CourseID })
-    req.flash("success", "Thanh toán thành công")
+    await Course.updateOne(
+      { _id: req.params.CourseID },
+      {
+        $push: {
+          CourseReview: {
+            UserId: res.locals.user._id,
+            Rate: req.body.Rate,
+            Comment: req.body.Comment,
+          },
+        },
+      }
+    );
+
+    const course = await Course.findOne({ _id: req.params.CourseID });
+    req.flash("success", "Thanh toán thành công");
     res.redirect(`/courses/detail/${course.CourseSlug}`);
   } else {
     res.render("client/pages/auth/login", {

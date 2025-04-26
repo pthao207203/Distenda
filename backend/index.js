@@ -15,12 +15,15 @@ const systemConfig = require("./config/system");
 
 const routeAdmin = require("./routes/admin/index.route");
 const routeClient = require("./routes/client/index.route");
+const userRoutes = require("./routes/client/user.route");
 
 const database = require("./config/database");
 database.connect();
 
 const app = express();
 const port = process.env.PORT;
+
+// app.use("/user", userRoutes);
 
 app.use(
   "/tinymce",
@@ -32,6 +35,7 @@ app.use(cors({
   credentials: true // Cho phép gửi cookies
 }));
 app.use(methodOverride("_method"));
+// app.use(require("cookie-parser")());
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -73,3 +77,4 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

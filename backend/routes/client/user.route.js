@@ -19,4 +19,6 @@ router.get("/profile/edit", controller.profileEdit);
 
 router.post('/comment/add/:CourseID', controller.addComment)
 
+router.get("/me", controller.getCurrentUser);
+
 module.exports = router;
