@@ -1,7 +1,9 @@
 const User = require("../../models/user.model");
 const Course = require("../../models/course.model");
+const Lesson = require("../../models/lesson.model");
 const Video = require("../../models/video.model");
 const md5 = require("md5");
+const mongoose = require("mongoose");
 
 // // [GET] /user/like/add/:CourseID
 module.exports.addLike = async (req, res) => {
@@ -235,136 +237,156 @@ module.exports.markVideoAsCompleted = async (req, res) => {
   const userId = res.locals.user._id;
 
   try {
-    // Tìm người dùng theo userId
+    // Đảm bảo user + khóa học tồn tại
     const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Tìm khóa học của người dùng trong UserCourse
-    const userCourse = user.UserCourse.find(
-      (course) => course.CourseId === courseId
-    );
-    if (!userCourse) {
+    const userCourse = user.UserCourse.find((c) => c.CourseId === courseId);
+    if (!userCourse)
       return res.status(404).json({ message: "Course not found for user" });
-    }
 
-    // Tìm video từ videoId và lấy LessonId
+    // Lấy lessonId từ video
     const video = await Video.findById(videoId);
-    if (!video) {
-      return res.status(404).json({ message: "Video not found" });
-    }
-
+    if (!video) return res.status(404).json({ message: "Video not found" });
     const lessonId = video.LessonId;
-    console.log("LessonId:", lessonId); // Log lessonId để kiểm tra
 
-    // Kiểm tra nếu CourseProcess là mảng rỗng, nếu có, khởi tạo nó
-    if (!userCourse.CourseProcess) {
-      userCourse.CourseProcess = []; // Khởi tạo mảng nếu trống
+    // Nếu chưa có CourseProcess thì push mảng mới
+    if (!Array.isArray(userCourse.CourseProcess)) {
+      await User.updateOne(
+        { _id: userId, "UserCourse.CourseId": courseId },
+        { $set: { "UserCourse.$.CourseProcess": [] } }
+      );
     }
 
-    // Tìm bài học trong CourseProcess
-    let lessonIndex = userCourse.CourseProcess.findIndex(
-      (process) => process.LessonId === lessonId
+    // Nếu chưa có lesson dựa theo lessonId này, tạo mới kèm video đầu
+    const hasLesson = userCourse.CourseProcess.some(
+      (l) => l.LessonId === lessonId
     );
-    console.log("LessonIndex:", lessonIndex); // Log lessonIndex để kiểm tra
-
-    if (lessonIndex === -1) {
-      // Nếu chưa có LessonId trong CourseProcess, thêm mới
-      console.log("Adding new lesson to CourseProcess");
+    if (!hasLesson) {
       await User.updateOne(
         { _id: userId, "UserCourse.CourseId": courseId },
         {
           $push: {
             "UserCourse.$.CourseProcess": {
               LessonId: lessonId,
-              LessonStatus: 0, // Mới bắt đầu, trạng thái là chưa hoàn thành
-              LessonProcess: [videoId], // Thêm videoId vào LessonProcess
+              LessonStatus: 0,
+              LessonProcess: [videoId],
             },
           },
         }
       );
-            // Cập nhật lại lessonIndex sau khi thêm mới
-            lessonIndex = userCourse.CourseProcess.length - 1;
     } else {
-      // Cập nhật LessonProcess của bài học có LessonId đã tồn tại
+      // Ngược lại, nếu có, addToSet videoId
       await User.updateOne(
-        { _id: userId, "UserCourse.CourseId": courseId, "UserCourse.CourseProcess.LessonId": lessonId },
         {
-          $addToSet: {
-            "UserCourse.$.CourseProcess.$[lesson].LessonProcess": videoId, // Thêm videoId vào LessonProcess nếu chưa có
+          _id: userId,
+          "UserCourse.CourseId": courseId,
+          "UserCourse.CourseProcess": {
+            $elemMatch: {
+              LessonId: lessonId,
+              LessonStatus: 0,
+            },
           },
         },
         {
-          arrayFilters: [
-            { "lesson.LessonId": lessonId }, // Điều kiện lọc đúng bài học
-          ],
+          $addToSet: {
+            "UserCourse.$.CourseProcess.$[lesson].LessonProcess": videoId,
+          },
+        },
+        { arrayFilters: [{ "lesson.LessonId": lessonId }] }
+      );
+    }
+
+    // Đếm completedCount bằng aggregation
+    const [lessonStats] = await User.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+      { $unwind: "$UserCourse" },
+      { $match: { "UserCourse.CourseId": courseId } },
+      { $unwind: "$UserCourse.CourseProcess" },
+      { $match: { "UserCourse.CourseProcess.LessonId": lessonId } },
+      {
+        $project: {
+          completedCount: { $size: "$UserCourse.CourseProcess.LessonProcess" },
+        },
+      },
+    ]);
+    const completedCount = lessonStats?.completedCount || 0;
+
+    // Đếm tổng video của lesson
+    const totalVideos = await Video.countDocuments({ LessonId: lessonId });
+
+    // Nếu đã xong tất cả video trong lesson, update LessonStatus=1 đồng thời clear LessonProcess
+    if (completedCount === totalVideos) {
+      await User.updateOne(
+        {
+          _id: userId,
+          "UserCourse.CourseId": courseId,
+          "UserCourse.CourseProcess.LessonId": lessonId,
+        },
+        {
+          $set: {
+            "UserCourse.$.CourseProcess.$[lesson].LessonStatus": 1,
+            "UserCourse.$.CourseProcess.$[lesson].LessonProcess": [],
+          },
+        },
+        { arrayFilters: [{ "lesson.LessonId": lessonId }] }
+      );
+    }
+
+    // Đếm số lesson thực có trong course
+    const totalLessons = await Lesson.countDocuments({ CourseId: courseId });
+
+    // Đếm số lesson đã hoàn thành của user để quyết định CourseStatus
+    const [courseStats] = await User.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(userId) } },
+      { $unwind: "$UserCourse" },
+      { $match: { "UserCourse.CourseId": courseId } },
+      {
+        $project: {
+          doneLessons: {
+            $size: {
+              $filter: {
+                input: "$UserCourse.CourseProcess",
+                as: "l",
+                cond: { $eq: ["$$l.LessonStatus", 1] },
+              },
+            },
+          },
+        },
+      },
+    ]);
+
+    const doneLessons = courseStats?.doneLessons || 0;
+
+    console.log("doneLessons", doneLessons);
+    console.log("totalLessons", totalLessons);
+    // Khi tất cả lesson done: mark CourseStatus = 1 và clear LessonProcess
+    if (doneLessons > 0 && doneLessons === totalLessons) {
+      await User.updateOne(
+        { _id: userId, "UserCourse.CourseId": courseId },
+        {
+          $set: {
+            "UserCourse.$.CourseStatus": 1,
+            "UserCourse.$.CourseProcess": [],
+          },
         }
       );
     }
-    const lesson = userCourse.CourseProcess[lessonIndex];
 
-     // Kiểm tra xem LessonProcess có phải là mảng và không rỗng
-     if (Object.keys(lesson.LessonProcess).length > 0) {
-      // Đếm số video trong bài học
-      const totalVideosInLesson = await Video.countDocuments({
-        LessonId: lessonId,
-      });
-
-      // Kiểm tra nếu tất cả video trong LessonProcess đã hoàn thành
-      const allVideosCompleted =
-      Object.keys(lesson.LessonProcess).length === totalVideosInLesson;
-      console.log("video process", Object.keys(lesson.LessonProcess).length );
-      if (allVideosCompleted) {
-        // Cập nhật LessonStatus = 1 khi tất cả video trong bài học hoàn thành
-        await User.updateOne(
-          { _id: userId, "UserCourse.CourseId": courseId },
-          {
-            $set: { "UserCourse.$.CourseProcess.$[lesson].LessonStatus": 1 },
-          },
-          {
-            arrayFilters: [
-              { "lesson.LessonId": lessonId },
-            ],
-          }
-        );
-
-        // Kiểm tra nếu tất cả bài học trong khóa học đã hoàn thành
-        const allLessonsCompleted = userCourse.CourseProcess.every(
-          (lesson) => lesson.LessonStatus === 1
-        );
-
-        if (allLessonsCompleted) {
-          // Cập nhật CourseStatus = 1 khi tất cả bài học trong khóa học hoàn thành
-          await User.updateOne(
-            { _id: userId, "UserCourse.CourseId": courseId },
-            {
-              $set: { "UserCourse.$.CourseStatus": 1 },
-            }
-          );
-          // Xóa LessonProcess khi khóa học hoàn thành
-          await User.updateOne(
-            { _id: userId, "UserCourse.CourseId": courseId },
-            {
-              $set: { "UserCourse.$.CourseProcess.$[].LessonProcess": [] },
-            }
-          );
-        }
-      }
-    } else {
-      console.log("LessonProcess is empty or not an array");
-    }
-
-    res.status(200).json({
-      message: "Video progress updated successfully",
-      user,
+    // Trả về user mới nhất
+    const updatedUser = await User.findById(userId);
+    return res.status(200).json({
+      message: "Đã cập nhật tiến trình video thành công",
+      user: updatedUser,
     });
   } catch (error) {
     console.error("Error updating video progress:", error);
-    res.status(500).json({ message: "Error updating video progress", error });
+    return res.status(500).json({
+      message: "Error updating video progress",
+      error: error.message,
+    });
   }
 };
-
 
 // [GET] /user/video-status/:courseId
 module.exports.getVideoStatus = async (req, res) => {
