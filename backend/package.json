@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/genai": "^0.10.0",
     "@google/generative-ai": "^0.24.0",
     "axios": "^1.8.4",
     "body-parser": "^1.20.3",
@@ -25,7 +26,7 @@
     "express-session": "^1.18.1",
     "google-auth-library": "^9.15.1",
     "lodash": "^4.17.21",
-    "marked": "^15.0.8",
+    "marked": "^15.0.11",
     "md5": "^2.3.0",
     "method-override": "^3.0.0",
     "moment": "^2.30.1",

@@ -12,6 +12,7 @@ const paySchema = new mongoose.Schema(
     PayVoucher: String,
     PayTeacher: Number,
     PayProfit: Number,
+    orderId: String,
     createdBy: {
       UserId: String,
       createdAt: {

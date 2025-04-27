@@ -25,7 +25,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import UserProfile from './screens/User/ProfileUser/ProfilePage';
 import UserNotification from './screens/User/Notification/NotificationsPage';
 import AIChating from './screens/User/ChatBoxAI/AIChating';
-
+import HandlePayment from './screens/User/Payment/HandlePayment';
 import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
 import MyCourseCompleted from './screens/PublishUser/MyCourseCompleted/CoursePage';
 import MyCourseStudying from './screens/PublishUser/MyCourseStudying/CoursePage';
@@ -69,6 +69,7 @@ function App() {
               <Route path='/user/profile' element={<UserProfile />} />
               <Route path='/user/notification' element={<UserNotification />} />
               <Route path='/user/aichating' element={<AIChating />} />
+              <Route path="/courses/handle-payment" element={<HandlePayment />} />
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />
             </Route>
             <Route element={<MainPublic />} >
