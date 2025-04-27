@@ -22,7 +22,12 @@ export default function HandlePayment() {
         setShowPopup(true);
       })
       .catch(err => {
-        setPopupContent("⚠️ Lỗi xác nhận thanh toán!");
+        if (err.response) {
+          console.log("🔥 Lỗi backend:", err.response.data);
+          setPopupContent(`⚠️ ${err.response.data.message}`);
+        } else {
+          setPopupContent("⚠️ Lỗi kết nối server!");
+        }
         setShowPopup(true);
       });
     } else {

@@ -2,6 +2,7 @@ const User = require("../../models/user.model");
 const Course = require("../../models/course.model");
 const Pay = require("../../models/pay.model");
 const Admin = require("../../models/admin.model");
+const Category = require("../../models/category.model");
 
 const axios = require('axios');
 const crypto = require('crypto');
@@ -49,13 +50,14 @@ module.exports.payMoMo = async (req, res) => {
       headers: { 'Content-Type': 'application/json' }
     });
 
-    // Lưu đơn hàng vào DB
+    // Lưu đơn hàng vào DB kèm response MoMo
     const pay = new Pay({
       UserId: res.locals.user.id,
       CourseId: course._id,
       PayTotal: amount,
       orderId: orderId,
       PayStatus: 0, // Đơn hàng khởi tạo, chờ thanh toán
+      PayResponse: response.data,  // Lưu toàn bộ JSON response từ MoMo
       createdBy: { UserId: res.locals.user.id }
     });
     await pay.save();
@@ -70,9 +72,6 @@ module.exports.payMoMo = async (req, res) => {
 module.exports.handleCallback = async (req, res) => {
   res.status(200).send('OK');
 };
-
-
-
 
 // // [GET] /admin/pay/
 module.exports.pay = async (req, res) => {

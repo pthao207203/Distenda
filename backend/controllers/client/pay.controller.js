@@ -59,72 +59,18 @@ module.exports.payMoMo = async (req, res) => {
     });
     console.log("Response MoMo:", response.data);
 
-    // const orderId = requestBody.orderId;
-    // const amount = requestBody.amount;
-
-    // console.log(`✅ Giao dịch ${orderId} thành công với số tiền ${amount} VND`);
-
-    // // TODO: Lấy thông tin thanh toán từ OrderId
-    // const pay = await Pay.findOne({ orderId });
-    // if (!pay) {
-    //   return res.status(400).json({ message: "Thanh toán không hợp lệ" });
-    // }
-
-    // const { UserId, CourseId } = pay;
-    // const course = await Course.findOne({ _id: CourseId });
-    // const user = await User.findOne({ _id: UserId });
-
-    // if (!course || !user) {
-    //   return res.status(404).json({ message: "Không tìm thấy thông tin người dùng hoặc khóa học" });
-    // }
-
-    // // Thực hiện cập nhật người dùng và khóa học sau thanh toán thành công
-    // const newCourse = {
-    //   CourseId: CourseId,
-    //   CourseStatus: 1, // Đánh dấu khóa học là "active"
-    //   CourseProcess: [],
-    // };
-
-    // const money = (user.UserMoney ? user.UserMoney : 0) + amount;
-
-    // // Cập nhật thông tin người dùng (thêm khóa học, cập nhật số dư tiền)
-    // await User.updateOne({
-    //   _id: UserId
-    // }, {
-    //   $push: { UserCourse: newCourse },
-    //   UserMoney: money
-    // });
-
-    // // Cập nhật thông tin thanh toán
-    // await Pay.updateOne({
-    //   UserId: UserId,
-    //   CourseId: CourseId,
-    // }, {
-    //   PayStatus: 1,  // Đánh dấu thanh toán thành công
-    //   PayTeacher: amount * course.CourseSalary / 100,  // Thanh toán cho giáo viên
-    //   PayProfit: amount * (100 - course.CourseSalary) / 100  // Lợi nhuận
-    // });
-
-    // // Cập nhật thông tin giáo viên (lương giáo viên)
-    // await Admin.updateOne({
-    //   _id: course.CourseIntructor
-    // }, {
-    //   AdminSalary: amount * course.CourseSalary / 100
-    // });
-
-    // // Cập nhật số lượng người mua và lợi nhuận khóa học
-    // const bought = course.CourseBought + 1;
-    // await Course.updateOne({
-    //   _id: CourseId
-    // }, {
-    //   CourseBought: bought,
-    //   CourseProfit: amount * (100 - course.CourseSalary) / 100
-    // });
-
-    // console.log("Thanh toán thành công và dữ liệu đã được cập nhật");
-
-    // res.status(200).send('IPN Received and processed successfully');
-
+    const pay = new Pay({
+      UserId: res.locals.user.id,
+      CourseId: course._id,
+      PayTotal: amount,
+      orderId: orderId,
+      PayStatus: 0,
+      PayResponse: response.data, // Lưu JSON response từ MoMo
+      createdBy: {
+        UserId: res.locals.user.id
+      }
+    });
+    await pay.save();
 
     return res.json({
       code: 200,
