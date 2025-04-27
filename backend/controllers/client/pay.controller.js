@@ -9,12 +9,20 @@ const momoConfig = require("../../config/momo.config");
 
 module.exports.payMoMo = async (req, res) => {
   if (!req.cookies.user_token) {
-    return res.json({ code: 401, message: "Bạn chưa đăng nhập!" });
+    return res.json({
+      code: 401,
+      message: "Bạn chưa đăng nhập!"
+    });
   }
 
-  const course = await Course.findOne({ CourseSlug: req.params.CourseSlug });
+  const course = await Course.findOne({
+    CourseSlug: req.params.CourseSlug
+  });
   if (!course) {
-    return res.json({ code: 404, message: "Không tìm thấy khóa học!" });
+    return res.json({
+      code: 404,
+      message: "Không tìm thấy khóa học!"
+    });
   }
 
   const amount = course.CoursePrice * (100 - course.CourseDiscount) / 100;
@@ -45,81 +53,36 @@ module.exports.payMoMo = async (req, res) => {
 
   try {
     const response = await axios.post('https://test-payment.momo.vn/v2/gateway/api/create', requestBody, {
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     console.log("Response MoMo:", response.data);
 
-    // const orderId = requestBody.orderId;
-    // const amount = requestBody.amount;
+    const pay = new Pay({
+      UserId: res.locals.user.id,
+      CourseId: course._id,
+      PayTotal: amount,
+      orderId: orderId,
+      PayStatus: 0,
+      PayResponse: response.data, // Lưu JSON response từ MoMo
+      createdBy: {
+        UserId: res.locals.user.id
+      }
+    });
+    await pay.save();
 
-    // console.log(`✅ Giao dịch ${orderId} thành công với số tiền ${amount} VND`);
-
-    // // TODO: Lấy thông tin thanh toán từ OrderId
-    // const pay = await Pay.findOne({ orderId });
-    // if (!pay) {
-    //   return res.status(400).json({ message: "Thanh toán không hợp lệ" });
-    // }
-
-    // const { UserId, CourseId } = pay;
-    // const course = await Course.findOne({ _id: CourseId });
-    // const user = await User.findOne({ _id: UserId });
-
-    // if (!course || !user) {
-    //   return res.status(404).json({ message: "Không tìm thấy thông tin người dùng hoặc khóa học" });
-    // }
-
-    // // Thực hiện cập nhật người dùng và khóa học sau thanh toán thành công
-    // const newCourse = {
-    //   CourseId: CourseId,
-    //   CourseStatus: 1, // Đánh dấu khóa học là "active"
-    //   CourseProcess: [],
-    // };
-
-    // const money = (user.UserMoney ? user.UserMoney : 0) + amount;
-
-    // // Cập nhật thông tin người dùng (thêm khóa học, cập nhật số dư tiền)
-    // await User.updateOne({
-    //   _id: UserId
-    // }, {
-    //   $push: { UserCourse: newCourse },
-    //   UserMoney: money
-    // });
-
-    // // Cập nhật thông tin thanh toán
-    // await Pay.updateOne({
-    //   UserId: UserId,
-    //   CourseId: CourseId,
-    // }, {
-    //   PayStatus: 1,  // Đánh dấu thanh toán thành công
-    //   PayTeacher: amount * course.CourseSalary / 100,  // Thanh toán cho giáo viên
-    //   PayProfit: amount * (100 - course.CourseSalary) / 100  // Lợi nhuận
-    // });
-
-    // // Cập nhật thông tin giáo viên (lương giáo viên)
-    // await Admin.updateOne({
-    //   _id: course.CourseIntructor
-    // }, {
-    //   AdminSalary: amount * course.CourseSalary / 100
-    // });
-
-    // // Cập nhật số lượng người mua và lợi nhuận khóa học
-    // const bought = course.CourseBought + 1;
-    // await Course.updateOne({
-    //   _id: CourseId
-    // }, {
-    //   CourseBought: bought,
-    //   CourseProfit: amount * (100 - course.CourseSalary) / 100
-    // });
-
-    // console.log("Thanh toán thành công và dữ liệu đã được cập nhật");
-
-    // res.status(200).send('IPN Received and processed successfully');
-
-
-    return res.json({ code: 200, payUrl: response.data.payUrl });
+    return res.json({
+      code: 200,
+      payUrl: response.data.payUrl
+    });
   } catch (err) {
     console.log("Lỗi MoMo:", err.message);
-    return res.status(500).json({ code: 500, message: "Lỗi khi kết nối MoMo", error: err.message });
+    return res.status(500).json({
+      code: 500,
+      message: "Lỗi khi kết nối MoMo",
+      error: err.message
+    });
   }
 };
 
@@ -127,23 +90,40 @@ module.exports.payMoMo = async (req, res) => {
 module.exports.handleCallback = async (req, res) => {
   console.log("📥 Nhận IPN từ MoMo:", req.body);
 
-  const { orderId, resultCode, amount } = req.body;
+  const {
+    orderId,
+    resultCode,
+    amount
+  } = req.body;
 
   if (resultCode === 0) {
     console.log(`✅ Giao dịch ${orderId} thành công với số tiền ${amount} VND`);
 
     // TODO: Lấy thông tin thanh toán từ OrderId
-    const pay = await Pay.findOne({ orderId });
+    const pay = await Pay.findOne({
+      orderId
+    });
     if (!pay) {
-      return res.status(400).json({ message: "Thanh toán không hợp lệ" });
+      return res.status(400).json({
+        message: "Thanh toán không hợp lệ"
+      });
     }
 
-    const { UserId, CourseId } = pay;
-    const course = await Course.findOne({ _id: CourseId });
-    const user = await User.findOne({ _id: UserId });
+    const {
+      UserId,
+      CourseId
+    } = pay;
+    const course = await Course.findOne({
+      _id: CourseId
+    });
+    const user = await User.findOne({
+      _id: UserId
+    });
 
     if (!course || !user) {
-      return res.status(404).json({ message: "Không tìm thấy thông tin người dùng hoặc khóa học" });
+      return res.status(404).json({
+        message: "Không tìm thấy thông tin người dùng hoặc khóa học"
+      });
     }
 
     // Thực hiện cập nhật người dùng và khóa học sau thanh toán thành công
@@ -159,7 +139,9 @@ module.exports.handleCallback = async (req, res) => {
     await User.updateOne({
       _id: UserId
     }, {
-      $push: { UserCourse: newCourse },
+      $push: {
+        UserCourse: newCourse
+      },
       UserMoney: money
     });
 
@@ -168,9 +150,9 @@ module.exports.handleCallback = async (req, res) => {
       UserId: UserId,
       CourseId: CourseId,
     }, {
-      PayStatus: 1,  // Đánh dấu thanh toán thành công
-      PayTeacher: amount * course.CourseSalary / 100,  // Thanh toán cho giáo viên
-      PayProfit: amount * (100 - course.CourseSalary) / 100  // Lợi nhuận
+      PayStatus: 1, // Đánh dấu thanh toán thành công
+      PayTeacher: amount * course.CourseSalary / 100, // Thanh toán cho giáo viên
+      PayProfit: amount * (100 - course.CourseSalary) / 100 // Lợi nhuận
     });
 
     // Cập nhật thông tin giáo viên (lương giáo viên)
@@ -208,7 +190,9 @@ module.exports.pay = async (req, res) => {
     })
     console.log("test ", test)
     if (test) {
-      const course = await Course.findOne({ _id: req.params.CourseID })
+      const course = await Course.findOne({
+        _id: req.params.CourseID
+      })
       req.flash("error", "Bạn đã mua khoá học!")
       res.redirect(`/courses/${course.CourseSlug}`)
       return;
@@ -250,7 +234,9 @@ module.exports.payPost = async (req, res) => {
       return;
     }
 
-    const course = await Course.findOne({ _id: CourseID });
+    const course = await Course.findOne({
+      _id: CourseID
+    });
 
     req.body.UserId = res.locals.user.id;
     req.body.CourseId = CourseID;
@@ -267,7 +253,7 @@ module.exports.payPost = async (req, res) => {
       async function addCourseUser(UserID, CourseID) {
         const newCourse = {
           CourseId: CourseID,
-          CourseStatus: 1,  // Đánh dấu khóa học là "active"
+          CourseStatus: 1, // Đánh dấu khóa học là "active"
           CourseProcess: [],
         };
 
@@ -277,7 +263,9 @@ module.exports.payPost = async (req, res) => {
         await User.updateOne({
           _id: UserID
         }, {
-          $push: { UserCourse: newCourse },
+          $push: {
+            UserCourse: newCourse
+          },
           UserMoney: money
         });
 
@@ -317,7 +305,7 @@ module.exports.payPost = async (req, res) => {
     res.json({
       code: 200,
       message: "Mua khóa học thành công!",
-      redirectUrl: `/courses/detail/${course.CourseSlug}`  // Chuyển hướng đến trang khóa học
+      redirectUrl: `/courses/detail/${course.CourseSlug}` // Chuyển hướng đến trang khóa học
     });
   } else {
     res.json({
