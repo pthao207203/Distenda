@@ -31,7 +31,6 @@ module.exports = (app) => {
   app.use('/exercise', authMiddleware.requireAuth, exerciseRoutes)
  // Gắn route callback KHÔNG cần auth
  app.use('/payment', paymentRoute);
- // Các route còn lại của pay yêu cầu đăng nhập
  app.use('/pay', payRoutes);
   app.use('/notification', authMiddleware.requireAuth, notificationRoutes)
 }

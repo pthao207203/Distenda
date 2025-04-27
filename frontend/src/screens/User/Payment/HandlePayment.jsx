@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
 import axios from "axios";
 import ThankYouPage from "./ThankYouPage";
 
@@ -14,24 +17,26 @@ export default function HandlePayment() {
 
     if (resultCode === '0') {
       axios.post('http://localhost:3001/payment/confirm', {
-        orderId,
-        amount
-      }, { withCredentials: true })
-      .then(res => {
-        setPopupContent("🎉 Thanh toán thành công! Khóa học đã được kích hoạt.");
-        setShowPopup(true);
-      })
-      .catch(err => {
-        if (err.response) {
-          console.log("🔥 Lỗi backend:", err.response.data);
-          setPopupContent(`⚠️ ${err.response.data.message}`);
-        } else {
-          setPopupContent("⚠️ Lỗi kết nối server!");
-        }
-        setShowPopup(true);
-      });
+          orderId,
+          amount
+        }, {
+          withCredentials: true
+        })
+        .then(res => {
+          setPopupContent("🎉 Thanh toán thành công! Khóa học đã được kích hoạt.");
+          setShowPopup(true);
+        })
+        .catch(err => {
+          if (err.response) {
+            console.log("Lỗi backend:", err.response.data);
+            setPopupContent(`${err.response.data.message}`);
+          } else {
+            setPopupContent("Lỗi kết nối server!");
+          }
+          setShowPopup(true);
+        });
     } else {
-      setPopupContent("❌ Thanh toán thất bại hoặc bị hủy!");
+      setPopupContent("Thanh toán thất bại hoặc bị hủy!");
       setShowPopup(true);
     }
   }, []);
