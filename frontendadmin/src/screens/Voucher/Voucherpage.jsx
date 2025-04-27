@@ -6,39 +6,67 @@ import TableHeader from "./components/TableHeader";
 import VoucherRow from "./components/VoucherRow";
 import { vouchersController } from "../../controllers/voucher.controller.js";
 import Loading from "../../components/Loading";
+// import moment from 'moment';
 
 function VoucherList() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [allVouchers, setAllVouchers] = useState([]);
+    const [filteredVouchers, setFilteredVouchers] = useState([]);
+        const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);  // Thêm state để lưu lỗi
     const location = useLocation();
     const newVoucher = location.state?.newVoucher;  // Nhận voucher mới từ state
 
     useEffect(() => {
         async function fetchData() {
-            setLoading(true);  // Bắt đầu quá trình tải dữ liệu
+            setLoading(true);
             try {
                 const result = await vouchersController(setLoading);
-                console.log("API response:", result);  // Kiểm tra dữ liệu trả về từ API
                 if (result) {
-                    setData(result);  // Cập nhật danh sách ban đầu nếu API trả về dữ liệu
+                    setAllVouchers(result);
+                    setFilteredVouchers(result);
                 }
             } catch (error) {
-                console.error("Error fetching voucher data:", error);  // In lỗi nếu có
                 setError("Không thể tải dữ liệu voucher. Vui lòng thử lại sau.");
             } finally {
-                setLoading(false);  // Tắt trạng thái tải
+                setLoading(false);
             }
         }
-
+    
         fetchData();
     }, []);
+    
+    const handleSearch = (value) => {
+        const keyword = value.toLowerCase();
+    
+        const filtered = allVouchers.filter(voucher => {
+            const code = voucher.voucherCode?.toLowerCase() || "";
+            const minAmount = voucher.minAmount?.toString() || "";
+            const discountPercent = voucher.discountPercentage?.toString() || "";
+            const discountAmount = voucher.discountAmount?.toString() || "";
+            const validity = voucher.validityPeriod?.toString() || "";
+            const statusText = voucher.status === 1 ? "hoạt động" : (voucher.status === 0 ? "tạm dừng" : "không xác định");
+    
+            return (
+                code.includes(keyword) ||
+                minAmount.includes(keyword) ||
+                discountPercent.includes(keyword) ||
+                discountAmount.includes(keyword) ||
+                validity.includes(keyword) ||
+                statusText.includes(keyword)
+            );
+        });
+    
+        setFilteredVouchers(filtered);
+    };
+    
 
     useEffect(() => {
         if (newVoucher) {
-            setData((prevData) => [...prevData, newVoucher]);  // Thêm voucher mới vào cuối danh sách
+            setAllVouchers((prev) => [...prev, newVoucher]);       // Cập nhật dữ liệu gốc
+            setFilteredVouchers((prev) => [...prev, newVoucher]);  // Cập nhật luôn dữ liệu lọc
         }
     }, [newVoucher]);
+    
 
     if (loading) {
         return <Loading />;
@@ -50,24 +78,27 @@ function VoucherList() {
                 <title>Quản lý voucher</title>
             </Helmet>
             <div className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] min-h-screen max-md:px-5 max-md:max-w-full">
-                <SearchBar />
+            <SearchBar onSearch={handleSearch} />
                 <div className="flex flex-col pb-16 mt-6 w-full text-neutral-900 max-md:max-w-full">
                     <div className="text-right max-md:max-w-full">
-                        Tổng số voucher: {data?.length || 0}
+                    Tổng số voucher: {filteredVouchers.length}
                     </div>
                     <TableHeader />
                     {error ? (
                         <div className="text-red-600">{error}</div>  // Hiển thị thông báo lỗi nếu có
                     ) : (
-                        data && data.length > 0 &&
-                        data.map((voucher, index) => (
+                        filteredVouchers.length > 0 ? (
+                            filteredVouchers.map((voucher, index) => (
                             <VoucherRow
                                 key={voucher._id}
                                 id={voucher._id}
                                 index={index}  
                                 voucher={voucher}  // Truyền dữ liệu voucher
-                            />
-                        ))
+                                />
+                            ))
+                        ) : (
+                            <p className="mt-4 text-center">Không tìm thấy voucher nào.</p>
+                        )
                     )}
                 </div>
             </div>
