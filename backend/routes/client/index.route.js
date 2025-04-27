@@ -8,6 +8,7 @@ const categoryRoutes = require("./category.route");
 const searchRoutes = require("./search.route");
 const authRoutes = require("./auth.route");
 const userRoutes = require("./user.route");
+const paymentRoute = require("./payment.route");
 const payRoutes = require("./pay.route");
 const videoRoutes = require("./video.route");
 const exerciseRoutes = require("./exercise.route");
@@ -28,6 +29,9 @@ module.exports = (app) => {
   app.use('/user', authMiddleware.requireAuth, userRoutes)
   app.use('/video', authMiddleware.requireAuth, videoRoutes)
   app.use('/exercise', authMiddleware.requireAuth, exerciseRoutes)
-  app.use('/pay', authMiddleware.requireAuth, payRoutes)
+ // Gắn route callback KHÔNG cần auth
+ app.use('/payment', paymentRoute);
+ // ⚡ Các route còn lại của pay yêu cầu đăng nhập
+ app.use('/pay', payRoutes);
   app.use('/notification', authMiddleware.requireAuth, notificationRoutes)
 }

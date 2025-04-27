@@ -3,7 +3,10 @@ import axios from "axios";
 import ProductCard from "./ProductCard";
 import UserForm from "./UserForm";
 
-export default function CheckoutPage({ onClose, ...course }) {
+export default function CheckoutPage({
+  onClose,
+  ...course
+}) {
 
   const productDetails = {
     title: `${course.CourseName}`,
@@ -21,11 +24,11 @@ export default function CheckoutPage({ onClose, ...course }) {
   const handlePayment = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/pay/${course.CourseSlug}/momo`,
-        {},  // Body rỗng nếu không cần gửi gì thêm
-        { withCredentials: true }  // Cho phép gửi cookie kèm theo request
+        `http://localhost:3001/pay/${course.CourseSlug}/momo`, {}, {
+          withCredentials: true
+        } // Cho phép gửi cookie kèm theo request
       );
-  
+
       if (response.data.code === 200) {
         window.location.href = response.data.payUrl;
       } else {
