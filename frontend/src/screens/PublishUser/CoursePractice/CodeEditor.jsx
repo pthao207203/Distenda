@@ -5,7 +5,7 @@ function CodeEditor(video) {
     <div className="flex flex-col flex-1 shrink px-2 basis-0 min-w-[240px] max-md:max-w-full">
       <div className="flex flex-col w-full bg-black min-h-[calc(100vh-200px)] max-md:max-w-full">
         <div
-          className="flex items-center justify-center w-full h-full"
+          className="flex items-center p-1 justify-center w-full h-full"
           dangerouslySetInnerHTML={{ __html: video.VideoUrl }}
         ></div>
       </div>

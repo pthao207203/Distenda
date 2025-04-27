@@ -19,4 +19,8 @@ router.get("/profile/edit", controller.profileEdit);
 
 router.post('/comment/add/:CourseID', controller.addComment)
 
+router.post("/video-status/mark-video-completed", controller.markVideoAsCompleted);
+
+router.get("/video-status/:courseId", controller.getVideoStatus)
+
 module.exports = router;
