@@ -43,7 +43,7 @@ function DashboardPage() {
           labels: data?.monthLabels,  // Nhãn tháng từ backend
           datasets: [
             {
-              label: 'Doanh Thu',  // Dataset cho 'Doanh thu'
+              label: 'Lợi Nhuận',  // Dataset cho 'Doanh thu'
               data: data?.profitData,
               borderColor: '#36a2eb',  // Màu đường biều đồ
               backgroundColor: 'rgba(54, 162, 235, 0.2)',  // Màu nền đường biểu đồ
@@ -51,7 +51,7 @@ function DashboardPage() {
               borderWidth: 2,  // Độ dày đường
             },
             {
-              label: 'Lợi Nhuận',  // Dataset cho 'Lợi nhuận'
+              label: 'Doanh Thu',  // Dataset cho 'Lợi nhuận'
               data: data?.incomeData,
               borderColor: '#FF6384',  // Màu đường biểu đồ lợi nhuận
               backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Màu nền đường biểu đồ lợi nhuận
@@ -123,15 +123,19 @@ function DashboardPage() {
   const stats = [
     {
       title: "Doanh thu",
-      value: new Intl.NumberFormat('vi-VN').format(data?.totalProfit),
-      percentage: data?.totalProfit !== 0 ? (data?.totalProfit - data?.totalProfitAgo) / data?.totalProfit * 100 : 200,
-      iconSrc: "./icons/dollar.svg",
+      value: new Intl.NumberFormat('vi-VN').format(data?.totalIncome), 
+      percentage: data?.totalIncomeAgo > 0 
+      ? ((data?.totalIncome - data?.totalIncomeAgo) / data?.totalIncomeAgo) * 100 
+      : (data?.totalIncome > 0 ? 100 : 0),
+      iconSrc: "./icons/chart.svg",
     },
     {
       title: "Lợi nhuận",
-      value: new Intl.NumberFormat('vi-VN').format(data?.totalIncome), 
-      percentage: data?.totalIncome !== 0 ? (data?.totalIncome - data?.totalIncomeAgo) / data?.totalIncome * 100 : 200,
-      iconSrc: "./icons/chart.svg",
+      value: new Intl.NumberFormat('vi-VN').format(data?.totalProfit),
+      percentage: data?.totalProfitAgo > 0 
+      ? ((data?.totalProfit - data?.totalProfitAgo) / data?.totalProfitAgo) * 100 
+      : (data?.totalProfit > 0 ? 100 : 0),
+      iconSrc: "./icons/dollar.svg",
     },
     {
       title: "Đơn hàng",

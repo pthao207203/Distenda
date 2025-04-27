@@ -54,12 +54,16 @@ module.exports.createPost = async (req, res) => {
   req.body.LessonPosition = count + 1;
 
   const lesson = new Lesson(req.body);
-
+  console.log(lesson)
   await lesson.save();
 
-  res.redirect(
-    `${systemConfig.prefixAdmin}/courses/detail/${req.params.CourseID}`
-  );
+  res.json({
+    code: 200,
+    message: "Thêm thành công!"
+  })
+  // res.redirect(
+  //   `${systemConfig.prefixAdmin}/courses/detail/${req.params.CourseID}`
+  // );
 };
 
 // [GET] /admin/lesson/edit/:LessonID

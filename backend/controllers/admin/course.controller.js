@@ -141,23 +141,27 @@ module.exports.createItem = async (req, res) => {
 
 // [POST] /admin/courses/create
 module.exports.createPost = async (req, res) => {
+  // Parse các trường giá trị
   req.body.CoursePrice = parseInt(req.body.CoursePrice);
   req.body.CourseDuration = parseInt(req.body.CourseDuration);
-  req.body.CourseDiscount = req.body.CourseDiscount
-    ? parseInt(req.body.CourseDiscount)
-    : 0;
+  req.body.CourseDiscount = req.body.CourseDiscount ? parseInt(req.body.CourseDiscount) : 0;
+
+  // Đặt thông tin người tạo
   req.body.createdBy = {
     UserId: res.locals.user.id,
   };
+
   const course = new Course(req.body);
+
+  // Lưu khóa học mới vào cơ sở dữ liệu
   await course.save();
 
   res.json({
     code: 200,
     message: "Tạo khoá học thành công!",
   });
-  // res.redirect(`${systemConfig.prefixAdmin}/courses`);
 };
+
 
 // [GET] /admin/courses/detail/:CourseID
 module.exports.detailItem = async (req, res) => {
@@ -248,23 +252,24 @@ module.exports.editItem = async (req, res) => {
 
 // [POST] /admin/courses/edit/:CourseID
 module.exports.editPost = async (req, res) => {
-  console.log(req.body.lesson);
   const { editedBy, ...updateFields } = req.body;
   updateFields.CoursePrice = parseInt(updateFields.CoursePrice);
   updateFields.CourseDuration = parseInt(updateFields.CourseDuration);
-  updateFields.CourseDiscount = updateFields.CourseDiscount
-    ? parseInt(updateFields.CourseDiscount)
-    : 0;
+  updateFields.CourseDiscount = updateFields.CourseDiscount ? parseInt(updateFields.CourseDiscount) : 0;
+
+
   if (req.file) {
     updateFields.CoursePicture = `/uploads/${req.file.filename}`;
   }
-  console.log(updateFields);
+
   const oldCourse = await Course.findOne({ _id: req.params.CourseID }).lean();
+
   try {
     const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
+
     await Course.updateOne(
       { _id: req.params.CourseID },
       {
@@ -287,20 +292,52 @@ module.exports.editPost = async (req, res) => {
         }
       }
     }
-
+    
     res.json({
       code: 200,
       message: "Cập nhật thành công!",
     });
-    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
     console.log(error);
     res.json({
       code: 400,
       message: "Cập nhật thất bại!",
     });
-    // req.flash("error", "Cập nhật thất bại!");
   }
-
-  // res.redirect(`${systemConfig.prefixAdmin}/courses/detail/${req.params.id}`);
 };
+
+// module.exports.updateAllCourseProfit = async (req, res) => {
+//   try {
+//     // Lấy tất cả các khóa học
+//     const courses = await Course.find();
+
+//     let count = 0;
+
+//     for (const course of courses) {
+//       // Lấy các giá trị từ khóa học
+//       const price = course.CoursePrice || 0;
+//       const discount = course.CourseDiscount || 0;
+//       const salary = course.CourseSalary || 0;
+
+//       // Công thức tính CourseProfit
+//       const courseProfit = (price * (1 - discount / 100)) - (price * (salary / 100));
+
+//       // Cập nhật CourseProfit cho khóa học
+//       course.CourseProfit = courseProfit;
+
+//       // Lưu lại khóa học đã cập nhật
+//       await course.save();
+//       count++;
+//     }
+
+//     // Trả về thông báo sau khi cập nhật tất cả
+//     res.json({
+//       code: 200,
+//       message: `Đã cập nhật ${count} khóa học thành công!`,
+//     });
+//   } catch (err) {
+//     console.error("❌ Lỗi khi cập nhật khóa học: ", err);
+//     res.status(500).send("Lỗi khi cập nhật dữ liệu khóa học!");
+//   }
+// };
+

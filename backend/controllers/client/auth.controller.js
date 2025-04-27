@@ -290,35 +290,41 @@ module.exports.passwordForgot = async (req, res) => {
 
 // [POST] /auth/password/otp
 module.exports.passwordOTP = async (req, res) => {
-  const UserEmail = req.body.UserEmail
-  const UserOTP = req.body.UserOTP
-  console.log(UserEmail, UserOTP)
+  try {
+    const UserEmail = req.body.UserEmail
+    const UserOTP = req.body.UserOTP
+    console.log(UserEmail, UserOTP)
 
-  const result = await ForgotPassword.findOne({
-    FPUserEmail: UserEmail,
-    FPOTP: UserOTP
-  })
-  if (!result) {
-    res.json({
-      code: 400,
-      message: "OTP không hợp lệ!"
+    const result = await ForgotPassword.findOne({
+      FPUserEmail: UserEmail,
+      FPOTP: UserOTP
     })
+    if (!result) {
+      res.json({
+        code: 400,
+        message: "OTP không hợp lệ!"
+      })
+      return;
+    }
+
+    const user = await User.findOne({
+      UserEmail: UserEmail,
+    });
+    res.cookie("user_token", user.UserToken, {
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({
+      code: 200,
+      message: "OTP hợp lệ!"
+    })
+  } catch (e) {
+    console.log(e)
   }
 
-  const user = await User.findOne({
-    UserEmail: UserEmail
-  })
-  res.cookie("user_token", user.UserToken, {
-    secure: true,
-    httpOnly: false,
-    sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
-
-  res.json({
-    code: 200,
-    message: "OTP hợp lệ!"
-  })
 };
 
 // [POST] /auth/password/new

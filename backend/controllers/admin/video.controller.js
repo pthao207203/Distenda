@@ -87,10 +87,11 @@ module.exports.editItem = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/video/edit/:VideoID
-module.exports.editPatch = async (req, res) => {
+// [POST] /admin/video/edit/:VideoID
+module.exports.editPost = async (req, res) => {
   try {
-    const editedBy = {
+    const { editedBy, ...updateFields } = req.body;
+    const newEditedBy = {
       UserId: res.locals.user.id,
       editedAt: new Date(),
     };
@@ -98,21 +99,29 @@ module.exports.editPatch = async (req, res) => {
     await Video.updateOne(
       { _id: req.params.VideoID },
       {
-        ...req.body,
-        $push: { editedBy: editedBy },
+        ...updateFields,
+        $push: { editedBy: newEditedBy },
       }
     );
-
-    req.flash("success", "Cập nhật thành công!");
+    res.json({
+      code: 200,
+      message: "Cập nhật bài học thành công!"
+    })
+    // req.flash("success", "Cập nhật thành công!");
   } catch (error) {
-    req.flash("error", "Cập nhật thất bại!");
+    res.json({
+      code: 400,
+      message: "Cập nhật bài học thất bại!"
+    })
+    console.log(error)
+    // req.flash("error", "Cập nhật thất bại!");
   }
-  const find = {
-    VideoDeleted: 1,
-    _id: req.params.VideoID,
-  };
-  const video = await Video.findOne(find);
-  res.redirect(`${systemConfig.prefixAdmin}/lesson/detail/${video.LessonId}`);
+  // const find = {
+  //   VideoDeleted: 1,
+  //   _id: req.params.VideoID,
+  // };
+  // const video = await Video.findOne(find);
+  // res.redirect(`${systemConfig.prefixAdmin}/lesson/detail/${video.LessonId}`);
 };
 
 // [GET] /admin/video/detail/:VideoID
