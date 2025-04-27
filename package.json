@@ -21,6 +21,7 @@
     "mime": "^4.0.7",
     "openai": "^4.94.0",
     "react": "^18.2.0",
+    "react-circular-progressbar": "^2.2.0",
     "react-codemirror2": "^8.0.1",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
