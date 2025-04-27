@@ -51,6 +51,7 @@ export default function SideBar({ headerHeight }) {
     (role?.role?.RolePermissions?.includes("role_view") && { link: "/authorities", icon: "/icons/setting.svg", label: "Phân quyền" }),
     (role?.role?.RolePermissions?.includes("error_view") && { link: "/notification", icon: "/icons/notification.svg", label: "Thông báo" }),
     (role?.role?.RolePermissions?.includes("setting_view") && { link: "/setting", icon: "/icons/category.svg", label: "Thông tin web" }),
+    (role?.role?.RolePermissions?.includes("message_view") && { link: "/message", icon: "/icons/category.svg", label: "Tin nhắn" }),
   ].filter(item => item);;
   
   const adminAvatar = data?.setting?.user?.AdminAvatar || "/profile.svg";

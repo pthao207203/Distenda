@@ -9,9 +9,10 @@ cloudinary.config({
 
 module.exports.upload = (req, res, next) => {
   if (req.file) {
-    let streamUpload = (req) => {
+    let streamUpload = (req, resourceType = 'auto') => {
       return new Promise((resolve, reject) => {
         let stream = cloudinary.uploader.upload_stream(
+          { resource_type: resourceType },
           (error, result) => {
             if (result) {
               resolve(result);
@@ -26,7 +27,10 @@ module.exports.upload = (req, res, next) => {
     };
 
     async function upload(req) {
-      let result = await streamUpload(req);
+      const fileType = req.file.mimetype;
+      const resourceType = fileType.startsWith('image/') ? 'image' : 'raw';
+
+      let result = await streamUpload(req, resourceType);
       req.body[req.file.fieldname] = `${result.secure_url}`;
       next();
     }

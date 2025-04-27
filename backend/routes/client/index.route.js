@@ -13,6 +13,7 @@ const videoRoutes = require("./video.route");
 const exerciseRoutes = require("./exercise.route");
 const bannerRoutes = require("./banner.route");
 const notificationRoutes = require("./notification.route");
+const messageRoutes = require("./message.route");
 
 module.exports = (app) => {
   app.use(categoryHeader.CateHeader);
@@ -30,4 +31,5 @@ module.exports = (app) => {
   app.use('/exercise', authMiddleware.requireAuth, exerciseRoutes)
   app.use('/pay', authMiddleware.requireAuth, payRoutes)
   app.use('/notification', authMiddleware.requireAuth, notificationRoutes)
+  app.use('/message', authMiddleware.requireAuth, messageRoutes)
 }

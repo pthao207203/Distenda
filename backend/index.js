@@ -22,6 +22,7 @@ database.connect();
 const app = express();
 const port = process.env.PORT;
 
+
 // TiniMCE
 app.use(
   "/tinymce",
@@ -73,6 +74,34 @@ app.get("*", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+
+
+// Dùng app.listen để gắn socket.io trực tiếp (KHÔNG cần http.createServer)
+const io = require('socket.io')(app.listen(port, () => {
+  console.log(`🚀 Server with Socket.IO is running on port ${port}`);
+}), {
+  cors: {
+    origin: ["http://localhost:3000", "http://localhost:3002"],
+    methods: ["GET", "POST"],
+    credentials: true
+  }
 });
+
+// Socket.IO events
+io.on('connection', (socket) => {
+  console.log('🔌 Client connected: ' + socket.id);
+
+  socket.on('sendMessage', (data) => {
+    console.log('📩 Message từ client:', data);
+    io.emit('receiveMessage', data);   // Broadcast cho tất cả client
+  });
+
+  socket.on('disconnect', () => {
+    console.log('❌ Client disconnected: ' + socket.id);
+  });
+});
+
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
