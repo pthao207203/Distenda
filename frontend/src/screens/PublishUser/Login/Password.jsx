@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { loginNewController } from '../../../controllers/auth.controller.js';
+import { loginNewController } from "../../../controllers/auth.controller.js";
 
 function Password() {
   const [formData, setFormData] = useState({
-    UserPassword: '',
-    UserPasswordAgain: '',
-  })
+    UserPassword: "",
+    UserPasswordAgain: "",
+  });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
@@ -19,22 +19,22 @@ function Password() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data:', formData);
+    console.log("Form data:", formData);
     setError(null);
     setSuccess(null);
 
     // Kiểm tra mật khẩu có khớp không
     if (formData.UserPassword !== formData.UserPasswordAgain) {
-      alert('Mật khẩu không khớp!');
+      alert("Mật khẩu không khớp!");
       return;
     }
 
-    // Gửi dữ liệu tới server 
+    // Gửi dữ liệu tới server
     const result = await loginNewController(formData, setSuccess, setError);
-    console.log(result.code)
+    console.log(result.code);
     if (result.code === 200) {
-      alert('Đổi mật khẩu thành công!');
-      navigate("/courses")
+      alert("Đổi mật khẩu thành công!");
+      navigate("/courses");
     }
   };
   return (
@@ -46,12 +46,19 @@ function Password() {
           </h2>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full max-md:max-w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col w-full max-md:max-w-full"
+      >
         <div className="flex flex-col w-full text-lg max-md:text-[16px] text-white">
           <div className="flex flex-col mt-4 w-full">
-            <label htmlFor="password" className="self-start">Nhập mật khẩu mới</label>
+            <label htmlFor="password" className="self-start">
+              Nhập mật khẩu mới
+            </label>
             <input
-              className={"mt-1 w-full px-4 py-2 bg-white/0 text-white border border-solid  border-[#d0d7df]"}
+              className={
+                "mt-[10px] w-full px-[8px] py-[4px] bg-white/0 text-white border border-solid min-w-[250px] border-[#d0d7df]"
+              }
               type="password"
               id="password"
               required
@@ -62,9 +69,13 @@ function Password() {
             />
           </div>
           <div className="flex flex-col mt-4 w-full">
-            <label htmlFor="Xác nhận mật khẩu" className="self-start">Xác nhận mật khẩu</label>
+            <label htmlFor="Xác nhận mật khẩu" className="self-start">
+              Xác nhận mật khẩu
+            </label>
             <input
-              className={"mt-1 w-full px-4 py-2 bg-white/0 text-white border border-solid  border-[#d0d7df]"}
+              className={
+                "mt-1 w-full px-4 py-2 bg-white/0 text-white border border-solid  border-[#d0d7df]"
+              }
               type="password"
               id="Xác nhận mật khẩu"
               required
@@ -77,7 +88,10 @@ function Password() {
         </div>
         {error && <p className="mt-4 text-red-500">{error}</p>}
         {success && <p className="mt-4 text-[#CFF500]">{success}</p>}
-        <button type="submit" className="flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full">
+        <button
+          type="submit"
+          className="flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full"
+        >
           Xác nhận
         </button>
       </form>
@@ -86,4 +100,3 @@ function Password() {
 }
 
 export default Password;
-

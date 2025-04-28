@@ -38,8 +38,10 @@ module.exports.loginGoogle = async (req, res) => {
 
     // Lưu token vào cookie
     res.cookie("user_token", user.UserToken, {
-      secure: false,
-      maxAge: 24 * 60 * 60 * 1000, // Cookie tồn tại trong 1 ngày
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     // Trả về phản hồi thành công
@@ -82,8 +84,10 @@ module.exports.loginFacebook = async (req, res) => {
     }
 
     res.cookie("user_token", user.UserToken, {
-      secure: false,
-      maxAge: 24 * 60 * 60 * 1000,
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.json({
@@ -157,9 +161,9 @@ module.exports.loginPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng nhập thành công!");
   // res.redirect(`/`);
@@ -224,9 +228,9 @@ module.exports.registerPost = async (req, res) => {
 
   res.cookie("user_token", user.UserToken, {
     secure: true,
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'None',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian hết hạn cookie (1 ngày)
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   // req.flash("success", "Đăng ký thành công!");
   // res.redirect(`/`);
@@ -288,30 +292,41 @@ module.exports.passwordForgot = async (req, res) => {
 
 // [POST] /auth/password/otp
 module.exports.passwordOTP = async (req, res) => {
-  const UserEmail = req.body.UserEmail;
-  const UserOTP = req.body.UserOTP;
-  console.log(UserEmail, UserOTP);
+  try {
+    const UserEmail = req.body.UserEmail
+    const UserOTP = req.body.UserOTP
+    console.log(UserEmail, UserOTP)
 
-  const result = await ForgotPassword.findOne({
-    FPUserEmail: UserEmail,
-    FPOTP: UserOTP,
-  });
-  if (!result) {
-    res.json({
-      code: 400,
-      message: "OTP không hợp lệ!",
+    const result = await ForgotPassword.findOne({
+      FPUserEmail: UserEmail,
+      FPOTP: UserOTP
+    })
+    if (!result) {
+      res.json({
+        code: 400,
+        message: "OTP không hợp lệ!"
+      })
+      return;
+    }
+
+    const user = await User.findOne({
+      UserEmail: UserEmail,
     });
+    res.cookie("user_token", user.UserToken, {
+      secure: true,
+      httpOnly: false,
+      sameSite: 'None',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({
+      code: 200,
+      message: "OTP hợp lệ!"
+    })
+  } catch (e) {
+    console.log(e)
   }
 
-  const user = await User.findOne({
-    UserEmail: UserEmail,
-  });
-  res.cookie("user_token", user.UserToken);
-
-  res.json({
-    code: 200,
-    message: "OTP hợp lệ!",
-  });
 };
 
 // [POST] /auth/password/new

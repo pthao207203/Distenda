@@ -52,7 +52,7 @@ export default function Header({ setHeight }) {
       ref={headerRefPublic}
       className="bg-[url('/Image/BG.png')] bg-cover bg-center bg-fixed fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-[40px] "
     >
-      <div className="flex items-start justify-center px-[20px] py-3 text-white lg:gap-5">
+      <div className="flex items-start justify-stretch px-[20px] py-3 text-white">
         {/* Logo */}
         <div
           style={{ flexBasis: "auto", textAlign: "center" }}
@@ -66,7 +66,7 @@ export default function Header({ setHeight }) {
         </div>
 
         <nav
-          className="flex gap-[30px] items-center text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
+          className="flex flex-1 h-full gap-[30px] items-center justify-end text-[1.25rem] max-lg:text-[14px] font-semibold text-center overflow-x-auto scrollbar-hide"
           style={{ whiteSpace: "nowrap" }}
         >
           <Link

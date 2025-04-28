@@ -45,6 +45,32 @@ export const lessonUpdatePostService = async (LessonID, data) => {
   }
 };
 
+export const lessonCreatePostService = async (lessonName, courseID) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/lesson/create/${courseID}`, {
+      method: "POST",
+      body: JSON.stringify({ LessonName: lessonName }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+    });
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/courses/create/${courseID}`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    console.log("error", error)
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
 export const lessonDeleteService = async (LessonID) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/lesson/delete/${LessonID}`, {
@@ -110,6 +136,32 @@ export const videoDetailService = async (VideoID) => {
     return responseData; // Trả về dữ liệu
   } catch (error) {
     console.log(error)
+    throw new Error(error); // Thông báo lỗi
+  }
+};
+
+export const videoUpdatePostService = async (VideoID, data) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/video/edit/${VideoID}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+    });
+    console.log(`${process.env.REACT_APP_API_BASE_URL}/admin/video/create/${VideoID}`)
+
+    if (!response.ok) {
+      throw new Error('Lỗi!!!');
+    }
+
+    const responseData = await response.json();
+    console.log("response", responseData);
+
+    return responseData; // Trả về dữ liệu
+  } catch (error) {
+    console.log("error", error)
     throw new Error(error); // Thông báo lỗi
   }
 };

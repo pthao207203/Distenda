@@ -16,7 +16,7 @@ function Login() {
         <Col
           md={12}
           lg={12}
-          className="relative flex self-center max-lg:self-start px-20 py-10 mt-10 max-w-full bg-white/10 backdrop-blur-[10px] max-lg:px-[20px] max-lg:mt-[20px]"
+          className="relative flex self-center max-lg:self-start lg:px-20 lg:py-10 mt-10 max-w-full bg-white/10 backdrop-blur-[10px] max-lg:px-[30px] max-lg:py-[20px] max-lg:mt-[20px]"
         >
           {currentForm === "LoginForm" && (
             <LoginForm

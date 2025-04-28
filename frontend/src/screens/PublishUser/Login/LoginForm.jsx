@@ -108,17 +108,33 @@ function LoginForm({ onForgotPassword }) {
           </div>
         </div>
         <div className="flex flex-col gap-3 mt-[4px] w-full max-lg:text-lg max-lg:max-w-full">
-          {/* <LoginButton provider="Facebook" iconSrc="Icon/FBicon.svg" />
-          <LoginButton provider="Google" iconSrc="Icon/GGicon.svg" /> */}
-          <FacebookLoginButton
+          {/* <LoginButton
+            provider="Facebook"
+            iconSrc="Icon/FBicon.svg"
+            onSuccess={handleFacebookLoginSuccess}
+            onFailure={handleFacebookLoginFailure}
+          /> */}
+          <LoginButton
+            provider="Google"
+            iconSrc="Icon/GGicon.svg"
             onSuccess={handleFacebookLoginSuccess}
             onFailure={handleFacebookLoginFailure}
           />
-          <LoginButton
+          <FacebookLoginButton
+            provider="Facebook"
+            iconSrc="Icon/FBicon.svg"
+            onSuccess={handleFacebookLoginSuccess}
+            onFailure={handleFacebookLoginFailure}
+          />
+          {/* <LoginButton
             onSuccess={handleGoogleLoginSuccess}
             onFailure={handleGoogleLoginFailure}
-          />
-          {error && <p>{error}</p>}
+          /> */}
+          {/* {error && (
+            <p className="pt-[4px] text-[1.125rem] max-lg:text-[12px] text-red-500">
+              {error}
+            </p>
+          )} */}
         </div>
       </div>
 
@@ -188,8 +204,16 @@ function LoginForm({ onForgotPassword }) {
             Quên mật khẩu
           </button>
         </div>
-        {error && <p className="mt-4 text-red-500">{error}</p>}
-        {success && <p className="mt-4 text-[#CFF500]">{success}</p>}
+        {error && (
+          <p className="text-[1.125rem] max-lg:text-[12px] text-red-500">
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="text-[1.125rem] max-lg:text-[12px] text-[#CFF500]">
+            {success}
+          </p>
+        )}
         <button
           type="submit"
           className="flex flex-wrap gap-5 justify-center items-center mt-4 max-lg:mt-[16px] w-full text-[1.25rem] max-lg:text-[14px] font-normal bg-[#CFF500] min-h-[40px] text-neutral-900 max-lg:max-w-full"

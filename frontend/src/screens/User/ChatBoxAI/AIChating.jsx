@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { marked } from "marked";
 import ChatArea from "./ChatArea";
@@ -119,8 +119,8 @@ function AIChating() {
   };
 
   return (
-    <main className="h-screen w-full flex flex-col bg-center bg-cover backdrop-blur-[10px] max-md:px-5">
-      <div className="flex-1 overflow-y-auto flex flex-col justify-center max-h-[calc(100vh-200px)]">
+    <main className="h-screen w-full flex flex-col bg-center bg-cover backdrop-blur-[10px] max-md:px-5 max-h-[calc(100vh-100px)]">
+      <div className="flex-1 flex flex-col justify-center max-h-[calc(100vh-200px)]">
         {hasStartedChat ? (
           <ChatArea2 messages={messages} />
         ) : (

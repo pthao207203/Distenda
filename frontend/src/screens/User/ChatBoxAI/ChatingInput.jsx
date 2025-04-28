@@ -10,10 +10,10 @@ const ChatingInput = ({ onSendMessage }) => {
       message: inputMessage,
       time: new Date().toLocaleTimeString(),
     };
-    onSendMessage(newMessage);  
+    onSendMessage(newMessage);
 
     // Reset input sau khi gửi
-    setInputMessage("");  
+    setInputMessage("");
   };
 
   return (
@@ -24,6 +24,11 @@ const ChatingInput = ({ onSendMessage }) => {
         className="flex-1 text-xl border-[none] text-neutral-900 focus:outline-none"
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSend();
+          }
+        }}
         aria-label="Message input"
       />
       <button onClick={handleSend} aria-label="Send message">
