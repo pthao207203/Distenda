@@ -35,7 +35,7 @@ const MainAdmin = () => {
       <Header setHeaderHeight={setHeaderHeight} handleTaskBarToggle={handleTaskBarToggle} />
       <SideBar headerHeight={headerHeight} />
       <div
-        className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[320px]"}`}
+        className={`mt-[${headerHeight}px] transition-all duration-300 ${isDesktop && "ml-[15.625rem]"}`}
       >
         {isTaskBarVisible && (
           <div className="fixed inset-0 z-50 flex items-start justify-end right-[18px] max-md:right-1"

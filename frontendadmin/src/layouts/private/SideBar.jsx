@@ -108,7 +108,7 @@ export default function SideBar({ headerHeight }) {
       )}
       <aside
         className={`fixed top-0 left-0 z-40 bg-white text-white min-h-screen transition-all duration-300 ${
-          isDesktop || isOpen ? `w-[310px] mt-[${headerHeight}px]` : "w-0 "
+          isDesktop || isOpen ? `w-[15rem] mt-[${headerHeight}px]` : "w-0 "
         } overflow-hidden`}
         // Thay thế giá trị top bằng chiều cao header
         style={{
@@ -116,7 +116,7 @@ export default function SideBar({ headerHeight }) {
         }}
         onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan đến overlay
       >
-        <div className="flex gap-2 justify-evenly items-center px-3 w-full pt-[20px] pb-[27px]">
+        <div className="flex gap-2 justify-evenly items-center px-3 w-full pt-[1.25rem] pb-[1.65rem]">
           <img
             loading="lazy"
             src={
@@ -125,19 +125,19 @@ export default function SideBar({ headerHeight }) {
                 : "/profile.svg"
             }
             alt="Profile"
-            className="rounded-full object-cover"
-            style={{ width: "65px", height: "65px" }}
+            className="rounded-full object-cover  w-[3rem] h-[3rem] max-md:w-[2.5rem] max-md:h-[2.5rem]"
+            
           />
           <div>
             <h4
               className="mb-1 font-semibold shrink"
-              style={{ fontSize: "28px", color: "black" }}
+              style={{ fontSize: "1.25rem", color: "black" }}
             >
               {data?.setting?.user?.AdminFullName?.split(" ")
                 .slice(-2)
                 .join(" ")}
             </h4>
-            <h4 className="font-medium text-lg text-black">
+            <h4 className="font-medium text-[1.125rem] text-black">
               {data?.role?.RoleName || "Không có vai trò"}
             </h4>
           </div>
@@ -147,21 +147,21 @@ export default function SideBar({ headerHeight }) {
           {menuItems.map((item, index) => (
             <Link to={item.link} key={index}>
               <div
-                className={`flex items-center text-xl gap-4 px-2 py-4 ${
+                className={`flex items-center text-xl gap-4 px-2 py-3 text-[1.125rem] ${
                   (location.pathname.includes(item.link) &&
                     item.link !== "/") ||
                   (item.link === "/" && location.pathname === "/")
-                    ? "bg-[#EBF1F9] font-medium p-1 rounded-xl"
+                    ? "bg-[#EBF1F9] font-medium p-2 rounded-xl"
                     : ""
                 }`}
-                style={{ fontSize: "20px", color: "black" }}
+                style={{ color: "black" }}
               >
                 <img
                   loading="lazy"
                   src={item.icon}
                   alt=""
                   className="object-contain"
-                  style={{ width: "24px", height: "24px" }}
+                  style={{ width: "1.35rem", height: "1.35rem" }}
                 />
                 <span>{item.label}</span>
               </div>
@@ -172,16 +172,15 @@ export default function SideBar({ headerHeight }) {
       {!isDesktop && !isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-5 left-5 z-50 p-2 text-white rounded-md max-md:top-3 max-md:left-3"
+          className="fixed top-[0.75rem] left-[1.125rem] z-50 p-2 text-white rounded-md max-md:top-[0.275rem] max-md:left-[0.25rem]"
         >
           {/* Biểu tượng SVG */}
           <svg
             id="mySvg"
             xmlns="http://www.w3.org/2000/svg"
-            width="38"
-            height="20"
             viewBox="0 0 38 20"
             fill="none"
+            className="w-[2.375rem] h-[1.25rem] max-md:w-[1.5rem] max-md:h-[0.875rem]"
           >
             <path
               d="M1 1H37"

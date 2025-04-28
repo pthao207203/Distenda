@@ -37,3 +37,12 @@
     transform: rotate(360deg);
   }
 }
+
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.25;
+  font-size: clamp(0.75rem, calc(100vw / 1728 * 16), 2rem);
+}
+

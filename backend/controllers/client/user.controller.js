@@ -401,9 +401,7 @@ module.exports.getVideoStatus = async (req, res) => {
     }
 
     // Tìm khóa học trong UserCourse
-    const userCourse = user.UserCourse.find(
-      (course) => course.CourseId === courseId
-    );
+    const userCourse = user.UserCourse.find(c => c.CourseId.toString() === courseId);
     if (!userCourse) {
       return res.status(404).json({ message: "Course not found" });
     }
