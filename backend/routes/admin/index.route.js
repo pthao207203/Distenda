@@ -17,6 +17,7 @@ const settingRoute = require("./setting.route");
 const payRoute = require("./pay.route");
 const bannerRoute = require("./banner.route");
 const voucherRoute = require("./voucher.route");
+const messageRoute = require("./message.route")
 
 module.exports = (app) => {
   app.use(
@@ -89,6 +90,12 @@ module.exports = (app) => {
     authMiddleware.requireAuth,
     voucherRoute
   );
+  app.use(
+    systemConfig.prefixAdmin + `/message`, 
+    authMiddleware.requireAuth, 
+    messageRoute
+  );
 
   app.use(systemConfig.prefixAdmin + `/auth`, authRoute);
 };
+

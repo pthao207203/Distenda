@@ -24,6 +24,7 @@ import Category from './screens/PublishUser/Category/CategoryPage';
 import ScrollToTop from "./components/ScrollToTop";
 import UserProfile from './screens/User/ProfileUser/ProfilePage';
 import UserNotification from './screens/User/Notification/NotificationsPage';
+import Message from "./screens/User/Message/Message";
 import AIChating from './screens/User/ChatBoxAI/AIChating';
 import HandlePayment from './screens/User/Payment/HandlePayment';
 import MyCoursePurchased from './screens/PublishUser/MyCoursePurchased/CoursePage';
@@ -68,6 +69,7 @@ function App() {
             <Route element={<MainUser />}>
               <Route path='/user/profile' element={<UserProfile />} />
               <Route path='/user/notification' element={<UserNotification />} />
+              <Route path='/user/message' element={<Message />} />
               <Route path='/user/aichating' element={<AIChating />} />
               <Route path="/courses/handle-payment" element={<HandlePayment />} />
               <Route path='/courses/CoursePurchased/:CourseSlug' element={<CoursePurchased />} />

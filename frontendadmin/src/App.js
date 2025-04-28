@@ -35,6 +35,7 @@ import Setting from './screens/Setting/Settingpage';
 import Errorpage from './screens/Error/Errorpage';
 import VoucherList from './screens/Voucher/Voucherpage';
 import VoucherDetail from './screens/Voucher/VoucherDetail/VoucherDetail';
+import Message from './screens/Message/Message';
 
 import { RoleProvider } from "./layouts/AppContext";
 import VoucherNew from './screens/Voucher/VoucherNew/VoucherNew';
@@ -96,6 +97,8 @@ function App() {
             <Route path="/courses/lesson/video/detail/:VideoID" element={<VideoDetail />} />
             <Route path="/courses/lesson/video/create/:LessonID" element={<CourseBuilder />} />
             <Route path="/courses/lesson/exercise/create/:LessonID" element={<QuestionEditorpage />} />
+            <Route path="/message" element={<Message/>} />
+
             {/* <Route path="/long-term-course" element={<LongTermCoursePage />} /> */}
             <Route path='/user' element={<UserTable />} />
             <Route path="/user/detail/:UserID" element={<UserProfile />} />
@@ -109,6 +112,7 @@ function App() {
             <Route path="/voucher" element={<VoucherList />} />
             <Route path="/voucher/detail/:VoucherID" element={<VoucherDetail />} />
             <Route path="/voucher/create" element={<VoucherNew />} />
+           
             </Route>
           {/* </Route> */}
 
