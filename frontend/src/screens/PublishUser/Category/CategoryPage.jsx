@@ -39,9 +39,6 @@ function CategoryPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Sidebar */}
-      {/*<SideBar />*/}
-
       {/* Nội dung chính */}
       <main>
         <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">

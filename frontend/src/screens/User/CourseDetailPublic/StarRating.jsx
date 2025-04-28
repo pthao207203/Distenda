@@ -10,19 +10,33 @@ const StarRating = ({ rating }) => {
     <div className="flex justify-around">
       {/* Ngôi sao đầy */}
       {Array.from({ length: filledStars }).map((_, index) => (
-        <span key={`filled-${index}`} className="text-yellow-500 text-xl">
-          ★
-        </span>
+        <div key={`have-${index}`} className="text-yellow-500 text-xl">
+          <img
+            src="/Icon/star1.svg"
+            alt=""
+            style={{ width: "20px", height: "20px" }}
+          />
+        </div>
       ))}
       {/* Ngôi sao nửa */}
       {halfStar && (
-        <span className="text-yellow-500 text-xl">⯨</span> // Biểu tượng nửa ngôi sao
+        <span className="text-yellow-500 text-xl">
+          <img
+            src="/Icon/star2.svg"
+            alt=""
+            style={{ width: "20px", height: "20px" }}
+          />
+        </span>
       )}
       {/* Ngôi sao trống */}
       {Array.from({ length: emptyStars }).map((_, index) => (
-        <span key={`empty-${index}`} className="text-gray-400 text-xl">
-          ★
-        </span>
+        <div key={`empty-${index}`} className="text-gray-400 text-xl">
+          <img
+            src="/Icon/star3.svg"
+            alt=""
+            style={{ width: "20px", height: "20px" }}
+          />
+        </div>
       ))}
     </div>
   );

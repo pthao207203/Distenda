@@ -13,6 +13,12 @@ const exerciseSchema = new mongoose.Schema({
   ExerciseQuestion: String,
   ExerciseSample: String,
   ExerciseAnswer: String,
+  ExerciseTestcase: [
+    {
+      Input: String,
+      Output: String,
+    },
+  ],
   ExerciseDeleted: {
     type: Number,
     default: 1,

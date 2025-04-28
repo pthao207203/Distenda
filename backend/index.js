@@ -22,19 +22,15 @@ database.connect();
 const app = express();
 const port = process.env.PORT;
 
-
-// TiniMCE
 app.use(
   "/tinymce",
   express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3002"],
-    credentials: true, // Cho phép gửi cookies
-  })
-);
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3002'],
+  credentials: true // Cho phép gửi cookies
+}));
 app.use(methodOverride("_method"));
 
 app.set("views", path.join(__dirname, "views"));

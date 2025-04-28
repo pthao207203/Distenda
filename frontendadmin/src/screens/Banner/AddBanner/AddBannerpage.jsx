@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ActionButton } from "./components/ActionButton";
 import FormField from "./components/BannerForm";
 import { bannerCreateController } from "../../../controllers/banner.controller";
-import uploadImage from "../../../components/UploadImage"
-import { Editor } from '@tinymce/tinymce-react';
+import uploadImage from "../../../components/UploadImage";
+import { Editor } from "@tinymce/tinymce-react";
 
 import Loading from "../../../components/Loading";
 
@@ -19,7 +19,6 @@ function BannerForm() {
   const [loading, setLoading] = useState(false);
 
   const editorRef = useRef(null);
-
 
   const [imageSrc, setImageSrc] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -42,9 +41,9 @@ function BannerForm() {
 
   useEffect(() => {
     async function fetchData() {
-      setLoading(true)
+      setLoading(true);
       const result = await bannerCreateController(setLoading);
-      setLoading(false)
+      setLoading(false);
       if (result) {
         setCourse((prevRoles) => [
           { _id: "", CourseName: "Chọn khoá học", disabled: true },
@@ -60,7 +59,7 @@ function BannerForm() {
     let uploadedImageUrl = data.BannerPicture;
     // Upload ảnh nếu người dùng đã chọn
     if (selectedFileName) {
-      uploadedImageUrl = await uploadImage(selectedFileName);;
+      uploadedImageUrl = await uploadImage(selectedFileName);
       console.log("Uploaded Image URL:", uploadedImageUrl);
     }
     const updatedData = {
@@ -69,7 +68,7 @@ function BannerForm() {
     };
 
     console.log("Data sent to ActionButton:", updatedData);
-    setData(updatedData)
+    setData(updatedData);
     return updatedData;
   };
 
@@ -126,7 +125,10 @@ function BannerForm() {
 
         {/* Trường chọn khóa học */}
         <div className="flex flex-col justify-center mt-10 w-full max-md:max-w-full">
-          <label htmlFor="BannerCourse" className="text-neutral-900 text-opacity-50 max-md:max-w-full">
+          <label
+            htmlFor="BannerCourse"
+            className="text-neutral-900 text-opacity-50 max-md:max-w-full"
+          >
             Chọn khoá học
           </label>
           <div className="flex relative gap-2.5 items-start px-2.5 py-6 mt-2 w-full rounded-lg border border-solid border-slate-500 border-opacity-80 min-h-[63px] text-neutral-900 max-md:max-w-full">
@@ -136,17 +138,26 @@ function BannerForm() {
               onChange={(e) => handleChange(e)} // Kích hoạt hàm onChange khi chọn
               className="z-0 flex-1 shrink my-auto basis-0 max-md:max-w-full bg-transparent border-none outline-none"
             >
-              {course && course.length > 0 && course.map((option, index) => (
-                <option key={index} value={option._id} disabled={option.disabled}>
-                  {option.CourseName}
-                </option>
-              ))}
+              {course &&
+                course.length > 0 &&
+                course.map((option, index) => (
+                  <option
+                    key={index}
+                    value={option._id}
+                    disabled={option.disabled}
+                  >
+                    {option.CourseName}
+                  </option>
+                ))}
             </select>
           </div>
         </div>
 
         <div className="flex flex-col justify-center mt-10 w-full max-md:max-w-full">
-          <label htmlFor="BannerDescription" className="text-neutral-900 text-opacity-50 max-md:max-w-full pb-2">
+          <label
+            htmlFor="BannerDescription"
+            className="text-neutral-900 text-opacity-50 max-md:max-w-full pb-2"
+          >
             Mô tả banner
           </label>
           <Editor
@@ -175,7 +186,7 @@ function BannerForm() {
                 "media",
                 "table",
                 "help",
-                "wordcount"
+                "wordcount",
               ],
               toolbar:
                 "undo redo | blocks | " +
@@ -214,9 +225,7 @@ function BannerForm() {
                 className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square"
               />
               {/* <div className="gap-2.5 self-stretch my-auto">Chọn tệp</div> */}
-              <label htmlFor="BannerPicture">
-                Chọn tệp
-              </label>
+              <label htmlFor="BannerPicture">Chọn tệp</label>
               <input
                 type="file"
                 className="gap-2.5 self-stretch my-auto form-control-file hidden" // Ẩn input file
@@ -227,10 +236,9 @@ function BannerForm() {
                 onChange={handleImageChange}
               />
             </button>
-            <div className="mt-2 text-slate-500">Không có tệp nào được chọn.</div>
+            {/* <div className="mt-2 text-slate-500">Không có tệp nào được chọn.</div> */}
           </div>
         </div>
-
       </form>
     </div>
   );

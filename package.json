@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
@@ -7,7 +8,23 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "@google/genai": "^0.9.0",
+    "@google/generative-ai": "^0.24.0",
+    "@react-oauth/google": "^0.12.1",
+    "axios": "^1.8.4",
+    "dotenv": "^16.5.0",
     "express-session": "^1.18.1",
-    "react-helmet": "^6.1.0"
+    "fb": "^2.0.0",
+    "google-auth-library": "^9.15.1",
+    "jwt-decode": "^4.0.0",
+    "marked": "^15.0.11",
+    "mime": "^4.0.7",
+    "openai": "^4.94.0",
+    "react": "^18.2.0",
+    "react-circular-progressbar": "^2.2.0",
+    "react-codemirror2": "^8.0.1",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "reactjs-social-login": "^2.6.3"
   }
 }

@@ -7,10 +7,20 @@ import { adminController } from "../../controllers/admin.controller";
 
 import Loading from "../../components/Loading";
 import HistoryButton from "../../components/HistoryButton";
+import AdminHistory from "./components/AdminHistory";
 
-function AdminLayout() {
+function AdminPage() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
+
+  const handleHistoryRequest = () => {
+    setIsHistoryVisible(true);
+  };
+
+  const handleCloseHistoryRequest = () => {
+    setIsHistoryVisible(false);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +48,7 @@ function AdminLayout() {
       <main className="flex flex-col flex-1 shrink p-16 text-xl font-medium bg-white basis-0 min-w-[240px] max-md:px-5 max-md:max-w-full">
         <section className="flex gap-3">
           <AddAccountButton />
-          <HistoryButton />
+          <HistoryButton onClick={handleHistoryRequest} />
         </section>
         <section className="flex flex-wrap gap-3 mt-3 max-md:max-w-full">
           <SearchBar />
@@ -84,8 +94,13 @@ function AdminLayout() {
             data.map((admin, index) => <AdminTable key={index} {...admin} />)}
         </section>
       </main>
+      {isHistoryVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 max-md:px-10 overflow-hidden">
+          <AdminHistory onClose={handleCloseHistoryRequest} />
+        </div>
+      )}
     </>
   );
 }
 
-export default AdminLayout;
+export default AdminPage;

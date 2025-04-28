@@ -5,7 +5,7 @@ const systemConfig = require("../../config/system");
 // [GET] /admin/voucher
 module.exports.index = async (req, res) => {
   try {
-    const vouchers = await Voucher.find({ VoucherDeleted: 1 }).lean();
+    const vouchers = await Voucher.find().lean();
 
     // Gắn thêm thông tin course cho mỗi voucher
     const result = await Promise.all(
@@ -32,7 +32,7 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
   try {
     const voucher = await Voucher.findOne({
-      VoucherDeleted: 1,
+      // VoucherDeleted: 1,
       _id: req.params.VoucherID,
     }).lean();
 

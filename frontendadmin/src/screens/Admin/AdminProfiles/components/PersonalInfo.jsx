@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-const PersonalInfo = ({ data, handleChange, handleToggle, roles }) => {
+import moment from "moment";
+
+const PersonalInfo = ({ data, handleChange, handleToggle, roles, handleHistoryRequest }) => {
   // Class và nội dung text cho status
   const statusClass =
     data?.CourseStatus === 1 ? "bg-[#D1F669]" : "bg-[#FFD75B]";
@@ -141,25 +143,26 @@ const PersonalInfo = ({ data, handleChange, handleToggle, roles }) => {
           {/* Lần cuối cập nhật */}
           <div className="flex flex-col min-h-[91px] min-w-[240px] w-[360px]">
             <div className="flex gap-3 items-center">
-            <label
-              htmlFor="AdminLastUpdated"
-              className="text-neutral-900 text-opacity-50"
-            >
-              Lần cuối cập nhật
-            </label>
-            <button
-              className="flex gap-3 justify-center items-center"
-            >
-              <img
-                loading="lazy"
-                src= "/icons/Show.svg"
-                className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
-                alt="Icon"
-              />
-            </button>
+              <label
+                htmlFor="AdminLastUpdated"
+                className="text-neutral-900 text-opacity-50"
+              >
+                Lần cuối cập nhật
+              </label>
+              <button className="flex gap-3 justify-center items-center" onClick ={handleHistoryRequest}>
+                <img
+                  loading="lazy"
+                  src="/icons/Show.svg"
+                  className="object-contain shrink-0 self-stretch my-auto w-6 aspect-square filter-[#6c8299] sepia-60 saturate-200 hue-rotate-190 "
+                  alt="Icon"
+                />
+              </button>
             </div>
             <span className="p-2.5 mt-2 rounded-lg text-neutral-900">
-              20/10/2023
+            {moment(
+                data?.editedBy?.[data.editedBy?.length - 1]?.editedAt ||
+                  data?.createdAt
+              ).format("DD/MM/YYYY")}   
             </span>
           </div>
         </div>

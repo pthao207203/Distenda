@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import moment from 'moment';
-import PopUp from "./../../CourseCategory/components/PopUp"; // Component popup
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import PopUp from "./PopUp"; // Component popup
 
 export function ChapterList({ data, lessonChange }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -35,13 +35,19 @@ export function ChapterList({ data, lessonChange }) {
       {/* Table */}
       <div className="flex flex-col pb-16 mt-6 w-full font-medium leading-none max-md:max-w-full">
         <ChapterHeader onAddCategoryClick={handleAddCategoryClick} />
-        {data?.lesson?.length > 0 && data.lesson.map((chapter, index) => (
-          <ChapterRow key={index} id={index} lesson={chapter} lessonChange={lessonChange} />
-        ))}
+        {data?.lesson?.length > 0 &&
+          data.lesson.map((chapter, index) => (
+            <ChapterRow
+              key={index}
+              id={index}
+              lesson={chapter}
+              lessonChange={lessonChange}
+            />
+          ))}
       </div>
 
       {/* Pop-up */}
-      {isPopupOpen && <PopUp onClose={handleClosePopup} />}
+      {isPopupOpen && <PopUp onClose={handleClosePopup} courseID={data._id} />}
     </div>
   );
 }
@@ -59,7 +65,7 @@ function ChapterHeader({ onAddCategoryClick }) {
         <span className="text-center">Lần cuối cập nhật</span>
       </div>
       <button
-          className="flex basis-1/3 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  text-white"
+        className="flex basis-1/3 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  text-white"
         onClick={onAddCategoryClick}
       >
         <img
@@ -76,7 +82,7 @@ function ChapterHeader({ onAddCategoryClick }) {
 
 function ChapterRow({ id, lesson, lessonChange }) {
   const [isEditing, setIsEditing] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleEditClick = () => setIsEditing(true);
   const handleCancelClick = () => setIsEditing(false);
@@ -86,14 +92,16 @@ function ChapterRow({ id, lesson, lessonChange }) {
   };
 
   const handleRowClick = () => {
-    navigate(`/courses/lesson/detail/${lesson._id}`)
-  }
+    navigate(`/courses/lesson/detail/${lesson._id}`);
+  };
 
   return (
-    <div className="flex overflow-hidden mt-3 w-full bg-white  text-neutral-900 min-h-[70px] cursor-pointer" onClick={handleRowClick}>
+    <div className="flex overflow-hidden mt-3 w-full bg-white  text-neutral-900 min-h-[70px] cursor-pointer">
       {/* STT */}
       <div className="flex basis-1/6 min-w-0 justify-center items-center bg-[#EBF1F9]">
-        <div className="text-[#131313] text-center text-xl font-medium truncate">{id + 1}</div>
+        <div className="text-[#131313] text-center text-xl font-medium truncate">
+          {id + 1}
+        </div>
       </div>
 
       {/* Tên chương */}
@@ -106,13 +114,23 @@ function ChapterRow({ id, lesson, lessonChange }) {
             className="w-full px-3 py-2 text-[#131313] text-center text-xl font-medium truncate focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         ) : (
-          <button className="text-[#131313] text-center text-xl font-medium truncate">{lesson.LessonName}</button>
+          <button
+            className="text-[#131313] text-center text-xl font-medium truncate"
+            onClick={handleRowClick}
+          >
+            {lesson.LessonName}
+          </button>
         )}
       </div>
 
       {/* Lần cuối cập nhật */}
       <div className="flex basis-1/4 min-w-0 min-h-[70px] gap-3 justify-center items-center px-3  bg-[#EBF1F9] text-neutral-900 w-[240px]">
-        <div className="text-[#131313] text-center text-xl font-medium truncate">{moment(lesson?.editedBy?.[lesson.editedBy?.length - 1]?.editedAt || lesson?.createdAt).format("DD/MM/YYYY")}</div>
+        <div className="text-[#131313] text-center text-xl font-medium truncate">
+          {moment(
+            lesson?.editedBy?.[lesson.editedBy?.length - 1]?.editedAt ||
+              lesson?.createdAt
+          ).format("DD/MM/YYYY")}
+        </div>
       </div>
 
       {/* Actions */}
@@ -144,9 +162,7 @@ function ChapterRow({ id, lesson, lessonChange }) {
               <div className="gap-2.5 self-stretch my-auto">Sửa</div>
             </button>
             {/* Button Xóa */}
-            <button
-              className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  text-white bg-[#DF322B] rounded-[99px] hover:bg-red-700 transition-colors"
-            >
+            <button className="flex basis-1/2 min-w-0 shrink gap-3 justify-center items-center px-3  text-white bg-[#DF322B] rounded-[99px] hover:bg-red-700 transition-colors">
               <div className="gap-2.5 self-stretch my-auto">Xóa</div>
             </button>
           </>

@@ -18,6 +18,7 @@ const courseSchema = new mongoose.Schema({
   CourseOverview: String,
   CourseLearning: String,
   CourseRequire: String,
+  CourseLanguage: String,
   CourseDuration: {
     type: Number,
     default: 0,

@@ -7,7 +7,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store.js';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
@@ -16,6 +15,7 @@ root.render(
     </Provider>
   </Router>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

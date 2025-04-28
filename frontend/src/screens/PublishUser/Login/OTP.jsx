@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { loginOTPController } from '../../../controllers/auth.controller.js';
+import { loginOTPController } from "../../../controllers/auth.controller.js";
 
 function OTP({ onNext, email }) {
   const [formData, setFormData] = useState({
     UserEmail: email,
-    UserOTP: '',
-  })
+    UserOTP: "",
+  });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
@@ -29,7 +29,12 @@ function OTP({ onNext, email }) {
       }
 
       // Gọi API xử lý
-      const result = await loginOTPController(formData, setSuccess, setError, navigate);
+      const result = await loginOTPController(
+        formData,
+        setSuccess,
+        setError,
+        navigate
+      );
 
       // Thành công -> điều hướng
       if (result.code === 200) {
@@ -53,14 +58,19 @@ function OTP({ onNext, email }) {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col mt-4 w-full max-md:max-w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col mt-4 w-full max-md:max-w-full"
+      >
         <div className="flex flex-col w-full text-lg max-md:text-[16px] text-white">
           <div className="flex flex-col w-full  whitespace-nowrap">
-            <label htmlFor="email" className="self-start">Email</label>
+            <label htmlFor="email" className="self-start">
+              Email
+            </label>
             <input
               type="email"
               id="email"
-              className="mt-1 w-full px-4 py-2 bg-white/0 text-white border border-solid border-[#d0d7df]"
+              className="mt-[10px] w-full px-[8px] py-[4px] bg-white/0 text-white border border-solid border-[#d0d7df]"
               aria-label="Email"
               name="UserEmail"
               value={email}
@@ -73,7 +83,9 @@ function OTP({ onNext, email }) {
             </p>
           </div>
           <div className="flex flex-col mt-4 w-full">
-            <label htmlFor="otp" className="self-start">Nhập mã OTP</label>
+            <label htmlFor="otp" className="self-start">
+              Nhập mã OTP
+            </label>
             <input
               className="mt-1 w-full px-4 py-2 bg-white/0 text-white border border-solid border-[#d0d7df]"
               type="text" // Sử dụng type="text" để kiểm soát độ dài và loại ký tự
@@ -97,7 +109,7 @@ function OTP({ onNext, email }) {
         </div>
         <div className="flex mt-2 items-center justify-end text-right w-full text-lg max-md:text-[16px]">
           <button
-            type='button'
+            type="button"
             tabIndex={0}
             className="flex text-right text-white text-base font-normal hover:font-medium hover:underline self-end my-auto"
             onClick={(e) => {
@@ -110,7 +122,10 @@ function OTP({ onNext, email }) {
           </button>
         </div>
 
-        <button type="submit" className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+        <button
+          type="submit"
+          className={`flex flex-wrap gap-5 justify-center items-center mt-4 w-full text-xl max-md:text-lg font-normal bg-[#CFF500] min-h-[70px] text-neutral-900 max-md:max-w-full ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
           {isLoading ? "Đang xử lý..." : "Xác nhận"}
@@ -123,4 +138,3 @@ function OTP({ onNext, email }) {
 }
 
 export default OTP;
-

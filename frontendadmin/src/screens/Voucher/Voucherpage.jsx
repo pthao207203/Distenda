@@ -64,7 +64,7 @@ function VoucherList() {
                             <VoucherRow
                                 key={voucher._id}
                                 id={voucher._id}
-                                index={index + 1}  // Sử dụng index + 1 để hiển thị STT bắt đầu từ 1
+                                index={index}  
                                 voucher={voucher}  // Truyền dữ liệu voucher
                             />
                         ))

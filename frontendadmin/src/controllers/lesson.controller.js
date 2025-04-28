@@ -1,4 +1,4 @@
-import { lessonDetailService, lessonUpdatePostService, lessonDeleteService, videoCreatePostService, videoDetailService, videoDeleteService, exerciseDetailService, exerciseUpdatePostService } from '../services/lesson.service';
+import { lessonDetailService, lessonUpdatePostService, lessonCreatePostService, lessonDeleteService, videoCreatePostService, videoDetailService, videoUpdatePostService, videoDeleteService, exerciseDetailService, exerciseUpdatePostService } from '../services/lesson.service';
 
 export async function lessonDetailController(setLoading, LessonID) {
   try {
@@ -26,6 +26,16 @@ export async function lessonUpdatePostController(setLoading, LessonID) {
   }
 }
 
+export async function lessonCreatePostController(lessonName, courseID) {
+  try {
+    const result = await lessonCreatePostService(lessonName, courseID); // Gọi API
+    console.log("result courses ", result);
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
+  }
+}
+
 export async function lessonDeleteController(setLoading, LessonID) {
   try {
     setLoading(true); // Đang tải
@@ -49,6 +59,16 @@ export async function videoCreatePostController(setLoading, LessonID, data) {
   } catch (err) {
     console.error(err); // Ghi log lỗi
     setLoading(false); // Tắt trạng thái tải ngay cả khi lỗi
+  }
+}
+
+export async function videoUpdatePostController(VideoID, data) {
+  try {
+    const result = await videoUpdatePostService(VideoID, data); // Gọi API
+    console.log("result courses ", result);
+    return result;
+  } catch (err) {
+    console.error(err); // Ghi log lỗi
   }
 }
 
