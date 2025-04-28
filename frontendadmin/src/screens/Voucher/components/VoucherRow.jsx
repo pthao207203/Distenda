@@ -13,7 +13,7 @@ const VoucherRow = ({ id, index, voucher }) => {
     minAmount = 0,
     discountPercentage = 0,
     discountAmount = 0,
-    validityPeriod = 30,  // Mặc định là 30 nếu không có giá trị
+    // validityPeriod = 30,  // Mặc định là 30 nếu không có giá trị
     status = -1,
   } = voucher;
 

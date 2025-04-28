@@ -73,13 +73,13 @@ function NotificationsPage() {
   return (
       <main className="flex relative max-md:flex-col bg-white bg-opacity-10 backdrop-blur-[10px] pb-[129px] px-[33px] max-md:pb-24 max-md:max-w-full">
         
-        <aside className="flex flex-col md:order-2 max-md:pr-0 w-[22%] pt-[34px] max-xl:ml-0 max-md:w-full min-h-screen max-md:min-h-[270px]">
+        <aside className="flex flex-col md:order-2 max-md:pr-0 w-[22%] pt-[34px] max-xl:ml-0 max-md:w-full min-h-screen max-md:min-h-[200px]">
           <div className="flex relative flex-col w-full font-medium max-md:mt-10">
             <div className="flex flex-col max-w-full tracking-wide">
-              <div className="text-[#FFD75B]" style={{ fontFamily: 'Montserrat', fontSize: '1.5rem', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px', letterSpacing: '0.2px' }}>
+              <div className="text-[#FFD75B]" style={{ fontFamily: 'Montserrat', fontSize: '18px', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px', letterSpacing: '0.2px' }}>
                 Phân loại
               </div>
-              <div className="flex flex-col items-start mt-[16px] w-full" style={{ color: '#FFF', fontFamily: 'Montserrat', fontSize: '20px', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px', letterSpacing: '0.2px' }}>
+              <div className="flex flex-col items-start mt-[16px] w-full" style={{ color: '#FFF', fontFamily: 'Montserrat', fontSize: '16px', fontStyle: 'normal', fontWeight: '500', lineHeight: '24px', letterSpacing: '0.2px' }}>
                 {filters.map((filter, index) => (
                   <FilterCheckbox key={index} label={filter} />
                 ))}

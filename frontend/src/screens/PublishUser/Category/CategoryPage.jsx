@@ -10,7 +10,9 @@ import Banner from "../Course/Banner";
 import Loading from "../../../components/Loading";
 
 function CategoryPage() {
-  const [data, setData] = useState();
+  const [allCourses, setAllCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   const { CategorySlug } = useParams();
@@ -18,17 +20,24 @@ function CategoryPage() {
   useEffect(() => {
     async function fetchData(categorySlug) {
       const result = await categoryController(setLoading, categorySlug);
-      // console.log(result);
       if (result) {
-        setData(result); // Lưu dữ liệu nếu hợp lệ
+        setAllCourses(result);    // Dữ liệu gốc
+        setFilteredCourses(result);  // Ban đầu hiển thị toàn bộ
       }
     }
 
     if (CategorySlug) {
-      fetchData(CategorySlug); // Gọi fetchData với CategorySlug
+      fetchData(CategorySlug);
     }
   }, [CategorySlug]);
 
+  const handleSearch = (keyword) => {
+    const lowerKeyword = keyword.toLowerCase();
+    const filtered = allCourses.filter(course =>
+      course.CourseName.toLowerCase().includes(lowerKeyword)
+    );
+    setFilteredCourses(filtered);
+  };
 
   if (loading) {
     return (
@@ -43,15 +52,20 @@ function CategoryPage() {
       <main>
         <div className="max-w-full flex flex-col items-center w-full px-5 pt-12 pb-20 bg-white bg-opacity-10 backdrop-blur-[10px]">
           {/* Thanh tìm kiếm */}
-          <SearchBar />
+          <SearchBar onSearch={handleSearch} />
           <Banner />
 
           {/* Khu vực chứa các thẻ */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-[24px] mt-10 w-full">
-            {data && data.length > 0 && data.map((course) => (
-              <CourseCard {...course} className="" />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[24px] mt-10 w-full">
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((course) => (
+                <CourseCard key={course._id} {...course} />
+              ))
+            ) : (
+              <div className="text-white">Không tìm thấy khóa học nào</div>
+            )}
           </div>
+
 
 
 

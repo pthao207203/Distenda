@@ -9,8 +9,12 @@ import Loading from "../../components/Loading";
 import HistoryButton from "../../components/HistoryButton";
 import AdminHistory from "./components/AdminHistory";
 
+import moment from 'moment';
+
+
 function AdminPage() {
-  const [data, setData] = useState();
+  const [allAdmins, setAllAdmins] = useState([]);
+  const [filteredAdmins, setFilteredAdmins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
@@ -24,22 +28,46 @@ function AdminPage() {
 
   useEffect(() => {
     async function fetchData() {
-      // console.log("vao")
       const result = await adminController(setLoading);
-      // console.log(result)
       if (result) {
-        setData(result); // Lưu dữ liệu nếu hợp lệ
+        setAllAdmins(result);
+        setFilteredAdmins(result);
       }
     }
 
     fetchData();
   }, []);
 
+  const handleSearch = (value) => {
+    const keyword = value.toLowerCase();
+
+    const filtered = allAdmins.filter(admin => {
+      const fullName = admin.AdminFullName?.toLowerCase() || "";
+      const roleName = admin.role?.RoleName?.toLowerCase() || "";
+
+      const joinDate = admin.createdBy?.createdAt
+        ? moment(admin.createdBy.createdAt).format("DD/MM/YYYY hh:mm:ss")
+        : "";
+
+      const statusText = admin.AdminDeleted === 1 ? "đang hoạt động" : "tạm dừng";
+
+      return (
+        fullName.includes(keyword) ||
+        roleName.includes(keyword) ||
+        joinDate.includes(keyword) ||
+        statusText.includes(keyword)
+      );
+    });
+
+    setFilteredAdmins(filtered);
+  };
+
+
   if (loading) {
     return <Loading />;
   }
-  console.log("Admin => ", data);
-  const totalAdmin = data?.length || 0; // Đảm bảo không lỗi nếu data undefined
+  console.log("Admin => ", allAdmins);
+  const totalAdmin = filteredAdmins.length;
   return (
     <>
       <Helmet>
@@ -51,7 +79,7 @@ function AdminPage() {
           <HistoryButton onClick={handleHistoryRequest} />
         </section>
         <section className="flex flex-wrap gap-3 mt-3 max-md:max-w-full">
-          <SearchBar />
+          <SearchBar onSearch={handleSearch} />
         </section>
         <div className="flex flex-col mt-6 w-full text-neutral-900 max-md:max-w-full">
           <div className="text-right max-md:max-w-full">
@@ -89,9 +117,14 @@ function AdminPage() {
           </div>
 
           {/* Nội dung bảng */}
-          {data &&
-            data.length > 0 &&
-            data.map((admin, index) => <AdminTable key={index} {...admin} />)}
+          {filteredAdmins.length > 0 ? (
+            filteredAdmins.map((admin, index) => (
+              <AdminTable key={index} {...admin} />
+            ))
+          ) : (
+            <p className="mt-4 text-center">Không tìm thấy quản trị viên nào.</p>
+          )}
+
         </section>
       </main>
       {isHistoryVisible && (

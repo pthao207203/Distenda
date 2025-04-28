@@ -119,26 +119,26 @@ function ProfilePage() {
                       e.preventDefault();
                       handleSubmit(data); // Gửi dữ liệu hiện tại khi submit
                     }}
-                    className="flex gap-5 max-md:flex-col"
+                    className="flex gap-2 max-md:flex-col"
                   >
                     {/* Left Section */}
-                    <div className="flex flex-col w-1/5 max-md:ml-0 max-md:w-full">
-                      <div className="flex relative flex-col ml-[61px] max-w-[227px] max-h-[220px] aspect-auto text-xl leading-none text-black max-md:mt-10">
-                        <img
+                    <div className="flex flex-col w-1/5 md:ml-12 max-md:w-full">
+                    <div className="flex flex-col items-center gap-[24px] relative max-w-[230px] max-h-[300px] aspect-auto text-[16px] lg:text-xl leading-none text-black max-md:mt-10">
+                    <img
                           ref={uploadImagePreviewRef}
                           loading="lazy"
                           src={data?.UserAvatar ? data.UserAvatar : "https://cdn.builder.io/api/v1/image/assets/9c7992bcbe164b8dad4f2629b8fc1688/2b926db059289d5c08128dea3316455c4081d26d19035d156f09a2e2fbe1385b?apiKey=9c7992bcbe164b8dad4f2629b8fc1688&"}
                           alt="Profile avatar"
-                          className="w-full rounded-full aspect-[1.03] text-center justify-center object-cover"
-                        />
-                        <div className="btn flex gap-2 items-center self-center w-[175px] px-[12px] mt-[33px] bg-white/10 text-white  min-h-[43px] hover:bg-black">
+                          className="w-[160px] lg:w-full rounded-full aspect-[1] object-cover"
+                          />
+                        <div className="btn flex gap-[12px] items-center self-center w-[175px] px-[12px]  bg-white/10 text-white  min-h-[43px] hover:bg-black">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/1914b3001bed44e2a53adf842ab19f47/5110a31b2b6d9408a73c85866d98ee04c0a795e8d44a9e67ee0b4359388dbaea?apiKey=1914b3001bed44e2a53adf842ab19f47&"
                             alt=""
-                            className="object-contain shrink-0 self-stretch my-auto my-aspect-square w-[30px]"
+                            className="object-contain shrink-0 self-stretch my-auto my-aspect-square w-[24px]"
                           />
-                          <label htmlFor="UserAvatar">
+                          <label htmlFor="UserAvatar" className="text-[16px] lg:text-[1.25rem]">
                             Tải ảnh lên {/* Hiển thị tên tệp đã chọn hoặc thông báo */}
                           </label>
                           <input
@@ -154,7 +154,7 @@ function ProfilePage() {
                       </div>
                     </div>
                     {/* Right Section */}
-                    <div className="flex flex-col mr-[162px] w-4/5 max-md:ml-0 max-md:w-full">
+                    <div className="flex flex-col mr-[162px] w-4/5 md:ml-8 max-md:w-full">
                       <ProfileForm
                         data={data}
                         setData={setData}

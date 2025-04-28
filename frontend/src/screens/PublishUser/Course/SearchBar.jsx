@@ -1,6 +1,10 @@
 import * as React from "react";
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const handleChange = (e) => {
+    onSearch(e.target.value);
+  };
+
   return (
     <form className="flex gap-3 items-center p-3 w-full bg-white bg-opacity-10 mx-auto">
       <img
@@ -15,8 +19,9 @@ function SearchBar() {
       <input
         type="search"
         id="search"
+        onChange={handleChange}   // Thêm sự kiện onChange
         className="flex-1 gap-2.5 self-stretch my-auto bg-transparent text-xl max-lg:text-[16px] font-medium text-white text-opacity-80 outline-none"
-        placeholder="Tìm kiếm"
+        placeholder="Tìm kiếm khóa học"
       />
     </form>
   );
